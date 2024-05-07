@@ -2,6 +2,7 @@ import librosa
 import numpy as np
 import audioread.ffdec
 import eyed3
+import platform
 
 
 class AudioDataHandler:
@@ -11,9 +12,12 @@ class AudioDataHandler:
         self.__sr_value = None
 
     def __librosa_load(self, audio_file):
-        # aro = audioread.ffdec.FFmpegAudioFile(audio_file)
-        # y, sr = librosa.load(aro, sr=self.__sr_value)
-        y, sr = librosa.load(audio_file, sr=self.__sr_value)
+        system = platform.system()
+        if system == "Darwin":
+            aro = audioread.ffdec.FFmpegAudioFile(audio_file)
+            y, sr = librosa.load(aro, sr=self.__sr_value)
+        else:
+            y, sr = librosa.load(audio_file, sr=self.__sr_value)
         return y, sr
 
     def _get_mp3_duration(self, audio_file):
@@ -25,9 +29,12 @@ class AudioDataHandler:
         return librosa.get_duration(y=y, sr=sr)
 
     def _extract_audio_features_from_segment(self, audio_file, start_time):
-        # aro = audioread.ffdec.FFmpegAudioFile(audio_file)
-        # y, sr = librosa.load(aro, sr=self.__sr_value, offset=start_time, duration=self.__segment_duration)
-        y, sr = librosa.load(audio_file, sr=self.__sr_value, offset=start_time, duration=self.__segment_duration)
+        system = platform.system()
+        if system == "Darwin":
+            aro = audioread.ffdec.FFmpegAudioFile(audio_file)
+            y, sr = librosa.load(aro, sr=self.__sr_value, offset=start_time, duration=self.__segment_duration)
+        else:
+            y, sr = librosa.load(audio_file, sr=self.__sr_value, offset=start_time, duration=self.__segment_duration)
 
         length = librosa.get_duration(y=y, sr=sr)
         print("Длина сегмента: ", length)
