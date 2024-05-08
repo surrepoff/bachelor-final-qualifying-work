@@ -6,4 +6,5 @@ if __name__ == "__main__":
     # audio_file = librosa.ex('trumpet')
 
     adh = AudioDataHandler()
-    adh.extract_audio_features_from_file(audio_file)
+    # adh.extract_audio_features_from_file(audio_file)
+    adh._extract_audio_features_from_segment(audio_file, 0)
