@@ -5,7 +5,7 @@
 -- Dumped from database version 16.2
 -- Dumped by pg_dump version 16.2
 
--- Started on 2024-05-14 01:03:32 +07
+-- Started on 2024-05-14 02:21:05 +07
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -29,7 +29,8 @@ SET default_table_access_method = heap;
 
 CREATE TABLE public.album (
     id integer NOT NULL,
-    name text NOT NULL
+    name text NOT NULL,
+    release_date date NOT NULL
 );
 
 
@@ -872,7 +873,7 @@ ALTER TABLE ONLY public.user_track_rating
     ADD CONSTRAINT user_track_rating_user_id_fkey FOREIGN KEY (user_id) REFERENCES public.user_data(id);
 
 
--- Completed on 2024-05-14 01:03:32 +07
+-- Completed on 2024-05-14 02:21:05 +07
 
 --
 -- PostgreSQL database dump complete
