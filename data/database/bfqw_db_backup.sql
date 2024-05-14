@@ -5,7 +5,7 @@
 -- Dumped from database version 16.2
 -- Dumped by pg_dump version 16.2
 
--- Started on 2024-05-14 02:21:05 +07
+-- Started on 2024-05-14 03:24:00 +07
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -345,6 +345,9 @@ ALTER TABLE public.user_track_rating OWNER TO postgres;
 -- Data for Name: artist_status; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
+INSERT INTO public.artist_status (id, name) VALUES (0, 'Main artist');
+INSERT INTO public.artist_status (id, name) VALUES (1, 'Collaborating artist');
+INSERT INTO public.artist_status (id, name) VALUES (2, 'Featured artist');
 
 
 --
@@ -361,6 +364,7 @@ ALTER TABLE public.user_track_rating OWNER TO postgres;
 -- Data for Name: audio_feature_extraction_type; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
+INSERT INTO public.audio_feature_extraction_type (id, start_delta, segment_duration) VALUES (0, 3, 3);
 
 
 --
@@ -387,6 +391,16 @@ INSERT INTO public.genre (id, name) VALUES (9, 'Soul-RnB');
 -- Data for Name: license; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
+INSERT INTO public.license (id, name) VALUES (0, 'CC0: Public Domain Dedication / No Rights Reserved');
+INSERT INTO public.license (id, name) VALUES (1, 'CC BY: Attribution
+');
+INSERT INTO public.license (id, name) VALUES (2, 'CC BY-SA: Attribution-ShareAlike');
+INSERT INTO public.license (id, name) VALUES (3, 'CC BY-ND: Attribution-NoDerivatives
+');
+INSERT INTO public.license (id, name) VALUES (4, 'CC BY-NC: Attribution-NonCommercial
+');
+INSERT INTO public.license (id, name) VALUES (5, 'CC BY-NC-SA: Attribution-NonCommercial-ShareAlike');
+INSERT INTO public.license (id, name) VALUES (6, 'CC BY-NC-ND: Attribution-NonCommercial-NoDerivatives');
 
 
 --
@@ -467,6 +481,9 @@ INSERT INTO public.genre (id, name) VALUES (9, 'Soul-RnB');
 -- Data for Name: user_playlist_access_level; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
+INSERT INTO public.user_playlist_access_level (id, name) VALUES (0, 'owner');
+INSERT INTO public.user_playlist_access_level (id, name) VALUES (1, 'moderator');
+INSERT INTO public.user_playlist_access_level (id, name) VALUES (2, 'listner');
 
 
 --
@@ -873,7 +890,7 @@ ALTER TABLE ONLY public.user_track_rating
     ADD CONSTRAINT user_track_rating_user_id_fkey FOREIGN KEY (user_id) REFERENCES public.user_data(id);
 
 
--- Completed on 2024-05-14 02:21:05 +07
+-- Completed on 2024-05-14 03:24:00 +07
 
 --
 -- PostgreSQL database dump complete
