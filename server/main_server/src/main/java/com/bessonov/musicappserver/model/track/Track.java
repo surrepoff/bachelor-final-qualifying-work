@@ -26,6 +26,9 @@ public class Track {
     @Column(name = "release_date")
     private Date release_date;
 
+    @Column(name = "audio_filename", columnDefinition = "TEXT")
+    private String audio_filename;
+
     public int getId() {
         return id;
     }
@@ -74,6 +77,14 @@ public class Track {
         this.release_date = release_date;
     }
 
+    public String getAudio_filename() {
+        return audio_filename;
+    }
+
+    public void setAudio_filename(String audio_filename) {
+        this.audio_filename = audio_filename;
+    }
+
     @Override
     public String toString() {
         return "Track{" +
@@ -83,6 +94,7 @@ public class Track {
                 ", name='" + name + '\'' +
                 ", duration_in_seconds=" + duration_in_seconds +
                 ", release_date=" + release_date +
+                ", audio_filename='" + audio_filename + '\'' +
                 '}';
     }
 }
