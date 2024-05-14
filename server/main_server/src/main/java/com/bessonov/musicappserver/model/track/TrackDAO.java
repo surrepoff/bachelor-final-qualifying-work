@@ -1,6 +1,7 @@
 package com.bessonov.musicappserver.model.track;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.util.Streamable;
 import org.springframework.stereotype.Service;
 
@@ -17,8 +18,9 @@ public class TrackDAO {
     }
 
     public List<Track> getAllTracks() {
+        Sort sort = Sort.by(Sort.Direction.ASC, "id");;
         List<Track> tracks = new ArrayList<>();
-        Streamable.of(repository.findAll())
+        Streamable.of(repository.findAll(sort))
                 .forEach(tracks::add);
         return tracks;
     }
