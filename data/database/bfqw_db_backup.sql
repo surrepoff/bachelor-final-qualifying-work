@@ -5,7 +5,7 @@
 -- Dumped from database version 16.2
 -- Dumped by pg_dump version 16.2
 
--- Started on 2024-05-14 03:24:00 +07
+-- Started on 2024-05-14 22:06:30 +07
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -30,7 +30,8 @@ SET default_table_access_method = heap;
 CREATE TABLE public.album (
     id integer NOT NULL,
     name text NOT NULL,
-    release_date date NOT NULL
+    release_date date NOT NULL,
+    image_filename text
 );
 
 
@@ -71,7 +72,8 @@ ALTER TABLE public.album_track OWNER TO postgres;
 
 CREATE TABLE public.artist (
     id integer NOT NULL,
-    name text NOT NULL
+    name text NOT NULL,
+    image_filename text
 );
 
 
@@ -182,7 +184,8 @@ CREATE TABLE public.track (
     license_id integer NOT NULL,
     name text NOT NULL,
     duration_in_seconds integer NOT NULL,
-    release_date date NOT NULL
+    release_date date NOT NULL,
+    audio_filename text NOT NULL
 );
 
 
@@ -313,6 +316,16 @@ ALTER TABLE public.user_track_rating OWNER TO postgres;
 -- Data for Name: album; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
+INSERT INTO public.album (id, name, release_date, image_filename) VALUES (0, 'Brave Nu World', '2009-01-13', '0.jpg');
+INSERT INTO public.album (id, name, release_date, image_filename) VALUES (5, 'Calling For You/Can I Live/This Is What You Are', '2017-01-19', 'default.jpg');
+INSERT INTO public.album (id, name, release_date, image_filename) VALUES (1, 'Giovanni Croce''s Cantato Domino', '2009-04-23', 'default.jpg');
+INSERT INTO public.album (id, name, release_date, image_filename) VALUES (2, 'Wild Heart', '2015-02-05', '2.jpg');
+INSERT INTO public.album (id, name, release_date, image_filename) VALUES (3, 'Nightwavs', '2014-12-01', '3.jpg');
+INSERT INTO public.album (id, name, release_date, image_filename) VALUES (4, 'It Never Happened', '2015-11-27', '4.jpg');
+INSERT INTO public.album (id, name, release_date, image_filename) VALUES (6, 'The Only Dream', '2007-01-01', '6.jpg');
+INSERT INTO public.album (id, name, release_date, image_filename) VALUES (7, 'Coordinates', '2010-02-23', '7.jpg');
+INSERT INTO public.album (id, name, release_date, image_filename) VALUES (8, 'Dead And/Or Famous', '2008-11-26', '8.jpg');
+INSERT INTO public.album (id, name, release_date, image_filename) VALUES (9, 'Aware', '2021-01-22', '9.jpg');
 
 
 --
@@ -321,6 +334,16 @@ ALTER TABLE public.user_track_rating OWNER TO postgres;
 -- Data for Name: album_artist; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
+INSERT INTO public.album_artist (album_id, artist_id, artist_status_id) VALUES (5, 5, 0);
+INSERT INTO public.album_artist (album_id, artist_id, artist_status_id) VALUES (0, 0, 0);
+INSERT INTO public.album_artist (album_id, artist_id, artist_status_id) VALUES (1, 1, 0);
+INSERT INTO public.album_artist (album_id, artist_id, artist_status_id) VALUES (2, 2, 0);
+INSERT INTO public.album_artist (album_id, artist_id, artist_status_id) VALUES (3, 3, 0);
+INSERT INTO public.album_artist (album_id, artist_id, artist_status_id) VALUES (4, 4, 0);
+INSERT INTO public.album_artist (album_id, artist_id, artist_status_id) VALUES (6, 6, 0);
+INSERT INTO public.album_artist (album_id, artist_id, artist_status_id) VALUES (7, 7, 0);
+INSERT INTO public.album_artist (album_id, artist_id, artist_status_id) VALUES (8, 8, 0);
+INSERT INTO public.album_artist (album_id, artist_id, artist_status_id) VALUES (9, 9, 0);
 
 
 --
@@ -329,6 +352,16 @@ ALTER TABLE public.user_track_rating OWNER TO postgres;
 -- Data for Name: album_track; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
+INSERT INTO public.album_track (album_id, track_id, track_number_in_album) VALUES (5, 5, 1);
+INSERT INTO public.album_track (album_id, track_id, track_number_in_album) VALUES (0, 0, 6);
+INSERT INTO public.album_track (album_id, track_id, track_number_in_album) VALUES (1, 1, 1);
+INSERT INTO public.album_track (album_id, track_id, track_number_in_album) VALUES (2, 2, 3);
+INSERT INTO public.album_track (album_id, track_id, track_number_in_album) VALUES (3, 3, 1);
+INSERT INTO public.album_track (album_id, track_id, track_number_in_album) VALUES (4, 4, 2);
+INSERT INTO public.album_track (album_id, track_id, track_number_in_album) VALUES (6, 6, 1);
+INSERT INTO public.album_track (album_id, track_id, track_number_in_album) VALUES (7, 7, 3);
+INSERT INTO public.album_track (album_id, track_id, track_number_in_album) VALUES (8, 8, 10);
+INSERT INTO public.album_track (album_id, track_id, track_number_in_album) VALUES (9, 9, 1);
 
 
 --
@@ -337,6 +370,16 @@ ALTER TABLE public.user_track_rating OWNER TO postgres;
 -- Data for Name: artist; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
+INSERT INTO public.artist (id, name, image_filename) VALUES (5, 'SK', '5.jpg');
+INSERT INTO public.artist (id, name, image_filename) VALUES (0, 'Little Howlin'' Wolf', '0.jpg');
+INSERT INTO public.artist (id, name, image_filename) VALUES (1, 'Anonymous Choir', 'default.jpg');
+INSERT INTO public.artist (id, name, image_filename) VALUES (2, 'Bryan Mathys', '2.jpg');
+INSERT INTO public.artist (id, name, image_filename) VALUES (3, 'The Easton Ellises', 'default.jpg');
+INSERT INTO public.artist (id, name, image_filename) VALUES (4, 'Albin Andersson', '4.jpg');
+INSERT INTO public.artist (id, name, image_filename) VALUES (6, 'Michael Winkle', '6.jpg');
+INSERT INTO public.artist (id, name, image_filename) VALUES (7, 'Monk Turner', '7.jpg');
+INSERT INTO public.artist (id, name, image_filename) VALUES (8, 'Mors Ontologica', '8.jpg');
+INSERT INTO public.artist (id, name, image_filename) VALUES (9, 'Double-F the King', '9.jpg');
 
 
 --
@@ -356,6 +399,16 @@ INSERT INTO public.artist_status (id, name) VALUES (2, 'Featured artist');
 -- Data for Name: artist_track; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
+INSERT INTO public.artist_track (artist_id, track_id, artist_status_id) VALUES (5, 5, 0);
+INSERT INTO public.artist_track (artist_id, track_id, artist_status_id) VALUES (0, 0, 0);
+INSERT INTO public.artist_track (artist_id, track_id, artist_status_id) VALUES (1, 1, 0);
+INSERT INTO public.artist_track (artist_id, track_id, artist_status_id) VALUES (2, 2, 0);
+INSERT INTO public.artist_track (artist_id, track_id, artist_status_id) VALUES (3, 3, 0);
+INSERT INTO public.artist_track (artist_id, track_id, artist_status_id) VALUES (4, 4, 0);
+INSERT INTO public.artist_track (artist_id, track_id, artist_status_id) VALUES (6, 6, 0);
+INSERT INTO public.artist_track (artist_id, track_id, artist_status_id) VALUES (7, 7, 0);
+INSERT INTO public.artist_track (artist_id, track_id, artist_status_id) VALUES (8, 8, 0);
+INSERT INTO public.artist_track (artist_id, track_id, artist_status_id) VALUES (9, 9, 0);
 
 
 --
@@ -425,6 +478,16 @@ INSERT INTO public.license (id, name) VALUES (6, 'CC BY-NC-ND: Attribution-NonCo
 -- Data for Name: track; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
+INSERT INTO public.track (id, primary_genre_id, license_id, name, duration_in_seconds, release_date, audio_filename) VALUES (5, 5, 1, 'Can I live', 136, '2017-01-19', '5.mp3');
+INSERT INTO public.track (id, primary_genre_id, license_id, name, duration_in_seconds, release_date, audio_filename) VALUES (0, 0, 5, 'Last Double Eagle', 296, '2008-11-26', '0.mp3');
+INSERT INTO public.track (id, primary_genre_id, license_id, name, duration_in_seconds, release_date, audio_filename) VALUES (1, 1, 0, 'Cantate Domino', 134, '2009-04-23', '1.mp3');
+INSERT INTO public.track (id, primary_genre_id, license_id, name, duration_in_seconds, release_date, audio_filename) VALUES (2, 2, 1, 'It''s Not Hard to Get Lost', 238, '2015-02-05', '2.mp3');
+INSERT INTO public.track (id, primary_genre_id, license_id, name, duration_in_seconds, release_date, audio_filename) VALUES (3, 3, 5, 'Stay', 204, '2014-12-01', '3.mp3');
+INSERT INTO public.track (id, primary_genre_id, license_id, name, duration_in_seconds, release_date, audio_filename) VALUES (4, 4, 5, 'Connections', 154, '2016-01-16', '4.mp3');
+INSERT INTO public.track (id, primary_genre_id, license_id, name, duration_in_seconds, release_date, audio_filename) VALUES (6, 6, 5, 'The Only Dream', 232, '2010-01-03', '6.mp3');
+INSERT INTO public.track (id, primary_genre_id, license_id, name, duration_in_seconds, release_date, audio_filename) VALUES (7, 7, 4, 'The Club', 218, '2010-02-23', '7.mp3');
+INSERT INTO public.track (id, primary_genre_id, license_id, name, duration_in_seconds, release_date, audio_filename) VALUES (8, 8, 5, 'Life In A Box', 171, '2008-11-26', '8.mp3');
+INSERT INTO public.track (id, primary_genre_id, license_id, name, duration_in_seconds, release_date, audio_filename) VALUES (9, 9, 2, 'Awware', 175, '2022-05-02', '9.mp3');
 
 
 --
@@ -481,9 +544,9 @@ INSERT INTO public.license (id, name) VALUES (6, 'CC BY-NC-ND: Attribution-NonCo
 -- Data for Name: user_playlist_access_level; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-INSERT INTO public.user_playlist_access_level (id, name) VALUES (0, 'owner');
-INSERT INTO public.user_playlist_access_level (id, name) VALUES (1, 'moderator');
-INSERT INTO public.user_playlist_access_level (id, name) VALUES (2, 'listner');
+INSERT INTO public.user_playlist_access_level (id, name) VALUES (0, 'Owner');
+INSERT INTO public.user_playlist_access_level (id, name) VALUES (1, 'Moderator');
+INSERT INTO public.user_playlist_access_level (id, name) VALUES (2, 'Listner');
 
 
 --
@@ -890,7 +953,7 @@ ALTER TABLE ONLY public.user_track_rating
     ADD CONSTRAINT user_track_rating_user_id_fkey FOREIGN KEY (user_id) REFERENCES public.user_data(id);
 
 
--- Completed on 2024-05-14 03:24:00 +07
+-- Completed on 2024-05-14 22:06:30 +07
 
 --
 -- PostgreSQL database dump complete
