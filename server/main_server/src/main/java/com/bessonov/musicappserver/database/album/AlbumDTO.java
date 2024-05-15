@@ -5,7 +5,7 @@ import java.sql.Date;
 public class AlbumDTO {
     private int id;
     private String name;
-    private Date release_date;
+    private Date releaseDate;
 
     public int getId() {
         return id;
@@ -23,12 +23,12 @@ public class AlbumDTO {
         this.name = name;
     }
 
-    public Date getRelease_date() {
-        return release_date;
+    public Date getReleaseDate() {
+        return releaseDate;
     }
 
-    public void setRelease_date(Date release_date) {
-        this.release_date = release_date;
+    public void setReleaseDate(Date releaseDate) {
+        this.releaseDate = releaseDate;
     }
 
     @Override
@@ -36,7 +36,7 @@ public class AlbumDTO {
         return "AlbumDTO{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", release_date=" + release_date +
+                ", releaseDate=" + releaseDate +
                 '}';
     }
 }

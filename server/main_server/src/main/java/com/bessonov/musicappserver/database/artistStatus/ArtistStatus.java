@@ -1,4 +1,4 @@
-package com.bessonov.musicappserver.database.artist_status;
+package com.bessonov.musicappserver.database.artistStatus;
 
 import jakarta.persistence.*;
 

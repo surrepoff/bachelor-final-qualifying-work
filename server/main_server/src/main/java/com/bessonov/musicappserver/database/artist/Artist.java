@@ -14,7 +14,7 @@ public class Artist {
     private String name;
 
     @Column(name = "image_filename", columnDefinition = "TEXT")
-    private String image_filename;
+    private String imageFilename;
 
     public int getId() {
         return id;
@@ -32,12 +32,12 @@ public class Artist {
         this.name = name;
     }
 
-    public String getImage_filename() {
-        return image_filename;
+    public String getImageFilename() {
+        return imageFilename;
     }
 
-    public void setImage_filename(String image_filename) {
-        this.image_filename = image_filename;
+    public void setImageFilename(String imageFilename) {
+        this.imageFilename = imageFilename;
     }
 
     @Override
@@ -45,7 +45,7 @@ public class Artist {
         return "Artist{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", image_filename='" + image_filename + '\'' +
+                ", imageFilename='" + imageFilename + '\'' +
                 '}';
     }
 }

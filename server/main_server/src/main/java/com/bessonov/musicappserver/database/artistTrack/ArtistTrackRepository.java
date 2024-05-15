@@ -1,4 +1,4 @@
-package com.bessonov.musicappserver.database.artist_track;
+package com.bessonov.musicappserver.database.artistTrack;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

@@ -15,10 +15,10 @@ public class Album {
     private String name;
 
     @Column(name = "release_date")
-    private Date release_date;
+    private Date releaseDate;
 
     @Column(name = "image_filename", columnDefinition = "TEXT")
-    private String image_filename;
+    private String imageFilename;
 
     public int getId() {
         return id;
@@ -36,20 +36,20 @@ public class Album {
         this.name = name;
     }
 
-    public Date getRelease_date() {
-        return release_date;
+    public Date getReleaseDate() {
+        return releaseDate;
     }
 
-    public void setRelease_date(Date release_date) {
-        this.release_date = release_date;
+    public void setReleaseDate(Date releaseDate) {
+        this.releaseDate = releaseDate;
     }
 
-    public String getImage_filename() {
-        return image_filename;
+    public String getImageFilename() {
+        return imageFilename;
     }
 
-    public void setImage_filename(String image_filename) {
-        this.image_filename = image_filename;
+    public void setImageFilename(String imageFilename) {
+        this.imageFilename = imageFilename;
     }
 
     @Override
@@ -57,8 +57,8 @@ public class Album {
         return "Album{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", release_date=" + release_date +
-                ", image_filename='" + image_filename + '\'' +
+                ", releaseDate=" + releaseDate +
+                ", imageFilename='" + imageFilename + '\'' +
                 '}';
     }
 }

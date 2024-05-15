@@ -1,4 +1,4 @@
-package com.bessonov.musicappserver.database.album_track;
+package com.bessonov.musicappserver.database.albumTrack;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.EmbeddedId;
@@ -12,7 +12,7 @@ public class AlbumTrack {
     private AlbumTrackId id;
 
     @Column(name = "track_number_in_album")
-    private int track_number_in_album;
+    private int trackNumberInAlbum;
 
     public AlbumTrackId getId() {
         return id;
@@ -22,19 +22,19 @@ public class AlbumTrack {
         this.id = id;
     }
 
-    public int getTrack_number_in_album() {
-        return track_number_in_album;
+    public int getTrackNumberInAlbum() {
+        return trackNumberInAlbum;
     }
 
-    public void setTrack_number_in_album(int track_number_in_album) {
-        this.track_number_in_album = track_number_in_album;
+    public void setTrackNumberInAlbum(int trackNumberInAlbum) {
+        this.trackNumberInAlbum = trackNumberInAlbum;
     }
 
     @Override
     public String toString() {
         return "AlbumTrack{" +
                 "id=" + id +
-                ", track_number_in_album=" + track_number_in_album +
+                ", trackNumberInAlbum=" + trackNumberInAlbum +
                 '}';
     }
 }

@@ -1,11 +1,11 @@
-package com.bessonov.musicappserver.track_info;
+package com.bessonov.musicappserver.trackInfo;
 
 import com.bessonov.musicappserver.database.album.AlbumRepository;
-import com.bessonov.musicappserver.database.album_artist.AlbumArtistRepository;
-import com.bessonov.musicappserver.database.album_track.AlbumTrackRepository;
+import com.bessonov.musicappserver.database.albumArtist.AlbumArtistRepository;
+import com.bessonov.musicappserver.database.albumTrack.AlbumTrackRepository;
 import com.bessonov.musicappserver.database.artist.ArtistRepository;
-import com.bessonov.musicappserver.database.artist_status.ArtistStatusRepository;
-import com.bessonov.musicappserver.database.artist_track.ArtistTrackRepository;
+import com.bessonov.musicappserver.database.artistStatus.ArtistStatusRepository;
+import com.bessonov.musicappserver.database.artistTrack.ArtistTrackRepository;
 import com.bessonov.musicappserver.database.genre.GenreRepository;
 import com.bessonov.musicappserver.database.license.LicenseRepository;
 import com.bessonov.musicappserver.database.track.Track;
@@ -47,17 +47,17 @@ public class TrackInfoService {
     @Autowired
     private TrackRepository trackRepository;
 
-    public TrackInfoDTO getTrackInfoByTrackId(int track_id) {
-        Optional<Track> track = trackRepository.findById(track_id);
+    public TrackInfoDTO getTrackInfoByTrackId(int trackId) {
+        Optional<Track> track = trackRepository.findById(trackId);
 
         return track.map(this::getTrackInfoByTrack).orElse(null);
     }
 
-    public List<TrackInfoDTO> getTrackInfoByListTrackId(List<Integer> list_track_id) {
+    public List<TrackInfoDTO> getTrackInfoByTrackIdList(List<Integer> trackIdList) {
         List<TrackInfoDTO> trackInfoDTOList = new ArrayList<>();
 
-        for (Integer track_id : list_track_id) {
-            trackInfoDTOList.add(getTrackInfoByTrackId(track_id));
+        for (Integer trackId : trackIdList) {
+            trackInfoDTOList.add(getTrackInfoByTrackId(trackId));
         }
 
         return trackInfoDTOList;

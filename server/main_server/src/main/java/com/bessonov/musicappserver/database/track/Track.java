@@ -12,22 +12,22 @@ public class Track {
     private int id;
 
     @Column(name = "primary_genre_id")
-    private int primary_genre_id;
+    private int primaryGenreId;
 
     @Column(name = "license_id")
-    private int license_id;
+    private int licenseId;
 
     @Column(name = "name", columnDefinition = "TEXT")
     private String name;
 
     @Column(name = "duration_in_seconds")
-    private int duration_in_seconds;
+    private int durationInSeconds;
 
     @Column(name = "release_date")
-    private Date release_date;
+    private Date releaseDate;
 
     @Column(name = "audio_filename", columnDefinition = "TEXT")
-    private String audio_filename;
+    private String audioFilename;
 
     public int getId() {
         return id;
@@ -37,20 +37,20 @@ public class Track {
         this.id = id;
     }
 
-    public int getPrimary_genre_id() {
-        return primary_genre_id;
+    public int getPrimaryGenreId() {
+        return primaryGenreId;
     }
 
-    public void setPrimary_genre_id(int primary_genre_id) {
-        this.primary_genre_id = primary_genre_id;
+    public void setPrimaryGenreId(int primaryGenreId) {
+        this.primaryGenreId = primaryGenreId;
     }
 
-    public int getLicense_id() {
-        return license_id;
+    public int getLicenseId() {
+        return licenseId;
     }
 
-    public void setLicense_id(int license_id) {
-        this.license_id = license_id;
+    public void setLicenseId(int licenseId) {
+        this.licenseId = licenseId;
     }
 
     public String getName() {
@@ -61,40 +61,40 @@ public class Track {
         this.name = name;
     }
 
-    public int getDuration_in_seconds() {
-        return duration_in_seconds;
+    public int getDurationInSeconds() {
+        return durationInSeconds;
     }
 
-    public void setDuration_in_seconds(int duration_in_seconds) {
-        this.duration_in_seconds = duration_in_seconds;
+    public void setDurationInSeconds(int durationInSeconds) {
+        this.durationInSeconds = durationInSeconds;
     }
 
-    public Date getRelease_date() {
-        return release_date;
+    public Date getReleaseDate() {
+        return releaseDate;
     }
 
-    public void setRelease_date(Date release_date) {
-        this.release_date = release_date;
+    public void setReleaseDate(Date releaseDate) {
+        this.releaseDate = releaseDate;
     }
 
-    public String getAudio_filename() {
-        return audio_filename;
+    public String getAudioFilename() {
+        return audioFilename;
     }
 
-    public void setAudio_filename(String audio_filename) {
-        this.audio_filename = audio_filename;
+    public void setAudioFilename(String audioFilename) {
+        this.audioFilename = audioFilename;
     }
 
     @Override
     public String toString() {
         return "Track{" +
                 "id=" + id +
-                ", primary_genre_id=" + primary_genre_id +
-                ", license_id=" + license_id +
+                ", primaryGenreId=" + primaryGenreId +
+                ", licenseId=" + licenseId +
                 ", name='" + name + '\'' +
-                ", duration_in_seconds=" + duration_in_seconds +
-                ", release_date=" + release_date +
-                ", audio_filename='" + audio_filename + '\'' +
+                ", durationInSeconds=" + durationInSeconds +
+                ", releaseDate=" + releaseDate +
+                ", audioFilename='" + audioFilename + '\'' +
                 '}';
     }
 }

@@ -1,4 +1,4 @@
-package com.bessonov.musicappserver.track_info;
+package com.bessonov.musicappserver.trackInfo;
 
 import com.bessonov.musicappserver.database.album.AlbumDTO;
 import com.bessonov.musicappserver.database.artist.ArtistDTO;
@@ -11,7 +11,7 @@ import java.util.List;
 public class TrackInfoDTO {
     private TrackDTO track;
     private List<ArtistDTO> artist;
-    private List<ArtistDTO> featured_artist;
+    private List<ArtistDTO> featuredArtist;
     private List<AlbumDTO> album;
     private GenreDTO genre;
     private LicenseDTO license;
@@ -32,12 +32,12 @@ public class TrackInfoDTO {
         this.artist = artist;
     }
 
-    public List<ArtistDTO> getFeatured_artist() {
-        return featured_artist;
+    public List<ArtistDTO> getFeaturedArtist() {
+        return featuredArtist;
     }
 
-    public void setFeatured_artist(List<ArtistDTO> featured_artist) {
-        this.featured_artist = featured_artist;
+    public void setFeaturedArtist(List<ArtistDTO> featuredArtist) {
+        this.featuredArtist = featuredArtist;
     }
 
     public List<AlbumDTO> getAlbum() {
@@ -69,7 +69,7 @@ public class TrackInfoDTO {
         return "TrackInfoDTO{" +
                 "track=" + track +
                 ", artist=" + artist +
-                ", featured_artist=" + featured_artist +
+                ", featuredArtist=" + featuredArtist +
                 ", album=" + album +
                 ", genre=" + genre +
                 ", license=" + license +
