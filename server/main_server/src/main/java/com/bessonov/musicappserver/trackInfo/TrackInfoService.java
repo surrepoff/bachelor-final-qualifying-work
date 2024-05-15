@@ -23,6 +23,7 @@ import com.bessonov.musicappserver.database.track.TrackDTO;
 import com.bessonov.musicappserver.database.track.TrackRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -75,7 +76,8 @@ public class TrackInfoService {
     }
 
     public List<TrackInfoDTO> getTrackInfoAll() {
-        List<Track> trackList = trackRepository.findAll();
+        Sort sort = Sort.by(Sort.Direction.ASC, "id");
+        List<Track> trackList = trackRepository.findAll(sort);
 
         List<TrackInfoDTO> trackInfoDTOList = new ArrayList<>();
 
@@ -93,7 +95,7 @@ public class TrackInfoService {
 
         List<ArtistDTO> artistDTOList = new ArrayList<>();
         List<ArtistDTO> featuredArtistDTOList = new ArrayList<>();
-        List<ArtistTrack> artistTrackList = artistTrackRepository.findByTrackIdOrderByArtistIdAsc(track.getId());
+        List<ArtistTrack> artistTrackList = artistTrackRepository.findByIdTrackIdOrderByIdArtistIdAsc(track.getId());
         for (ArtistTrack artistTrack : artistTrackList) {
             Optional<Artist> artist = artistRepository.findById(artistTrack.getId().getArtistId());
             ArtistDTO artistDTO = artist.map(ArtistDTO::new).orElseGet(ArtistDTO::new);
@@ -115,7 +117,7 @@ public class TrackInfoService {
         trackInfoDTO.setFeaturedArtist(featuredArtistDTOList);
 
         List<AlbumDTO> albumDTOList = new ArrayList<>();
-        List<AlbumTrack> albumTrackList = albumTrackRepository.findByTrackIdOrderByAlbumIdAsc(track.getId());
+        List<AlbumTrack> albumTrackList = albumTrackRepository.findByIdTrackIdOrderByIdAlbumIdAsc(track.getId());
         for (AlbumTrack albumTrack : albumTrackList) {
             Optional<Album> album = albumRepository.findById(albumTrack.getId().getAlbumId());
             AlbumDTO albumDTO = album.map(AlbumDTO::new).orElseGet(AlbumDTO::new);
