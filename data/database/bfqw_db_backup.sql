@@ -5,7 +5,7 @@
 -- Dumped from database version 16.2
 -- Dumped by pg_dump version 16.2
 
--- Started on 2024-05-14 22:06:30 +07
+-- Started on 2024-05-16 04:57:18 +07
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -445,15 +445,12 @@ INSERT INTO public.genre (id, name) VALUES (9, 'Soul-RnB');
 --
 
 INSERT INTO public.license (id, name) VALUES (0, 'CC0: Public Domain Dedication / No Rights Reserved');
-INSERT INTO public.license (id, name) VALUES (1, 'CC BY: Attribution
-');
 INSERT INTO public.license (id, name) VALUES (2, 'CC BY-SA: Attribution-ShareAlike');
-INSERT INTO public.license (id, name) VALUES (3, 'CC BY-ND: Attribution-NoDerivatives
-');
-INSERT INTO public.license (id, name) VALUES (4, 'CC BY-NC: Attribution-NonCommercial
-');
 INSERT INTO public.license (id, name) VALUES (5, 'CC BY-NC-SA: Attribution-NonCommercial-ShareAlike');
 INSERT INTO public.license (id, name) VALUES (6, 'CC BY-NC-ND: Attribution-NonCommercial-NoDerivatives');
+INSERT INTO public.license (id, name) VALUES (1, 'CC BY: Attribution');
+INSERT INTO public.license (id, name) VALUES (3, 'CC BY-ND: Attribution-NoDerivatives');
+INSERT INTO public.license (id, name) VALUES (4, 'CC BY-NC: Attribution-NonCommercial');
 
 
 --
@@ -953,7 +950,7 @@ ALTER TABLE ONLY public.user_track_rating
     ADD CONSTRAINT user_track_rating_user_id_fkey FOREIGN KEY (user_id) REFERENCES public.user_data(id);
 
 
--- Completed on 2024-05-14 22:06:30 +07
+-- Completed on 2024-05-16 04:57:18 +07
 
 --
 -- PostgreSQL database dump complete
