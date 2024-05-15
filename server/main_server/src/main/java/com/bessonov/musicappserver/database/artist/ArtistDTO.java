@@ -4,6 +4,22 @@ public class ArtistDTO {
     private int id;
     private String name;
 
+    public ArtistDTO () {
+        this.id = -1;
+        this.name = "";
+    }
+
+    public ArtistDTO (Artist artist) {
+        if (artist == null) {
+            this.id = -1;
+            this.name = "";
+        }
+        else {
+            this.id = artist.getId();
+            this.name = artist.getName();
+        }
+    }
+
     public int getId() {
         return id;
     }

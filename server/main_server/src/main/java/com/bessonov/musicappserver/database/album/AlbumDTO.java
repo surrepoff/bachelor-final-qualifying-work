@@ -7,6 +7,25 @@ public class AlbumDTO {
     private String name;
     private Date releaseDate;
 
+    public AlbumDTO () {
+        this.id = -1;
+        this.name = "";
+        this.releaseDate = new Date(0);
+    }
+
+    public AlbumDTO (Album album) {
+        if (album == null) {
+            this.id = -1;
+            this.name = "";
+            this.releaseDate = new Date(0);
+        }
+        else {
+            this.id = album.getId();
+            this.name = album.getName();
+            this.releaseDate = album.getReleaseDate();
+        }
+    }
+
     public int getId() {
         return id;
     }
