@@ -1,6 +1,5 @@
 package com.bessonov.musicappclient.retrofit;
 
-import com.bessonov.musicappclient.utils.ServerPropertiesReader;
 import com.google.gson.Gson;
 
 import retrofit2.Retrofit;
@@ -14,10 +13,8 @@ public class RetrofitService {
     }
 
     private void initializeRetrofit() {
-        String url = "http://" + ServerPropertiesReader.INSTANCE.getProperty("server.ip") +
-                ":" +ServerPropertiesReader.INSTANCE.getProperty("server.port");
         retrofit = new Retrofit.Builder()
-                .baseUrl(url)
+                .baseUrl("http://192.168.1.59:8080")
                 .addConverterFactory(GsonConverterFactory.create(new Gson()))
                 .build();
     }
