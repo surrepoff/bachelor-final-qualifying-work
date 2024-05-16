@@ -13,17 +13,17 @@ public class TrackInfoController {
     @Autowired
     TrackInfoService trackInfoService;
 
-    @GetMapping("/api/trackinfo/get/all")
+    @GetMapping("/api/trackInfo/get/all")
     public List<TrackInfoDTO> getAll() {
         return trackInfoService.getTrackInfoAll();
     }
 
-    @PostMapping("/api/trackinfo/get/bytrackid")
+    @PostMapping("/api/trackInfo/get/byTrackId")
     public TrackInfoDTO getByTrackId(@RequestBody int trackId) {
         return trackInfoService.getTrackInfoByTrackId(trackId);
     }
 
-    @PostMapping("/api/trackinfo/get/bytrackidlist")
+    @PostMapping("/api/trackInfo/get/byTrackId/list")
     public List<TrackInfoDTO> getByTrackIdList(@RequestBody List<Integer> trackIdList) {
         return trackInfoService.getTrackInfoByTrackIdList(trackIdList);
     }
