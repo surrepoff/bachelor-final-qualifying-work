@@ -6,14 +6,18 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bessonov.musicappclient.R
 import com.bessonov.musicappclient.dto.TrackInfoDTO
 
-class TrackAdapter(private val trackInfoDTOList: List<TrackInfoDTO>) : RecyclerView.Adapter<TrackHolder>() {
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TrackHolder {
+class TrackAdapter(private val trackInfoDTOList: List<TrackInfoDTO>) : RecyclerView.Adapter<TrackViewHolder>() {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TrackViewHolder {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.item_track, parent, false)
-        return TrackHolder(view)
+        return TrackViewHolder(view)
     }
 
-    override fun onBindViewHolder(holder: TrackHolder, position: Int) {
+    override fun getItemCount(): Int {
+        return trackInfoDTOList.size
+    }
+
+    override fun onBindViewHolder(holder: TrackViewHolder, position: Int) {
         val trackInfoDTO = trackInfoDTOList[position]
 
         holder.trackName.text = trackInfoDTO.track.name
@@ -26,9 +30,5 @@ class TrackAdapter(private val trackInfoDTOList: List<TrackInfoDTO>) : RecyclerV
 
         holder.artistName.text = artistName
         holder.trackDuration.text = String.format("%02d:%02d", trackInfoDTO.track.durationInSeconds / 60, trackInfoDTO.track.durationInSeconds % 60)
-    }
-
-    override fun getItemCount(): Int {
-        return trackInfoDTOList.size
     }
 }

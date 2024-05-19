@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:padding="10dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <ImageView
+        android:id="@+id/itemArtist_ArtistImage"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@drawable/default_artist"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:contentDescription="Image" />
+
+    <TextView
+        android:id="@+id/itemArtist_ArtistName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/itemArtist_ArtistImage"
+        app:layout_constraintStart_toStartOf="@id/itemArtist_ArtistImage"
+        app:layout_constraintEnd_toEndOf="@id/itemArtist_ArtistImage"
+        android:text="Artist"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        android:textStyle="bold" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

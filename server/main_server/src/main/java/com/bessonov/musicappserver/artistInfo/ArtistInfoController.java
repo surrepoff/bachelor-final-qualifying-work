@@ -19,12 +19,12 @@ public class ArtistInfoController {
     }
 
     @PostMapping("/api/artistInfo/get/byArtistId")
-    public ArtistInfoDTO getByTrackId(@RequestBody int artistId) {
+    public ArtistInfoDTO getByArtistId(@RequestBody int artistId) {
         return artistInfoService.getArtistInfoDTOByArtistId(artistId);
     }
 
     @PostMapping("/api/artistInfo/get/byArtistId/list")
-    public List<ArtistInfoDTO> getByTrackIdList(@RequestBody List<Integer> artistIdList) {
+    public List<ArtistInfoDTO> getByArtistIdList(@RequestBody List<Integer> artistIdList) {
         return artistInfoService.getArtistInfoDTOByArtistIdList(artistIdList);
     }
 }

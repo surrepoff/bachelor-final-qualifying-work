@@ -10,8 +10,14 @@ import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bessonov.musicappclient.R
-import com.bessonov.musicappclient.adapter.track.TrackAdapter
+import com.bessonov.musicappclient.adapter.section.Section
+import com.bessonov.musicappclient.adapter.section.SectionAdapter
+import com.bessonov.musicappclient.adapter.section.SectionType
+import com.bessonov.musicappclient.dto.AlbumInfoDTO
+import com.bessonov.musicappclient.dto.ArtistInfoDTO
 import com.bessonov.musicappclient.dto.TrackInfoDTO
+import com.bessonov.musicappclient.retrofit.AlbumInfoAPI
+import com.bessonov.musicappclient.retrofit.ArtistInfoAPI
 import com.bessonov.musicappclient.retrofit.RetrofitService
 import com.bessonov.musicappclient.retrofit.TrackInfoAPI
 import retrofit2.Call
@@ -20,6 +26,11 @@ import retrofit2.Response
 
 class HomeFragment : Fragment() {
     private lateinit var recyclerView: RecyclerView
+    private lateinit var sectionList : List<Section<*>>
+    private lateinit var artistInfoDTOList : List<ArtistInfoDTO>
+    private lateinit var albumInfoDTOList : List<AlbumInfoDTO>
+    private lateinit var trackInfoDTOList : List<TrackInfoDTO>
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -28,20 +39,93 @@ class HomeFragment : Fragment() {
     ): View {
         val view = inflater.inflate(R.layout.fragment_home, container, false)
 
-        recyclerView = view.findViewById(R.id.recyclerView)
+        recyclerView = view.findViewById(R.id.fragmentHome_RecyclerView)
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
+
+        artistInfoDTOList = emptyList()
+        albumInfoDTOList = emptyList()
+        trackInfoDTOList = emptyList()
 
         return view
     }
 
     override fun onResume() {
         super.onResume()
+        loadData()
+    }
+
+    private fun populateListView() {
+        val artistSection : Section<ArtistInfoDTO> = Section<ArtistInfoDTO> (
+            title = "Artists",
+            type = SectionType.ARTIST,
+            items = artistInfoDTOList,
+            orientation = LinearLayoutManager.HORIZONTAL
+        )
+
+        val albumSection : Section<AlbumInfoDTO> = Section<AlbumInfoDTO> (
+            title = "Albums",
+            type = SectionType.ALBUM,
+            items = albumInfoDTOList,
+            orientation = LinearLayoutManager.HORIZONTAL
+        )
+
+        val trackSection : Section<TrackInfoDTO> = Section<TrackInfoDTO> (
+            title = "Tracks",
+            type = SectionType.TRACK,
+            items = trackInfoDTOList,
+            orientation = LinearLayoutManager.VERTICAL
+        )
+
+        sectionList = listOf(artistSection, albumSection, trackSection)
+
+        val sectionAdapter = SectionAdapter(sectionList)
+        recyclerView.adapter = sectionAdapter
+    }
+
+    private fun loadData() {
+        loadArtists()
+        loadAlbums()
         loadTracks()
     }
 
-    private fun populateListView(trackInfoDTOList: List<TrackInfoDTO>) {
-        val trackAdapter = TrackAdapter(trackInfoDTOList)
-        recyclerView.adapter = trackAdapter
+    private fun loadArtists() {
+        val retrofitService = RetrofitService()
+        val artistInfoAPI = retrofitService.retrofit.create(ArtistInfoAPI::class.java)
+        artistInfoAPI.getAll().enqueue(object : Callback<List<ArtistInfoDTO>> {
+            override fun onResponse(call: Call<List<ArtistInfoDTO>>, response: Response<List<ArtistInfoDTO>>) {
+                if (response.isSuccessful && response.body() != null) {
+                    artistInfoDTOList = response.body()!!
+                    populateListView()
+                } else {
+                    Toast.makeText(requireContext(), "Failed to load artists (onResponse)", Toast.LENGTH_SHORT).show()
+                }
+            }
+
+            override fun onFailure(call: Call<List<ArtistInfoDTO>>, t: Throwable) {
+                Log.e("LoadArtists", "Failed to load artists", t)
+                Toast.makeText(requireContext(), "Failed to load artists (onFailure)", Toast.LENGTH_SHORT).show()
+            }
+        })
+    }
+
+    private fun loadAlbums() {
+        val retrofitService = RetrofitService()
+        val albumInfoAPI = retrofitService.retrofit.create(AlbumInfoAPI::class.java)
+        albumInfoAPI.getAll().enqueue(object : Callback<List<AlbumInfoDTO>> {
+            override fun onResponse(call: Call<List<AlbumInfoDTO>>, response: Response<List<AlbumInfoDTO>>) {
+                if (response.isSuccessful && response.body() != null) {
+                    albumInfoDTOList = response.body()!!
+                    populateListView()
+                } else {
+                    Toast.makeText(requireContext(), "Failed to load albums (onResponse)", Toast.LENGTH_SHORT).show()
+                }
+            }
+
+            override fun onFailure(call: Call<List<AlbumInfoDTO>>, t: Throwable) {
+                Log.e("LoadAlbums", "Failed to load albums", t)
+                Toast.makeText(requireContext(), "Failed to load albums (onFailure)", Toast.LENGTH_SHORT).show()
+            }
+        })
     }
 
     private fun loadTracks() {
@@ -50,7 +134,8 @@ class HomeFragment : Fragment() {
         trackInfoAPI.getAll().enqueue(object : Callback<List<TrackInfoDTO>> {
             override fun onResponse(call: Call<List<TrackInfoDTO>>, response: Response<List<TrackInfoDTO>>) {
                 if (response.isSuccessful && response.body() != null) {
-                    populateListView(response.body()!!)
+                    trackInfoDTOList = response.body()!!
+                    populateListView()
                 } else {
                     Toast.makeText(requireContext(), "Failed to load tracks (onResponse)", Toast.LENGTH_SHORT).show()
                 }

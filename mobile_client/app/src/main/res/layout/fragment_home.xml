@@ -7,24 +7,22 @@
     tools:context=".ui.home.HomeFragment">
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/fragmentHome_TextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/home_fragment"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        />
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
+        android:id="@+id/fragmentHome_RecyclerView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView"
-        app:layout_constraintBottom_toBottomOf="parent"
-        />
+        app:layout_constraintTop_toBottomOf="@+id/fragmentHome_TextView"
+        app:layout_constraintBottom_toBottomOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -20,12 +20,12 @@ public class AlbumInfoController {
     }
 
     @PostMapping("/api/albumInfo/get/byAlbumId")
-    public AlbumInfoDTO getByTrackId(@RequestBody int albumId) {
+    public AlbumInfoDTO getByAlbumId(@RequestBody int albumId) {
         return albumInfoService.getAlbumInfoByAlbumId(albumId);
     }
 
     @PostMapping("/api/albumInfo/get/byAlbumId/list")
-    public List<AlbumInfoDTO> getByTrackIdList(@RequestBody List<Integer> albumIdList) {
+    public List<AlbumInfoDTO> getByAlbumIdList(@RequestBody List<Integer> albumIdList) {
         return albumInfoService.getAlbumInfoByAlbumIdList(albumIdList);
     }
 }

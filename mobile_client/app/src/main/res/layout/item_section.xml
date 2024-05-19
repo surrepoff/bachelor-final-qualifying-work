@@ -5,25 +5,24 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <TextView
-        android:id="@+id/header"
+        android:id="@+id/itemSection_Header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="8dp"
-        android:text="Album"
+        android:paddingTop="8dp"
+        android:paddingStart="8dp"
+        android:text="Header"
         android:textColor="@color/black"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        />
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerViewHorizontal"
+        android:id="@+id/itemSection_RecyclerView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        android:layout_height="0dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/header" />
+        app:layout_constraintTop_toBottomOf="@id/itemSection_Header" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
