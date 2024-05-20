@@ -1,6 +1,5 @@
-package com.bessonov.musicappclient.retrofit;
+package com.bessonov.musicappclient.api;
 
-import com.bessonov.musicappclient.dto.AlbumInfoDTO;
 import com.bessonov.musicappclient.dto.ArtistInfoDTO;
 
 import java.util.List;

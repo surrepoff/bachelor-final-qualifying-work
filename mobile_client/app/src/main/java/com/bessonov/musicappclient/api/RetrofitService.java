@@ -1,4 +1,4 @@
-package com.bessonov.musicappclient.retrofit;
+package com.bessonov.musicappclient.api;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -11,7 +11,6 @@ import com.google.gson.JsonDeserializationContext;
 
 import java.lang.reflect.Type;
 import java.sql.Date;
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 

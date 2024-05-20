@@ -16,10 +16,10 @@ import com.bessonov.musicappclient.adapter.section.SectionType
 import com.bessonov.musicappclient.dto.AlbumInfoDTO
 import com.bessonov.musicappclient.dto.ArtistInfoDTO
 import com.bessonov.musicappclient.dto.TrackInfoDTO
-import com.bessonov.musicappclient.retrofit.AlbumInfoAPI
-import com.bessonov.musicappclient.retrofit.ArtistInfoAPI
-import com.bessonov.musicappclient.retrofit.RetrofitService
-import com.bessonov.musicappclient.retrofit.TrackInfoAPI
+import com.bessonov.musicappclient.api.AlbumInfoAPI
+import com.bessonov.musicappclient.api.ArtistInfoAPI
+import com.bessonov.musicappclient.api.RetrofitService
+import com.bessonov.musicappclient.api.TrackInfoAPI
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

@@ -1,6 +1,5 @@
 package com.bessonov.musicappclient
 
-import com.bessonov.musicappclient.retrofit.RetrofitService
 import org.junit.Test
 
 import org.junit.Assert.*

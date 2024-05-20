@@ -1,4 +1,4 @@
-package com.bessonov.musicappclient.retrofit;
+package com.bessonov.musicappclient.api;
 
 import com.bessonov.musicappclient.dto.AlbumInfoDTO;
 
