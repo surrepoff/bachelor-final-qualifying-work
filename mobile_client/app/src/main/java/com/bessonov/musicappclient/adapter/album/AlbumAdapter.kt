@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bessonov.musicappclient.R
 import com.bessonov.musicappclient.dto.AlbumInfoDTO
+import com.bumptech.glide.Glide
 
 class AlbumAdapter(private val albumInfoDTOList: List<AlbumInfoDTO>) : RecyclerView.Adapter<AlbumViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AlbumViewHolder {
@@ -29,5 +30,10 @@ class AlbumAdapter(private val albumInfoDTOList: List<AlbumInfoDTO>) : RecyclerV
         }
 
         holder.artistName.text = artistName
+
+        Glide.with(holder.itemView)
+            .load("http://192.168.1.59:8080/api/image/album/" + albumInfoDTO.album.id)
+            .placeholder(R.drawable.default_album)
+            .into(holder.albumImage)
     }
 }

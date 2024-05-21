@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bessonov.musicappclient.R
 import com.bessonov.musicappclient.dto.TrackInfoDTO
+import com.bumptech.glide.Glide
 
 class TrackAdapter(private val trackInfoDTOList: List<TrackInfoDTO>) : RecyclerView.Adapter<TrackViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TrackViewHolder {
@@ -30,5 +31,10 @@ class TrackAdapter(private val trackInfoDTOList: List<TrackInfoDTO>) : RecyclerV
 
         holder.artistName.text = artistName
         holder.trackDuration.text = String.format("%02d:%02d", trackInfoDTO.track.durationInSeconds / 60, trackInfoDTO.track.durationInSeconds % 60)
+
+        Glide.with(holder.itemView)
+            .load("http://192.168.1.59:8080/api/image/track/" + trackInfoDTO.track.id)
+            .placeholder(R.drawable.default_album)
+            .into(holder.trackImage)
     }
 }
