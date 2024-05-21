@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bessonov.musicappclient.R
 import com.bessonov.musicappclient.dto.TrackInfoDTO
 import com.bumptech.glide.Glide
+import java.util.Collections
 
 class TrackAdapter(private val trackInfoDTOList: List<TrackInfoDTO>) : RecyclerView.Adapter<TrackViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TrackViewHolder {
@@ -36,5 +37,18 @@ class TrackAdapter(private val trackInfoDTOList: List<TrackInfoDTO>) : RecyclerV
             .load("http://192.168.1.59:8080/api/image/track/" + trackInfoDTO.track.id)
             .placeholder(R.drawable.default_album)
             .into(holder.trackImage)
+    }
+
+    fun swapItems(fromPosition: Int, toPosition: Int) {
+        if (fromPosition < toPosition) {
+            for (i in fromPosition until toPosition) {
+                Collections.swap(trackInfoDTOList, i, i + 1)
+            }
+        } else {
+            for (i in fromPosition downTo toPosition + 1) {
+                Collections.swap(trackInfoDTOList, i, i - 1)
+            }
+        }
+        notifyItemMoved(fromPosition, toPosition)
     }
 }

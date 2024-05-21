@@ -2,11 +2,13 @@ package com.bessonov.musicappclient.adapter.section
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bessonov.musicappclient.R
 import com.bessonov.musicappclient.adapter.album.AlbumAdapter
 import com.bessonov.musicappclient.adapter.artist.ArtistAdapter
+import com.bessonov.musicappclient.adapter.track.DragManageAdapter
 import com.bessonov.musicappclient.adapter.track.TrackAdapter
 import com.bessonov.musicappclient.dto.AlbumInfoDTO
 import com.bessonov.musicappclient.dto.ArtistInfoDTO
@@ -49,6 +51,9 @@ class SectionAdapter(private val sectionList: List<Section<*>>) : RecyclerView.A
                 val trackInfoDTOList = section.items.filterIsInstance<TrackInfoDTO>()
                 val trackAdapter = TrackAdapter(trackInfoDTOList)
                 holder.recyclerView.adapter = trackAdapter
+
+                val itemTouchHelper = ItemTouchHelper(DragManageAdapter(trackAdapter))
+                itemTouchHelper.attachToRecyclerView(holder.recyclerView)
             }
             else -> {
 
