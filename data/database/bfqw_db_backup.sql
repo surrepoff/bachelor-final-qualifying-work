@@ -5,7 +5,7 @@
 -- Dumped from database version 16.2
 -- Dumped by pg_dump version 16.2
 
--- Started on 2024-05-27 19:50:38 +07
+-- Started on 2024-05-27 21:07:44 +07
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -107,20 +107,6 @@ CREATE TABLE public.artist_track (
 ALTER TABLE public.artist_track OWNER TO postgres;
 
 --
--- TOC entry 229 (class 1259 OID 16725)
--- Name: audio_feature_extraction_type; Type: TABLE; Schema: public; Owner: postgres
---
-
-CREATE TABLE public.audio_feature_extraction_type (
-    id integer NOT NULL,
-    start_delta integer NOT NULL,
-    segment_duration integer NOT NULL
-);
-
-
-ALTER TABLE public.audio_feature_extraction_type OWNER TO postgres;
-
---
 -- TOC entry 215 (class 1259 OID 16531)
 -- Name: genre; Type: TABLE; Schema: public; Owner: postgres
 --
@@ -199,11 +185,25 @@ ALTER TABLE public.track OWNER TO postgres;
 CREATE TABLE public.track_audio_feature (
     id integer NOT NULL,
     track_id integer NOT NULL,
-    audio_feature_extraction_type_id integer NOT NULL
+    track_audio_feature_extraction_type_id integer NOT NULL
 );
 
 
 ALTER TABLE public.track_audio_feature OWNER TO postgres;
+
+--
+-- TOC entry 229 (class 1259 OID 16725)
+-- Name: track_audio_feature_extraction_type; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.track_audio_feature_extraction_type (
+    id integer NOT NULL,
+    start_delta integer NOT NULL,
+    segment_duration integer NOT NULL
+);
+
+
+ALTER TABLE public.track_audio_feature_extraction_type OWNER TO postgres;
 
 --
 -- TOC entry 231 (class 1259 OID 16745)
@@ -262,7 +262,8 @@ CREATE TABLE public.user_info (
     username text NOT NULL,
     password text NOT NULL,
     nickname text NOT NULL,
-    registration_date date NOT NULL
+    registration_date date NOT NULL,
+    last_update_date date
 );
 
 
@@ -458,15 +459,6 @@ INSERT INTO public.artist_track (artist_id, track_id, artist_status_id) VALUES (
 
 
 --
--- TOC entry 3744 (class 0 OID 16725)
--- Dependencies: 229
--- Data for Name: audio_feature_extraction_type; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
-INSERT INTO public.audio_feature_extraction_type (id, start_delta, segment_duration) VALUES (0, 3, 3);
-
-
---
 -- TOC entry 3730 (class 0 OID 16531)
 -- Dependencies: 215
 -- Data for Name: genre; Type: TABLE DATA; Schema: public; Owner: postgres
@@ -539,6 +531,15 @@ INSERT INTO public.track (id, primary_genre_id, license_id, name, duration_in_se
 -- Data for Name: track_audio_feature; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
+
+
+--
+-- TOC entry 3744 (class 0 OID 16725)
+-- Dependencies: 229
+-- Data for Name: track_audio_feature_extraction_type; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+INSERT INTO public.track_audio_feature_extraction_type (id, start_delta, segment_duration) VALUES (0, 3, 3);
 
 
 --
@@ -682,15 +683,6 @@ ALTER TABLE ONLY public.artist_track
 
 
 --
--- TOC entry 3539 (class 2606 OID 16729)
--- Name: audio_feature_extraction_type audio_feature_extraction_type_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY public.audio_feature_extraction_type
-    ADD CONSTRAINT audio_feature_extraction_type_pkey PRIMARY KEY (id);
-
-
---
 -- TOC entry 3511 (class 2606 OID 16537)
 -- Name: genre genre_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
@@ -724,6 +716,15 @@ ALTER TABLE ONLY public.playlist
 
 ALTER TABLE ONLY public.playlist_track
     ADD CONSTRAINT playlist_track_pkey PRIMARY KEY (playlist_id, track_id);
+
+
+--
+-- TOC entry 3539 (class 2606 OID 16729)
+-- Name: track_audio_feature_extraction_type track_audio_feature_extraction_type_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.track_audio_feature_extraction_type
+    ADD CONSTRAINT track_audio_feature_extraction_type_pkey PRIMARY KEY (id);
 
 
 --
@@ -926,11 +927,11 @@ ALTER TABLE ONLY public.playlist_track
 
 --
 -- TOC entry 3571 (class 2606 OID 16740)
--- Name: track_audio_feature track_audio_feature_audio_feature_extraction_type_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+-- Name: track_audio_feature track_audio_feature_track_audio_feature_extraction_type_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.track_audio_feature
-    ADD CONSTRAINT track_audio_feature_audio_feature_extraction_type_id_fkey FOREIGN KEY (audio_feature_extraction_type_id) REFERENCES public.audio_feature_extraction_type(id);
+    ADD CONSTRAINT track_audio_feature_track_audio_feature_extraction_type_id_fkey FOREIGN KEY (track_audio_feature_extraction_type_id) REFERENCES public.track_audio_feature_extraction_type(id);
 
 
 --
@@ -1029,7 +1030,7 @@ ALTER TABLE ONLY public.user_artist
 --
 
 ALTER TABLE ONLY public.user_neural_network_configuration
-    ADD CONSTRAINT user_neural_network_configura_audio_feature_extraction_typ_fkey FOREIGN KEY (audio_feature_extraction_type_id) REFERENCES public.audio_feature_extraction_type(id);
+    ADD CONSTRAINT user_neural_network_configura_audio_feature_extraction_typ_fkey FOREIGN KEY (audio_feature_extraction_type_id) REFERENCES public.track_audio_feature_extraction_type(id);
 
 
 --
@@ -1113,7 +1114,7 @@ ALTER TABLE ONLY public.user_track
     ADD CONSTRAINT user_track_user_rating_id_fkey FOREIGN KEY (user_rating_id) REFERENCES public.user_rating(id);
 
 
--- Completed on 2024-05-27 19:50:38 +07
+-- Completed on 2024-05-27 21:07:44 +07
 
 --
 -- PostgreSQL database dump complete
