@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.login.LoginActivity">
+
+    <TextView
+        android:id="@+id/activityLogin_userTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_margin="30dp"
+        android:text="username"
+        android:textSize="18sp"
+        />
+
+    <EditText
+        android:id="@+id/activityLogin_userEditText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@id/activityLogin_userTextView"
+        app:layout_constraintTop_toTopOf="@id/activityLogin_userTextView"
+        app:layout_constraintBottom_toBottomOf="@id/activityLogin_userTextView"
+        android:layout_marginStart="10dp"
+        android:hint="username"
+        android:textSize="18sp"
+        android:inputType="text"
+        android:autofillHints="username" />
+
+    <TextView
+        android:id="@+id/activityLogin_passwordTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@id/activityLogin_userTextView"
+        app:layout_constraintTop_toBottomOf="@id/activityLogin_userTextView"
+        android:layout_marginTop="10dp"
+        android:text="password"
+        android:textSize="18sp"
+        />
+
+    <EditText
+        android:id="@+id/activityLogin_passwordEditText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@id/activityLogin_userEditText"
+        app:layout_constraintTop_toTopOf="@id/activityLogin_passwordTextView"
+        app:layout_constraintBottom_toBottomOf="@id/activityLogin_passwordTextView"
+        android:hint="password"
+        android:textSize="18sp"
+        android:inputType="textPassword"
+        android:autofillHints="password" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
