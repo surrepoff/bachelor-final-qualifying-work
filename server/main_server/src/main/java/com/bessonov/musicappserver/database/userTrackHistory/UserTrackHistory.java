@@ -6,7 +6,7 @@ import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 
-import java.sql.Date;
+import java.util.Date;
 
 @Entity
 @Table(name = "user_track_history")

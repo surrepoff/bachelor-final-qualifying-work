@@ -1,6 +1,6 @@
 package com.bessonov.musicappserver.database.album;
 
-import java.sql.Date;
+import java.util.Date;
 
 public class AlbumDTO {
     private int id;

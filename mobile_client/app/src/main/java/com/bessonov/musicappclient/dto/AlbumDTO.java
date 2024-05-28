@@ -2,7 +2,7 @@ package com.bessonov.musicappclient.dto;
 
 import androidx.annotation.NonNull;
 
-import java.sql.Date;
+import java.util.Date;
 
 public class AlbumDTO {
     private int id;

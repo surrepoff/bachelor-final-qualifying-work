@@ -2,7 +2,7 @@ package com.bessonov.musicappserver.database.userNeuralNetworkConfiguration;
 
 import jakarta.persistence.*;
 
-import java.sql.Date;
+import java.util.Date;
 
 @Entity
 @Table(name = "user_neural_network_configuration")
