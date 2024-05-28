@@ -1,29 +1,27 @@
 package com.bessonov.musicappserver.artist;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
+@RequestMapping("/artist")
 public class ArtistController {
     @Autowired
     ArtistService artistService;
 
-    @GetMapping("/api/artist/get/all")
+    @GetMapping("/get/all")
     public List<ArtistInfoDTO> getAll() {
         return artistService.getArtistInfoAll();
     }
 
-    @PostMapping("/api/artist/get/byArtistId")
+    @PostMapping("/get/byArtistId")
     public ArtistInfoDTO getByArtistId(@RequestBody int artistId) {
         return artistService.getArtistInfoDTOByArtistId(artistId);
     }
 
-    @PostMapping("/api/artist/get/byArtistId/list")
+    @PostMapping("/get/byArtistId/list")
     public List<ArtistInfoDTO> getByArtistIdList(@RequestBody List<Integer> artistIdList) {
         return artistService.getArtistInfoDTOByArtistIdList(artistIdList);
     }

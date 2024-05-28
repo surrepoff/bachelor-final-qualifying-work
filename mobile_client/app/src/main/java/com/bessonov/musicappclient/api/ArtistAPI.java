@@ -10,12 +10,12 @@ import retrofit2.http.GET;
 import retrofit2.http.POST;
 
 public interface ArtistAPI {
-    @GET("/api/artist/get/all")
+    @GET("/artist/get/all")
     Call<List<ArtistInfoDTO>> getAll();
 
-    @POST("/api/artist/get/byArtistId")
+    @POST("/artist/get/byArtistId")
     Call<ArtistInfoDTO> getByAlbumId(@Body int artistId);
 
-    @POST("/api/artist/get/byArtistId/list")
+    @POST("/artist/get/byArtistId/list")
     Call<List<ArtistInfoDTO>> getByAlbumIdList(@Body List<Integer> artistIdList);
 }

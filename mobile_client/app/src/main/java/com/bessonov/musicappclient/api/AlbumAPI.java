@@ -10,12 +10,12 @@ import retrofit2.http.GET;
 import retrofit2.http.POST;
 
 public interface AlbumAPI {
-    @GET("/api/album/get/all")
+    @GET("/album/get/all")
     Call<List<AlbumInfoDTO>> getAll();
 
-    @POST("/api/album/get/byAlbumId")
+    @POST("/album/get/byAlbumId")
     Call<AlbumInfoDTO> getByAlbumId(@Body int albumId);
 
-    @POST("/api/album/get/byAlbumId/list")
+    @POST("/album/get/byAlbumId/list")
     Call<List<AlbumInfoDTO>> getByAlbumIdList(@Body List<Integer> albumIdList);
 }

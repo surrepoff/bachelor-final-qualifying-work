@@ -10,12 +10,12 @@ import retrofit2.http.GET;
 import retrofit2.http.POST;
 
 public interface TrackAPI {
-    @GET("/api/track/get/all")
+    @GET("/track/get/all")
     Call<List<TrackInfoDTO>> getAll();
 
-    @POST("/api/track/get/byTrackId")
+    @POST("/track/get/byTrackId")
     Call<TrackInfoDTO> getByTrackId(@Body int trackId);
 
-    @POST("/api/track/get/byTrackId/list")
+    @POST("/track/get/byTrackId/list")
     Call<List<TrackInfoDTO>> getByTrackIdList(@Body List<Integer> trackIdList);
 }
