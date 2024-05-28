@@ -13,9 +13,6 @@ public class UserAlbum {
     @EmbeddedId
     private UserAlbumId id;
 
-    @Column(name = "user_rating_id")
-    private int userRatingId;
-
     @Column(name = "album_number_in_user_list")
     private int albumNumberInUserList;
 
@@ -28,14 +25,6 @@ public class UserAlbum {
 
     public void setId(UserAlbumId id) {
         this.id = id;
-    }
-
-    public int getUserRatingId() {
-        return userRatingId;
-    }
-
-    public void setUserRatingId(int userRatingId) {
-        this.userRatingId = userRatingId;
     }
 
     public int getAlbumNumberInUserList() {
@@ -58,7 +47,6 @@ public class UserAlbum {
     public String toString() {
         return "UserAlbum{" +
                 "id=" + id +
-                ", userRatingId=" + userRatingId +
                 ", albumNumberInUserList=" + albumNumberInUserList +
                 ", addedDate=" + addedDate +
                 '}';

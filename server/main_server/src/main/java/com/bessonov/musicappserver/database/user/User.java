@@ -11,8 +11,11 @@ public class User {
     @Column(name = "id")
     private int id;
 
-    @Column(name = "username", columnDefinition = "TEXT")
+    @Column(name = "username", columnDefinition = "TEXT", unique = true)
     private String username;
+
+    @Column(name = "email", columnDefinition = "TEXT", unique = true)
+    private String email;
 
     @Column(name = "password", columnDefinition = "TEXT")
     private String password;
@@ -40,6 +43,14 @@ public class User {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getPassword() {
@@ -79,6 +90,7 @@ public class User {
         return "User{" +
                 "id=" + id +
                 ", username='" + username + '\'' +
+                ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
                 ", nickname='" + nickname + '\'' +
                 ", registrationDate=" + registrationDate +

@@ -13,9 +13,6 @@ public class UserPlaylist {
     @EmbeddedId
     private UserPlaylistId id;
 
-    @Column(name = "user_rating_id")
-    private int userRatingId;
-
     @Column(name = "access_level_id")
     private int accessLevelId;
 
@@ -31,14 +28,6 @@ public class UserPlaylist {
 
     public void setId(UserPlaylistId id) {
         this.id = id;
-    }
-
-    public int getUserRatingId() {
-        return userRatingId;
-    }
-
-    public void setUserRatingId(int userRatingId) {
-        this.userRatingId = userRatingId;
     }
 
     public int getAccessLevelId() {
@@ -69,7 +58,6 @@ public class UserPlaylist {
     public String toString() {
         return "UserPlaylist{" +
                 "id=" + id +
-                ", userRatingId=" + userRatingId +
                 ", accessLevelId=" + accessLevelId +
                 ", playlistNumberInUserList=" + playlistNumberInUserList +
                 ", addedDate=" + addedDate +
