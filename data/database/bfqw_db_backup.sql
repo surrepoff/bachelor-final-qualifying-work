@@ -5,7 +5,7 @@
 -- Dumped from database version 16.2
 -- Dumped by pg_dump version 16.2
 
--- Started on 2024-05-29 04:16:08 +07
+-- Started on 2024-05-29 04:19:08 +07
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -1037,7 +1037,7 @@ SELECT pg_catalog.setval('public.track_segment_audio_feature_id_seq', 0, false);
 -- Name: user_data_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.user_data_id_seq', 3, true);
+SELECT pg_catalog.setval('public.user_data_id_seq', 0, true);
 
 
 --
@@ -1688,7 +1688,7 @@ ALTER TABLE ONLY public.user_track
     ADD CONSTRAINT user_track_user_id_fkey FOREIGN KEY (user_id) REFERENCES public.user_data(id);
 
 
--- Completed on 2024-05-29 04:16:08 +07
+-- Completed on 2024-05-29 04:19:08 +07
 
 --
 -- PostgreSQL database dump complete
