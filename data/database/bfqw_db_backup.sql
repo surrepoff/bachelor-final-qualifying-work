@@ -5,7 +5,7 @@
 -- Dumped from database version 16.2
 -- Dumped by pg_dump version 16.2
 
--- Started on 2024-05-28 23:40:46 +07
+-- Started on 2024-05-29 04:16:08 +07
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -52,6 +52,22 @@ CREATE TABLE public.album_artist (
 ALTER TABLE public.album_artist OWNER TO postgres;
 
 --
+-- TOC entry 243 (class 1259 OID 17970)
+-- Name: album_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+ALTER TABLE public.album ALTER COLUMN id ADD GENERATED ALWAYS AS IDENTITY (
+    SEQUENCE NAME public.album_id_seq
+    START WITH 0
+    INCREMENT BY 1
+    MINVALUE 0
+    NO MAXVALUE
+    CACHE 1
+    CYCLE
+);
+
+
+--
 -- TOC entry 222 (class 1259 OID 16603)
 -- Name: album_track; Type: TABLE; Schema: public; Owner: postgres
 --
@@ -80,6 +96,22 @@ CREATE TABLE public.artist (
 ALTER TABLE public.artist OWNER TO postgres;
 
 --
+-- TOC entry 244 (class 1259 OID 17971)
+-- Name: artist_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+ALTER TABLE public.artist ALTER COLUMN id ADD GENERATED ALWAYS AS IDENTITY (
+    SEQUENCE NAME public.artist_id_seq
+    START WITH 0
+    INCREMENT BY 1
+    MINVALUE 0
+    NO MAXVALUE
+    CACHE 1
+    CYCLE
+);
+
+
+--
 -- TOC entry 220 (class 1259 OID 16576)
 -- Name: artist_status; Type: TABLE; Schema: public; Owner: postgres
 --
@@ -91,6 +123,22 @@ CREATE TABLE public.artist_status (
 
 
 ALTER TABLE public.artist_status OWNER TO postgres;
+
+--
+-- TOC entry 245 (class 1259 OID 17974)
+-- Name: artist_status_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+ALTER TABLE public.artist_status ALTER COLUMN id ADD GENERATED ALWAYS AS IDENTITY (
+    SEQUENCE NAME public.artist_status_id_seq
+    START WITH 0
+    INCREMENT BY 1
+    MINVALUE 0
+    NO MAXVALUE
+    CACHE 1
+    CYCLE
+);
+
 
 --
 -- TOC entry 223 (class 1259 OID 16618)
@@ -120,6 +168,22 @@ CREATE TABLE public.genre (
 ALTER TABLE public.genre OWNER TO postgres;
 
 --
+-- TOC entry 246 (class 1259 OID 17975)
+-- Name: genre_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+ALTER TABLE public.genre ALTER COLUMN id ADD GENERATED ALWAYS AS IDENTITY (
+    SEQUENCE NAME public.genre_id_seq
+    START WITH 0
+    INCREMENT BY 1
+    MINVALUE 0
+    NO MAXVALUE
+    CACHE 1
+    CYCLE
+);
+
+
+--
 -- TOC entry 216 (class 1259 OID 16538)
 -- Name: license; Type: TABLE; Schema: public; Owner: postgres
 --
@@ -133,6 +197,22 @@ CREATE TABLE public.license (
 ALTER TABLE public.license OWNER TO postgres;
 
 --
+-- TOC entry 247 (class 1259 OID 17976)
+-- Name: license_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+ALTER TABLE public.license ALTER COLUMN id ADD GENERATED ALWAYS AS IDENTITY (
+    SEQUENCE NAME public.license_id_seq
+    START WITH 0
+    INCREMENT BY 1
+    MINVALUE 0
+    NO MAXVALUE
+    CACHE 1
+    CYCLE
+);
+
+
+--
 -- TOC entry 224 (class 1259 OID 16638)
 -- Name: playlist; Type: TABLE; Schema: public; Owner: postgres
 --
@@ -140,12 +220,28 @@ ALTER TABLE public.license OWNER TO postgres;
 CREATE TABLE public.playlist (
     id integer NOT NULL,
     name text,
-    creation_date date NOT NULL,
-    last_update_date date NOT NULL
+    creation_date timestamp(6) without time zone NOT NULL,
+    last_update_date timestamp(6) without time zone NOT NULL
 );
 
 
 ALTER TABLE public.playlist OWNER TO postgres;
+
+--
+-- TOC entry 248 (class 1259 OID 17977)
+-- Name: playlist_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+ALTER TABLE public.playlist ALTER COLUMN id ADD GENERATED ALWAYS AS IDENTITY (
+    SEQUENCE NAME public.playlist_id_seq
+    START WITH 0
+    INCREMENT BY 1
+    MINVALUE 0
+    NO MAXVALUE
+    CACHE 1
+    CYCLE
+);
+
 
 --
 -- TOC entry 225 (class 1259 OID 16645)
@@ -208,6 +304,54 @@ CREATE TABLE public.track_audio_feature_extraction_type (
 ALTER TABLE public.track_audio_feature_extraction_type OWNER TO postgres;
 
 --
+-- TOC entry 251 (class 1259 OID 17980)
+-- Name: track_audio_feature_extraction_type_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+ALTER TABLE public.track_audio_feature_extraction_type ALTER COLUMN id ADD GENERATED ALWAYS AS IDENTITY (
+    SEQUENCE NAME public.track_audio_feature_extraction_type_id_seq
+    START WITH 0
+    INCREMENT BY 1
+    MINVALUE 0
+    NO MAXVALUE
+    CACHE 1
+    CYCLE
+);
+
+
+--
+-- TOC entry 250 (class 1259 OID 17979)
+-- Name: track_audio_feature_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+ALTER TABLE public.track_audio_feature ALTER COLUMN id ADD GENERATED ALWAYS AS IDENTITY (
+    SEQUENCE NAME public.track_audio_feature_id_seq
+    START WITH 0
+    INCREMENT BY 1
+    MINVALUE 0
+    NO MAXVALUE
+    CACHE 1
+    CYCLE
+);
+
+
+--
+-- TOC entry 249 (class 1259 OID 17978)
+-- Name: track_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+ALTER TABLE public.track ALTER COLUMN id ADD GENERATED ALWAYS AS IDENTITY (
+    SEQUENCE NAME public.track_id_seq
+    START WITH 0
+    INCREMENT BY 1
+    MINVALUE 0
+    NO MAXVALUE
+    CACHE 1
+    CYCLE
+);
+
+
+--
 -- TOC entry 231 (class 1259 OID 16745)
 -- Name: track_segment_audio_feature; Type: TABLE; Schema: public; Owner: postgres
 --
@@ -221,6 +365,22 @@ CREATE TABLE public.track_segment_audio_feature (
 
 
 ALTER TABLE public.track_segment_audio_feature OWNER TO postgres;
+
+--
+-- TOC entry 252 (class 1259 OID 17981)
+-- Name: track_segment_audio_feature_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+ALTER TABLE public.track_segment_audio_feature ALTER COLUMN id ADD GENERATED ALWAYS AS IDENTITY (
+    SEQUENCE NAME public.track_segment_audio_feature_id_seq
+    START WITH 0
+    INCREMENT BY 1
+    MINVALUE 0
+    NO MAXVALUE
+    CACHE 1
+    CYCLE
+);
+
 
 --
 -- TOC entry 235 (class 1259 OID 17755)
@@ -291,12 +451,28 @@ CREATE TABLE public.user_data (
     email text NOT NULL,
     password text NOT NULL,
     nickname text NOT NULL,
-    registration_date date NOT NULL,
-    last_update_date date NOT NULL
+    registration_date timestamp(6) without time zone NOT NULL,
+    last_update_date timestamp(6) without time zone NOT NULL
 );
 
 
 ALTER TABLE public.user_data OWNER TO postgres;
+
+--
+-- TOC entry 242 (class 1259 OID 17969)
+-- Name: user_data_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+ALTER TABLE public.user_data ALTER COLUMN id ADD GENERATED ALWAYS AS IDENTITY (
+    SEQUENCE NAME public.user_data_id_seq
+    START WITH 0
+    INCREMENT BY 1
+    MINVALUE 0
+    NO MAXVALUE
+    CACHE 1
+    CYCLE
+);
+
 
 --
 -- TOC entry 232 (class 1259 OID 16755)
@@ -314,6 +490,22 @@ CREATE TABLE public.user_neural_network_configuration (
 
 
 ALTER TABLE public.user_neural_network_configuration OWNER TO postgres;
+
+--
+-- TOC entry 253 (class 1259 OID 17983)
+-- Name: user_neural_network_configuration_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+ALTER TABLE public.user_neural_network_configuration ALTER COLUMN id ADD GENERATED ALWAYS AS IDENTITY (
+    SEQUENCE NAME public.user_neural_network_configuration_id_seq
+    START WITH 0
+    INCREMENT BY 1
+    MINVALUE 0
+    NO MAXVALUE
+    CACHE 1
+    CYCLE
+);
+
 
 --
 -- TOC entry 228 (class 1259 OID 16675)
@@ -345,6 +537,22 @@ CREATE TABLE public.user_playlist_access_level (
 ALTER TABLE public.user_playlist_access_level OWNER TO postgres;
 
 --
+-- TOC entry 254 (class 1259 OID 17984)
+-- Name: user_playlist_access_level_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+ALTER TABLE public.user_playlist_access_level ALTER COLUMN id ADD GENERATED ALWAYS AS IDENTITY (
+    SEQUENCE NAME public.user_playlist_access_level_id_seq
+    START WITH 0
+    INCREMENT BY 1
+    MINVALUE 0
+    NO MAXVALUE
+    CACHE 1
+    CYCLE
+);
+
+
+--
 -- TOC entry 241 (class 1259 OID 17883)
 -- Name: user_playlist_rating; Type: TABLE; Schema: public; Owner: postgres
 --
@@ -370,6 +578,22 @@ CREATE TABLE public.user_rating (
 
 
 ALTER TABLE public.user_rating OWNER TO postgres;
+
+--
+-- TOC entry 255 (class 1259 OID 17985)
+-- Name: user_rating_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+ALTER TABLE public.user_rating ALTER COLUMN id ADD GENERATED ALWAYS AS IDENTITY (
+    SEQUENCE NAME public.user_rating_id_seq
+    START WITH 0
+    INCREMENT BY 1
+    MINVALUE 0
+    NO MAXVALUE
+    CACHE 1
+    CYCLE
+);
+
 
 --
 -- TOC entry 234 (class 1259 OID 17734)
@@ -415,25 +639,25 @@ CREATE TABLE public.user_track_rating (
 ALTER TABLE public.user_track_rating OWNER TO postgres;
 
 --
--- TOC entry 3766 (class 0 OID 16562)
+-- TOC entry 3780 (class 0 OID 16562)
 -- Dependencies: 218
 -- Data for Name: album; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-INSERT INTO public.album (id, name, release_date, image_filename) VALUES (0, 'Brave Nu World', '2009-01-13 00:00:00', '0.jpg');
-INSERT INTO public.album (id, name, release_date, image_filename) VALUES (5, 'Calling For You/Can I Live/This Is What You Are', '2017-01-19 00:00:00', 'default.jpg');
-INSERT INTO public.album (id, name, release_date, image_filename) VALUES (1, 'Giovanni Croce''s Cantato Domino', '2009-04-23 00:00:00', 'default.jpg');
-INSERT INTO public.album (id, name, release_date, image_filename) VALUES (2, 'Wild Heart', '2015-02-05 00:00:00', '2.jpg');
-INSERT INTO public.album (id, name, release_date, image_filename) VALUES (3, 'Nightwavs', '2014-12-01 00:00:00', '3.jpg');
-INSERT INTO public.album (id, name, release_date, image_filename) VALUES (4, 'It Never Happened', '2015-11-27 00:00:00', '4.jpg');
-INSERT INTO public.album (id, name, release_date, image_filename) VALUES (6, 'The Only Dream', '2007-01-01 00:00:00', '6.jpg');
-INSERT INTO public.album (id, name, release_date, image_filename) VALUES (7, 'Coordinates', '2010-02-23 00:00:00', '7.jpg');
-INSERT INTO public.album (id, name, release_date, image_filename) VALUES (8, 'Dead And/Or Famous', '2008-11-26 00:00:00', '8.jpg');
-INSERT INTO public.album (id, name, release_date, image_filename) VALUES (9, 'Aware', '2021-01-22 00:00:00', '9.jpg');
+INSERT INTO public.album (id, name, release_date, image_filename) OVERRIDING SYSTEM VALUE VALUES (0, 'Brave Nu World', '2009-01-13 00:00:00', '0.jpg');
+INSERT INTO public.album (id, name, release_date, image_filename) OVERRIDING SYSTEM VALUE VALUES (5, 'Calling For You/Can I Live/This Is What You Are', '2017-01-19 00:00:00', 'default.jpg');
+INSERT INTO public.album (id, name, release_date, image_filename) OVERRIDING SYSTEM VALUE VALUES (1, 'Giovanni Croce''s Cantato Domino', '2009-04-23 00:00:00', 'default.jpg');
+INSERT INTO public.album (id, name, release_date, image_filename) OVERRIDING SYSTEM VALUE VALUES (2, 'Wild Heart', '2015-02-05 00:00:00', '2.jpg');
+INSERT INTO public.album (id, name, release_date, image_filename) OVERRIDING SYSTEM VALUE VALUES (3, 'Nightwavs', '2014-12-01 00:00:00', '3.jpg');
+INSERT INTO public.album (id, name, release_date, image_filename) OVERRIDING SYSTEM VALUE VALUES (4, 'It Never Happened', '2015-11-27 00:00:00', '4.jpg');
+INSERT INTO public.album (id, name, release_date, image_filename) OVERRIDING SYSTEM VALUE VALUES (6, 'The Only Dream', '2007-01-01 00:00:00', '6.jpg');
+INSERT INTO public.album (id, name, release_date, image_filename) OVERRIDING SYSTEM VALUE VALUES (7, 'Coordinates', '2010-02-23 00:00:00', '7.jpg');
+INSERT INTO public.album (id, name, release_date, image_filename) OVERRIDING SYSTEM VALUE VALUES (8, 'Dead And/Or Famous', '2008-11-26 00:00:00', '8.jpg');
+INSERT INTO public.album (id, name, release_date, image_filename) OVERRIDING SYSTEM VALUE VALUES (9, 'Aware', '2021-01-22 00:00:00', '9.jpg');
 
 
 --
--- TOC entry 3769 (class 0 OID 16583)
+-- TOC entry 3783 (class 0 OID 16583)
 -- Dependencies: 221
 -- Data for Name: album_artist; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -451,7 +675,7 @@ INSERT INTO public.album_artist (album_id, artist_id, artist_status_id) VALUES (
 
 
 --
--- TOC entry 3770 (class 0 OID 16603)
+-- TOC entry 3784 (class 0 OID 16603)
 -- Dependencies: 222
 -- Data for Name: album_track; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -469,36 +693,36 @@ INSERT INTO public.album_track (album_id, track_id, track_number_in_album) VALUE
 
 
 --
--- TOC entry 3767 (class 0 OID 16569)
+-- TOC entry 3781 (class 0 OID 16569)
 -- Dependencies: 219
 -- Data for Name: artist; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-INSERT INTO public.artist (id, name, image_filename) VALUES (5, 'SK', '5.jpg');
-INSERT INTO public.artist (id, name, image_filename) VALUES (0, 'Little Howlin'' Wolf', '0.jpg');
-INSERT INTO public.artist (id, name, image_filename) VALUES (1, 'Anonymous Choir', 'default.jpg');
-INSERT INTO public.artist (id, name, image_filename) VALUES (2, 'Bryan Mathys', '2.jpg');
-INSERT INTO public.artist (id, name, image_filename) VALUES (3, 'The Easton Ellises', 'default.jpg');
-INSERT INTO public.artist (id, name, image_filename) VALUES (4, 'Albin Andersson', '4.jpg');
-INSERT INTO public.artist (id, name, image_filename) VALUES (6, 'Michael Winkle', '6.jpg');
-INSERT INTO public.artist (id, name, image_filename) VALUES (7, 'Monk Turner', '7.jpg');
-INSERT INTO public.artist (id, name, image_filename) VALUES (8, 'Mors Ontologica', '8.jpg');
-INSERT INTO public.artist (id, name, image_filename) VALUES (9, 'Double-F the King', '9.jpg');
+INSERT INTO public.artist (id, name, image_filename) OVERRIDING SYSTEM VALUE VALUES (5, 'SK', '5.jpg');
+INSERT INTO public.artist (id, name, image_filename) OVERRIDING SYSTEM VALUE VALUES (0, 'Little Howlin'' Wolf', '0.jpg');
+INSERT INTO public.artist (id, name, image_filename) OVERRIDING SYSTEM VALUE VALUES (1, 'Anonymous Choir', 'default.jpg');
+INSERT INTO public.artist (id, name, image_filename) OVERRIDING SYSTEM VALUE VALUES (2, 'Bryan Mathys', '2.jpg');
+INSERT INTO public.artist (id, name, image_filename) OVERRIDING SYSTEM VALUE VALUES (3, 'The Easton Ellises', 'default.jpg');
+INSERT INTO public.artist (id, name, image_filename) OVERRIDING SYSTEM VALUE VALUES (4, 'Albin Andersson', '4.jpg');
+INSERT INTO public.artist (id, name, image_filename) OVERRIDING SYSTEM VALUE VALUES (6, 'Michael Winkle', '6.jpg');
+INSERT INTO public.artist (id, name, image_filename) OVERRIDING SYSTEM VALUE VALUES (7, 'Monk Turner', '7.jpg');
+INSERT INTO public.artist (id, name, image_filename) OVERRIDING SYSTEM VALUE VALUES (8, 'Mors Ontologica', '8.jpg');
+INSERT INTO public.artist (id, name, image_filename) OVERRIDING SYSTEM VALUE VALUES (9, 'Double-F the King', '9.jpg');
 
 
 --
--- TOC entry 3768 (class 0 OID 16576)
+-- TOC entry 3782 (class 0 OID 16576)
 -- Dependencies: 220
 -- Data for Name: artist_status; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-INSERT INTO public.artist_status (id, name) VALUES (0, 'Main artist');
-INSERT INTO public.artist_status (id, name) VALUES (1, 'Collaborating artist');
-INSERT INTO public.artist_status (id, name) VALUES (2, 'Featured artist');
+INSERT INTO public.artist_status (id, name) OVERRIDING SYSTEM VALUE VALUES (0, 'Main artist');
+INSERT INTO public.artist_status (id, name) OVERRIDING SYSTEM VALUE VALUES (1, 'Collaborating artist');
+INSERT INTO public.artist_status (id, name) OVERRIDING SYSTEM VALUE VALUES (2, 'Featured artist');
 
 
 --
--- TOC entry 3771 (class 0 OID 16618)
+-- TOC entry 3785 (class 0 OID 16618)
 -- Dependencies: 223
 -- Data for Name: artist_track; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -516,40 +740,40 @@ INSERT INTO public.artist_track (artist_id, track_id, artist_status_id) VALUES (
 
 
 --
--- TOC entry 3763 (class 0 OID 16531)
+-- TOC entry 3777 (class 0 OID 16531)
 -- Dependencies: 215
 -- Data for Name: genre; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-INSERT INTO public.genre (id, name) VALUES (0, 'Blues');
-INSERT INTO public.genre (id, name) VALUES (1, 'Classical');
-INSERT INTO public.genre (id, name) VALUES (2, 'Country');
-INSERT INTO public.genre (id, name) VALUES (3, 'Electronic');
-INSERT INTO public.genre (id, name) VALUES (4, 'Folk');
-INSERT INTO public.genre (id, name) VALUES (5, 'Hip-Hop');
-INSERT INTO public.genre (id, name) VALUES (6, 'Jazz');
-INSERT INTO public.genre (id, name) VALUES (7, 'Pop');
-INSERT INTO public.genre (id, name) VALUES (8, 'Rock');
-INSERT INTO public.genre (id, name) VALUES (9, 'Soul-RnB');
+INSERT INTO public.genre (id, name) OVERRIDING SYSTEM VALUE VALUES (0, 'Blues');
+INSERT INTO public.genre (id, name) OVERRIDING SYSTEM VALUE VALUES (1, 'Classical');
+INSERT INTO public.genre (id, name) OVERRIDING SYSTEM VALUE VALUES (2, 'Country');
+INSERT INTO public.genre (id, name) OVERRIDING SYSTEM VALUE VALUES (3, 'Electronic');
+INSERT INTO public.genre (id, name) OVERRIDING SYSTEM VALUE VALUES (4, 'Folk');
+INSERT INTO public.genre (id, name) OVERRIDING SYSTEM VALUE VALUES (5, 'Hip-Hop');
+INSERT INTO public.genre (id, name) OVERRIDING SYSTEM VALUE VALUES (6, 'Jazz');
+INSERT INTO public.genre (id, name) OVERRIDING SYSTEM VALUE VALUES (7, 'Pop');
+INSERT INTO public.genre (id, name) OVERRIDING SYSTEM VALUE VALUES (8, 'Rock');
+INSERT INTO public.genre (id, name) OVERRIDING SYSTEM VALUE VALUES (9, 'Soul-RnB');
 
 
 --
--- TOC entry 3764 (class 0 OID 16538)
+-- TOC entry 3778 (class 0 OID 16538)
 -- Dependencies: 216
 -- Data for Name: license; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-INSERT INTO public.license (id, name) VALUES (0, 'CC0: Public Domain Dedication / No Rights Reserved');
-INSERT INTO public.license (id, name) VALUES (2, 'CC BY-SA: Attribution-ShareAlike');
-INSERT INTO public.license (id, name) VALUES (5, 'CC BY-NC-SA: Attribution-NonCommercial-ShareAlike');
-INSERT INTO public.license (id, name) VALUES (6, 'CC BY-NC-ND: Attribution-NonCommercial-NoDerivatives');
-INSERT INTO public.license (id, name) VALUES (1, 'CC BY: Attribution');
-INSERT INTO public.license (id, name) VALUES (3, 'CC BY-ND: Attribution-NoDerivatives');
-INSERT INTO public.license (id, name) VALUES (4, 'CC BY-NC: Attribution-NonCommercial');
+INSERT INTO public.license (id, name) OVERRIDING SYSTEM VALUE VALUES (0, 'CC0: Public Domain Dedication / No Rights Reserved');
+INSERT INTO public.license (id, name) OVERRIDING SYSTEM VALUE VALUES (2, 'CC BY-SA: Attribution-ShareAlike');
+INSERT INTO public.license (id, name) OVERRIDING SYSTEM VALUE VALUES (5, 'CC BY-NC-SA: Attribution-NonCommercial-ShareAlike');
+INSERT INTO public.license (id, name) OVERRIDING SYSTEM VALUE VALUES (6, 'CC BY-NC-ND: Attribution-NonCommercial-NoDerivatives');
+INSERT INTO public.license (id, name) OVERRIDING SYSTEM VALUE VALUES (1, 'CC BY: Attribution');
+INSERT INTO public.license (id, name) OVERRIDING SYSTEM VALUE VALUES (3, 'CC BY-ND: Attribution-NoDerivatives');
+INSERT INTO public.license (id, name) OVERRIDING SYSTEM VALUE VALUES (4, 'CC BY-NC: Attribution-NonCommercial');
 
 
 --
--- TOC entry 3772 (class 0 OID 16638)
+-- TOC entry 3786 (class 0 OID 16638)
 -- Dependencies: 224
 -- Data for Name: playlist; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -557,7 +781,7 @@ INSERT INTO public.license (id, name) VALUES (4, 'CC BY-NC: Attribution-NonComme
 
 
 --
--- TOC entry 3773 (class 0 OID 16645)
+-- TOC entry 3787 (class 0 OID 16645)
 -- Dependencies: 225
 -- Data for Name: playlist_track; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -565,25 +789,25 @@ INSERT INTO public.license (id, name) VALUES (4, 'CC BY-NC: Attribution-NonComme
 
 
 --
--- TOC entry 3765 (class 0 OID 16545)
+-- TOC entry 3779 (class 0 OID 16545)
 -- Dependencies: 217
 -- Data for Name: track; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-INSERT INTO public.track (id, primary_genre_id, license_id, name, duration_in_seconds, release_date, audio_filename) VALUES (5, 5, 1, 'Can I live', 136, '2017-01-19 00:00:00', '5.mp3');
-INSERT INTO public.track (id, primary_genre_id, license_id, name, duration_in_seconds, release_date, audio_filename) VALUES (0, 0, 5, 'Last Double Eagle', 296, '2008-11-26 00:00:00', '0.mp3');
-INSERT INTO public.track (id, primary_genre_id, license_id, name, duration_in_seconds, release_date, audio_filename) VALUES (1, 1, 0, 'Cantate Domino', 134, '2009-04-23 00:00:00', '1.mp3');
-INSERT INTO public.track (id, primary_genre_id, license_id, name, duration_in_seconds, release_date, audio_filename) VALUES (2, 2, 1, 'It''s Not Hard to Get Lost', 238, '2015-02-05 00:00:00', '2.mp3');
-INSERT INTO public.track (id, primary_genre_id, license_id, name, duration_in_seconds, release_date, audio_filename) VALUES (3, 3, 5, 'Stay', 204, '2014-12-01 00:00:00', '3.mp3');
-INSERT INTO public.track (id, primary_genre_id, license_id, name, duration_in_seconds, release_date, audio_filename) VALUES (4, 4, 5, 'Connections', 154, '2016-01-16 00:00:00', '4.mp3');
-INSERT INTO public.track (id, primary_genre_id, license_id, name, duration_in_seconds, release_date, audio_filename) VALUES (6, 6, 5, 'The Only Dream', 232, '2010-01-03 00:00:00', '6.mp3');
-INSERT INTO public.track (id, primary_genre_id, license_id, name, duration_in_seconds, release_date, audio_filename) VALUES (7, 7, 4, 'The Club', 218, '2010-02-23 00:00:00', '7.mp3');
-INSERT INTO public.track (id, primary_genre_id, license_id, name, duration_in_seconds, release_date, audio_filename) VALUES (8, 8, 5, 'Life In A Box', 171, '2008-11-26 00:00:00', '8.mp3');
-INSERT INTO public.track (id, primary_genre_id, license_id, name, duration_in_seconds, release_date, audio_filename) VALUES (9, 9, 2, 'Awware', 175, '2022-05-02 00:00:00', '9.mp3');
+INSERT INTO public.track (id, primary_genre_id, license_id, name, duration_in_seconds, release_date, audio_filename) OVERRIDING SYSTEM VALUE VALUES (5, 5, 1, 'Can I live', 136, '2017-01-19 00:00:00', '5.mp3');
+INSERT INTO public.track (id, primary_genre_id, license_id, name, duration_in_seconds, release_date, audio_filename) OVERRIDING SYSTEM VALUE VALUES (0, 0, 5, 'Last Double Eagle', 296, '2008-11-26 00:00:00', '0.mp3');
+INSERT INTO public.track (id, primary_genre_id, license_id, name, duration_in_seconds, release_date, audio_filename) OVERRIDING SYSTEM VALUE VALUES (1, 1, 0, 'Cantate Domino', 134, '2009-04-23 00:00:00', '1.mp3');
+INSERT INTO public.track (id, primary_genre_id, license_id, name, duration_in_seconds, release_date, audio_filename) OVERRIDING SYSTEM VALUE VALUES (2, 2, 1, 'It''s Not Hard to Get Lost', 238, '2015-02-05 00:00:00', '2.mp3');
+INSERT INTO public.track (id, primary_genre_id, license_id, name, duration_in_seconds, release_date, audio_filename) OVERRIDING SYSTEM VALUE VALUES (3, 3, 5, 'Stay', 204, '2014-12-01 00:00:00', '3.mp3');
+INSERT INTO public.track (id, primary_genre_id, license_id, name, duration_in_seconds, release_date, audio_filename) OVERRIDING SYSTEM VALUE VALUES (4, 4, 5, 'Connections', 154, '2016-01-16 00:00:00', '4.mp3');
+INSERT INTO public.track (id, primary_genre_id, license_id, name, duration_in_seconds, release_date, audio_filename) OVERRIDING SYSTEM VALUE VALUES (6, 6, 5, 'The Only Dream', 232, '2010-01-03 00:00:00', '6.mp3');
+INSERT INTO public.track (id, primary_genre_id, license_id, name, duration_in_seconds, release_date, audio_filename) OVERRIDING SYSTEM VALUE VALUES (7, 7, 4, 'The Club', 218, '2010-02-23 00:00:00', '7.mp3');
+INSERT INTO public.track (id, primary_genre_id, license_id, name, duration_in_seconds, release_date, audio_filename) OVERRIDING SYSTEM VALUE VALUES (8, 8, 5, 'Life In A Box', 171, '2008-11-26 00:00:00', '8.mp3');
+INSERT INTO public.track (id, primary_genre_id, license_id, name, duration_in_seconds, release_date, audio_filename) OVERRIDING SYSTEM VALUE VALUES (9, 9, 2, 'Awware', 175, '2022-05-02 00:00:00', '9.mp3');
 
 
 --
--- TOC entry 3778 (class 0 OID 16730)
+-- TOC entry 3792 (class 0 OID 16730)
 -- Dependencies: 230
 -- Data for Name: track_audio_feature; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -591,16 +815,16 @@ INSERT INTO public.track (id, primary_genre_id, license_id, name, duration_in_se
 
 
 --
--- TOC entry 3777 (class 0 OID 16725)
+-- TOC entry 3791 (class 0 OID 16725)
 -- Dependencies: 229
 -- Data for Name: track_audio_feature_extraction_type; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-INSERT INTO public.track_audio_feature_extraction_type (id, start_delta, segment_duration) VALUES (0, 3, 3);
+INSERT INTO public.track_audio_feature_extraction_type (id, start_delta, segment_duration) OVERRIDING SYSTEM VALUE VALUES (0, 3, 3);
 
 
 --
--- TOC entry 3779 (class 0 OID 16745)
+-- TOC entry 3793 (class 0 OID 16745)
 -- Dependencies: 231
 -- Data for Name: track_segment_audio_feature; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -608,7 +832,7 @@ INSERT INTO public.track_audio_feature_extraction_type (id, start_delta, segment
 
 
 --
--- TOC entry 3783 (class 0 OID 17755)
+-- TOC entry 3797 (class 0 OID 17755)
 -- Dependencies: 235
 -- Data for Name: user_album; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -616,7 +840,7 @@ INSERT INTO public.track_audio_feature_extraction_type (id, start_delta, segment
 
 
 --
--- TOC entry 3787 (class 0 OID 17842)
+-- TOC entry 3801 (class 0 OID 17842)
 -- Dependencies: 239
 -- Data for Name: user_album_rating; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -624,7 +848,7 @@ INSERT INTO public.track_audio_feature_extraction_type (id, start_delta, segment
 
 
 --
--- TOC entry 3784 (class 0 OID 17776)
+-- TOC entry 3798 (class 0 OID 17776)
 -- Dependencies: 236
 -- Data for Name: user_artist; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -632,7 +856,7 @@ INSERT INTO public.track_audio_feature_extraction_type (id, start_delta, segment
 
 
 --
--- TOC entry 3788 (class 0 OID 17863)
+-- TOC entry 3802 (class 0 OID 17863)
 -- Dependencies: 240
 -- Data for Name: user_artist_rating; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -640,7 +864,7 @@ INSERT INTO public.track_audio_feature_extraction_type (id, start_delta, segment
 
 
 --
--- TOC entry 3774 (class 0 OID 16660)
+-- TOC entry 3788 (class 0 OID 16660)
 -- Dependencies: 226
 -- Data for Name: user_data; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -648,7 +872,7 @@ INSERT INTO public.track_audio_feature_extraction_type (id, start_delta, segment
 
 
 --
--- TOC entry 3780 (class 0 OID 16755)
+-- TOC entry 3794 (class 0 OID 16755)
 -- Dependencies: 232
 -- Data for Name: user_neural_network_configuration; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -656,7 +880,7 @@ INSERT INTO public.track_audio_feature_extraction_type (id, start_delta, segment
 
 
 --
--- TOC entry 3776 (class 0 OID 16675)
+-- TOC entry 3790 (class 0 OID 16675)
 -- Dependencies: 228
 -- Data for Name: user_playlist; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -664,18 +888,18 @@ INSERT INTO public.track_audio_feature_extraction_type (id, start_delta, segment
 
 
 --
--- TOC entry 3775 (class 0 OID 16668)
+-- TOC entry 3789 (class 0 OID 16668)
 -- Dependencies: 227
 -- Data for Name: user_playlist_access_level; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-INSERT INTO public.user_playlist_access_level (id, name) VALUES (0, 'Owner');
-INSERT INTO public.user_playlist_access_level (id, name) VALUES (1, 'Moderator');
-INSERT INTO public.user_playlist_access_level (id, name) VALUES (2, 'Listner');
+INSERT INTO public.user_playlist_access_level (id, name) OVERRIDING SYSTEM VALUE VALUES (0, 'Owner');
+INSERT INTO public.user_playlist_access_level (id, name) OVERRIDING SYSTEM VALUE VALUES (1, 'Moderator');
+INSERT INTO public.user_playlist_access_level (id, name) OVERRIDING SYSTEM VALUE VALUES (2, 'Listner');
 
 
 --
--- TOC entry 3789 (class 0 OID 17883)
+-- TOC entry 3803 (class 0 OID 17883)
 -- Dependencies: 241
 -- Data for Name: user_playlist_rating; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -683,18 +907,18 @@ INSERT INTO public.user_playlist_access_level (id, name) VALUES (2, 'Listner');
 
 
 --
--- TOC entry 3781 (class 0 OID 17726)
+-- TOC entry 3795 (class 0 OID 17726)
 -- Dependencies: 233
 -- Data for Name: user_rating; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-INSERT INTO public.user_rating (id, name) VALUES (0, 'none');
-INSERT INTO public.user_rating (id, name) VALUES (1, 'like');
-INSERT INTO public.user_rating (id, name) VALUES (-1, 'dislike');
+INSERT INTO public.user_rating (id, name) OVERRIDING SYSTEM VALUE VALUES (0, 'none');
+INSERT INTO public.user_rating (id, name) OVERRIDING SYSTEM VALUE VALUES (1, 'like');
+INSERT INTO public.user_rating (id, name) OVERRIDING SYSTEM VALUE VALUES (-1, 'dislike');
 
 
 --
--- TOC entry 3782 (class 0 OID 17734)
+-- TOC entry 3796 (class 0 OID 17734)
 -- Dependencies: 234
 -- Data for Name: user_track; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -702,7 +926,7 @@ INSERT INTO public.user_rating (id, name) VALUES (-1, 'dislike');
 
 
 --
--- TOC entry 3785 (class 0 OID 17797)
+-- TOC entry 3799 (class 0 OID 17797)
 -- Dependencies: 237
 -- Data for Name: user_track_history; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -710,7 +934,7 @@ INSERT INTO public.user_rating (id, name) VALUES (-1, 'dislike');
 
 
 --
--- TOC entry 3786 (class 0 OID 17816)
+-- TOC entry 3800 (class 0 OID 17816)
 -- Dependencies: 238
 -- Data for Name: user_track_rating; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -718,7 +942,133 @@ INSERT INTO public.user_rating (id, name) VALUES (-1, 'dislike');
 
 
 --
--- TOC entry 3535 (class 2606 OID 16587)
+-- TOC entry 3823 (class 0 OID 0)
+-- Dependencies: 243
+-- Name: album_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.album_id_seq', 0, false);
+
+
+--
+-- TOC entry 3824 (class 0 OID 0)
+-- Dependencies: 244
+-- Name: artist_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.artist_id_seq', 0, false);
+
+
+--
+-- TOC entry 3825 (class 0 OID 0)
+-- Dependencies: 245
+-- Name: artist_status_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.artist_status_id_seq', 0, false);
+
+
+--
+-- TOC entry 3826 (class 0 OID 0)
+-- Dependencies: 246
+-- Name: genre_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.genre_id_seq', 0, false);
+
+
+--
+-- TOC entry 3827 (class 0 OID 0)
+-- Dependencies: 247
+-- Name: license_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.license_id_seq', 0, false);
+
+
+--
+-- TOC entry 3828 (class 0 OID 0)
+-- Dependencies: 248
+-- Name: playlist_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.playlist_id_seq', 0, false);
+
+
+--
+-- TOC entry 3829 (class 0 OID 0)
+-- Dependencies: 251
+-- Name: track_audio_feature_extraction_type_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.track_audio_feature_extraction_type_id_seq', 0, false);
+
+
+--
+-- TOC entry 3830 (class 0 OID 0)
+-- Dependencies: 250
+-- Name: track_audio_feature_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.track_audio_feature_id_seq', 0, false);
+
+
+--
+-- TOC entry 3831 (class 0 OID 0)
+-- Dependencies: 249
+-- Name: track_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.track_id_seq', 0, false);
+
+
+--
+-- TOC entry 3832 (class 0 OID 0)
+-- Dependencies: 252
+-- Name: track_segment_audio_feature_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.track_segment_audio_feature_id_seq', 0, false);
+
+
+--
+-- TOC entry 3833 (class 0 OID 0)
+-- Dependencies: 242
+-- Name: user_data_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.user_data_id_seq', 3, true);
+
+
+--
+-- TOC entry 3834 (class 0 OID 0)
+-- Dependencies: 253
+-- Name: user_neural_network_configuration_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.user_neural_network_configuration_id_seq', 0, false);
+
+
+--
+-- TOC entry 3835 (class 0 OID 0)
+-- Dependencies: 254
+-- Name: user_playlist_access_level_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.user_playlist_access_level_id_seq', 0, false);
+
+
+--
+-- TOC entry 3836 (class 0 OID 0)
+-- Dependencies: 255
+-- Name: user_rating_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.user_rating_id_seq', 0, false);
+
+
+--
+-- TOC entry 3549 (class 2606 OID 16587)
 -- Name: album_artist album_artist_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -727,7 +1077,7 @@ ALTER TABLE ONLY public.album_artist
 
 
 --
--- TOC entry 3529 (class 2606 OID 16568)
+-- TOC entry 3543 (class 2606 OID 16568)
 -- Name: album album_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -736,7 +1086,7 @@ ALTER TABLE ONLY public.album
 
 
 --
--- TOC entry 3537 (class 2606 OID 16607)
+-- TOC entry 3551 (class 2606 OID 16607)
 -- Name: album_track album_track_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -745,7 +1095,7 @@ ALTER TABLE ONLY public.album_track
 
 
 --
--- TOC entry 3531 (class 2606 OID 16575)
+-- TOC entry 3545 (class 2606 OID 16575)
 -- Name: artist artist_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -754,7 +1104,7 @@ ALTER TABLE ONLY public.artist
 
 
 --
--- TOC entry 3533 (class 2606 OID 16582)
+-- TOC entry 3547 (class 2606 OID 16582)
 -- Name: artist_status artist_status_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -763,7 +1113,7 @@ ALTER TABLE ONLY public.artist_status
 
 
 --
--- TOC entry 3539 (class 2606 OID 16622)
+-- TOC entry 3553 (class 2606 OID 16622)
 -- Name: artist_track artist_track_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -772,7 +1122,7 @@ ALTER TABLE ONLY public.artist_track
 
 
 --
--- TOC entry 3523 (class 2606 OID 16537)
+-- TOC entry 3537 (class 2606 OID 16537)
 -- Name: genre genre_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -781,7 +1131,7 @@ ALTER TABLE ONLY public.genre
 
 
 --
--- TOC entry 3525 (class 2606 OID 16544)
+-- TOC entry 3539 (class 2606 OID 16544)
 -- Name: license license_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -790,7 +1140,7 @@ ALTER TABLE ONLY public.license
 
 
 --
--- TOC entry 3541 (class 2606 OID 16644)
+-- TOC entry 3555 (class 2606 OID 16644)
 -- Name: playlist playlist_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -799,7 +1149,7 @@ ALTER TABLE ONLY public.playlist
 
 
 --
--- TOC entry 3543 (class 2606 OID 16649)
+-- TOC entry 3557 (class 2606 OID 16649)
 -- Name: playlist_track playlist_track_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -808,7 +1158,7 @@ ALTER TABLE ONLY public.playlist_track
 
 
 --
--- TOC entry 3555 (class 2606 OID 16729)
+-- TOC entry 3569 (class 2606 OID 16729)
 -- Name: track_audio_feature_extraction_type track_audio_feature_extraction_type_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -817,7 +1167,7 @@ ALTER TABLE ONLY public.track_audio_feature_extraction_type
 
 
 --
--- TOC entry 3557 (class 2606 OID 16734)
+-- TOC entry 3571 (class 2606 OID 16734)
 -- Name: track_audio_feature track_audio_feature_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -826,7 +1176,7 @@ ALTER TABLE ONLY public.track_audio_feature
 
 
 --
--- TOC entry 3527 (class 2606 OID 16551)
+-- TOC entry 3541 (class 2606 OID 16551)
 -- Name: track track_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -835,7 +1185,7 @@ ALTER TABLE ONLY public.track
 
 
 --
--- TOC entry 3559 (class 2606 OID 16749)
+-- TOC entry 3573 (class 2606 OID 16749)
 -- Name: track_segment_audio_feature track_segment_audio_feature_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -844,7 +1194,7 @@ ALTER TABLE ONLY public.track_segment_audio_feature
 
 
 --
--- TOC entry 3567 (class 2606 OID 17760)
+-- TOC entry 3581 (class 2606 OID 17760)
 -- Name: user_album user_album_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -853,7 +1203,7 @@ ALTER TABLE ONLY public.user_album
 
 
 --
--- TOC entry 3575 (class 2606 OID 17847)
+-- TOC entry 3589 (class 2606 OID 17847)
 -- Name: user_album_rating user_album_rating_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -862,7 +1212,7 @@ ALTER TABLE ONLY public.user_album_rating
 
 
 --
--- TOC entry 3569 (class 2606 OID 17781)
+-- TOC entry 3583 (class 2606 OID 17781)
 -- Name: user_artist user_artist_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -871,7 +1221,7 @@ ALTER TABLE ONLY public.user_artist
 
 
 --
--- TOC entry 3577 (class 2606 OID 17867)
+-- TOC entry 3591 (class 2606 OID 17867)
 -- Name: user_artist_rating user_artist_rating_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -880,7 +1230,7 @@ ALTER TABLE ONLY public.user_artist_rating
 
 
 --
--- TOC entry 3545 (class 2606 OID 17815)
+-- TOC entry 3559 (class 2606 OID 17815)
 -- Name: user_data user_data_email_key; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -889,7 +1239,7 @@ ALTER TABLE ONLY public.user_data
 
 
 --
--- TOC entry 3547 (class 2606 OID 16666)
+-- TOC entry 3561 (class 2606 OID 16666)
 -- Name: user_data user_data_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -898,7 +1248,7 @@ ALTER TABLE ONLY public.user_data
 
 
 --
--- TOC entry 3549 (class 2606 OID 17813)
+-- TOC entry 3563 (class 2606 OID 17813)
 -- Name: user_data user_data_username_key; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -907,7 +1257,7 @@ ALTER TABLE ONLY public.user_data
 
 
 --
--- TOC entry 3561 (class 2606 OID 16759)
+-- TOC entry 3575 (class 2606 OID 16759)
 -- Name: user_neural_network_configuration user_neural_network_configuration_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -916,7 +1266,7 @@ ALTER TABLE ONLY public.user_neural_network_configuration
 
 
 --
--- TOC entry 3551 (class 2606 OID 16674)
+-- TOC entry 3565 (class 2606 OID 16674)
 -- Name: user_playlist_access_level user_playlist_access_level_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -925,7 +1275,7 @@ ALTER TABLE ONLY public.user_playlist_access_level
 
 
 --
--- TOC entry 3553 (class 2606 OID 16679)
+-- TOC entry 3567 (class 2606 OID 16679)
 -- Name: user_playlist user_playlist_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -934,7 +1284,7 @@ ALTER TABLE ONLY public.user_playlist
 
 
 --
--- TOC entry 3579 (class 2606 OID 17888)
+-- TOC entry 3593 (class 2606 OID 17888)
 -- Name: user_playlist_rating user_playlist_rating_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -943,7 +1293,7 @@ ALTER TABLE ONLY public.user_playlist_rating
 
 
 --
--- TOC entry 3563 (class 2606 OID 17732)
+-- TOC entry 3577 (class 2606 OID 17732)
 -- Name: user_rating user_rating_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -952,7 +1302,7 @@ ALTER TABLE ONLY public.user_rating
 
 
 --
--- TOC entry 3571 (class 2606 OID 17801)
+-- TOC entry 3585 (class 2606 OID 17801)
 -- Name: user_track_history user_track_history_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -961,7 +1311,7 @@ ALTER TABLE ONLY public.user_track_history
 
 
 --
--- TOC entry 3565 (class 2606 OID 17739)
+-- TOC entry 3579 (class 2606 OID 17739)
 -- Name: user_track user_track_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -970,7 +1320,7 @@ ALTER TABLE ONLY public.user_track
 
 
 --
--- TOC entry 3573 (class 2606 OID 17821)
+-- TOC entry 3587 (class 2606 OID 17821)
 -- Name: user_track_rating user_track_rating_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -979,7 +1329,7 @@ ALTER TABLE ONLY public.user_track_rating
 
 
 --
--- TOC entry 3582 (class 2606 OID 16588)
+-- TOC entry 3596 (class 2606 OID 16588)
 -- Name: album_artist album_artist_album_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -988,7 +1338,7 @@ ALTER TABLE ONLY public.album_artist
 
 
 --
--- TOC entry 3583 (class 2606 OID 16593)
+-- TOC entry 3597 (class 2606 OID 16593)
 -- Name: album_artist album_artist_artist_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -997,7 +1347,7 @@ ALTER TABLE ONLY public.album_artist
 
 
 --
--- TOC entry 3584 (class 2606 OID 16598)
+-- TOC entry 3598 (class 2606 OID 16598)
 -- Name: album_artist album_artist_artist_status_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1006,7 +1356,7 @@ ALTER TABLE ONLY public.album_artist
 
 
 --
--- TOC entry 3585 (class 2606 OID 16608)
+-- TOC entry 3599 (class 2606 OID 16608)
 -- Name: album_track album_track_album_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1015,7 +1365,7 @@ ALTER TABLE ONLY public.album_track
 
 
 --
--- TOC entry 3586 (class 2606 OID 16613)
+-- TOC entry 3600 (class 2606 OID 16613)
 -- Name: album_track album_track_track_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1024,7 +1374,7 @@ ALTER TABLE ONLY public.album_track
 
 
 --
--- TOC entry 3587 (class 2606 OID 16623)
+-- TOC entry 3601 (class 2606 OID 16623)
 -- Name: artist_track artist_track_artist_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1033,7 +1383,7 @@ ALTER TABLE ONLY public.artist_track
 
 
 --
--- TOC entry 3588 (class 2606 OID 16633)
+-- TOC entry 3602 (class 2606 OID 16633)
 -- Name: artist_track artist_track_artist_status_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1042,7 +1392,7 @@ ALTER TABLE ONLY public.artist_track
 
 
 --
--- TOC entry 3589 (class 2606 OID 16628)
+-- TOC entry 3603 (class 2606 OID 16628)
 -- Name: artist_track artist_track_track_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1051,7 +1401,7 @@ ALTER TABLE ONLY public.artist_track
 
 
 --
--- TOC entry 3590 (class 2606 OID 16650)
+-- TOC entry 3604 (class 2606 OID 16650)
 -- Name: playlist_track playlist_track_playlist_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1060,7 +1410,7 @@ ALTER TABLE ONLY public.playlist_track
 
 
 --
--- TOC entry 3591 (class 2606 OID 16655)
+-- TOC entry 3605 (class 2606 OID 16655)
 -- Name: playlist_track playlist_track_track_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1069,7 +1419,7 @@ ALTER TABLE ONLY public.playlist_track
 
 
 --
--- TOC entry 3595 (class 2606 OID 16740)
+-- TOC entry 3609 (class 2606 OID 16740)
 -- Name: track_audio_feature track_audio_feature_track_audio_feature_extraction_type_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1078,7 +1428,7 @@ ALTER TABLE ONLY public.track_audio_feature
 
 
 --
--- TOC entry 3596 (class 2606 OID 16735)
+-- TOC entry 3610 (class 2606 OID 16735)
 -- Name: track_audio_feature track_audio_feature_track_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1087,7 +1437,7 @@ ALTER TABLE ONLY public.track_audio_feature
 
 
 --
--- TOC entry 3580 (class 2606 OID 16557)
+-- TOC entry 3594 (class 2606 OID 16557)
 -- Name: track track_license_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1096,7 +1446,7 @@ ALTER TABLE ONLY public.track
 
 
 --
--- TOC entry 3581 (class 2606 OID 16552)
+-- TOC entry 3595 (class 2606 OID 16552)
 -- Name: track track_primary_genre_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1105,7 +1455,7 @@ ALTER TABLE ONLY public.track
 
 
 --
--- TOC entry 3597 (class 2606 OID 16750)
+-- TOC entry 3611 (class 2606 OID 16750)
 -- Name: track_segment_audio_feature track_segment_audio_feature_track_audio_feature_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1114,7 +1464,7 @@ ALTER TABLE ONLY public.track_segment_audio_feature
 
 
 --
--- TOC entry 3602 (class 2606 OID 17766)
+-- TOC entry 3616 (class 2606 OID 17766)
 -- Name: user_album user_album_album_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1123,7 +1473,7 @@ ALTER TABLE ONLY public.user_album
 
 
 --
--- TOC entry 3611 (class 2606 OID 17853)
+-- TOC entry 3625 (class 2606 OID 17853)
 -- Name: user_album_rating user_album_rating_album_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1132,7 +1482,7 @@ ALTER TABLE ONLY public.user_album_rating
 
 
 --
--- TOC entry 3612 (class 2606 OID 17848)
+-- TOC entry 3626 (class 2606 OID 17848)
 -- Name: user_album_rating user_album_rating_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1141,7 +1491,7 @@ ALTER TABLE ONLY public.user_album_rating
 
 
 --
--- TOC entry 3613 (class 2606 OID 17858)
+-- TOC entry 3627 (class 2606 OID 17858)
 -- Name: user_album_rating user_album_rating_user_rating_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1150,7 +1500,7 @@ ALTER TABLE ONLY public.user_album_rating
 
 
 --
--- TOC entry 3603 (class 2606 OID 17761)
+-- TOC entry 3617 (class 2606 OID 17761)
 -- Name: user_album user_album_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1159,7 +1509,7 @@ ALTER TABLE ONLY public.user_album
 
 
 --
--- TOC entry 3604 (class 2606 OID 17787)
+-- TOC entry 3618 (class 2606 OID 17787)
 -- Name: user_artist user_artist_artist_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1168,7 +1518,7 @@ ALTER TABLE ONLY public.user_artist
 
 
 --
--- TOC entry 3614 (class 2606 OID 17873)
+-- TOC entry 3628 (class 2606 OID 17873)
 -- Name: user_artist_rating user_artist_rating_artist_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1177,7 +1527,7 @@ ALTER TABLE ONLY public.user_artist_rating
 
 
 --
--- TOC entry 3615 (class 2606 OID 17868)
+-- TOC entry 3629 (class 2606 OID 17868)
 -- Name: user_artist_rating user_artist_rating_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1186,7 +1536,7 @@ ALTER TABLE ONLY public.user_artist_rating
 
 
 --
--- TOC entry 3616 (class 2606 OID 17878)
+-- TOC entry 3630 (class 2606 OID 17878)
 -- Name: user_artist_rating user_artist_rating_user_rating_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1195,7 +1545,7 @@ ALTER TABLE ONLY public.user_artist_rating
 
 
 --
--- TOC entry 3605 (class 2606 OID 17782)
+-- TOC entry 3619 (class 2606 OID 17782)
 -- Name: user_artist user_artist_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1204,7 +1554,7 @@ ALTER TABLE ONLY public.user_artist
 
 
 --
--- TOC entry 3598 (class 2606 OID 16765)
+-- TOC entry 3612 (class 2606 OID 16765)
 -- Name: user_neural_network_configuration user_neural_network_configura_audio_feature_extraction_typ_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1213,7 +1563,7 @@ ALTER TABLE ONLY public.user_neural_network_configuration
 
 
 --
--- TOC entry 3599 (class 2606 OID 16760)
+-- TOC entry 3613 (class 2606 OID 16760)
 -- Name: user_neural_network_configuration user_neural_network_configuration_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1222,7 +1572,7 @@ ALTER TABLE ONLY public.user_neural_network_configuration
 
 
 --
--- TOC entry 3592 (class 2606 OID 16690)
+-- TOC entry 3606 (class 2606 OID 16690)
 -- Name: user_playlist user_playlist_access_level_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1231,7 +1581,7 @@ ALTER TABLE ONLY public.user_playlist
 
 
 --
--- TOC entry 3593 (class 2606 OID 16685)
+-- TOC entry 3607 (class 2606 OID 16685)
 -- Name: user_playlist user_playlist_playlist_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1240,7 +1590,7 @@ ALTER TABLE ONLY public.user_playlist
 
 
 --
--- TOC entry 3617 (class 2606 OID 17894)
+-- TOC entry 3631 (class 2606 OID 17894)
 -- Name: user_playlist_rating user_playlist_rating_playlist_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1249,7 +1599,7 @@ ALTER TABLE ONLY public.user_playlist_rating
 
 
 --
--- TOC entry 3618 (class 2606 OID 17889)
+-- TOC entry 3632 (class 2606 OID 17889)
 -- Name: user_playlist_rating user_playlist_rating_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1258,7 +1608,7 @@ ALTER TABLE ONLY public.user_playlist_rating
 
 
 --
--- TOC entry 3619 (class 2606 OID 17899)
+-- TOC entry 3633 (class 2606 OID 17899)
 -- Name: user_playlist_rating user_playlist_rating_user_rating_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1267,7 +1617,7 @@ ALTER TABLE ONLY public.user_playlist_rating
 
 
 --
--- TOC entry 3594 (class 2606 OID 16680)
+-- TOC entry 3608 (class 2606 OID 16680)
 -- Name: user_playlist user_playlist_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1276,7 +1626,7 @@ ALTER TABLE ONLY public.user_playlist
 
 
 --
--- TOC entry 3606 (class 2606 OID 17807)
+-- TOC entry 3620 (class 2606 OID 17807)
 -- Name: user_track_history user_track_history_track_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1285,7 +1635,7 @@ ALTER TABLE ONLY public.user_track_history
 
 
 --
--- TOC entry 3607 (class 2606 OID 17802)
+-- TOC entry 3621 (class 2606 OID 17802)
 -- Name: user_track_history user_track_history_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1294,7 +1644,7 @@ ALTER TABLE ONLY public.user_track_history
 
 
 --
--- TOC entry 3608 (class 2606 OID 17832)
+-- TOC entry 3622 (class 2606 OID 17832)
 -- Name: user_track_rating user_track_rating_track_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1303,7 +1653,7 @@ ALTER TABLE ONLY public.user_track_rating
 
 
 --
--- TOC entry 3609 (class 2606 OID 17827)
+-- TOC entry 3623 (class 2606 OID 17827)
 -- Name: user_track_rating user_track_rating_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1312,7 +1662,7 @@ ALTER TABLE ONLY public.user_track_rating
 
 
 --
--- TOC entry 3610 (class 2606 OID 17837)
+-- TOC entry 3624 (class 2606 OID 17837)
 -- Name: user_track_rating user_track_rating_user_rating_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1321,7 +1671,7 @@ ALTER TABLE ONLY public.user_track_rating
 
 
 --
--- TOC entry 3600 (class 2606 OID 17745)
+-- TOC entry 3614 (class 2606 OID 17745)
 -- Name: user_track user_track_track_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1330,7 +1680,7 @@ ALTER TABLE ONLY public.user_track
 
 
 --
--- TOC entry 3601 (class 2606 OID 17740)
+-- TOC entry 3615 (class 2606 OID 17740)
 -- Name: user_track user_track_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1338,7 +1688,7 @@ ALTER TABLE ONLY public.user_track
     ADD CONSTRAINT user_track_user_id_fkey FOREIGN KEY (user_id) REFERENCES public.user_data(id);
 
 
--- Completed on 2024-05-28 23:40:46 +07
+-- Completed on 2024-05-29 04:16:08 +07
 
 --
 -- PostgreSQL database dump complete
