@@ -1,11 +1,11 @@
-package com.bessonov.musicappserver.database.user;
+package com.bessonov.musicappserver.database.userData;
 
 import jakarta.persistence.*;
-import java.sql.Date;
+import java.util.Date;
 
 @Entity
-@Table(name = "user_info")
-public class User {
+@Table(name = "user_data")
+public class UserData {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -87,7 +87,7 @@ public class User {
 
     @Override
     public String toString() {
-        return "User{" +
+        return "UserData{" +
                 "id=" + id +
                 ", username='" + username + '\'' +
                 ", email='" + email + '\'' +
