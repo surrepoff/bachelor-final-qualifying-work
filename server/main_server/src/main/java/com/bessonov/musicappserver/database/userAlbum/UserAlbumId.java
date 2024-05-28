@@ -4,6 +4,7 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 @Embeddable
 public class UserAlbumId implements Serializable {
@@ -27,6 +28,19 @@ public class UserAlbumId implements Serializable {
 
     public void setAlbumId(int albumId) {
         this.albumId = albumId;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        UserAlbumId that = (UserAlbumId) o;
+        return userId == that.userId && albumId == that.albumId;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(userId, albumId);
     }
 
     @Override
