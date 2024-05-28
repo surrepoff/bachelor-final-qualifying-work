@@ -16,10 +16,10 @@ import com.bessonov.musicappclient.adapter.section.SectionType
 import com.bessonov.musicappclient.dto.AlbumInfoDTO
 import com.bessonov.musicappclient.dto.ArtistInfoDTO
 import com.bessonov.musicappclient.dto.TrackInfoDTO
-import com.bessonov.musicappclient.api.AlbumInfoAPI
-import com.bessonov.musicappclient.api.ArtistInfoAPI
+import com.bessonov.musicappclient.api.AlbumAPI
+import com.bessonov.musicappclient.api.ArtistAPI
 import com.bessonov.musicappclient.api.RetrofitService
-import com.bessonov.musicappclient.api.TrackInfoAPI
+import com.bessonov.musicappclient.api.TrackAPI
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -90,8 +90,8 @@ class HomeFragment : Fragment() {
 
     private fun loadArtists() {
         val retrofitService = RetrofitService()
-        val artistInfoAPI = retrofitService.retrofit.create(ArtistInfoAPI::class.java)
-        artistInfoAPI.getAll().enqueue(object : Callback<List<ArtistInfoDTO>> {
+        val artistAPI = retrofitService.retrofit.create(ArtistAPI::class.java)
+        artistAPI.getAll().enqueue(object : Callback<List<ArtistInfoDTO>> {
             override fun onResponse(call: Call<List<ArtistInfoDTO>>, response: Response<List<ArtistInfoDTO>>) {
                 if (response.isSuccessful && response.body() != null) {
                     artistInfoDTOList = response.body()!!
@@ -110,8 +110,8 @@ class HomeFragment : Fragment() {
 
     private fun loadAlbums() {
         val retrofitService = RetrofitService()
-        val albumInfoAPI = retrofitService.retrofit.create(AlbumInfoAPI::class.java)
-        albumInfoAPI.getAll().enqueue(object : Callback<List<AlbumInfoDTO>> {
+        val albumAPI = retrofitService.retrofit.create(AlbumAPI::class.java)
+        albumAPI.getAll().enqueue(object : Callback<List<AlbumInfoDTO>> {
             override fun onResponse(call: Call<List<AlbumInfoDTO>>, response: Response<List<AlbumInfoDTO>>) {
                 if (response.isSuccessful && response.body() != null) {
                     albumInfoDTOList = response.body()!!
@@ -130,8 +130,8 @@ class HomeFragment : Fragment() {
 
     private fun loadTracks() {
         val retrofitService = RetrofitService()
-        val trackInfoAPI = retrofitService.retrofit.create(TrackInfoAPI::class.java)
-        trackInfoAPI.getAll().enqueue(object : Callback<List<TrackInfoDTO>> {
+        val trackAPI = retrofitService.retrofit.create(TrackAPI::class.java)
+        trackAPI.getAll().enqueue(object : Callback<List<TrackInfoDTO>> {
             override fun onResponse(call: Call<List<TrackInfoDTO>>, response: Response<List<TrackInfoDTO>>) {
                 if (response.isSuccessful && response.body() != null) {
                     trackInfoDTOList = response.body()!!

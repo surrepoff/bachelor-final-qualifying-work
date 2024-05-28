@@ -1,4 +1,4 @@
-package com.bessonov.musicappserver.trackInfo;
+package com.bessonov.musicappserver.track;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -9,22 +9,22 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-public class TrackInfoController {
+public class TrackController {
     @Autowired
-    TrackInfoService trackInfoService;
+    TrackService trackService;
 
-    @GetMapping("/api/trackInfo/get/all")
+    @GetMapping("/api/track/get/all")
     public List<TrackInfoDTO> getAll() {
-        return trackInfoService.getTrackInfoAll();
+        return trackService.getTrackInfoAll();
     }
 
-    @PostMapping("/api/trackInfo/get/byTrackId")
+    @PostMapping("/api/track/get/byTrackId")
     public TrackInfoDTO getByTrackId(@RequestBody int trackId) {
-        return trackInfoService.getTrackInfoByTrackId(trackId);
+        return trackService.getTrackInfoByTrackId(trackId);
     }
 
-    @PostMapping("/api/trackInfo/get/byTrackId/list")
+    @PostMapping("/api/track/get/byTrackId/list")
     public List<TrackInfoDTO> getByTrackIdList(@RequestBody List<Integer> trackIdList) {
-        return trackInfoService.getTrackInfoByTrackIdList(trackIdList);
+        return trackService.getTrackInfoByTrackIdList(trackIdList);
     }
 }

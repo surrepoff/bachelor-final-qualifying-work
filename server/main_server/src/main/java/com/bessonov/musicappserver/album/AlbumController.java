@@ -1,6 +1,5 @@
-package com.bessonov.musicappserver.albumInfo;
+package com.bessonov.musicappserver.album;
 
-import com.bessonov.musicappserver.trackInfo.TrackInfoDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -10,22 +9,22 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-public class AlbumInfoController {
+public class AlbumController {
     @Autowired
-    AlbumInfoService albumInfoService;
+    AlbumService albumService;
 
-    @GetMapping("/api/albumInfo/get/all")
+    @GetMapping("/api/album/get/all")
     public List<AlbumInfoDTO> getAll() {
-        return albumInfoService.getAlbumInfoAll();
+        return albumService.getAlbumInfoAll();
     }
 
-    @PostMapping("/api/albumInfo/get/byAlbumId")
+    @PostMapping("/api/album/get/byAlbumId")
     public AlbumInfoDTO getByAlbumId(@RequestBody int albumId) {
-        return albumInfoService.getAlbumInfoByAlbumId(albumId);
+        return albumService.getAlbumInfoByAlbumId(albumId);
     }
 
-    @PostMapping("/api/albumInfo/get/byAlbumId/list")
+    @PostMapping("/api/album/get/byAlbumId/list")
     public List<AlbumInfoDTO> getByAlbumIdList(@RequestBody List<Integer> albumIdList) {
-        return albumInfoService.getAlbumInfoByAlbumIdList(albumIdList);
+        return albumService.getAlbumInfoByAlbumIdList(albumIdList);
     }
 }

@@ -1,8 +1,7 @@
 package com.bessonov.musicappserver;
 
-import com.bessonov.musicappserver.database.track.Track;
-import com.bessonov.musicappserver.trackInfo.TrackInfoDTO;
-import com.bessonov.musicappserver.trackInfo.TrackInfoService;
+import com.bessonov.musicappserver.track.TrackInfoDTO;
+import com.bessonov.musicappserver.track.TrackService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -16,11 +15,11 @@ class MusicAppServerApplicationTests {
 	}
 
 	@Autowired
-	private TrackInfoService trackInfoService;
+	private TrackService trackService;
 
 	@Test
 	void getTrackInfo() {
-		List<TrackInfoDTO> trackInfoDTOList = trackInfoService.getTrackInfoAll();
+		List<TrackInfoDTO> trackInfoDTOList = trackService.getTrackInfoAll();
 		System.out.println(trackInfoDTOList);
 	}
 }

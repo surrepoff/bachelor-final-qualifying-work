@@ -1,4 +1,4 @@
-package com.bessonov.musicappserver.imageinfo;
+package com.bessonov.musicappserver.image;
 
 import com.bessonov.musicappserver.database.album.Album;
 import com.bessonov.musicappserver.database.album.AlbumRepository;
@@ -27,7 +27,7 @@ import java.nio.file.Paths;
 import java.util.Optional;
 
 @Service
-public class ImageInfoService {
+public class ImageService {
     @Autowired
     private AlbumRepository albumRepository;
 

@@ -1,4 +1,4 @@
-package com.bessonov.musicappserver.trackInfo;
+package com.bessonov.musicappserver.track;
 
 import com.bessonov.musicappserver.database.album.Album;
 import com.bessonov.musicappserver.database.album.AlbumDTO;
@@ -31,7 +31,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class TrackInfoService {
+public class TrackService {
     @Autowired
     private AlbumRepository albumRepository;
 

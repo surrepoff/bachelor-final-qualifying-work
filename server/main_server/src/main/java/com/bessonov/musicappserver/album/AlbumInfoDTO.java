@@ -1,4 +1,4 @@
-package com.bessonov.musicappserver.albumInfo;
+package com.bessonov.musicappserver.album;
 
 import com.bessonov.musicappserver.database.album.AlbumDTO;
 import com.bessonov.musicappserver.database.artist.ArtistDTO;

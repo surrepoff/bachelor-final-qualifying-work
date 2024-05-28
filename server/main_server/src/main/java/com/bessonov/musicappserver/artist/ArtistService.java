@@ -1,4 +1,4 @@
-package com.bessonov.musicappserver.artistInfo;
+package com.bessonov.musicappserver.artist;
 
 import com.bessonov.musicappserver.database.album.AlbumRepository;
 import com.bessonov.musicappserver.database.albumArtist.AlbumArtist;
@@ -23,7 +23,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class ArtistInfoService {
+public class ArtistService {
     @Autowired
     private AlbumRepository albumRepository;
 

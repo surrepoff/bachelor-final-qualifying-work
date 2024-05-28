@@ -1,4 +1,4 @@
-package com.bessonov.musicappserver.artistInfo;
+package com.bessonov.musicappserver.artist;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -9,22 +9,22 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-public class ArtistInfoController {
+public class ArtistController {
     @Autowired
-    ArtistInfoService artistInfoService;
+    ArtistService artistService;
 
-    @GetMapping("/api/artistInfo/get/all")
+    @GetMapping("/api/artist/get/all")
     public List<ArtistInfoDTO> getAll() {
-        return artistInfoService.getArtistInfoAll();
+        return artistService.getArtistInfoAll();
     }
 
-    @PostMapping("/api/artistInfo/get/byArtistId")
+    @PostMapping("/api/artist/get/byArtistId")
     public ArtistInfoDTO getByArtistId(@RequestBody int artistId) {
-        return artistInfoService.getArtistInfoDTOByArtistId(artistId);
+        return artistService.getArtistInfoDTOByArtistId(artistId);
     }
 
-    @PostMapping("/api/artistInfo/get/byArtistId/list")
+    @PostMapping("/api/artist/get/byArtistId/list")
     public List<ArtistInfoDTO> getByArtistIdList(@RequestBody List<Integer> artistIdList) {
-        return artistInfoService.getArtistInfoDTOByArtistIdList(artistIdList);
+        return artistService.getArtistInfoDTOByArtistIdList(artistIdList);
     }
 }
