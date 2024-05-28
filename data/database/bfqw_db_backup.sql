@@ -5,7 +5,7 @@
 -- Dumped from database version 16.2
 -- Dumped by pg_dump version 16.2
 
--- Started on 2024-05-28 19:38:41 +07
+-- Started on 2024-05-28 23:40:46 +07
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -30,7 +30,7 @@ SET default_table_access_method = heap;
 CREATE TABLE public.album (
     id integer NOT NULL,
     name text NOT NULL,
-    release_date date NOT NULL,
+    release_date timestamp(6) without time zone NOT NULL,
     image_filename text
 );
 
@@ -139,7 +139,9 @@ ALTER TABLE public.license OWNER TO postgres;
 
 CREATE TABLE public.playlist (
     id integer NOT NULL,
-    name text
+    name text,
+    creation_date date NOT NULL,
+    last_update_date date NOT NULL
 );
 
 
@@ -170,7 +172,7 @@ CREATE TABLE public.track (
     license_id integer NOT NULL,
     name text NOT NULL,
     duration_in_seconds integer NOT NULL,
-    release_date date NOT NULL,
+    release_date timestamp(6) without time zone NOT NULL,
     audio_filename text NOT NULL
 );
 
@@ -229,7 +231,7 @@ CREATE TABLE public.user_album (
     user_id integer NOT NULL,
     album_id integer NOT NULL,
     album_number_in_user_list integer NOT NULL,
-    added_date date NOT NULL
+    added_date timestamp(6) without time zone NOT NULL
 );
 
 
@@ -258,7 +260,7 @@ CREATE TABLE public.user_artist (
     user_id integer NOT NULL,
     artist_id integer NOT NULL,
     artist_number_in_user_list integer NOT NULL,
-    added_date date NOT NULL
+    added_date timestamp(6) without time zone NOT NULL
 );
 
 
@@ -280,10 +282,10 @@ ALTER TABLE public.user_artist_rating OWNER TO postgres;
 
 --
 -- TOC entry 226 (class 1259 OID 16660)
--- Name: user_info; Type: TABLE; Schema: public; Owner: postgres
+-- Name: user_data; Type: TABLE; Schema: public; Owner: postgres
 --
 
-CREATE TABLE public.user_info (
+CREATE TABLE public.user_data (
     id integer NOT NULL,
     username text NOT NULL,
     email text NOT NULL,
@@ -294,7 +296,7 @@ CREATE TABLE public.user_info (
 );
 
 
-ALTER TABLE public.user_info OWNER TO postgres;
+ALTER TABLE public.user_data OWNER TO postgres;
 
 --
 -- TOC entry 232 (class 1259 OID 16755)
@@ -305,7 +307,7 @@ CREATE TABLE public.user_neural_network_configuration (
     id integer NOT NULL,
     user_id integer NOT NULL,
     audio_feature_extraction_type_id integer NOT NULL,
-    training_date date NOT NULL,
+    training_date timestamp(6) without time zone NOT NULL,
     data double precision NOT NULL,
     track_audio_feature_extraction_type_id integer
 );
@@ -323,7 +325,7 @@ CREATE TABLE public.user_playlist (
     playlist_id integer NOT NULL,
     access_level_id integer NOT NULL,
     playlist_number_in_user_list integer NOT NULL,
-    added_date date NOT NULL
+    added_date timestamp(6) without time zone NOT NULL
 );
 
 
@@ -378,7 +380,7 @@ CREATE TABLE public.user_track (
     user_id integer NOT NULL,
     track_id integer NOT NULL,
     track_number_in_user_list integer NOT NULL,
-    added_date date NOT NULL
+    added_date timestamp(6) without time zone NOT NULL
 );
 
 
@@ -392,7 +394,7 @@ ALTER TABLE public.user_track OWNER TO postgres;
 CREATE TABLE public.user_track_history (
     user_id integer NOT NULL,
     track_id integer NOT NULL,
-    listen_date date NOT NULL
+    listen_date timestamp(6) without time zone NOT NULL
 );
 
 
@@ -418,16 +420,16 @@ ALTER TABLE public.user_track_rating OWNER TO postgres;
 -- Data for Name: album; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-INSERT INTO public.album (id, name, release_date, image_filename) VALUES (0, 'Brave Nu World', '2009-01-13', '0.jpg');
-INSERT INTO public.album (id, name, release_date, image_filename) VALUES (5, 'Calling For You/Can I Live/This Is What You Are', '2017-01-19', 'default.jpg');
-INSERT INTO public.album (id, name, release_date, image_filename) VALUES (1, 'Giovanni Croce''s Cantato Domino', '2009-04-23', 'default.jpg');
-INSERT INTO public.album (id, name, release_date, image_filename) VALUES (2, 'Wild Heart', '2015-02-05', '2.jpg');
-INSERT INTO public.album (id, name, release_date, image_filename) VALUES (3, 'Nightwavs', '2014-12-01', '3.jpg');
-INSERT INTO public.album (id, name, release_date, image_filename) VALUES (4, 'It Never Happened', '2015-11-27', '4.jpg');
-INSERT INTO public.album (id, name, release_date, image_filename) VALUES (6, 'The Only Dream', '2007-01-01', '6.jpg');
-INSERT INTO public.album (id, name, release_date, image_filename) VALUES (7, 'Coordinates', '2010-02-23', '7.jpg');
-INSERT INTO public.album (id, name, release_date, image_filename) VALUES (8, 'Dead And/Or Famous', '2008-11-26', '8.jpg');
-INSERT INTO public.album (id, name, release_date, image_filename) VALUES (9, 'Aware', '2021-01-22', '9.jpg');
+INSERT INTO public.album (id, name, release_date, image_filename) VALUES (0, 'Brave Nu World', '2009-01-13 00:00:00', '0.jpg');
+INSERT INTO public.album (id, name, release_date, image_filename) VALUES (5, 'Calling For You/Can I Live/This Is What You Are', '2017-01-19 00:00:00', 'default.jpg');
+INSERT INTO public.album (id, name, release_date, image_filename) VALUES (1, 'Giovanni Croce''s Cantato Domino', '2009-04-23 00:00:00', 'default.jpg');
+INSERT INTO public.album (id, name, release_date, image_filename) VALUES (2, 'Wild Heart', '2015-02-05 00:00:00', '2.jpg');
+INSERT INTO public.album (id, name, release_date, image_filename) VALUES (3, 'Nightwavs', '2014-12-01 00:00:00', '3.jpg');
+INSERT INTO public.album (id, name, release_date, image_filename) VALUES (4, 'It Never Happened', '2015-11-27 00:00:00', '4.jpg');
+INSERT INTO public.album (id, name, release_date, image_filename) VALUES (6, 'The Only Dream', '2007-01-01 00:00:00', '6.jpg');
+INSERT INTO public.album (id, name, release_date, image_filename) VALUES (7, 'Coordinates', '2010-02-23 00:00:00', '7.jpg');
+INSERT INTO public.album (id, name, release_date, image_filename) VALUES (8, 'Dead And/Or Famous', '2008-11-26 00:00:00', '8.jpg');
+INSERT INTO public.album (id, name, release_date, image_filename) VALUES (9, 'Aware', '2021-01-22 00:00:00', '9.jpg');
 
 
 --
@@ -568,16 +570,16 @@ INSERT INTO public.license (id, name) VALUES (4, 'CC BY-NC: Attribution-NonComme
 -- Data for Name: track; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-INSERT INTO public.track (id, primary_genre_id, license_id, name, duration_in_seconds, release_date, audio_filename) VALUES (5, 5, 1, 'Can I live', 136, '2017-01-19', '5.mp3');
-INSERT INTO public.track (id, primary_genre_id, license_id, name, duration_in_seconds, release_date, audio_filename) VALUES (0, 0, 5, 'Last Double Eagle', 296, '2008-11-26', '0.mp3');
-INSERT INTO public.track (id, primary_genre_id, license_id, name, duration_in_seconds, release_date, audio_filename) VALUES (1, 1, 0, 'Cantate Domino', 134, '2009-04-23', '1.mp3');
-INSERT INTO public.track (id, primary_genre_id, license_id, name, duration_in_seconds, release_date, audio_filename) VALUES (2, 2, 1, 'It''s Not Hard to Get Lost', 238, '2015-02-05', '2.mp3');
-INSERT INTO public.track (id, primary_genre_id, license_id, name, duration_in_seconds, release_date, audio_filename) VALUES (3, 3, 5, 'Stay', 204, '2014-12-01', '3.mp3');
-INSERT INTO public.track (id, primary_genre_id, license_id, name, duration_in_seconds, release_date, audio_filename) VALUES (4, 4, 5, 'Connections', 154, '2016-01-16', '4.mp3');
-INSERT INTO public.track (id, primary_genre_id, license_id, name, duration_in_seconds, release_date, audio_filename) VALUES (6, 6, 5, 'The Only Dream', 232, '2010-01-03', '6.mp3');
-INSERT INTO public.track (id, primary_genre_id, license_id, name, duration_in_seconds, release_date, audio_filename) VALUES (7, 7, 4, 'The Club', 218, '2010-02-23', '7.mp3');
-INSERT INTO public.track (id, primary_genre_id, license_id, name, duration_in_seconds, release_date, audio_filename) VALUES (8, 8, 5, 'Life In A Box', 171, '2008-11-26', '8.mp3');
-INSERT INTO public.track (id, primary_genre_id, license_id, name, duration_in_seconds, release_date, audio_filename) VALUES (9, 9, 2, 'Awware', 175, '2022-05-02', '9.mp3');
+INSERT INTO public.track (id, primary_genre_id, license_id, name, duration_in_seconds, release_date, audio_filename) VALUES (5, 5, 1, 'Can I live', 136, '2017-01-19 00:00:00', '5.mp3');
+INSERT INTO public.track (id, primary_genre_id, license_id, name, duration_in_seconds, release_date, audio_filename) VALUES (0, 0, 5, 'Last Double Eagle', 296, '2008-11-26 00:00:00', '0.mp3');
+INSERT INTO public.track (id, primary_genre_id, license_id, name, duration_in_seconds, release_date, audio_filename) VALUES (1, 1, 0, 'Cantate Domino', 134, '2009-04-23 00:00:00', '1.mp3');
+INSERT INTO public.track (id, primary_genre_id, license_id, name, duration_in_seconds, release_date, audio_filename) VALUES (2, 2, 1, 'It''s Not Hard to Get Lost', 238, '2015-02-05 00:00:00', '2.mp3');
+INSERT INTO public.track (id, primary_genre_id, license_id, name, duration_in_seconds, release_date, audio_filename) VALUES (3, 3, 5, 'Stay', 204, '2014-12-01 00:00:00', '3.mp3');
+INSERT INTO public.track (id, primary_genre_id, license_id, name, duration_in_seconds, release_date, audio_filename) VALUES (4, 4, 5, 'Connections', 154, '2016-01-16 00:00:00', '4.mp3');
+INSERT INTO public.track (id, primary_genre_id, license_id, name, duration_in_seconds, release_date, audio_filename) VALUES (6, 6, 5, 'The Only Dream', 232, '2010-01-03 00:00:00', '6.mp3');
+INSERT INTO public.track (id, primary_genre_id, license_id, name, duration_in_seconds, release_date, audio_filename) VALUES (7, 7, 4, 'The Club', 218, '2010-02-23 00:00:00', '7.mp3');
+INSERT INTO public.track (id, primary_genre_id, license_id, name, duration_in_seconds, release_date, audio_filename) VALUES (8, 8, 5, 'Life In A Box', 171, '2008-11-26 00:00:00', '8.mp3');
+INSERT INTO public.track (id, primary_genre_id, license_id, name, duration_in_seconds, release_date, audio_filename) VALUES (9, 9, 2, 'Awware', 175, '2022-05-02 00:00:00', '9.mp3');
 
 
 --
@@ -640,7 +642,7 @@ INSERT INTO public.track_audio_feature_extraction_type (id, start_delta, segment
 --
 -- TOC entry 3774 (class 0 OID 16660)
 -- Dependencies: 226
--- Data for Name: user_info; Type: TABLE DATA; Schema: public; Owner: postgres
+-- Data for Name: user_data; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
 
@@ -879,29 +881,29 @@ ALTER TABLE ONLY public.user_artist_rating
 
 --
 -- TOC entry 3545 (class 2606 OID 17815)
--- Name: user_info user_info_email_key; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: user_data user_data_email_key; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY public.user_info
-    ADD CONSTRAINT user_info_email_key UNIQUE (email);
+ALTER TABLE ONLY public.user_data
+    ADD CONSTRAINT user_data_email_key UNIQUE (email);
 
 
 --
 -- TOC entry 3547 (class 2606 OID 16666)
--- Name: user_info user_info_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: user_data user_data_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY public.user_info
-    ADD CONSTRAINT user_info_pkey PRIMARY KEY (id);
+ALTER TABLE ONLY public.user_data
+    ADD CONSTRAINT user_data_pkey PRIMARY KEY (id);
 
 
 --
 -- TOC entry 3549 (class 2606 OID 17813)
--- Name: user_info user_info_username_key; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: user_data user_data_username_key; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY public.user_info
-    ADD CONSTRAINT user_info_username_key UNIQUE (username);
+ALTER TABLE ONLY public.user_data
+    ADD CONSTRAINT user_data_username_key UNIQUE (username);
 
 
 --
@@ -1135,7 +1137,7 @@ ALTER TABLE ONLY public.user_album_rating
 --
 
 ALTER TABLE ONLY public.user_album_rating
-    ADD CONSTRAINT user_album_rating_user_id_fkey FOREIGN KEY (user_id) REFERENCES public.user_info(id);
+    ADD CONSTRAINT user_album_rating_user_id_fkey FOREIGN KEY (user_id) REFERENCES public.user_data(id);
 
 
 --
@@ -1153,7 +1155,7 @@ ALTER TABLE ONLY public.user_album_rating
 --
 
 ALTER TABLE ONLY public.user_album
-    ADD CONSTRAINT user_album_user_id_fkey FOREIGN KEY (user_id) REFERENCES public.user_info(id);
+    ADD CONSTRAINT user_album_user_id_fkey FOREIGN KEY (user_id) REFERENCES public.user_data(id);
 
 
 --
@@ -1180,7 +1182,7 @@ ALTER TABLE ONLY public.user_artist_rating
 --
 
 ALTER TABLE ONLY public.user_artist_rating
-    ADD CONSTRAINT user_artist_rating_user_id_fkey FOREIGN KEY (user_id) REFERENCES public.user_info(id);
+    ADD CONSTRAINT user_artist_rating_user_id_fkey FOREIGN KEY (user_id) REFERENCES public.user_data(id);
 
 
 --
@@ -1198,7 +1200,7 @@ ALTER TABLE ONLY public.user_artist_rating
 --
 
 ALTER TABLE ONLY public.user_artist
-    ADD CONSTRAINT user_artist_user_id_fkey FOREIGN KEY (user_id) REFERENCES public.user_info(id);
+    ADD CONSTRAINT user_artist_user_id_fkey FOREIGN KEY (user_id) REFERENCES public.user_data(id);
 
 
 --
@@ -1216,7 +1218,7 @@ ALTER TABLE ONLY public.user_neural_network_configuration
 --
 
 ALTER TABLE ONLY public.user_neural_network_configuration
-    ADD CONSTRAINT user_neural_network_configuration_user_id_fkey FOREIGN KEY (user_id) REFERENCES public.user_info(id);
+    ADD CONSTRAINT user_neural_network_configuration_user_id_fkey FOREIGN KEY (user_id) REFERENCES public.user_data(id);
 
 
 --
@@ -1252,7 +1254,7 @@ ALTER TABLE ONLY public.user_playlist_rating
 --
 
 ALTER TABLE ONLY public.user_playlist_rating
-    ADD CONSTRAINT user_playlist_rating_user_id_fkey FOREIGN KEY (user_id) REFERENCES public.user_info(id);
+    ADD CONSTRAINT user_playlist_rating_user_id_fkey FOREIGN KEY (user_id) REFERENCES public.user_data(id);
 
 
 --
@@ -1270,7 +1272,7 @@ ALTER TABLE ONLY public.user_playlist_rating
 --
 
 ALTER TABLE ONLY public.user_playlist
-    ADD CONSTRAINT user_playlist_user_id_fkey FOREIGN KEY (user_id) REFERENCES public.user_info(id);
+    ADD CONSTRAINT user_playlist_user_id_fkey FOREIGN KEY (user_id) REFERENCES public.user_data(id);
 
 
 --
@@ -1288,7 +1290,7 @@ ALTER TABLE ONLY public.user_track_history
 --
 
 ALTER TABLE ONLY public.user_track_history
-    ADD CONSTRAINT user_track_history_user_id_fkey FOREIGN KEY (user_id) REFERENCES public.user_info(id);
+    ADD CONSTRAINT user_track_history_user_id_fkey FOREIGN KEY (user_id) REFERENCES public.user_data(id);
 
 
 --
@@ -1306,7 +1308,7 @@ ALTER TABLE ONLY public.user_track_rating
 --
 
 ALTER TABLE ONLY public.user_track_rating
-    ADD CONSTRAINT user_track_rating_user_id_fkey FOREIGN KEY (user_id) REFERENCES public.user_info(id) NOT VALID;
+    ADD CONSTRAINT user_track_rating_user_id_fkey FOREIGN KEY (user_id) REFERENCES public.user_data(id) NOT VALID;
 
 
 --
@@ -1333,10 +1335,10 @@ ALTER TABLE ONLY public.user_track
 --
 
 ALTER TABLE ONLY public.user_track
-    ADD CONSTRAINT user_track_user_id_fkey FOREIGN KEY (user_id) REFERENCES public.user_info(id);
+    ADD CONSTRAINT user_track_user_id_fkey FOREIGN KEY (user_id) REFERENCES public.user_data(id);
 
 
--- Completed on 2024-05-28 19:38:41 +07
+-- Completed on 2024-05-28 23:40:46 +07
 
 --
 -- PostgreSQL database dump complete
