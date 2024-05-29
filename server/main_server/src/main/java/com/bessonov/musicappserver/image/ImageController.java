@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/image")
 public class ImageController {
     @Autowired
-    ImageService imageService;
+    private ImageService imageService;
 
     @GetMapping("/album/{albumId}")
     public ResponseEntity<byte[]> getAlbumImage(@PathVariable int albumId) {

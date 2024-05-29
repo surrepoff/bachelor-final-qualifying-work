@@ -8,6 +8,6 @@ import java.util.List;
 
 @Repository
 public interface AlbumArtistRepository extends JpaRepository<AlbumArtist, AlbumArtistId> {
-    List<AlbumArtist> findByIdAlbumIdOrderByIdArtistIdAsc(int albumId);
-    List<AlbumArtist> findByIdArtistIdOrderByIdAlbumIdAsc(int artistId);
+    public List<AlbumArtist> findByIdAlbumIdOrderByIdArtistIdAsc(int albumId);
+    public List<AlbumArtist> findByIdArtistIdOrderByIdAlbumIdAsc(int artistId);
 }

@@ -8,7 +8,7 @@ import java.util.Optional;
 
 @Repository
 public interface AlbumTrackRepository extends JpaRepository<AlbumTrack, AlbumTrackId> {
-    List<AlbumTrack> findByIdTrackIdOrderByIdAlbumIdAsc(int trackId);
-    Optional<AlbumTrack> findFirstByIdTrackIdOrderByIdAlbumIdAsc(int trackId);
-    List<AlbumTrack> findByIdAlbumIdOrderByTrackNumberInAlbumAsc(int albumId);
+    public List<AlbumTrack> findByIdTrackIdOrderByIdAlbumIdAsc(int trackId);
+    public Optional<AlbumTrack> findFirstByIdTrackIdOrderByIdAlbumIdAsc(int trackId);
+    public List<AlbumTrack> findByIdAlbumIdOrderByTrackNumberInAlbumAsc(int albumId);
 }

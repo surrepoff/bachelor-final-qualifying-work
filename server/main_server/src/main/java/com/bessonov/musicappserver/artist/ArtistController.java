@@ -10,7 +10,7 @@ import java.util.List;
 @RequestMapping("/artist")
 public class ArtistController {
     @Autowired
-    ArtistService artistService;
+    private ArtistService artistService;
 
     @GetMapping("/get/all")
     public List<ArtistInfoDTO> getAll(Authentication authentication) {

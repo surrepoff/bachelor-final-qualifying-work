@@ -10,7 +10,7 @@ import java.util.List;
 @RequestMapping("/album")
 public class AlbumController {
     @Autowired
-    AlbumService albumService;
+    private AlbumService albumService;
 
     @GetMapping("/get/all")
     public List<AlbumInfoDTO> getAll(Authentication authentication) {
