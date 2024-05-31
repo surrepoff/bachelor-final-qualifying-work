@@ -3,13 +3,11 @@ package com.bessonov.musicappserver.track;
 import com.bessonov.musicappserver.database.album.Album;
 import com.bessonov.musicappserver.database.album.AlbumDTO;
 import com.bessonov.musicappserver.database.album.AlbumRepository;
-import com.bessonov.musicappserver.database.albumArtist.AlbumArtistRepository;
 import com.bessonov.musicappserver.database.albumTrack.AlbumTrack;
 import com.bessonov.musicappserver.database.albumTrack.AlbumTrackRepository;
 import com.bessonov.musicappserver.database.artist.Artist;
 import com.bessonov.musicappserver.database.artist.ArtistDTO;
 import com.bessonov.musicappserver.database.artist.ArtistRepository;
-import com.bessonov.musicappserver.database.artistStatus.ArtistStatusRepository;
 import com.bessonov.musicappserver.database.artistTrack.ArtistTrack;
 import com.bessonov.musicappserver.database.artistTrack.ArtistTrackRepository;
 import com.bessonov.musicappserver.database.genre.Genre;
@@ -23,7 +21,13 @@ import com.bessonov.musicappserver.database.track.TrackDTO;
 import com.bessonov.musicappserver.database.track.TrackRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.core.io.Resource;
 import org.springframework.data.domain.Sort;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -36,16 +40,10 @@ public class TrackService {
     private AlbumRepository albumRepository;
 
     @Autowired
-    private AlbumArtistRepository albumArtistRepository;
-
-    @Autowired
     private AlbumTrackRepository albumTrackRepository;
 
     @Autowired
     private ArtistRepository artistRepository;
-
-    @Autowired
-    private ArtistStatusRepository artistStatusRepository;
 
     @Autowired
     private ArtistTrackRepository artistTrackRepository;
@@ -58,6 +56,9 @@ public class TrackService {
 
     @Autowired
     private TrackRepository trackRepository;
+
+    @Value("${filepath.data.track}")
+    private String filepath;
 
     public TrackInfoDTO getTrackInfoByTrackId(int trackId) {
         Optional<Track> track = trackRepository.findById(trackId);
@@ -136,4 +137,41 @@ public class TrackService {
         return trackInfoDTO;
     }
 
+    public ResponseEntity<Resource> streamAudio(int trackId){
+        Optional<Track> track = trackRepository.findById(trackId);
+        if (track.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
+        try {
+            FileSystemResource file = new FileSystemResource(filepath + track.get().getAudioFilename());
+            HttpHeaders headers = new HttpHeaders();
+            headers.add(HttpHeaders.CONTENT_TYPE, "audio/mpeg");
+            headers.add(HttpHeaders.ACCEPT_RANGES, "bytes");
+
+            return ResponseEntity.ok()
+                    .headers(headers)
+                    .body(file);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
+    }
+
+    public ResponseEntity<Resource> downloadFile(int trackId) {
+        Optional<Track> track = trackRepository.findById(trackId);
+        if (track.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
+        try {
+            FileSystemResource file = new FileSystemResource(filepath + track.get().getAudioFilename());
+            HttpHeaders headers = new HttpHeaders();
+            headers.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + track.get().getAudioFilename());
+            headers.add(HttpHeaders.CONTENT_TYPE, "application/octet-stream");
+
+            return ResponseEntity.ok()
+                    .headers(headers)
+                    .body(file);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
+    }
 }

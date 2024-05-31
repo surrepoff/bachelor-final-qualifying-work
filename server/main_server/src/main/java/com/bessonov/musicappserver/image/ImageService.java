@@ -14,6 +14,7 @@ import com.bessonov.musicappserver.database.license.LicenseRepository;
 import com.bessonov.musicappserver.database.track.Track;
 import com.bessonov.musicappserver.database.track.TrackRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -32,34 +33,22 @@ public class ImageService {
     private AlbumRepository albumRepository;
 
     @Autowired
-    private AlbumArtistRepository albumArtistRepository;
-
-    @Autowired
     private AlbumTrackRepository albumTrackRepository;
 
     @Autowired
     private ArtistRepository artistRepository;
 
     @Autowired
-    private ArtistStatusRepository artistStatusRepository;
-
-    @Autowired
-    private ArtistTrackRepository artistTrackRepository;
-
-    @Autowired
-    private GenreRepository genreRepository;
-
-    @Autowired
-    private LicenseRepository licenseRepository;
-
-    @Autowired
     private TrackRepository trackRepository;
+
+    @Value("${filepath.data.image}")
+    private String filepath;
 
     public ResponseEntity<byte[]> getAlbumImage(int albumId) {
         Optional<Album>album = albumRepository.findById(albumId);
         if (album.isPresent()) {
             try {
-                String imagePath = "../../data/image/album/" + album.get().getImageFilename();
+                String imagePath = filepath + album.get().getImageFilename();
                 Path path = Paths.get(imagePath);
                 byte[] image = Files.readAllBytes(path);
 
@@ -79,7 +68,7 @@ public class ImageService {
         Optional<Artist>artist = artistRepository.findById(artistId);
         if (artist.isPresent()) {
             try {
-                String imagePath = "../../data/image/artist/" + artist.get().getImageFilename();
+                String imagePath = filepath + artist.get().getImageFilename();
                 Path path = Paths.get(imagePath);
                 byte[] image = Files.readAllBytes(path);
 
@@ -102,7 +91,7 @@ public class ImageService {
             Optional<Album>album = albumRepository.findById(albumTrack.get().getId().getAlbumId());
             if (album.isPresent()) {
                 try {
-                    String imagePath = "../../data/image/album/" + album.get().getImageFilename();
+                    String imagePath = filepath + album.get().getImageFilename();
                     Path path = Paths.get(imagePath);
                     byte[] image = Files.readAllBytes(path);
 

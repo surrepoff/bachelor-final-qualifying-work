@@ -10,11 +10,6 @@ import com.bessonov.musicappserver.database.albumTrack.AlbumTrackRepository;
 import com.bessonov.musicappserver.database.artist.Artist;
 import com.bessonov.musicappserver.database.artist.ArtistDTO;
 import com.bessonov.musicappserver.database.artist.ArtistRepository;
-import com.bessonov.musicappserver.database.artistStatus.ArtistStatusRepository;
-import com.bessonov.musicappserver.database.artistTrack.ArtistTrackRepository;
-import com.bessonov.musicappserver.database.genre.GenreRepository;
-import com.bessonov.musicappserver.database.license.LicenseRepository;
-import com.bessonov.musicappserver.database.track.TrackRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
@@ -37,21 +32,6 @@ public class AlbumService {
 
     @Autowired
     private ArtistRepository artistRepository;
-
-    @Autowired
-    private ArtistStatusRepository artistStatusRepository;
-
-    @Autowired
-    private ArtistTrackRepository artistTrackRepository;
-
-    @Autowired
-    private GenreRepository genreRepository;
-
-    @Autowired
-    private LicenseRepository licenseRepository;
-
-    @Autowired
-    private TrackRepository trackRepository;
 
     public AlbumInfoDTO getAlbumInfoByAlbumId(int albumId) {
         Optional<Album> album = albumRepository.findById(albumId);

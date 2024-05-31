@@ -1,18 +1,12 @@
 package com.bessonov.musicappserver.artist;
 
-import com.bessonov.musicappserver.database.album.AlbumRepository;
 import com.bessonov.musicappserver.database.albumArtist.AlbumArtist;
 import com.bessonov.musicappserver.database.albumArtist.AlbumArtistRepository;
-import com.bessonov.musicappserver.database.albumTrack.AlbumTrackRepository;
 import com.bessonov.musicappserver.database.artist.Artist;
 import com.bessonov.musicappserver.database.artist.ArtistDTO;
 import com.bessonov.musicappserver.database.artist.ArtistRepository;
-import com.bessonov.musicappserver.database.artistStatus.ArtistStatusRepository;
 import com.bessonov.musicappserver.database.artistTrack.ArtistTrack;
 import com.bessonov.musicappserver.database.artistTrack.ArtistTrackRepository;
-import com.bessonov.musicappserver.database.genre.GenreRepository;
-import com.bessonov.musicappserver.database.license.LicenseRepository;
-import com.bessonov.musicappserver.database.track.TrackRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
@@ -25,31 +19,13 @@ import java.util.Optional;
 @Service
 public class ArtistService {
     @Autowired
-    private AlbumRepository albumRepository;
-
-    @Autowired
     private AlbumArtistRepository albumArtistRepository;
-
-    @Autowired
-    private AlbumTrackRepository albumTrackRepository;
 
     @Autowired
     private ArtistRepository artistRepository;
 
     @Autowired
-    private ArtistStatusRepository artistStatusRepository;
-
-    @Autowired
     private ArtistTrackRepository artistTrackRepository;
-
-    @Autowired
-    private GenreRepository genreRepository;
-
-    @Autowired
-    private LicenseRepository licenseRepository;
-
-    @Autowired
-    private TrackRepository trackRepository;
 
     public ArtistInfoDTO getArtistInfoDTOByArtistId(int artistId) {
         Optional<Artist> artist = artistRepository.findById(artistId);
