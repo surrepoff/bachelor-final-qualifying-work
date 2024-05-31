@@ -5,6 +5,8 @@ import com.bessonov.musicappserver.database.artist.ArtistDTO;
 import com.bessonov.musicappserver.database.genre.GenreDTO;
 import com.bessonov.musicappserver.database.license.LicenseDTO;
 import com.bessonov.musicappserver.database.track.TrackDTO;
+import com.bessonov.musicappserver.database.userRating.UserRatingDTO;
+import com.bessonov.musicappserver.database.userTrack.UserTrackDTO;
 
 import java.util.List;
 
@@ -15,6 +17,8 @@ public class TrackInfoDTO {
     private List<AlbumDTO> album;
     private GenreDTO genre;
     private LicenseDTO license;
+    private UserRatingDTO rating;
+    private UserTrackDTO isAdded;
 
     public TrackDTO getTrack() {
         return track;
@@ -64,6 +68,22 @@ public class TrackInfoDTO {
         this.license = license;
     }
 
+    public UserRatingDTO getRating() {
+        return rating;
+    }
+
+    public void setRating(UserRatingDTO rating) {
+        this.rating = rating;
+    }
+
+    public UserTrackDTO getIsAdded() {
+        return isAdded;
+    }
+
+    public void setIsAdded(UserTrackDTO isAdded) {
+        this.isAdded = isAdded;
+    }
+
     @Override
     public String toString() {
         return "TrackInfoDTO{" +
@@ -73,6 +93,8 @@ public class TrackInfoDTO {
                 ", album=" + album +
                 ", genre=" + genre +
                 ", license=" + license +
+                ", rating=" + rating +
+                ", isAdded=" + isAdded +
                 '}';
     }
 }

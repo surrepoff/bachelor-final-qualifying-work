@@ -11,6 +11,8 @@ public class TrackInfoDTO {
     private List<AlbumDTO> album;
     private GenreDTO genre;
     private LicenseDTO license;
+    private UserRatingDTO rating;
+    private UserTrackDTO isAdded;
 
     public TrackDTO getTrack() {
         return track;
@@ -60,6 +62,22 @@ public class TrackInfoDTO {
         this.license = license;
     }
 
+    public UserRatingDTO getRating() {
+        return rating;
+    }
+
+    public void setRating(UserRatingDTO rating) {
+        this.rating = rating;
+    }
+
+    public UserTrackDTO getIsAdded() {
+        return isAdded;
+    }
+
+    public void setIsAdded(UserTrackDTO isAdded) {
+        this.isAdded = isAdded;
+    }
+
     @NonNull
     @Override
     public String toString() {
@@ -70,6 +88,8 @@ public class TrackInfoDTO {
                 ", album=" + album +
                 ", genre=" + genre +
                 ", license=" + license +
+                ", rating=" + rating +
+                ", isAdded=" + isAdded +
                 '}';
     }
 }

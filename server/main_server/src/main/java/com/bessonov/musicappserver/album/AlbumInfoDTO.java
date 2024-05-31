@@ -2,6 +2,8 @@ package com.bessonov.musicappserver.album;
 
 import com.bessonov.musicappserver.database.album.AlbumDTO;
 import com.bessonov.musicappserver.database.artist.ArtistDTO;
+import com.bessonov.musicappserver.database.userAlbum.UserAlbumDTO;
+import com.bessonov.musicappserver.database.userRating.UserRatingDTO;
 
 import java.util.List;
 
@@ -10,6 +12,8 @@ public class AlbumInfoDTO {
     private List<ArtistDTO> artist;
     private List<ArtistDTO> featuredArtist;
     private List<Integer> trackId;
+    private UserRatingDTO rating;
+    private UserAlbumDTO isAdded;
 
     public AlbumDTO getAlbum() {
         return album;
@@ -43,6 +47,22 @@ public class AlbumInfoDTO {
         this.trackId = trackId;
     }
 
+    public UserRatingDTO getRating() {
+        return rating;
+    }
+
+    public void setRating(UserRatingDTO rating) {
+        this.rating = rating;
+    }
+
+    public UserAlbumDTO getIsAdded() {
+        return isAdded;
+    }
+
+    public void setIsAdded(UserAlbumDTO isAdded) {
+        this.isAdded = isAdded;
+    }
+
     @Override
     public String toString() {
         return "AlbumInfoDTO{" +
@@ -50,6 +70,8 @@ public class AlbumInfoDTO {
                 ", artist=" + artist +
                 ", featuredArtist=" + featuredArtist +
                 ", trackId=" + trackId +
+                ", rating=" + rating +
+                ", isAdded=" + isAdded +
                 '}';
     }
 }
