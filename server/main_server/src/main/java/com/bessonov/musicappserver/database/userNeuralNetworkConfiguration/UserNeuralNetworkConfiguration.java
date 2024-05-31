@@ -2,6 +2,7 @@ package com.bessonov.musicappserver.database.userNeuralNetworkConfiguration;
 
 import jakarta.persistence.*;
 
+import java.util.Arrays;
 import java.util.Date;
 
 @Entity
@@ -21,8 +22,11 @@ public class UserNeuralNetworkConfiguration {
     @Column(name = "training_date")
     private Date trainingDate;
 
-    @Column(name = "data")
-    private float data;
+    @Column(name = "model_config", columnDefinition = "jsonb")
+    private String modelConfig;
+
+    @Column(name = "model_weights", columnDefinition = "bytea")
+    private byte[] modelWeights;
 
     public int getId() {
         return id;
@@ -56,12 +60,20 @@ public class UserNeuralNetworkConfiguration {
         this.trainingDate = trainingDate;
     }
 
-    public float getData() {
-        return data;
+    public String getModelConfig() {
+        return modelConfig;
     }
 
-    public void setData(float data) {
-        this.data = data;
+    public void setModelConfig(String modelConfig) {
+        this.modelConfig = modelConfig;
+    }
+
+    public byte[] getModelWeights() {
+        return modelWeights;
+    }
+
+    public void setModelWeights(byte[] modelWeights) {
+        this.modelWeights = modelWeights;
     }
 
     @Override
@@ -71,7 +83,8 @@ public class UserNeuralNetworkConfiguration {
                 ", userId=" + userId +
                 ", trackAudioFeatureExtractionTypeId=" + trackAudioFeatureExtractionTypeId +
                 ", trainingDate=" + trainingDate +
-                ", data=" + data +
+                ", modelConfig='" + modelConfig + '\'' +
+                ", modelWeights=" + Arrays.toString(modelWeights) +
                 '}';
     }
 }

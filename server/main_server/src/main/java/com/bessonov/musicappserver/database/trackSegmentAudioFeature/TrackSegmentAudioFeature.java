@@ -2,6 +2,8 @@ package com.bessonov.musicappserver.database.trackSegmentAudioFeature;
 
 import jakarta.persistence.*;
 
+import java.util.Arrays;
+
 @Entity
 @Table(name = "track_segment_audio_feature")
 public class TrackSegmentAudioFeature {
@@ -17,7 +19,7 @@ public class TrackSegmentAudioFeature {
     private int segment_number;
 
     @Column(name = "data")
-    private float data;
+    private double[] data;
 
     public int getId() {
         return id;
@@ -43,11 +45,11 @@ public class TrackSegmentAudioFeature {
         this.segment_number = segment_number;
     }
 
-    public float getData() {
+    public double[] getData() {
         return data;
     }
 
-    public void setData(float data) {
+    public void setData(double[] data) {
         this.data = data;
     }
 
@@ -57,7 +59,7 @@ public class TrackSegmentAudioFeature {
                 "id=" + id +
                 ", trackAudioFeatureId=" + trackAudioFeatureId +
                 ", segment_number=" + segment_number +
-                ", data=" + data +
+                ", data=" + Arrays.toString(data) +
                 '}';
     }
 }
