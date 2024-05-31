@@ -39,7 +39,7 @@ class HomeFragment : Fragment() {
     ): View {
         val view = inflater.inflate(R.layout.fragment_home, container, false)
 
-        recyclerView = view.findViewById(R.id.fragmentHome_RecyclerView)
+        recyclerView = view.findViewById(R.id.fragmentHome_recyclerView)
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
         artistInfoDTOList = emptyList()

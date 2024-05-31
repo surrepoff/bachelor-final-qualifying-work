@@ -7,8 +7,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bessonov.musicappclient.R
 
 class TrackViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-    val trackImage: ImageView = itemView.findViewById(R.id.itemTrack_TrackImage)
-    val trackName: TextView = itemView.findViewById(R.id.itemTrack_TrackName)
-    val artistName: TextView = itemView.findViewById(R.id.itemTrack_ArtistName)
-    val trackDuration: TextView = itemView.findViewById(R.id.itemTrack_TrackDuration)
+    val trackImage: ImageView = itemView.findViewById(R.id.itemTrack_trackImageImageView)
+    val trackName: TextView = itemView.findViewById(R.id.itemTrack_trackNameTextView)
+    val artistName: TextView = itemView.findViewById(R.id.itemTrack_ArtistNameTextView)
+    val trackDuration: TextView = itemView.findViewById(R.id.itemTrack_TrackDurationTextView)
 }

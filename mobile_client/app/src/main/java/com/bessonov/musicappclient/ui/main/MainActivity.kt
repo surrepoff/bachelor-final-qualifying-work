@@ -15,8 +15,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        tabLayout = findViewById(R.id.activityMain_TabLayout)
-        viewPager = findViewById(R.id.activityMain_ViewPager2)
+        tabLayout = findViewById(R.id.tabLayout)
+        viewPager = findViewById(R.id.ViewPager2)
 
         viewPager.isUserInputEnabled = false
         viewPager.adapter = ViewPagerAdapter(this)

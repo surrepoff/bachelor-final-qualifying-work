@@ -6,6 +6,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bessonov.musicappclient.R
 
 class SectionViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-    val header : TextView = itemView.findViewById(R.id.itemSection_Header)
-    val recyclerView : RecyclerView = itemView.findViewById(R.id.itemSection_RecyclerView)
+    val header : TextView = itemView.findViewById(R.id.itemSection_headerTextView)
+    val recyclerView : RecyclerView = itemView.findViewById(R.id.itemSection_sectionRecyclerView)
 }
