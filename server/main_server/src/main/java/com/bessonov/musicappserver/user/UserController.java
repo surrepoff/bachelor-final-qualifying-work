@@ -1,12 +1,12 @@
 package com.bessonov.musicappserver.user;
 
 import com.bessonov.musicappserver.database.userData.UserData;
+import com.bessonov.musicappserver.database.userData.UserDataDTO;
 import com.bessonov.musicappserver.database.userData.UserDataRepository;
 import com.nimbusds.jose.jwk.source.ImmutableSecret;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -23,7 +23,6 @@ import org.springframework.web.bind.annotation.*;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.Optional;
 
 @RestController
@@ -42,34 +41,25 @@ public class UserController {
     private AuthenticationManager authenticationManager;
 
     @GetMapping("/info")
-    public ResponseEntity<Object> info(Authentication authentication) {
-        var response = new HashMap<String, Object>();
-        response.put("username", authentication.getName());
-        response.put("authorities", authentication.getAuthorities());
-
+    public UserDataDTO info(Authentication authentication) {
         Optional<UserData> userData = userDataRepository.findByUsername(authentication.getName());
-        if (userData.isEmpty()) {
-            return ResponseEntity.badRequest().body("There is no more user with this username");
-        }
-        response.put("user", userData.get());
 
-        return ResponseEntity.ok(response);
+        return userData.map(UserDataDTO::new).orElse(null);
     }
 
     @PostMapping("/login")
-    public ResponseEntity<Object> login(@Valid @RequestBody UserLoginDTO userLoginDTO, BindingResult result) {
+    public ResponseDTO login(@Valid @RequestBody UserLoginDTO userLoginDTO, BindingResult result) {
         if (result.hasErrors()) {
             var errorsList = result.getAllErrors();
-            var errorMap = new HashMap<String, String>();
+            var errorMessage = new StringBuilder();
 
-            for (org.springframework.validation.ObjectError objectError : errorsList) {
+            for (var objectError: errorsList) {
                 var error = (FieldError) objectError;
-                errorMap.put(error.getField(), error.getDefaultMessage());
+                errorMessage.append(error.getField()).append(": ").append(error.getDefaultMessage()).append("; ");
             }
 
-            return ResponseEntity.badRequest().body(errorMap);
+            return new ResponseDTO(errorMessage.toString(), 400);
         }
-
         try {
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
                     userLoginDTO.getUsername(),
@@ -80,37 +70,33 @@ public class UserController {
             Optional<UserData> userData = userDataRepository.findByUsername(userLoginDTO.getUsername());
 
             if (userData.isEmpty()) {
-                return ResponseEntity.badRequest().body("There is no more user with this username");
+                return new ResponseDTO("There is no more user with this username", 400);
             }
 
             String jwtToken = createJwtToken(userData.get());
 
-            var response = new HashMap<String, Object>();
-            response.put("token", jwtToken);
-            response.put("user", userData);
-
-            return ResponseEntity.ok(response);
+            return new ResponseDTO(jwtToken, 200);
         }
         catch (Exception ex) {
-            System.out.println("There is an Exception :");
-            ex.printStackTrace();
+            //System.out.println("There is an Exception :");
+            //ex.printStackTrace();
         }
 
-        return ResponseEntity.badRequest().body("Bad username or password");
+        return new ResponseDTO("Bad username or password", 400);
     }
 
     @PostMapping("/register")
-    public ResponseEntity<Object> register(@Valid @RequestBody UserRegisterDTO userRegisterDTO, BindingResult result) {
+    public ResponseDTO register(@Valid @RequestBody UserRegisterDTO userRegisterDTO, BindingResult result) {
         if (result.hasErrors()) {
             var errorsList = result.getAllErrors();
-            var errorMap = new HashMap<String, String>();
+            var errorMessage = new StringBuilder();
 
-            for (org.springframework.validation.ObjectError objectError : errorsList) {
+            for (var objectError : errorsList) {
                 var error = (FieldError) objectError;
-                errorMap.put(error.getField(), error.getDefaultMessage());
+                errorMessage.append(error.getField()).append(": ").append(error.getDefaultMessage()).append("; ");
             }
 
-            return ResponseEntity.badRequest().body(errorMap);
+            return new ResponseDTO(errorMessage.toString(), 400);
         }
 
         var bCryptPasswordEncoder = new BCryptPasswordEncoder();
@@ -128,30 +114,26 @@ public class UserController {
 
             otherUser = userDataRepository.findByUsername(userRegisterDTO.getUsername());
             if (otherUser.isPresent()) {
-                return ResponseEntity.badRequest().body("Username already used");
+                return new ResponseDTO("Username already used", 400);
             }
 
             otherUser = userDataRepository.findByEmail(userRegisterDTO.getEmail());
             if (otherUser.isPresent()) {
-                return ResponseEntity.badRequest().body("Email address already used");
+                return new ResponseDTO("Email address already used", 400);
             }
 
             userDataRepository.save(userData);
 
             String jwtToken = createJwtToken(userData);
 
-            var response = new HashMap<String, Object>();
-            response.put("token", jwtToken);
-            response.put("user", userData);
-
-            return ResponseEntity.ok(response);
+            return new ResponseDTO(jwtToken, 200);
         }
         catch (Exception ex) {
-            System.out.println("There is an Exception :");
-            ex.printStackTrace();
+            //System.out.println("There is an Exception :");
+            //ex.printStackTrace();
         }
 
-        return ResponseEntity.badRequest().body("Error");
+        return new ResponseDTO("Failed to register", 400);
     }
 
     private String createJwtToken(UserData userData) {

@@ -18,7 +18,7 @@ import com.bessonov.musicappclient.dto.ArtistInfoDTO
 import com.bessonov.musicappclient.dto.TrackInfoDTO
 import com.bessonov.musicappclient.api.AlbumAPI
 import com.bessonov.musicappclient.api.ArtistAPI
-import com.bessonov.musicappclient.api.RetrofitService
+import com.bessonov.musicappclient.api.RetrofitClient
 import com.bessonov.musicappclient.api.TrackAPI
 import retrofit2.Call
 import retrofit2.Callback
@@ -89,8 +89,9 @@ class HomeFragment : Fragment() {
     }
 
     private fun loadArtists() {
-        val retrofitService = RetrofitService()
-        val artistAPI = retrofitService.retrofit.create(ArtistAPI::class.java)
+        val retrofitClient = RetrofitClient()
+        val artistAPI = retrofitClient.getRetrofit(requireContext()).create(ArtistAPI::class.java)
+
         artistAPI.getAll().enqueue(object : Callback<List<ArtistInfoDTO>> {
             override fun onResponse(call: Call<List<ArtistInfoDTO>>, response: Response<List<ArtistInfoDTO>>) {
                 if (response.isSuccessful && response.body() != null) {
@@ -109,8 +110,9 @@ class HomeFragment : Fragment() {
     }
 
     private fun loadAlbums() {
-        val retrofitService = RetrofitService()
-        val albumAPI = retrofitService.retrofit.create(AlbumAPI::class.java)
+        val retrofitClient = RetrofitClient()
+        val albumAPI = retrofitClient.getRetrofit(requireContext()).create(AlbumAPI::class.java)
+
         albumAPI.getAll().enqueue(object : Callback<List<AlbumInfoDTO>> {
             override fun onResponse(call: Call<List<AlbumInfoDTO>>, response: Response<List<AlbumInfoDTO>>) {
                 if (response.isSuccessful && response.body() != null) {
@@ -129,8 +131,9 @@ class HomeFragment : Fragment() {
     }
 
     private fun loadTracks() {
-        val retrofitService = RetrofitService()
-        val trackAPI = retrofitService.retrofit.create(TrackAPI::class.java)
+        val retrofitClient = RetrofitClient()
+        val trackAPI = retrofitClient.getRetrofit(requireContext()).create(TrackAPI::class.java)
+
         trackAPI.getAll().enqueue(object : Callback<List<TrackInfoDTO>> {
             override fun onResponse(call: Call<List<TrackInfoDTO>>, response: Response<List<TrackInfoDTO>>) {
                 if (response.isSuccessful && response.body() != null) {

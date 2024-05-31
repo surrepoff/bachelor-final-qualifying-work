@@ -5,13 +5,13 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.login.LoginActivity">
+    tools:context=".ui.register.RegisterActivity">
 
     <TextView
         android:id="@+id/appTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="160dp"
+        android:layout_marginTop="90dp"
         android:text="Music App"
         android:textColor="@color/black"
         android:textSize="72sp"
@@ -34,6 +34,19 @@
         app:layout_constraintTop_toBottomOf="@id/appTextView" />
 
     <EditText
+        android:id="@+id/emailEditText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:autofillHints="emailAddress"
+        android:hint="Адрес электронной почты"
+        android:inputType="textEmailAddress"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="@id/appTextView"
+        app:layout_constraintStart_toStartOf="@id/appTextView"
+        app:layout_constraintTop_toBottomOf="@id/usernameEditText" />
+
+    <EditText
         android:id="@+id/passwordEditText"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -44,18 +57,31 @@
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="@id/appTextView"
         app:layout_constraintStart_toStartOf="@id/appTextView"
-        app:layout_constraintTop_toBottomOf="@id/usernameEditText" />
+        app:layout_constraintTop_toBottomOf="@id/emailEditText" />
 
-    <Button
-        android:id="@+id/loginButton"
+    <EditText
+        android:id="@+id/repeatPasswordEditText"
         android:layout_width="0dp"
-        android:layout_height="72dp"
-        android:layout_marginTop="30dp"
-        android:text="Войти в аккаунт"
-        android:textSize="20sp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:autofillHints="password"
+        android:hint="Повторите пароль"
+        android:inputType="textPassword"
+        android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="@id/appTextView"
         app:layout_constraintStart_toStartOf="@id/appTextView"
         app:layout_constraintTop_toBottomOf="@id/passwordEditText" />
+
+    <Button
+        android:id="@+id/registerButton"
+        android:layout_width="0dp"
+        android:layout_height="72dp"
+        android:layout_marginTop="30dp"
+        android:text="Зарегистрировать аккаунт"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="@id/appTextView"
+        app:layout_constraintStart_toStartOf="@id/appTextView"
+        app:layout_constraintTop_toBottomOf="@id/repeatPasswordEditText" />
 
     <Button
         android:id="@+id/backButton"
@@ -66,6 +92,6 @@
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="@id/appTextView"
         app:layout_constraintStart_toStartOf="@id/appTextView"
-        app:layout_constraintTop_toBottomOf="@id/loginButton" />
+        app:layout_constraintTop_toBottomOf="@id/registerButton" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
