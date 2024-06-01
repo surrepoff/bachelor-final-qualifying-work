@@ -14,6 +14,14 @@ public class UserPlaylistId implements Serializable {
     @Column(name = "playlist_id")
     private int playlistId;
 
+    public UserPlaylistId() {
+    }
+
+    public UserPlaylistId(int userId, int playlistId) {
+        this.userId = userId;
+        this.playlistId = playlistId;
+    }
+
     public int getUserId() {
         return userId;
     }

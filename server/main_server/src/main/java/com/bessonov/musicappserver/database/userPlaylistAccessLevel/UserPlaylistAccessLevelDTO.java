@@ -1,22 +1,22 @@
-package com.bessonov.musicappserver.database.userRating;
+package com.bessonov.musicappserver.database.userPlaylistAccessLevel;
 
-public class UserRatingDTO {
+public class UserPlaylistAccessLevelDTO {
     private int id;
     private String name;
 
-    public UserRatingDTO() {
-        this.id = 0;
+    public UserPlaylistAccessLevelDTO() {
+        this.id = -1;
         this.name = "None";
     }
 
-    public UserRatingDTO(UserRating userRating) {
-        if (userRating == null) {
-            this.id = 0;
+    public UserPlaylistAccessLevelDTO(UserPlaylistAccessLevel userPlaylistAccessLevel) {
+        if (userPlaylistAccessLevel == null) {
+            this.id = -1;
             this.name = "None";
         }
         else {
-            this.id = userRating.getId();
-            this.name = userRating.getName();
+            this.id = userPlaylistAccessLevel.getId();
+            this.name = userPlaylistAccessLevel.getName();
         }
     }
 
@@ -38,7 +38,7 @@ public class UserRatingDTO {
 
     @Override
     public String toString() {
-        return "UserRatingDTO{" +
+        return "UserPlaylistAccessLevelDTO{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 '}';
