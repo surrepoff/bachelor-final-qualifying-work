@@ -84,23 +84,23 @@ public class TrackService {
     @Value("${filepath.data.track}")
     private String filepath;
 
-    public TrackInfoDTO getTrackInfoByTrackId(String username, int trackId) {
+    public TrackInfoDTO getByTrackId(String username, int trackId) {
         Optional<Track> track = trackRepository.findById(trackId);
 
         return track.map(value -> getTrackInfoByTrack(username, value)).orElse(null);
     }
 
-    public List<TrackInfoDTO> getTrackInfoByTrackIdList(String username, List<Integer> trackIdList) {
+    public List<TrackInfoDTO> getByTrackIdList(String username, List<Integer> trackIdList) {
         List<TrackInfoDTO> trackInfoDTOList = new ArrayList<>();
 
         for (Integer trackId : trackIdList) {
-            trackInfoDTOList.add(getTrackInfoByTrackId(username, trackId));
+            trackInfoDTOList.add(getByTrackId(username, trackId));
         }
 
         return trackInfoDTOList;
     }
 
-    public List<TrackInfoDTO> getTrackInfoAll(String username) {
+    public List<TrackInfoDTO> getAll(String username) {
         Sort sort = Sort.by(Sort.Direction.ASC, "id");
         List<Track> trackList = trackRepository.findAll(sort);
 
@@ -127,7 +127,7 @@ public class TrackService {
         List<TrackInfoDTO> trackInfoDTOList = new ArrayList<>();
 
         for (UserTrack userTrack : userTrackList) {
-            trackInfoDTOList.add(getTrackInfoByTrackId(username, userTrack.getId().getTrackId()));
+            trackInfoDTOList.add(getByTrackId(username, userTrack.getId().getTrackId()));
         }
 
         return trackInfoDTOList;

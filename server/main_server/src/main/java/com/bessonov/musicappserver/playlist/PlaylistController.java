@@ -1,6 +1,5 @@
 package com.bessonov.musicappserver.playlist;
 
-import com.bessonov.musicappserver.track.TrackInfoDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.Authentication;
@@ -19,17 +18,17 @@ public class PlaylistController {
 
     @GetMapping("/get/all")
     public List<PlaylistInfoDTO> getAll(Authentication authentication) {
-        return playlistService.getPlaylistInfoAll(authentication.getName());
+        return playlistService.getAll(authentication.getName());
     }
 
     @GetMapping("/get/{playlistId}")
     public PlaylistInfoDTO getByPlaylistId(@PathVariable Integer playlistId, Authentication authentication) {
-        return playlistService.getPlaylistInfoByPlaylistId(authentication.getName(), playlistId);
+        return playlistService.getByPlaylistId(authentication.getName(), playlistId);
     }
 
     @PostMapping("/get/list")
     public List<PlaylistInfoDTO> getByPlaylistIdList(@RequestBody List<Integer> playlistIdList, Authentication authentication) {
-        return playlistService.getPlaylistInfoByPlaylistIdList(authentication.getName(), playlistIdList);
+        return playlistService.getByPlaylistIdList(authentication.getName(), playlistIdList);
     }
 
     @GetMapping("/get/user")

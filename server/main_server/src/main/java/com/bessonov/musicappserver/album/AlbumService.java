@@ -57,23 +57,23 @@ public class AlbumService {
     @Autowired
     private UserRatingRepository userRatingRepository;
 
-    public AlbumInfoDTO getAlbumInfoByAlbumId(String username, int albumId) {
+    public AlbumInfoDTO getByAlbumId(String username, int albumId) {
         Optional<Album> album = albumRepository.findById(albumId);
 
         return album.map(value -> getAlbumInfoByAlbum(username, value)).orElse(null);
     }
 
-    public List<AlbumInfoDTO> getAlbumInfoByAlbumIdList(String username, List<Integer> albumIdList) {
+    public List<AlbumInfoDTO> getByAlbumIdList(String username, List<Integer> albumIdList) {
         List<AlbumInfoDTO> albumInfoDTOList = new ArrayList<>();
 
         for (Integer albumId : albumIdList) {
-            albumInfoDTOList.add(getAlbumInfoByAlbumId(username, albumId));
+            albumInfoDTOList.add(getByAlbumId(username, albumId));
         }
 
         return albumInfoDTOList;
     }
 
-    public List<AlbumInfoDTO> getAlbumInfoAll(String username) {
+    public List<AlbumInfoDTO> getAll(String username) {
         Sort sort = Sort.by(Sort.Direction.ASC, "id");
         List<Album> albumList = albumRepository.findAll(sort);
 
@@ -100,7 +100,7 @@ public class AlbumService {
         List<AlbumInfoDTO> albumInfoDTOList = new ArrayList<>();
 
         for (UserAlbum userAlbum : userAlbumList) {
-            albumInfoDTOList.add(getAlbumInfoByAlbumId(username, userAlbum.getId().getAlbumId()));
+            albumInfoDTOList.add(getByAlbumId(username, userAlbum.getId().getAlbumId()));
         }
 
         return albumInfoDTOList;

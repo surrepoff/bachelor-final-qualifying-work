@@ -52,23 +52,23 @@ public class ArtistService {
     private UserRatingRepository userRatingRepository;
 
 
-    public ArtistInfoDTO getArtistInfoByArtistId(String username, int artistId) {
+    public ArtistInfoDTO getByArtistId(String username, int artistId) {
         Optional<Artist> artist = artistRepository.findById(artistId);
 
         return artist.map(value -> getArtistInfoByArtist(username, value)).orElse(null);
     }
 
-    public List<ArtistInfoDTO> getArtistInfoByArtistIdList(String username, List<Integer> artistIdList) {
+    public List<ArtistInfoDTO> getByArtistIdList(String username, List<Integer> artistIdList) {
         List<ArtistInfoDTO> artistInfoDTOList = new ArrayList<>();
 
         for (Integer artistId : artistIdList) {
-            artistInfoDTOList.add(getArtistInfoByArtistId(username, artistId));
+            artistInfoDTOList.add(getByArtistId(username, artistId));
         }
 
         return artistInfoDTOList;
     }
 
-    public List<ArtistInfoDTO> getArtistInfoAll(String username) {
+    public List<ArtistInfoDTO> getAll(String username) {
         Sort sort = Sort.by(Sort.Direction.ASC, "id");
         List<Artist> artistList = artistRepository.findAll(sort);
 
@@ -95,7 +95,7 @@ public class ArtistService {
         List<ArtistInfoDTO> artistInfoDTOList = new ArrayList<>();
 
         for (UserArtist userArtist : userArtistList) {
-            artistInfoDTOList.add(getArtistInfoByArtistId(username, userArtist.getId().getArtistId()));
+            artistInfoDTOList.add(getByArtistId(username, userArtist.getId().getArtistId()));
         }
 
         return artistInfoDTOList;

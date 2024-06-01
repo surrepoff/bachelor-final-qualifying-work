@@ -55,23 +55,23 @@ public class PlaylistService {
     @Autowired
     private UserRatingRepository userRatingRepository;
 
-    public PlaylistInfoDTO getPlaylistInfoByPlaylistId(String username, int playlistId) {
+    public PlaylistInfoDTO getByPlaylistId(String username, int playlistId) {
         Optional<Playlist> playlist = playlistRepository.findById(playlistId);
 
         return playlist.map(value -> getPlaylistInfoByPlaylist(username, value)).orElse(null);
     }
 
-    public List<PlaylistInfoDTO> getPlaylistInfoByPlaylistIdList(String username, List<Integer> playlistIdList) {
+    public List<PlaylistInfoDTO> getByPlaylistIdList(String username, List<Integer> playlistIdList) {
         List<PlaylistInfoDTO> playlistInfoDTOList = new ArrayList<>();
 
         for (Integer playlistId : playlistIdList) {
-            playlistInfoDTOList.add(getPlaylistInfoByPlaylistId(username, playlistId));
+            playlistInfoDTOList.add(getByPlaylistId(username, playlistId));
         }
 
         return playlistInfoDTOList;
     }
 
-    public List<PlaylistInfoDTO> getPlaylistInfoAll(String username) {
+    public List<PlaylistInfoDTO> getAll(String username) {
         Sort sort = Sort.by(Sort.Direction.ASC, "id");
         List<Playlist> playlistList = playlistRepository.findAll(sort);
 
@@ -98,7 +98,7 @@ public class PlaylistService {
         List<PlaylistInfoDTO> playlistInfoDTOList = new ArrayList<>();
 
         for (UserPlaylist userPlaylist : userPlaylistList) {
-            playlistInfoDTOList.add(getPlaylistInfoByPlaylistId(username, userPlaylist.getId().getPlaylistId()));
+            playlistInfoDTOList.add(getByPlaylistId(username, userPlaylist.getId().getPlaylistId()));
         }
 
         return playlistInfoDTOList;

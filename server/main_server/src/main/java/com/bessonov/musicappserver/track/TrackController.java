@@ -22,17 +22,17 @@ public class TrackController {
 
     @GetMapping("/get/all")
     public List<TrackInfoDTO> getAll(Authentication authentication) {
-        return trackService.getTrackInfoAll(authentication.getName());
+        return trackService.getAll(authentication.getName());
     }
 
     @GetMapping("/get/{trackId}")
     public TrackInfoDTO getByTrackId(@PathVariable Integer trackId, Authentication authentication) {
-        return trackService.getTrackInfoByTrackId(authentication.getName(), trackId);
+        return trackService.getByTrackId(authentication.getName(), trackId);
     }
 
     @PostMapping("/get/list")
     public List<TrackInfoDTO> getByTrackIdList(@RequestBody List<Integer> trackIdList, Authentication authentication) {
-        return trackService.getTrackInfoByTrackIdList(authentication.getName(), trackIdList);
+        return trackService.getByTrackIdList(authentication.getName(), trackIdList);
     }
 
     @GetMapping("/get/user")
