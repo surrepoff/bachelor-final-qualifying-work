@@ -42,6 +42,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -183,6 +184,114 @@ public class TrackService {
         }
 
         return trackInfoDTO;
+    }
+
+    public UserTrackDTO addTrackToUserList(String username, int trackId) {
+        Optional<UserData> userData = userDataRepository.findByUsername(username);
+
+        if (userData.isEmpty()) {
+            return null;
+        }
+
+        Optional<Track> track = trackRepository.findById(trackId);
+
+        if (track.isEmpty()) {
+            return null;
+        }
+
+        UserTrackId userTrackId = new UserTrackId(userData.get().getId(), track.get().getId());
+
+        Optional<UserTrack> userTrack = userTrackRepository.findById(userTrackId);
+
+        if (userTrack.isPresent()) {
+            return new UserTrackDTO(userTrack.get());
+        }
+
+        UserTrack newUserTrack = new UserTrack();
+
+        newUserTrack.setId(userTrackId);
+        newUserTrack.setAddedDate(new Date());
+
+        Integer maxTrackNumberInUserList = userTrackRepository.findMaxTrackNumberInUserList(userData.get().getId());
+        if (maxTrackNumberInUserList == null) maxTrackNumberInUserList = 0;
+
+        newUserTrack.setTrackNumberInUserList(maxTrackNumberInUserList + 1);
+
+        userTrackRepository.save(newUserTrack);
+
+        return new UserTrackDTO(newUserTrack);
+    }
+
+    public UserTrackDTO removeTrackFromUserList(String username, int trackId) {
+        Optional<UserData> userData = userDataRepository.findByUsername(username);
+
+        if (userData.isEmpty()) {
+            return null;
+        }
+
+        Optional<Track> track = trackRepository.findById(trackId);
+
+        if (track.isEmpty()) {
+            return null;
+        }
+
+        UserTrackId userTrackId = new UserTrackId(userData.get().getId(), track.get().getId());
+
+        Optional<UserTrack> userTrack = userTrackRepository.findById(userTrackId);
+
+        if (userTrack.isEmpty()) {
+            return new UserTrackDTO();
+        }
+
+        userTrackRepository.delete(userTrack.get());
+
+        List<UserTrack> userTrackList = userTrackRepository.findByIdUserIdAndTrackNumberInUserListGreaterThan(
+                userData.get().getId(), userTrack.get().getTrackNumberInUserList());
+
+        for (UserTrack userTrackItem : userTrackList) {
+            userTrackItem.setTrackNumberInUserList(userTrackItem.getTrackNumberInUserList() - 1);
+        }
+
+        userTrackRepository.saveAll(userTrackList);
+
+        return new UserTrackDTO();
+    }
+
+    public UserRatingDTO rateTrack(String username, int trackId, int rateId) {
+        Optional<UserRating> userRating = userRatingRepository.findById(rateId);
+
+        if (userRating.isEmpty()) {
+            return null;
+        }
+
+        Optional<UserData> userData = userDataRepository.findByUsername(username);
+
+        if (userData.isEmpty()) {
+            return null;
+        }
+
+        Optional<Track> track = trackRepository.findById(trackId);
+
+        if (track.isEmpty()) {
+            return null;
+        }
+
+        UserTrackId userTrackId = new UserTrackId(userData.get().getId(), track.get().getId());
+
+        Optional<UserTrackRating> userTrackRating = userTrackRatingRepository.findById(userTrackId);
+
+        if (userTrackRating.isPresent()) {
+            userTrackRating.get().setUserRatingId(rateId);
+            userTrackRatingRepository.save(userTrackRating.get());
+            return new UserRatingDTO(userRating.get());
+        }
+
+        UserTrackRating newUserTrackRating = new UserTrackRating();
+        newUserTrackRating.setId(userTrackId);
+        newUserTrackRating.setUserRatingId(rateId);
+
+        userTrackRatingRepository.save(newUserTrackRating);
+        return new UserRatingDTO(userRating.get());
     }
 
     public ResponseEntity<Resource> streamAudio(int trackId){

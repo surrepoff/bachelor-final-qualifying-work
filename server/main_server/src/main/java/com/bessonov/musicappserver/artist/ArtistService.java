@@ -24,6 +24,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -125,5 +126,113 @@ public class ArtistService {
         }
 
         return artistInfoDTO;
+    }
+
+    public UserArtistDTO addArtistToUserList(String username, int artistId) {
+        Optional<UserData> userData = userDataRepository.findByUsername(username);
+
+        if (userData.isEmpty()) {
+            return null;
+        }
+
+        Optional<Artist> artist = artistRepository.findById(artistId);
+
+        if (artist.isEmpty()) {
+            return null;
+        }
+
+        UserArtistId userArtistId = new UserArtistId(userData.get().getId(), artist.get().getId());
+
+        Optional<UserArtist> userArtist = userArtistRepository.findById(userArtistId);
+
+        if (userArtist.isPresent()) {
+            return new UserArtistDTO(userArtist.get());
+        }
+
+        UserArtist newUserArtist = new UserArtist();
+
+        newUserArtist.setId(userArtistId);
+        newUserArtist.setAddedDate(new Date());
+
+        Integer maxArtistNumberInUserList = userArtistRepository.findMaxArtistNumberInUserList(userData.get().getId());
+        if (maxArtistNumberInUserList == null) maxArtistNumberInUserList = 0;
+
+        newUserArtist.setArtistNumberInUserList(maxArtistNumberInUserList + 1);
+
+        userArtistRepository.save(newUserArtist);
+
+        return new UserArtistDTO(newUserArtist);
+    }
+
+    public UserArtistDTO removeArtistFromUserList(String username, int artistId) {
+        Optional<UserData> userData = userDataRepository.findByUsername(username);
+
+        if (userData.isEmpty()) {
+            return null;
+        }
+
+        Optional<Artist> artist = artistRepository.findById(artistId);
+
+        if (artist.isEmpty()) {
+            return null;
+        }
+
+        UserArtistId userArtistId = new UserArtistId(userData.get().getId(), artist.get().getId());
+
+        Optional<UserArtist> userArtist = userArtistRepository.findById(userArtistId);
+
+        if (userArtist.isEmpty()) {
+            return new UserArtistDTO();
+        }
+
+        userArtistRepository.delete(userArtist.get());
+
+        List<UserArtist> userArtistList = userArtistRepository.findByIdUserIdAndArtistNumberInUserListGreaterThan(
+                userData.get().getId(), userArtist.get().getArtistNumberInUserList());
+
+        for (UserArtist userArtistItem : userArtistList) {
+            userArtistItem.setArtistNumberInUserList(userArtistItem.getArtistNumberInUserList() - 1);
+        }
+
+        userArtistRepository.saveAll(userArtistList);
+
+        return new UserArtistDTO();
+    }
+
+    public UserRatingDTO rateArtist(String username, int artistId, int rateId) {
+        Optional<UserRating> userRating = userRatingRepository.findById(rateId);
+
+        if (userRating.isEmpty()) {
+            return null;
+        }
+
+        Optional<UserData> userData = userDataRepository.findByUsername(username);
+
+        if (userData.isEmpty()) {
+            return null;
+        }
+
+        Optional<Artist> artist = artistRepository.findById(artistId);
+
+        if (artist.isEmpty()) {
+            return null;
+        }
+
+        UserArtistId userArtistId = new UserArtistId(userData.get().getId(), artist.get().getId());
+
+        Optional<UserArtistRating> userArtistRating = userArtistRatingRepository.findById(userArtistId);
+
+        if (userArtistRating.isPresent()) {
+            userArtistRating.get().setUserRatingId(rateId);
+            userArtistRatingRepository.save(userArtistRating.get());
+            return new UserRatingDTO(userRating.get());
+        }
+
+        UserArtistRating newUserArtistRating = new UserArtistRating();
+        newUserArtistRating.setId(userArtistId);
+        newUserArtistRating.setUserRatingId(rateId);
+
+        userArtistRatingRepository.save(newUserArtistRating);
+        return new UserRatingDTO(userRating.get());
     }
 }

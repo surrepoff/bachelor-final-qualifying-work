@@ -14,6 +14,9 @@ public class UserArtistId implements Serializable {
     @Column(name = "artist_id")
     private int artistId;
 
+    public UserArtistId() {
+    }
+
     public UserArtistId(int userId, int artistId) {
         this.userId = userId;
         this.artistId = artistId;

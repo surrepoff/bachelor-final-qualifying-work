@@ -27,6 +27,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -146,5 +147,113 @@ public class AlbumService {
         }
 
         return albumInfoDTO;
+    }
+
+    public UserAlbumDTO addAlbumToUserList(String username, int albumId) {
+        Optional<UserData> userData = userDataRepository.findByUsername(username);
+
+        if (userData.isEmpty()) {
+            return null;
+        }
+
+        Optional<Album> album = albumRepository.findById(albumId);
+
+        if (album.isEmpty()) {
+            return null;
+        }
+
+        UserAlbumId userAlbumId = new UserAlbumId(userData.get().getId(), album.get().getId());
+
+        Optional<UserAlbum> userAlbum = userAlbumRepository.findById(userAlbumId);
+
+        if (userAlbum.isPresent()) {
+            return new UserAlbumDTO(userAlbum.get());
+        }
+
+        UserAlbum newUserAlbum = new UserAlbum();
+
+        newUserAlbum.setId(userAlbumId);
+        newUserAlbum.setAddedDate(new Date());
+
+        Integer maxAlbumNumberInUserList = userAlbumRepository.findMaxAlbumNumberInUserList(userData.get().getId());
+        if (maxAlbumNumberInUserList == null) maxAlbumNumberInUserList = 0;
+
+        newUserAlbum.setAlbumNumberInUserList(maxAlbumNumberInUserList + 1);
+
+        userAlbumRepository.save(newUserAlbum);
+
+        return new UserAlbumDTO(newUserAlbum);
+    }
+
+    public UserAlbumDTO removeAlbumFromUserList(String username, int albumId) {
+        Optional<UserData> userData = userDataRepository.findByUsername(username);
+
+        if (userData.isEmpty()) {
+            return null;
+        }
+
+        Optional<Album> album = albumRepository.findById(albumId);
+
+        if (album.isEmpty()) {
+            return null;
+        }
+
+        UserAlbumId userAlbumId = new UserAlbumId(userData.get().getId(), album.get().getId());
+
+        Optional<UserAlbum> userAlbum = userAlbumRepository.findById(userAlbumId);
+
+        if (userAlbum.isEmpty()) {
+            return new UserAlbumDTO();
+        }
+
+        userAlbumRepository.delete(userAlbum.get());
+
+        List<UserAlbum> userAlbumList = userAlbumRepository.findByIdUserIdAndAlbumNumberInUserListGreaterThan(
+                userData.get().getId(), userAlbum.get().getAlbumNumberInUserList());
+
+        for (UserAlbum userAlbumItem : userAlbumList) {
+            userAlbumItem.setAlbumNumberInUserList(userAlbumItem.getAlbumNumberInUserList() - 1);
+        }
+
+        userAlbumRepository.saveAll(userAlbumList);
+
+        return new UserAlbumDTO();
+    }
+
+    public UserRatingDTO rateAlbum(String username, int albumId, int rateId) {
+        Optional<UserRating> userRating = userRatingRepository.findById(rateId);
+
+        if (userRating.isEmpty()) {
+            return null;
+        }
+
+        Optional<UserData> userData = userDataRepository.findByUsername(username);
+
+        if (userData.isEmpty()) {
+            return null;
+        }
+
+        Optional<Album> album = albumRepository.findById(albumId);
+
+        if (album.isEmpty()) {
+            return null;
+        }
+
+        UserAlbumId userAlbumId = new UserAlbumId(userData.get().getId(), album.get().getId());
+
+        Optional<UserAlbumRating> userAlbumRating = userAlbumRatingRepository.findById(userAlbumId);
+
+        if (userAlbumRating.isPresent()) {
+            userAlbumRating.get().setUserRatingId(rateId);
+            userAlbumRatingRepository.save(userAlbumRating.get());
+            return new UserRatingDTO(userRating.get());
+        }
+
+        UserAlbumRating newUserAlbumRating = new UserAlbumRating();
+        newUserAlbumRating.setId(userAlbumId);
+        newUserAlbumRating.setUserRatingId(rateId);
+
+        userAlbumRatingRepository.save(newUserAlbumRating);
+        return new UserRatingDTO(userRating.get());
     }
 }
