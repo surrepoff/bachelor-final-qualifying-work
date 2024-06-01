@@ -11,6 +11,17 @@ import com.bessonov.musicappserver.database.artist.Artist;
 import com.bessonov.musicappserver.database.artist.ArtistDTO;
 import com.bessonov.musicappserver.database.artist.ArtistRepository;
 
+import com.bessonov.musicappserver.database.userAlbum.UserAlbum;
+import com.bessonov.musicappserver.database.userAlbum.UserAlbumDTO;
+import com.bessonov.musicappserver.database.userAlbum.UserAlbumId;
+import com.bessonov.musicappserver.database.userAlbum.UserAlbumRepository;
+import com.bessonov.musicappserver.database.userAlbumRating.UserAlbumRating;
+import com.bessonov.musicappserver.database.userAlbumRating.UserAlbumRatingRepository;
+import com.bessonov.musicappserver.database.userData.UserData;
+import com.bessonov.musicappserver.database.userData.UserDataRepository;
+import com.bessonov.musicappserver.database.userRating.UserRating;
+import com.bessonov.musicappserver.database.userRating.UserRatingDTO;
+import com.bessonov.musicappserver.database.userRating.UserRatingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
@@ -33,36 +44,48 @@ public class AlbumService {
     @Autowired
     private ArtistRepository artistRepository;
 
-    public AlbumInfoDTO getAlbumInfoByAlbumId(int albumId) {
+    @Autowired
+    private UserDataRepository userDataRepository;
+
+    @Autowired
+    private UserAlbumRepository userAlbumRepository;
+
+    @Autowired
+    private UserAlbumRatingRepository userAlbumRatingRepository;
+
+    @Autowired
+    private UserRatingRepository userRatingRepository;
+
+    public AlbumInfoDTO getAlbumInfoByAlbumId(String username, int albumId) {
         Optional<Album> album = albumRepository.findById(albumId);
 
-        return album.map(this::getAlbumInfoByAlbum).orElse(null);
+        return album.map(value -> getAlbumInfoByAlbum(username, value)).orElse(null);
     }
 
-    public List<AlbumInfoDTO> getAlbumInfoByAlbumIdList(List<Integer> albumIdList) {
+    public List<AlbumInfoDTO> getAlbumInfoByAlbumIdList(String username, List<Integer> albumIdList) {
         List<AlbumInfoDTO> albumInfoDTOList = new ArrayList<>();
 
         for (Integer albumId : albumIdList) {
-            albumInfoDTOList.add(getAlbumInfoByAlbumId(albumId));
+            albumInfoDTOList.add(getAlbumInfoByAlbumId(username, albumId));
         }
 
         return albumInfoDTOList;
     }
 
-    public List<AlbumInfoDTO> getAlbumInfoAll() {
+    public List<AlbumInfoDTO> getAlbumInfoAll(String username) {
         Sort sort = Sort.by(Sort.Direction.ASC, "id");
         List<Album> albumList = albumRepository.findAll(sort);
 
         List<AlbumInfoDTO> albumInfoDTOList = new ArrayList<>();
 
         for (Album album : albumList) {
-            albumInfoDTOList.add(getAlbumInfoByAlbum(album));
+            albumInfoDTOList.add(getAlbumInfoByAlbum(username, album));
         }
 
         return albumInfoDTOList;
     }
 
-    public AlbumInfoDTO getAlbumInfoByAlbum(Album album) {
+    public AlbumInfoDTO getAlbumInfoByAlbum(String username, Album album) {
         AlbumInfoDTO albumInfoDTO = new AlbumInfoDTO();
 
         albumInfoDTO.setAlbum(new AlbumDTO(album));
@@ -96,6 +119,31 @@ public class AlbumService {
             trackId.add(albumTrack.getId().getTrackId());
         }
         albumInfoDTO.setTrackId(trackId);
+
+        Optional<UserData> userData = userDataRepository.findByUsername(username);
+        if (userData.isPresent()){
+            UserAlbumId userAlbumId = new UserAlbumId(userData.get().getId(), album.getId());
+
+            Optional<UserAlbumRating> userAlbumRating = userAlbumRatingRepository.findById(userAlbumId);
+            UserRatingDTO userRatingDTO = new UserRatingDTO();
+
+            if (userAlbumRating.isPresent()) {
+                Optional<UserRating> userRating = userRatingRepository.findById(userAlbumRating.get().getUserRatingId());
+                if (userRating.isPresent()) {
+                    userRatingDTO = new UserRatingDTO(userRating.get());
+                }
+            }
+            albumInfoDTO.setRating(userRatingDTO);
+
+            Optional<UserAlbum> userAlbum = userAlbumRepository.findById(userAlbumId);
+            UserAlbumDTO userAlbumDTO = new UserAlbumDTO();
+
+            if (userAlbum.isPresent()) {
+                userAlbumDTO.setAdded(true);
+                userAlbumDTO.setAddedDate(userAlbum.get().getAddedDate());
+            }
+            albumInfoDTO.setIsAdded(userAlbumDTO);
+        }
 
         return albumInfoDTO;
     }

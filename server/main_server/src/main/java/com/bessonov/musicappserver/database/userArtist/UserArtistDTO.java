@@ -6,12 +6,12 @@ public class UserArtistDTO {
     private boolean isAdded;
     private Date addedDate;
 
-    UserArtistDTO() {
+    public UserArtistDTO() {
         this.isAdded = false;
         this.addedDate = new Date(0);
     }
 
-    UserArtistDTO(UserArtist userArtist) {
+    public UserArtistDTO(UserArtist userArtist) {
         if (userArtist == null) {
             this.isAdded = false;
             this.addedDate = new Date(0);

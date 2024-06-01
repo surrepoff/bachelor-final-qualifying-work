@@ -20,17 +20,17 @@ public class TrackController {
 
     @GetMapping("/get/all")
     public List<TrackInfoDTO> getAll(Authentication authentication) {
-        return trackService.getTrackInfoAll();
+        return trackService.getTrackInfoAll(authentication.getName());
     }
 
-    @PostMapping("/get/byTrackId")
-    public TrackInfoDTO getByTrackId(@RequestBody int trackId, Authentication authentication) {
-        return trackService.getTrackInfoByTrackId(trackId);
+    @GetMapping("/get/{trackId}")
+    public TrackInfoDTO getByTrackId(@PathVariable Integer trackId, Authentication authentication) {
+        return trackService.getTrackInfoByTrackId(authentication.getName(), trackId);
     }
 
-    @PostMapping("/get/byTrackId/list")
+    @PostMapping("/get/list")
     public List<TrackInfoDTO> getByTrackIdList(@RequestBody List<Integer> trackIdList, Authentication authentication) {
-        return trackService.getTrackInfoByTrackIdList(trackIdList);
+        return trackService.getTrackInfoByTrackIdList(authentication.getName(), trackIdList);
     }
 
     @GetMapping("/stream/{trackId}")

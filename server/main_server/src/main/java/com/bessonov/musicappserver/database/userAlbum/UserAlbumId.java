@@ -14,6 +14,11 @@ public class UserAlbumId implements Serializable {
     @Column(name = "album_id")
     private int albumId;
 
+    public UserAlbumId(int userId, int albumId) {
+        this.userId = userId;
+        this.albumId = albumId;
+    }
+
     public int getUserId() {
         return userId;
     }

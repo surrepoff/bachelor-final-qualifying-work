@@ -20,6 +20,17 @@ import com.bessonov.musicappserver.database.track.Track;
 import com.bessonov.musicappserver.database.track.TrackDTO;
 import com.bessonov.musicappserver.database.track.TrackRepository;
 
+import com.bessonov.musicappserver.database.userData.UserData;
+import com.bessonov.musicappserver.database.userData.UserDataRepository;
+import com.bessonov.musicappserver.database.userRating.UserRating;
+import com.bessonov.musicappserver.database.userRating.UserRatingDTO;
+import com.bessonov.musicappserver.database.userRating.UserRatingRepository;
+import com.bessonov.musicappserver.database.userTrack.UserTrack;
+import com.bessonov.musicappserver.database.userTrack.UserTrackDTO;
+import com.bessonov.musicappserver.database.userTrack.UserTrackId;
+import com.bessonov.musicappserver.database.userTrack.UserTrackRepository;
+import com.bessonov.musicappserver.database.userTrackRating.UserTrackRating;
+import com.bessonov.musicappserver.database.userTrackRating.UserTrackRatingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.FileSystemResource;
@@ -57,39 +68,51 @@ public class TrackService {
     @Autowired
     private TrackRepository trackRepository;
 
+    @Autowired
+    private UserDataRepository userDataRepository;
+
+    @Autowired
+    private UserTrackRepository userTrackRepository;
+
+    @Autowired
+    private UserTrackRatingRepository userTrackRatingRepository;
+
+    @Autowired
+    private UserRatingRepository userRatingRepository;
+
     @Value("${filepath.data.track}")
     private String filepath;
 
-    public TrackInfoDTO getTrackInfoByTrackId(int trackId) {
+    public TrackInfoDTO getTrackInfoByTrackId(String username, int trackId) {
         Optional<Track> track = trackRepository.findById(trackId);
 
-        return track.map(this::getTrackInfoByTrack).orElse(null);
+        return track.map(value -> getTrackInfoByTrack(username, value)).orElse(null);
     }
 
-    public List<TrackInfoDTO> getTrackInfoByTrackIdList(List<Integer> trackIdList) {
+    public List<TrackInfoDTO> getTrackInfoByTrackIdList(String username, List<Integer> trackIdList) {
         List<TrackInfoDTO> trackInfoDTOList = new ArrayList<>();
 
         for (Integer trackId : trackIdList) {
-            trackInfoDTOList.add(getTrackInfoByTrackId(trackId));
+            trackInfoDTOList.add(getTrackInfoByTrackId(username, trackId));
         }
 
         return trackInfoDTOList;
     }
 
-    public List<TrackInfoDTO> getTrackInfoAll() {
+    public List<TrackInfoDTO> getTrackInfoAll(String username) {
         Sort sort = Sort.by(Sort.Direction.ASC, "id");
         List<Track> trackList = trackRepository.findAll(sort);
 
         List<TrackInfoDTO> trackInfoDTOList = new ArrayList<>();
 
         for (Track track : trackList) {
-            trackInfoDTOList.add(getTrackInfoByTrack(track));
+            trackInfoDTOList.add(getTrackInfoByTrack(username, track));
         }
 
         return trackInfoDTOList;
     }
 
-    public TrackInfoDTO getTrackInfoByTrack(Track track) {
+    public TrackInfoDTO getTrackInfoByTrack(String username, Track track) {
         TrackInfoDTO trackInfoDTO = new TrackInfoDTO();
 
         trackInfoDTO.setTrack(new TrackDTO(track));
@@ -133,6 +156,31 @@ public class TrackService {
         Optional<License> license = licenseRepository.findById(track.getLicenseId());
         LicenseDTO licenseDTO = license.map(LicenseDTO::new).orElseGet(LicenseDTO::new);
         trackInfoDTO.setLicense(licenseDTO);
+
+        Optional<UserData> userData = userDataRepository.findByUsername(username);
+        if (userData.isPresent()){
+            UserTrackId userTrackId = new UserTrackId(userData.get().getId(), track.getId());
+
+            Optional<UserTrackRating> userTrackRating = userTrackRatingRepository.findById(userTrackId);
+            UserRatingDTO userRatingDTO = new UserRatingDTO();
+
+            if (userTrackRating.isPresent()) {
+                Optional<UserRating> userRating = userRatingRepository.findById(userTrackRating.get().getUserRatingId());
+                if (userRating.isPresent()) {
+                    userRatingDTO = new UserRatingDTO(userRating.get());
+                }
+            }
+            trackInfoDTO.setRating(userRatingDTO);
+
+            Optional<UserTrack> userTrack = userTrackRepository.findById(userTrackId);
+            UserTrackDTO userTrackDTO = new UserTrackDTO();
+
+            if (userTrack.isPresent()) {
+                userTrackDTO.setAdded(true);
+                userTrackDTO.setAddedDate(userTrack.get().getAddedDate());
+            }
+            trackInfoDTO.setIsAdded(userTrackDTO);
+        }
 
         return trackInfoDTO;
     }

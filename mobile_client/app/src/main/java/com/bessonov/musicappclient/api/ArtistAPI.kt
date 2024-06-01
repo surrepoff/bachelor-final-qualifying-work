@@ -5,14 +5,15 @@ import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
+import retrofit2.http.Path
 
 interface ArtistAPI {
     @GET("/artist/get/all")
     fun getAll(): Call<List<ArtistInfoDTO>>
 
-    @POST("/artist/get/byArtistId")
-    fun getByAlbumId(@Body artistId: Int): Call<ArtistInfoDTO>
+    @GET("/artist/get/{artistId}")
+    fun getByAlbumId(@Path("artistId") artistId: Int): Call<ArtistInfoDTO>
 
-    @POST("/artist/get/byArtistId/list")
+    @POST("/artist/get/list")
     fun getByAlbumIdList(@Body artistIdList: List<Int>): Call<List<ArtistInfoDTO>>
 }

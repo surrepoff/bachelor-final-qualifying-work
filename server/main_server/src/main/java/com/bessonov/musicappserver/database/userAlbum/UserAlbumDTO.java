@@ -6,12 +6,12 @@ public class UserAlbumDTO {
     private boolean isAdded;
     private Date addedDate;
 
-    UserAlbumDTO() {
+    public UserAlbumDTO() {
         this.isAdded = false;
         this.addedDate = new Date(0);
     }
 
-    UserAlbumDTO(UserAlbum userAlbum) {
+    public UserAlbumDTO(UserAlbum userAlbum) {
         if (userAlbum == null) {
             this.isAdded = false;
             this.addedDate = new Date(0);

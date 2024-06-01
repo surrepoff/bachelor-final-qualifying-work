@@ -14,6 +14,7 @@ import com.bessonov.musicappclient.ui.main.MainActivity
 import com.bessonov.musicappclient.ui.register.RegisterActivity
 
 class StartActivity : AppCompatActivity() {
+    private lateinit var sessionManager: SessionManager
     private lateinit var loginButton: Button
     private lateinit var registerButton: Button
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -25,6 +26,9 @@ class StartActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+
+        sessionManager = SessionManager(this)
+        sessionManager.clearAuthToken()
 
         loginButton = findViewById(R.id.loginButton)
         registerButton = findViewById(R.id.registerButton)

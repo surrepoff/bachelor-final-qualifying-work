@@ -4,12 +4,12 @@ public class UserRatingDTO {
     private int id;
     private String name;
 
-    UserRatingDTO() {
+    public UserRatingDTO() {
         this.id = 0;
         this.name = "none";
     }
 
-    UserRatingDTO(UserRating userRating) {
+    public UserRatingDTO(UserRating userRating) {
         if (userRating == null) {
             this.id = 0;
             this.name = "none";

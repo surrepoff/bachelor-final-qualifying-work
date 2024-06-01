@@ -14,17 +14,17 @@ public class ImageController {
     private ImageService imageService;
 
     @GetMapping("/album/{albumId}")
-    public ResponseEntity<byte[]> getAlbumImage(@PathVariable int albumId) {
+    public ResponseEntity<byte[]> getAlbumImage(@PathVariable Integer albumId) {
         return imageService.getAlbumImage(albumId);
     }
 
     @GetMapping("/artist/{artistId}")
-    public ResponseEntity<byte[]> getArtistImage(@PathVariable int artistId) {
+    public ResponseEntity<byte[]> getArtistImage(@PathVariable Integer artistId) {
         return imageService.getArtistImage(artistId);
     }
 
     @GetMapping("/track/{trackId}")
-    public ResponseEntity<byte[]> getTrackImage(@PathVariable int trackId) {
+    public ResponseEntity<byte[]> getTrackImage(@PathVariable Integer trackId) {
         return imageService.getTrackImage(trackId);
     }
 }

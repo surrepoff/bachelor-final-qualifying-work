@@ -6,12 +6,12 @@ public class UserTrackDTO {
     private boolean isAdded;
     private Date addedDate;
 
-    UserTrackDTO() {
+    public UserTrackDTO() {
         this.isAdded = false;
         this.addedDate = new Date(0);
     }
 
-    UserTrackDTO(UserTrack userTrack) {
+    public UserTrackDTO(UserTrack userTrack) {
         if (userTrack == null) {
             this.isAdded = false;
             this.addedDate = new Date(0);

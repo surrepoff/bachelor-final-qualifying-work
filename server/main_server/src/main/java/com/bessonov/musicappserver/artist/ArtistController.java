@@ -14,16 +14,16 @@ public class ArtistController {
 
     @GetMapping("/get/all")
     public List<ArtistInfoDTO> getAll(Authentication authentication) {
-        return artistService.getArtistInfoAll();
+        return artistService.getArtistInfoAll(authentication.getName());
     }
 
-    @PostMapping("/get/byArtistId")
-    public ArtistInfoDTO getByArtistId(@RequestBody int artistId, Authentication authentication) {
-        return artistService.getArtistInfoDTOByArtistId(artistId);
+    @GetMapping("/get/{artistId}")
+    public ArtistInfoDTO getByArtistId(@PathVariable Integer artistId, Authentication authentication) {
+        return artistService.getArtistInfoDTOByArtistId(authentication.getName(), artistId);
     }
 
-    @PostMapping("/get/byArtistId/list")
+    @PostMapping("/get/list")
     public List<ArtistInfoDTO> getByArtistIdList(@RequestBody List<Integer> artistIdList, Authentication authentication) {
-        return artistService.getArtistInfoDTOByArtistIdList(artistIdList);
+        return artistService.getArtistInfoDTOByArtistIdList(authentication.getName(), artistIdList);
     }
 }

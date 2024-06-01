@@ -13,6 +13,11 @@ public class UserTrackId implements Serializable {
     @Column(name = "track_id")
     private int trackId;
 
+    public UserTrackId(int userId, int trackId) {
+        this.userId = userId;
+        this.trackId = trackId;
+    }
+
     public int getUserId() {
         return userId;
     }

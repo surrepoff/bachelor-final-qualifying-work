@@ -8,6 +8,17 @@ import com.bessonov.musicappserver.database.artist.ArtistRepository;
 import com.bessonov.musicappserver.database.artistTrack.ArtistTrack;
 import com.bessonov.musicappserver.database.artistTrack.ArtistTrackRepository;
 
+import com.bessonov.musicappserver.database.userArtist.UserArtist;
+import com.bessonov.musicappserver.database.userArtist.UserArtistDTO;
+import com.bessonov.musicappserver.database.userArtist.UserArtistId;
+import com.bessonov.musicappserver.database.userArtist.UserArtistRepository;
+import com.bessonov.musicappserver.database.userArtistRating.UserArtistRating;
+import com.bessonov.musicappserver.database.userArtistRating.UserArtistRatingRepository;
+import com.bessonov.musicappserver.database.userData.UserData;
+import com.bessonov.musicappserver.database.userData.UserDataRepository;
+import com.bessonov.musicappserver.database.userRating.UserRating;
+import com.bessonov.musicappserver.database.userRating.UserRatingDTO;
+import com.bessonov.musicappserver.database.userRating.UserRatingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
@@ -27,36 +38,49 @@ public class ArtistService {
     @Autowired
     private ArtistTrackRepository artistTrackRepository;
 
-    public ArtistInfoDTO getArtistInfoDTOByArtistId(int artistId) {
+    @Autowired
+    private UserDataRepository userDataRepository;
+
+    @Autowired
+    private UserArtistRepository userArtistRepository;
+
+    @Autowired
+    private UserArtistRatingRepository userArtistRatingRepository;
+
+    @Autowired
+    private UserRatingRepository userRatingRepository;
+
+
+    public ArtistInfoDTO getArtistInfoDTOByArtistId(String username, int artistId) {
         Optional<Artist> artist = artistRepository.findById(artistId);
 
-        return artist.map(this::getArtistInfoByArtist).orElse(null);
+        return artist.map(value -> getArtistInfoByArtist(username, value)).orElse(null);
     }
 
-    public List<ArtistInfoDTO> getArtistInfoDTOByArtistIdList(List<Integer> artistIdList) {
+    public List<ArtistInfoDTO> getArtistInfoDTOByArtistIdList(String username, List<Integer> artistIdList) {
         List<ArtistInfoDTO> artistInfoDTOList = new ArrayList<>();
 
         for (Integer artistId : artistIdList) {
-            artistInfoDTOList.add(getArtistInfoDTOByArtistId(artistId));
+            artistInfoDTOList.add(getArtistInfoDTOByArtistId(username, artistId));
         }
 
         return artistInfoDTOList;
     }
 
-    public List<ArtistInfoDTO> getArtistInfoAll() {
+    public List<ArtistInfoDTO> getArtistInfoAll(String username) {
         Sort sort = Sort.by(Sort.Direction.ASC, "id");
         List<Artist> artistList = artistRepository.findAll(sort);
 
         List<ArtistInfoDTO> artistInfoDTOList = new ArrayList<>();
 
         for (Artist artist : artistList) {
-            artistInfoDTOList.add(getArtistInfoByArtist(artist));
+            artistInfoDTOList.add(getArtistInfoByArtist(username, artist));
         }
 
         return artistInfoDTOList;
     }
 
-    public ArtistInfoDTO getArtistInfoByArtist(Artist artist) {
+    public ArtistInfoDTO getArtistInfoByArtist(String username, Artist artist) {
         ArtistInfoDTO artistInfoDTO = new ArtistInfoDTO();
 
         artistInfoDTO.setArtist(new ArtistDTO(artist));
@@ -74,6 +98,31 @@ public class ArtistService {
             trackId.add(artistTrack.getId().getTrackId());
         }
         artistInfoDTO.setTrackId(trackId);
+
+        Optional<UserData> userData = userDataRepository.findByUsername(username);
+        if (userData.isPresent()){
+            UserArtistId userArtistId = new UserArtistId(userData.get().getId(), artist.getId());
+
+            Optional<UserArtistRating> userArtistRating = userArtistRatingRepository.findById(userArtistId);
+            UserRatingDTO userRatingDTO = new UserRatingDTO();
+
+            if (userArtistRating.isPresent()) {
+                Optional<UserRating> userRating = userRatingRepository.findById(userArtistRating.get().getUserRatingId());
+                if (userRating.isPresent()) {
+                    userRatingDTO = new UserRatingDTO(userRating.get());
+                }
+            }
+            artistInfoDTO.setRating(userRatingDTO);
+
+            Optional<UserArtist> userArtist = userArtistRepository.findById(userArtistId);
+            UserArtistDTO userArtistDTO = new UserArtistDTO();
+
+            if (userArtist.isPresent()) {
+                userArtistDTO.setAdded(true);
+                userArtistDTO.setAddedDate(userArtist.get().getAddedDate());
+            }
+            artistInfoDTO.setIsAdded(userArtistDTO);
+        }
 
         return artistInfoDTO;
     }

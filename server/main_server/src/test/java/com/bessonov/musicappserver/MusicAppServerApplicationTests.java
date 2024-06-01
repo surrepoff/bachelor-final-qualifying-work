@@ -13,13 +13,4 @@ class MusicAppServerApplicationTests {
 	@Test
 	void contextLoads() {
 	}
-
-	@Autowired
-	private TrackService trackService;
-
-	@Test
-	void getTrackInfo() {
-		List<TrackInfoDTO> trackInfoDTOList = trackService.getTrackInfoAll();
-		System.out.println(trackInfoDTOList);
-	}
 }

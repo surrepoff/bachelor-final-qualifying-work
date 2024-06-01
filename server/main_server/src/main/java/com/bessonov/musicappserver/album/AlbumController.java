@@ -14,16 +14,16 @@ public class AlbumController {
 
     @GetMapping("/get/all")
     public List<AlbumInfoDTO> getAll(Authentication authentication) {
-        return albumService.getAlbumInfoAll();
+        return albumService.getAlbumInfoAll(authentication.getName());
     }
 
-    @PostMapping("/get/byAlbumId")
-    public AlbumInfoDTO getByAlbumId(@RequestBody int albumId, Authentication authentication) {
-        return albumService.getAlbumInfoByAlbumId(albumId);
+    @GetMapping("/get/{albumId}")
+    public AlbumInfoDTO getByAlbumId(@PathVariable Integer albumId, Authentication authentication) {
+        return albumService.getAlbumInfoByAlbumId(authentication.getName(), albumId);
     }
 
-    @PostMapping("/get/byAlbumId/list")
+    @PostMapping("/get/list")
     public List<AlbumInfoDTO> getByAlbumIdList(@RequestBody List<Integer> albumIdList, Authentication authentication) {
-        return albumService.getAlbumInfoByAlbumIdList(albumIdList);
+        return albumService.getAlbumInfoByAlbumIdList(authentication.getName(),albumIdList);
     }
 }
