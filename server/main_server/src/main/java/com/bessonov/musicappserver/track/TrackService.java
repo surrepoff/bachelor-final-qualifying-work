@@ -113,6 +113,26 @@ public class TrackService {
         return trackInfoDTOList;
     }
 
+    public List<TrackInfoDTO> getTrackUserList(String username) {
+        Optional<UserData> userData = userDataRepository.findByUsername(username);
+
+        if (userData.isEmpty()) {
+            return null;
+        }
+
+        Sort sort = Sort.by(Sort.Direction.ASC, "trackNumberInUserList");
+
+        List<UserTrack> userTrackList = userTrackRepository.findByIdUserId(userData.get().getId(), sort);
+
+        List<TrackInfoDTO> trackInfoDTOList = new ArrayList<>();
+
+        for (UserTrack userTrack : userTrackList) {
+            trackInfoDTOList.add(getTrackInfoByTrackId(username, userTrack.getId().getTrackId()));
+        }
+
+        return trackInfoDTOList;
+    }
+
     public TrackInfoDTO getTrackInfoByTrack(String username, Track track) {
         TrackInfoDTO trackInfoDTO = new TrackInfoDTO();
 

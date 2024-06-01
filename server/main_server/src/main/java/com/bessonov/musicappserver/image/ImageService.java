@@ -2,15 +2,10 @@ package com.bessonov.musicappserver.image;
 
 import com.bessonov.musicappserver.database.album.Album;
 import com.bessonov.musicappserver.database.album.AlbumRepository;
-import com.bessonov.musicappserver.database.albumArtist.AlbumArtistRepository;
 import com.bessonov.musicappserver.database.albumTrack.AlbumTrack;
 import com.bessonov.musicappserver.database.albumTrack.AlbumTrackRepository;
 import com.bessonov.musicappserver.database.artist.Artist;
 import com.bessonov.musicappserver.database.artist.ArtistRepository;
-import com.bessonov.musicappserver.database.artistStatus.ArtistStatusRepository;
-import com.bessonov.musicappserver.database.artistTrack.ArtistTrackRepository;
-import com.bessonov.musicappserver.database.genre.GenreRepository;
-import com.bessonov.musicappserver.database.license.LicenseRepository;
 import com.bessonov.musicappserver.database.track.Track;
 import com.bessonov.musicappserver.database.track.TrackRepository;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -29,6 +29,11 @@ public class AlbumController {
         return albumService.getAlbumInfoByAlbumIdList(authentication.getName(),albumIdList);
     }
 
+    @GetMapping("/get/user")
+    public List<AlbumInfoDTO> getAlbumUserList(Authentication authentication) {
+        return albumService.getAlbumUserList(authentication.getName());
+    }
+
     @GetMapping("/add/{albumId}")
     public UserAlbumDTO addAlbumToUserList(@PathVariable Integer albumId, Authentication authentication) {
         return albumService.addAlbumToUserList(authentication.getName(), albumId);

@@ -1,5 +1,6 @@
 package com.bessonov.musicappserver.database.userTrack;
 
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -12,5 +13,6 @@ public interface UserTrackRepository extends JpaRepository<UserTrack, UserTrackI
     @Query("SELECT MAX(ut.trackNumberInUserList) FROM UserTrack ut WHERE ut.Id.userId = :userId")
     Integer findMaxTrackNumberInUserList(@Param("userId") int userId);
 
+    public List<UserTrack> findByIdUserId(int userId, Sort sort);
     public List<UserTrack> findByIdUserIdAndTrackNumberInUserListGreaterThan(int userId, int trackNumberInUserList);
 }

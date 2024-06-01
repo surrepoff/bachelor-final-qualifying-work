@@ -86,6 +86,26 @@ public class AlbumService {
         return albumInfoDTOList;
     }
 
+    public List<AlbumInfoDTO> getAlbumUserList(String username) {
+        Optional<UserData> userData = userDataRepository.findByUsername(username);
+
+        if (userData.isEmpty()) {
+            return null;
+        }
+
+        Sort sort = Sort.by(Sort.Direction.ASC, "albumNumberInUserList");
+
+        List<UserAlbum> userAlbumList = userAlbumRepository.findByIdUserId(userData.get().getId(), sort);
+
+        List<AlbumInfoDTO> albumInfoDTOList = new ArrayList<>();
+
+        for (UserAlbum userAlbum : userAlbumList) {
+            albumInfoDTOList.add(getAlbumInfoByAlbumId(username, userAlbum.getId().getAlbumId()));
+        }
+
+        return albumInfoDTOList;
+    }
+
     public AlbumInfoDTO getAlbumInfoByAlbum(String username, Album album) {
         AlbumInfoDTO albumInfoDTO = new AlbumInfoDTO();
 

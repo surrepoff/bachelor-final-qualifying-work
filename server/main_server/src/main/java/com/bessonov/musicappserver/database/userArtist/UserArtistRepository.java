@@ -1,5 +1,6 @@
 package com.bessonov.musicappserver.database.userArtist;
 
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -12,6 +13,6 @@ public interface UserArtistRepository extends JpaRepository<UserArtist, UserArti
     @Query("SELECT MAX(uar.artistNumberInUserList) FROM UserArtist uar WHERE uar.Id.userId = :userId")
     Integer findMaxArtistNumberInUserList(@Param("userId") int userId);
 
+    public List<UserArtist> findByIdUserId(int userId, Sort sort);
     public List<UserArtist> findByIdUserIdAndArtistNumberInUserListGreaterThan(int userId, int artistNumberInUserList);
-
 }

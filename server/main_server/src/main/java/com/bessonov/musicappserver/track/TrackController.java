@@ -35,6 +35,11 @@ public class TrackController {
         return trackService.getTrackInfoByTrackIdList(authentication.getName(), trackIdList);
     }
 
+    @GetMapping("/get/user")
+    public List<TrackInfoDTO> getTrackUserList(Authentication authentication) {
+        return trackService.getTrackUserList(authentication.getName());
+    }
+
     @GetMapping("/add/{trackId}")
     public UserTrackDTO addTrackToUserList(@PathVariable Integer trackId, Authentication authentication) {
         return trackService.addTrackToUserList(authentication.getName(), trackId);
