@@ -5,6 +5,7 @@ import com.bessonov.musicappserver.database.playlist.PlaylistDTO;
 import com.bessonov.musicappserver.database.playlist.PlaylistRepository;
 import com.bessonov.musicappserver.database.playlistTrack.PlaylistTrack;
 import com.bessonov.musicappserver.database.playlistTrack.PlaylistTrackRepository;
+import com.bessonov.musicappserver.database.track.Track;
 import com.bessonov.musicappserver.database.track.TrackRepository;
 import com.bessonov.musicappserver.database.userData.UserData;
 import com.bessonov.musicappserver.database.userData.UserDataRepository;
@@ -21,11 +22,17 @@ import com.bessonov.musicappserver.database.userPlaylistRating.UserPlaylistRatin
 import com.bessonov.musicappserver.database.userRating.UserRating;
 import com.bessonov.musicappserver.database.userRating.UserRatingDTO;
 import com.bessonov.musicappserver.database.userRating.UserRatingRepository;
+import com.bessonov.musicappserver.database.userTrack.UserTrack;
+import com.bessonov.musicappserver.database.userTrack.UserTrackDTO;
+import com.bessonov.musicappserver.database.userTrack.UserTrackId;
+import com.bessonov.musicappserver.database.userTrackRating.UserTrackRating;
+import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -155,5 +162,114 @@ public class PlaylistService {
         }
 
         return playlistInfoDTO;
+    }
+
+    public UserPlaylistDTO addPlaylistToUserList(String username, int playlistId) {
+        Optional<UserData> userData = userDataRepository.findByUsername(username);
+
+        if (userData.isEmpty()) {
+            return null;
+        }
+
+        Optional<Playlist> playlist = playlistRepository.findById(playlistId);
+
+        if (playlist.isEmpty()) {
+            return null;
+        }
+
+        UserPlaylistId userPlaylistId = new UserPlaylistId(userData.get().getId(), playlist.get().getId());
+
+        Optional<UserPlaylist> userPlaylist = userPlaylistRepository.findById(userPlaylistId);
+
+        if (userPlaylist.isPresent()) {
+            return new UserPlaylistDTO(userPlaylist.get());
+        }
+
+        UserPlaylist newUserPlaylist = new UserPlaylist();
+
+        newUserPlaylist.setId(userPlaylistId);
+        newUserPlaylist.setAddedDate(new Date());
+        newUserPlaylist.setAccessLevelId(2); // listener access level id
+
+        Integer maxPlaylistNumberInUserList = userPlaylistRepository.findMaxPlaylistNumberInUserList(userData.get().getId());
+        if (maxPlaylistNumberInUserList == null) maxPlaylistNumberInUserList = 0;
+
+        newUserPlaylist.setPlaylistNumberInUserList(maxPlaylistNumberInUserList + 1);
+
+        userPlaylistRepository.save(newUserPlaylist);
+
+        return new UserPlaylistDTO(newUserPlaylist);
+    }
+
+    public UserPlaylistDTO removePlaylistFromUserList(String username, int playlistId) {
+        Optional<UserData> userData = userDataRepository.findByUsername(username);
+
+        if (userData.isEmpty()) {
+            return null;
+        }
+
+        Optional<Playlist> playlist = playlistRepository.findById(playlistId);
+
+        if (playlist.isEmpty()) {
+            return null;
+        }
+
+        UserPlaylistId userPlaylistId = new UserPlaylistId(userData.get().getId(), playlist.get().getId());
+
+        Optional<UserPlaylist> userPlaylist = userPlaylistRepository.findById(userPlaylistId);
+
+        if (userPlaylist.isEmpty()) {
+            return new UserPlaylistDTO();
+        }
+
+        userPlaylistRepository.delete(userPlaylist.get());
+
+        List<UserPlaylist> userPlaylistList = userPlaylistRepository.findByIdUserIdAndPlaylistNumberInUserListGreaterThan(
+                userData.get().getId(), userPlaylist.get().getPlaylistNumberInUserList());
+
+        for (UserPlaylist userPlaylistItem : userPlaylistList) {
+            userPlaylistItem.setPlaylistNumberInUserList(userPlaylistItem.getPlaylistNumberInUserList() - 1);
+        }
+
+        userPlaylistRepository.saveAll(userPlaylistList);
+
+        return new UserPlaylistDTO();
+    }
+
+    public UserRatingDTO ratePlaylist(String username, int playlistId, int rateId) {
+        Optional<UserRating> userRating = userRatingRepository.findById(rateId);
+
+        if (userRating.isEmpty()) {
+            return null;
+        }
+
+        Optional<UserData> userData = userDataRepository.findByUsername(username);
+
+        if (userData.isEmpty()) {
+            return null;
+        }
+
+        Optional<Playlist> playlist = playlistRepository.findById(playlistId);
+
+        if (playlist.isEmpty()) {
+            return null;
+        }
+
+        UserPlaylistId userPlaylistId = new UserPlaylistId(userData.get().getId(), playlist.get().getId());
+
+        Optional<UserPlaylistRating> userPlaylistRating = userPlaylistRatingRepository.findById(userPlaylistId);
+
+        if (userPlaylistRating.isPresent()) {
+            userPlaylistRating.get().setUserRatingId(rateId);
+            userPlaylistRatingRepository.save(userPlaylistRating.get());
+            return new UserRatingDTO(userRating.get());
+        }
+
+        UserPlaylistRating newUserPlaylistRating = new UserPlaylistRating();
+        newUserPlaylistRating.setId(userPlaylistId);
+        newUserPlaylistRating.setUserRatingId(rateId);
+
+        userPlaylistRatingRepository.save(newUserPlaylistRating);
+        return new UserRatingDTO(userRating.get());
     }
 }
