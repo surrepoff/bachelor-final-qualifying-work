@@ -78,7 +78,7 @@ class HomeFragment : Fragment() {
 
         sectionList = listOf(artistSection, albumSection, trackSection)
 
-        val sectionAdapter = SectionAdapter(sectionList)
+        val sectionAdapter = SectionAdapter(requireContext(), sectionList)
         recyclerView.adapter = sectionAdapter
     }
 
