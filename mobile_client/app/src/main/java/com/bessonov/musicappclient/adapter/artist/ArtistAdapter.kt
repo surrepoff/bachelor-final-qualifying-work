@@ -10,7 +10,7 @@ import com.bumptech.glide.Glide
 class ArtistAdapter(private val artistInfoDTOList: List<ArtistInfoDTO>) : RecyclerView.Adapter<ArtistViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ArtistViewHolder {
         val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_artist, parent, false)
+            .inflate(R.layout.item_artist_vertical, parent, false)
         return ArtistViewHolder(view)
     }
 

@@ -6,7 +6,7 @@
     android:padding="10dp">
 
     <ImageView
-        android:id="@+id/itemAlbum_albumImageImageView"
+        android:id="@+id/itemPlaylistVertical_playlistImage"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:contentDescription="Image"
@@ -15,27 +15,26 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/itemAlbum_albumNameTextView"
+        android:id="@+id/itemPlaylistVertical_playlistName"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Album name"
+        android:text="Playlist name"
         android:textColor="@color/black"
         android:textSize="16sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="@id/itemAlbum_albumImageImageView"
-        app:layout_constraintStart_toStartOf="@id/itemAlbum_albumImageImageView"
-        app:layout_constraintTop_toBottomOf="@id/itemAlbum_albumImageImageView" />
+        app:layout_constraintEnd_toEndOf="@id/itemPlaylistVertical_playlistImage"
+        app:layout_constraintStart_toStartOf="@id/itemPlaylistVertical_playlistImage"
+        app:layout_constraintTop_toBottomOf="@id/itemPlaylistVertical_playlistImage" />
 
     <TextView
-        android:id="@+id/itemAlbum_artistName"
+        android:id="@+id/itemPlaylistVertical_ownerName"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Artist name"
+        android:text="Owner name"
         android:textSize="16sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="@id/itemAlbum_albumImageImageView"
-        app:layout_constraintStart_toStartOf="@id/itemAlbum_albumImageImageView"
-        app:layout_constraintTop_toBottomOf="@id/itemAlbum_albumNameTextView" />
-
+        app:layout_constraintEnd_toEndOf="@id/itemPlaylistVertical_playlistImage"
+        app:layout_constraintStart_toStartOf="@id/itemPlaylistVertical_playlistImage"
+        app:layout_constraintTop_toBottomOf="@id/itemPlaylistVertical_playlistName" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

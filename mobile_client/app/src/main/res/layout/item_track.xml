@@ -3,59 +3,90 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingBottom="10dp">
+    android:padding="10dp">
 
     <ImageView
-        android:id="@+id/itemTrack_trackImageImageView"
+        android:id="@+id/itemTrack_trackImage"
         android:layout_width="60dp"
         android:layout_height="60dp"
-        android:layout_margin="10dp"
         android:contentDescription="Track Image"
         android:src="@drawable/default_album"
+        app:layout_constraintBottom_toBottomOf="@id/itemTrack_trackDuration"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <ImageButton
-        android:id="@+id/itemTrack_playButton"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_margin="15dp"
-        android:background="@android:color/transparent"
-        android:contentDescription="Play/Pause Button"
-        android:src="@drawable/ic_play"
-        app:layout_constraintStart_toStartOf="@id/itemTrack_trackImageImageView"
-        app:layout_constraintTop_toTopOf="@id/itemTrack_trackImageImageView" />
+        app:layout_constraintTop_toTopOf="@id/itemTrack_trackName" />
 
     <TextView
-        android:id="@+id/itemTrack_trackNameTextView"
-        android:layout_width="wrap_content"
+        android:id="@+id/itemTrack_trackName"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="5dp"
         android:text="Track Name"
         android:textColor="@color/black"
-        android:textSize="16sp"
+        android:textSize="14sp"
         android:textStyle="bold"
-        app:layout_constraintStart_toEndOf="@id/itemTrack_trackImageImageView"
+        app:layout_constraintEnd_toStartOf="@id/itemTrack_addButton"
+        app:layout_constraintStart_toEndOf="@id/itemTrack_trackImage"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/itemTrack_ArtistNameTextView"
-        android:layout_width="wrap_content"
+        android:id="@+id/itemTrack_artistName"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
+        android:layout_marginEnd="5dp"
         android:text="Artist Name"
-        android:textSize="16sp"
-        app:layout_constraintStart_toEndOf="@id/itemTrack_trackImageImageView"
-        app:layout_constraintTop_toBottomOf="@+id/itemTrack_trackNameTextView" />
+        android:textSize="14sp"
+        app:layout_constraintEnd_toStartOf="@id/itemTrack_addButton"
+        app:layout_constraintStart_toEndOf="@id/itemTrack_trackImage"
+        app:layout_constraintTop_toBottomOf="@+id/itemTrack_trackName" />
 
     <TextView
-        android:id="@+id/itemTrack_TrackDurationTextView"
-        android:layout_width="wrap_content"
+        android:id="@+id/itemTrack_trackDuration"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="5dp"
         android:text="Track Duration"
         android:textSize="12sp"
-        app:layout_constraintStart_toEndOf="@id/itemTrack_trackImageImageView"
-        app:layout_constraintTop_toBottomOf="@+id/itemTrack_ArtistNameTextView" />
+        app:layout_constraintEnd_toStartOf="@id/itemTrack_addButton"
+        app:layout_constraintStart_toEndOf="@id/itemTrack_trackImage"
+        app:layout_constraintTop_toBottomOf="@id/itemTrack_artistName" />
+
+    <ImageButton
+        android:id="@+id/itemTrack_dislikeButton"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:background="@android:color/transparent"
+        android:contentDescription="Dislike Button"
+        android:src="@drawable/ic_thumb_down_outline"
+        app:layout_constraintBottom_toBottomOf="@id/itemTrack_trackImage"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/itemTrack_trackImage" />
+
+    <ImageButton
+        android:id="@+id/itemTrack_likeButton"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_margin="5dp"
+        android:background="@android:color/transparent"
+        android:contentDescription="Like Button"
+        android:src="@drawable/ic_thumb_up_outline"
+        app:layout_constraintBottom_toBottomOf="@id/itemTrack_trackImage"
+        app:layout_constraintEnd_toStartOf="@id/itemTrack_dislikeButton"
+        app:layout_constraintTop_toTopOf="@id/itemTrack_trackImage" />
+
+    <ImageButton
+        android:id="@+id/itemTrack_addButton"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_margin="5dp"
+        android:background="@android:color/transparent"
+        android:contentDescription="Add/Remove Button"
+        android:src="@drawable/ic_plus"
+        app:layout_constraintBottom_toBottomOf="@id/itemTrack_trackImage"
+        app:layout_constraintEnd_toStartOf="@id/itemTrack_likeButton"
+        app:layout_constraintTop_toTopOf="@id/itemTrack_trackImage" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -10,7 +10,7 @@ import com.bumptech.glide.Glide
 class AlbumAdapter(private val albumInfoDTOList: List<AlbumInfoDTO>) : RecyclerView.Adapter<AlbumViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AlbumViewHolder {
         val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_album, parent, false)
+            .inflate(R.layout.item_album_vertical, parent, false)
         return AlbumViewHolder(view)
     }
 

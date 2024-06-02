@@ -6,7 +6,7 @@
     android:padding="10dp">
 
     <ImageView
-        android:id="@+id/itemArtist_artistImageImageView"
+        android:id="@+id/itemArtistVertical_artistImage"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:contentDescription="Image"
@@ -15,15 +15,15 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/itemArtist_artistNameTextView"
+        android:id="@+id/itemArtistVertical_artistName"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="Artist"
         android:textColor="@color/black"
         android:textSize="16sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="@id/itemArtist_artistImageImageView"
-        app:layout_constraintStart_toStartOf="@id/itemArtist_artistImageImageView"
-        app:layout_constraintTop_toBottomOf="@id/itemArtist_artistImageImageView" />
+        app:layout_constraintEnd_toEndOf="@id/itemArtistVertical_artistImage"
+        app:layout_constraintStart_toStartOf="@id/itemArtistVertical_artistImage"
+        app:layout_constraintTop_toBottomOf="@id/itemArtistVertical_artistImage" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

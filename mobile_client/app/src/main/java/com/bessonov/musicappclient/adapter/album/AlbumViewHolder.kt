@@ -9,5 +9,5 @@ import com.bessonov.musicappclient.R
 class AlbumViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     val albumName: TextView = itemView.findViewById(R.id.itemAlbum_albumNameTextView)
     val albumImage: ImageView = itemView.findViewById(R.id.itemAlbum_albumImageImageView)
-    val artistName: TextView = itemView.findViewById(R.id.itemAlbum_artistName)
+    val artistName: TextView = itemView.findViewById(R.id.itemAlbumVertical_artistName)
 }
