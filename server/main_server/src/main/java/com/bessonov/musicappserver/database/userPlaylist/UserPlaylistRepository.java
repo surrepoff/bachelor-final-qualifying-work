@@ -1,6 +1,5 @@
 package com.bessonov.musicappserver.database.userPlaylist;
 
-import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -13,10 +12,9 @@ public interface UserPlaylistRepository extends JpaRepository<UserPlaylist, User
     @Query("SELECT MAX(up.playlistNumberInUserList) FROM UserPlaylist up WHERE up.Id.userId = :userId")
     Integer findMaxPlaylistNumberInUserList(@Param("userId") int userId);
 
-    public List<UserPlaylist> findByIdUserId(int userId, Sort sort);
+    public List<UserPlaylist> findByIdUserIdOrderByPlaylistNumberInUserListAsc(int userId);
     public List<UserPlaylist> findByIdUserIdAndPlaylistNumberInUserListGreaterThan(int userId, int playlistNumberInUserList);
-    public List<UserPlaylist> findByIdPlaylistIdAndAccessLevelId(int playlistId, int accessLevelId);
-    public List<UserPlaylist> findByIdPlaylistIdAndAccessLevelId(int playlistId, int accessLevelId, Sort sort);
+    public List<UserPlaylist> findByIdPlaylistIdAndAccessLevelIdOrderByAddedDateAsc(int playlistId, int accessLevelId);
 
     void deleteByIdPlaylistId(int playlistId);
 }

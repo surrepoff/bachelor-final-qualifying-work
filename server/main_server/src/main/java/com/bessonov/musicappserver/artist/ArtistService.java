@@ -88,9 +88,7 @@ public class ArtistService {
             return null;
         }
 
-        Sort sort = Sort.by(Sort.Direction.ASC, "artistNumberInUserList");
-
-        List<UserArtist> userArtistList = userArtistRepository.findByIdUserId(userData.get().getId(), sort);
+        List<UserArtist> userArtistList = userArtistRepository.findByIdUserIdOrderByArtistNumberInUserListAsc(userData.get().getId());
 
         List<ArtistInfoDTO> artistInfoDTOList = new ArrayList<>();
 

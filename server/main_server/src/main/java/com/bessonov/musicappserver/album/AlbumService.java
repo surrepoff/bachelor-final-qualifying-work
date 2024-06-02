@@ -93,9 +93,7 @@ public class AlbumService {
             return null;
         }
 
-        Sort sort = Sort.by(Sort.Direction.ASC, "albumNumberInUserList");
-
-        List<UserAlbum> userAlbumList = userAlbumRepository.findByIdUserId(userData.get().getId(), sort);
+        List<UserAlbum> userAlbumList = userAlbumRepository.findByIdUserIdOrderByAlbumNumberInUserListAsc(userData.get().getId());
 
         List<AlbumInfoDTO> albumInfoDTOList = new ArrayList<>();
 

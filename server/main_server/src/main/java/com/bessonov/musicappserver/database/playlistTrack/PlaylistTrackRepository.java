@@ -14,7 +14,7 @@ public interface PlaylistTrackRepository extends JpaRepository<PlaylistTrack, Pl
     @Query("SELECT MAX(pt.trackNumberInPlaylist) FROM PlaylistTrack pt WHERE pt.Id.playlistId = :playlistId")
     Integer findMaxTrackNumberInPlaylist(@Param("playlistId") int playlistId);
 
-    List<PlaylistTrack> findByIdPlaylistId(int playlistId, Sort sort);
+    List<PlaylistTrack> findByIdPlaylistIdOrderByTrackNumberInPlaylistAsc(int playlistId);
     List<PlaylistTrack> findByIdPlaylistIdAndTrackNumberInPlaylistGreaterThan(int playlistId, int trackNumberInPlaylist);
 
     @Transactional

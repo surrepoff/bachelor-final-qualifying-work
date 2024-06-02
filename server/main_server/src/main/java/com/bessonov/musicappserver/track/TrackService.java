@@ -120,9 +120,7 @@ public class TrackService {
             return null;
         }
 
-        Sort sort = Sort.by(Sort.Direction.ASC, "trackNumberInUserList");
-
-        List<UserTrack> userTrackList = userTrackRepository.findByIdUserId(userData.get().getId(), sort);
+        List<UserTrack> userTrackList = userTrackRepository.findByIdUserIdOrderByTrackNumberInUserListAsc(userData.get().getId());
 
         List<TrackInfoDTO> trackInfoDTOList = new ArrayList<>();
 

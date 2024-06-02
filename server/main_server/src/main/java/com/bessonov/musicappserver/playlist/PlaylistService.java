@@ -100,9 +100,7 @@ public class PlaylistService {
             return null;
         }
 
-        Sort sort = Sort.by(Sort.Direction.ASC, "playlistNumberInUserList");
-
-        List<UserPlaylist> userPlaylistList = userPlaylistRepository.findByIdUserId(userData.get().getId(), sort);
+        List<UserPlaylist> userPlaylistList = userPlaylistRepository.findByIdUserIdOrderByPlaylistNumberInUserListAsc(userData.get().getId());
 
         List<PlaylistInfoDTO> playlistInfoDTOList = new ArrayList<>();
 
@@ -119,7 +117,7 @@ public class PlaylistService {
         playlistInfoDTO.setPlaylist(new PlaylistDTO(playlist));
 
         List<UserDataShortDTO> ownerList = new ArrayList<>();
-        List<UserPlaylist> ownerUserPlaylistList = userPlaylistRepository.findByIdPlaylistIdAndAccessLevelId(playlist.getId(), ownerAccessId);
+        List<UserPlaylist> ownerUserPlaylistList = userPlaylistRepository.findByIdPlaylistIdAndAccessLevelIdOrderByAddedDateAsc(playlist.getId(), ownerAccessId);
         for (UserPlaylist userPlaylist : ownerUserPlaylistList) {
             Optional<UserData> userData = userDataRepository.findById(userPlaylist.getId().getUserId());
             userData.ifPresent(data -> ownerList.add(new UserDataShortDTO(data)));
@@ -127,8 +125,7 @@ public class PlaylistService {
         playlistInfoDTO.setOwner(ownerList);
 
         List<Integer> trackIdList = new ArrayList<>();
-        Sort sort = Sort.by(Sort.Direction.ASC, "trackNumberInPlaylist");
-        List<PlaylistTrack> playlistTrackList = playlistTrackRepository.findByIdPlaylistId(playlist.getId(), sort);
+        List<PlaylistTrack> playlistTrackList = playlistTrackRepository.findByIdPlaylistIdOrderByTrackNumberInPlaylistAsc(playlist.getId());
         for (PlaylistTrack playlistTrack : playlistTrackList) {
             trackIdList.add(playlistTrack.getId().getTrackId());
         }
@@ -236,14 +233,13 @@ public class PlaylistService {
         userPlaylistRepository.saveAll(userPlaylistList);
 
         if (userPlaylist.get().getAccessLevelId() == ownerAccessId) {
-            List<UserPlaylist> ownerUserPlaylistList = userPlaylistRepository.findByIdPlaylistIdAndAccessLevelId(playlistId, ownerAccessId);
+            List<UserPlaylist> ownerUserPlaylistList = userPlaylistRepository.findByIdPlaylistIdAndAccessLevelIdOrderByAddedDateAsc(playlistId, ownerAccessId);
 
             if (ownerUserPlaylistList.isEmpty()) {
-                Sort sort = Sort.by(Sort.Direction.ASC, "addedDate");
-                List<UserPlaylist> moderatorUserPlaylistList = userPlaylistRepository.findByIdPlaylistIdAndAccessLevelId(playlistId, moderatorAccessId, sort);
+                List<UserPlaylist> moderatorUserPlaylistList = userPlaylistRepository.findByIdPlaylistIdAndAccessLevelIdOrderByAddedDateAsc(playlistId, moderatorAccessId);
 
                 if (moderatorUserPlaylistList.isEmpty()) {
-                    List<UserPlaylist> listenerUserPlaylistList = userPlaylistRepository.findByIdPlaylistIdAndAccessLevelId(playlistId, listenerAccessId, sort);
+                    List<UserPlaylist> listenerUserPlaylistList = userPlaylistRepository.findByIdPlaylistIdAndAccessLevelIdOrderByAddedDateAsc(playlistId, listenerAccessId);
 
                     if (listenerUserPlaylistList.isEmpty()) {
                         playlistTrackRepository.deleteByIdPlaylistId(playlistId);
