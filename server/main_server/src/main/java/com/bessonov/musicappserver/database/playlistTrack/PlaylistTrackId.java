@@ -14,6 +14,14 @@ public class PlaylistTrackId implements Serializable {
     @Column(name = "track_id")
     private int trackId;
 
+    public PlaylistTrackId() {
+    }
+
+    public PlaylistTrackId(int playlistId, int trackId) {
+        this.playlistId = playlistId;
+        this.trackId = trackId;
+    }
+
     public int getPlaylistId() {
         return playlistId;
     }

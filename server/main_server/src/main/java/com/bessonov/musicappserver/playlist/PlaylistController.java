@@ -52,4 +52,34 @@ public class PlaylistController {
     public UserRatingDTO ratePlaylist(@PathVariable Integer playlistId, @RequestBody Integer rateId, Authentication authentication) {
         return playlistService.ratePlaylist(authentication.getName(), playlistId, rateId);
     }
+
+    @PostMapping("/create")
+    public PlaylistInfoDTO createPlaylist(@RequestBody PlaylistCreateDTO playlistCreateDTO, Authentication authentication) {
+        return playlistService.createPlaylist(authentication.getName(), playlistCreateDTO);
+    }
+
+    @GetMapping("/delete/{playlistId}")
+    public PlaylistInfoDTO deletePlaylist(@PathVariable Integer playlistId, Authentication authentication) {
+        return playlistService.deletePlaylist(authentication.getName(), playlistId);
+    }
+
+    @PostMapping("/edit/{playlistId}/rename")
+    public PlaylistInfoDTO editPlaylistRename(@PathVariable Integer playlistId, @RequestBody String newPlaylistName, Authentication authentication) {
+        return playlistService.editPlaylistRename(authentication.getName(), playlistId, newPlaylistName);
+    }
+
+    @GetMapping("/edit/{playlistId}/track/add/{trackId}")
+    public PlaylistInfoDTO editPlaylistAddTrack(@PathVariable Integer playlistId, @PathVariable Integer trackId, Authentication authentication) {
+        return playlistService.editPlaylistAddTrack(authentication.getName(), playlistId, trackId);
+    }
+
+    @GetMapping("/edit/{playlistId}/track/remove/{trackId}")
+    public PlaylistInfoDTO editPlaylistRemoveTrack(@PathVariable Integer playlistId, @PathVariable Integer trackId, Authentication authentication) {
+        return playlistService.editPlaylistRemoveTrack(authentication.getName(), playlistId, trackId);
+    }
+
+    @PostMapping("/edit/{playlistId}/accessLevel/{userId}")
+    public PlaylistInfoDTO editPlaylistUserAccessLevel(@PathVariable Integer playlistId, @PathVariable Integer userId, @RequestBody Integer newAccessLevelId, Authentication authentication) {
+        return playlistService.editPlaylistUserAccessLevel(authentication.getName(), playlistId, userId, newAccessLevelId);
+    }
 }

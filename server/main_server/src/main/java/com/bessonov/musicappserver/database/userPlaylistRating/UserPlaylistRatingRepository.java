@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface UserPlaylistRatingRepository extends JpaRepository<UserPlaylistRating, UserPlaylistId> {
-
+    void deleteByIdPlaylistId(int playlistId);
 }

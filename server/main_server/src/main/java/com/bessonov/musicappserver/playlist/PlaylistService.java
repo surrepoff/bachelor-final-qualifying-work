@@ -4,6 +4,7 @@ import com.bessonov.musicappserver.database.playlist.Playlist;
 import com.bessonov.musicappserver.database.playlist.PlaylistDTO;
 import com.bessonov.musicappserver.database.playlist.PlaylistRepository;
 import com.bessonov.musicappserver.database.playlistTrack.PlaylistTrack;
+import com.bessonov.musicappserver.database.playlistTrack.PlaylistTrackId;
 import com.bessonov.musicappserver.database.playlistTrack.PlaylistTrackRepository;
 import com.bessonov.musicappserver.database.track.Track;
 import com.bessonov.musicappserver.database.track.TrackRepository;
@@ -22,20 +23,17 @@ import com.bessonov.musicappserver.database.userPlaylistRating.UserPlaylistRatin
 import com.bessonov.musicappserver.database.userRating.UserRating;
 import com.bessonov.musicappserver.database.userRating.UserRatingDTO;
 import com.bessonov.musicappserver.database.userRating.UserRatingRepository;
-import com.bessonov.musicappserver.database.userTrack.UserTrack;
-import com.bessonov.musicappserver.database.userTrack.UserTrackDTO;
-import com.bessonov.musicappserver.database.userTrack.UserTrackId;
-import com.bessonov.musicappserver.database.userTrackRating.UserTrackRating;
-import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
+@Transactional
 @Service
 public class PlaylistService {
     @Autowired
@@ -61,6 +59,10 @@ public class PlaylistService {
 
     @Autowired
     private UserRatingRepository userRatingRepository;
+
+    private final int ownerAccessId = 0;
+    private final int moderatorAccessId = 1;
+    private final int listenerAccessId = 2;
 
     public PlaylistInfoDTO getByPlaylistId(String username, int playlistId) {
         Optional<Playlist> playlist = playlistRepository.findById(playlistId);
@@ -117,7 +119,7 @@ public class PlaylistService {
         playlistInfoDTO.setPlaylist(new PlaylistDTO(playlist));
 
         List<UserDataShortDTO> ownerList = new ArrayList<>();
-        List<UserPlaylist> ownerUserPlaylistList = userPlaylistRepository.findByAccessLevelId(0);
+        List<UserPlaylist> ownerUserPlaylistList = userPlaylistRepository.findByIdPlaylistIdAndAccessLevelId(playlist.getId(), ownerAccessId);
         for (UserPlaylist userPlaylist : ownerUserPlaylistList) {
             Optional<UserData> userData = userDataRepository.findById(userPlaylist.getId().getUserId());
             userData.ifPresent(data -> ownerList.add(new UserDataShortDTO(data)));
@@ -189,7 +191,7 @@ public class PlaylistService {
 
         newUserPlaylist.setId(userPlaylistId);
         newUserPlaylist.setAddedDate(new Date());
-        newUserPlaylist.setAccessLevelId(2); // listener access level id
+        newUserPlaylist.setAccessLevelId(listenerAccessId);
 
         Integer maxPlaylistNumberInUserList = userPlaylistRepository.findMaxPlaylistNumberInUserList(userData.get().getId());
         if (maxPlaylistNumberInUserList == null) maxPlaylistNumberInUserList = 0;
@@ -233,6 +235,34 @@ public class PlaylistService {
 
         userPlaylistRepository.saveAll(userPlaylistList);
 
+        if (userPlaylist.get().getAccessLevelId() == ownerAccessId) {
+            List<UserPlaylist> ownerUserPlaylistList = userPlaylistRepository.findByIdPlaylistIdAndAccessLevelId(playlistId, ownerAccessId);
+
+            if (ownerUserPlaylistList.isEmpty()) {
+                Sort sort = Sort.by(Sort.Direction.ASC, "addedDate");
+                List<UserPlaylist> moderatorUserPlaylistList = userPlaylistRepository.findByIdPlaylistIdAndAccessLevelId(playlistId, moderatorAccessId, sort);
+
+                if (moderatorUserPlaylistList.isEmpty()) {
+                    List<UserPlaylist> listenerUserPlaylistList = userPlaylistRepository.findByIdPlaylistIdAndAccessLevelId(playlistId, listenerAccessId, sort);
+
+                    if (listenerUserPlaylistList.isEmpty()) {
+                        playlistTrackRepository.deleteByIdPlaylistId(playlistId);
+                        userPlaylistRepository.deleteByIdPlaylistId(playlistId);
+                        userPlaylistRatingRepository.deleteByIdPlaylistId(playlistId);
+                        playlistRepository.deleteById(playlistId);
+                    }
+                    else {
+                        listenerUserPlaylistList.get(0).setAccessLevelId(ownerAccessId);
+                        userPlaylistRepository.saveAll(listenerUserPlaylistList);
+                    }
+                }
+                else {
+                    moderatorUserPlaylistList.get(0).setAccessLevelId(ownerAccessId);
+                    userPlaylistRepository.saveAll(moderatorUserPlaylistList);
+                }
+            }
+        }
+
         return new UserPlaylistDTO();
     }
 
@@ -271,5 +301,240 @@ public class PlaylistService {
 
         userPlaylistRatingRepository.save(newUserPlaylistRating);
         return new UserRatingDTO(userRating.get());
+    }
+
+    public PlaylistInfoDTO createPlaylist (String username, PlaylistCreateDTO playlistCreateDTO) {
+        Optional<UserData> userData = userDataRepository.findByUsername(username);
+
+        if (userData.isEmpty()) {
+            return null;
+        }
+
+        Playlist playlist = new Playlist();
+        playlist.setName(playlistCreateDTO.getName());
+        playlist.setCreationDate(new Date());
+        playlist.setLastUpdateDate(new Date());
+
+        playlist = playlistRepository.save(playlist);
+
+        int trackNumberInPlaylist = 1;
+        for (Integer trackId : playlistCreateDTO.getTrackId()) {
+            Optional<Track> track = trackRepository.findById(trackId);
+
+            if (track.isPresent()) {
+                PlaylistTrack playlistTrack = new PlaylistTrack();
+                playlistTrack.setId(new PlaylistTrackId(playlist.getId(), track.get().getId()));
+                playlistTrack.setTrackNumberInPlaylist(trackNumberInPlaylist);
+                playlistTrackRepository.save(playlistTrack);
+                trackNumberInPlaylist++;
+            }
+        }
+
+        UserPlaylist userPlaylist = new UserPlaylist();
+        userPlaylist.setId(new UserPlaylistId(userData.get().getId(), playlist.getId()));
+        userPlaylist.setAccessLevelId(ownerAccessId);
+        userPlaylist.setAddedDate(new Date());
+
+        Integer maxPlaylistNumberInUserList = userPlaylistRepository.findMaxPlaylistNumberInUserList(userData.get().getId());
+        if (maxPlaylistNumberInUserList == null) maxPlaylistNumberInUserList = 0;
+
+        userPlaylist.setPlaylistNumberInUserList(maxPlaylistNumberInUserList + 1);
+
+        userPlaylistRepository.save(userPlaylist);
+
+        return getPlaylistInfoByPlaylist(username, playlist);
+    }
+
+    public PlaylistInfoDTO deletePlaylist (String username, int playlistId) {
+        Optional<UserData> userData = userDataRepository.findByUsername(username);
+
+        if (userData.isEmpty()) {
+            return null;
+        }
+
+        Optional<Playlist> playlist = playlistRepository.findById(playlistId);
+
+        if (playlist.isEmpty()) {
+            return null;
+        }
+
+        UserPlaylistId userPlaylistId = new UserPlaylistId(userData.get().getId(), playlistId);
+        Optional<UserPlaylist> userPlaylist = userPlaylistRepository.findById(userPlaylistId);
+
+        if (userPlaylist.isEmpty()) {
+            return null;
+        }
+
+        if (userPlaylist.get().getAccessLevelId() != ownerAccessId) {
+            return null;
+        }
+
+        playlistTrackRepository.deleteByIdPlaylistId(playlistId);
+        userPlaylistRepository.deleteByIdPlaylistId(playlistId);
+        userPlaylistRatingRepository.deleteByIdPlaylistId(playlistId);
+        playlistRepository.deleteById(playlistId);
+
+        return new PlaylistInfoDTO();
+    }
+
+    public PlaylistInfoDTO editPlaylistRename(String username, int playlistId, String newPlaylistName) {
+        Optional<UserData> userData = userDataRepository.findByUsername(username);
+
+        if (userData.isEmpty()) {
+            return null;
+        }
+
+        Optional<Playlist> playlist = playlistRepository.findById(playlistId);
+
+        if (playlist.isEmpty()) {
+            return null;
+        }
+
+        UserPlaylistId userPlaylistId = new UserPlaylistId(userData.get().getId(), playlistId);
+        Optional<UserPlaylist> userPlaylist = userPlaylistRepository.findById(userPlaylistId);
+
+        if (userPlaylist.isEmpty()) {
+            return null;
+        }
+
+        if (userPlaylist.get().getAccessLevelId() != ownerAccessId && userPlaylist.get().getAccessLevelId() != moderatorAccessId) {
+            return null;
+        }
+
+        playlist.get().setName(newPlaylistName);
+        playlist.get().setLastUpdateDate(new Date());
+
+        return getPlaylistInfoByPlaylist(username, playlistRepository.save(playlist.get()));
+    }
+
+    public PlaylistInfoDTO editPlaylistAddTrack(String username, int playlistId, int trackId) {
+        Optional<UserData> userData = userDataRepository.findByUsername(username);
+
+        if (userData.isEmpty()) {
+            return null;
+        }
+
+        Optional<Playlist> playlist = playlistRepository.findById(playlistId);
+
+        if (playlist.isEmpty()) {
+            return null;
+        }
+
+        UserPlaylistId userPlaylistId = new UserPlaylistId(userData.get().getId(), playlistId);
+        Optional<UserPlaylist> userPlaylist = userPlaylistRepository.findById(userPlaylistId);
+
+        if (userPlaylist.isEmpty()) {
+            return null;
+        }
+
+        if (userPlaylist.get().getAccessLevelId() != ownerAccessId && userPlaylist.get().getAccessLevelId() != moderatorAccessId) {
+            return null;
+        }
+
+        PlaylistTrackId playlistTrackId = new PlaylistTrackId(playlistId, trackId);
+        Optional<PlaylistTrack> playlistTrack = playlistTrackRepository.findById(playlistTrackId);
+
+        if (playlistTrack.isPresent()) {
+            return getPlaylistInfoByPlaylist(username, playlist.get());
+        }
+
+        Integer maxTrackNumberInPlaylist = playlistTrackRepository.findMaxTrackNumberInPlaylist(playlistId);
+        if (maxTrackNumberInPlaylist == null) maxTrackNumberInPlaylist = 0;
+
+        PlaylistTrack newPlaylistTrack = new PlaylistTrack();
+        newPlaylistTrack.setId(playlistTrackId);
+        newPlaylistTrack.setTrackNumberInPlaylist(maxTrackNumberInPlaylist + 1);
+
+        playlistTrackRepository.save(newPlaylistTrack);
+
+        return getPlaylistInfoByPlaylist(username, playlist.get());
+    }
+
+    public PlaylistInfoDTO editPlaylistRemoveTrack(String username, int playlistId, int trackId) {
+        Optional<UserData> userData = userDataRepository.findByUsername(username);
+
+        if (userData.isEmpty()) {
+            return null;
+        }
+
+        Optional<Playlist> playlist = playlistRepository.findById(playlistId);
+
+        if (playlist.isEmpty()) {
+            return null;
+        }
+
+        UserPlaylistId userPlaylistId = new UserPlaylistId(userData.get().getId(), playlistId);
+        Optional<UserPlaylist> userPlaylist = userPlaylistRepository.findById(userPlaylistId);
+
+        if (userPlaylist.isEmpty()) {
+            return null;
+        }
+
+        if (userPlaylist.get().getAccessLevelId() != ownerAccessId && userPlaylist.get().getAccessLevelId() != moderatorAccessId) {
+            return null;
+        }
+
+        PlaylistTrackId playlistTrackId = new PlaylistTrackId(playlistId, trackId);
+        Optional<PlaylistTrack> playlistTrack = playlistTrackRepository.findById(playlistTrackId);
+
+        if (playlistTrack.isEmpty()) {
+            return getPlaylistInfoByPlaylist(username, playlist.get());
+        }
+
+        playlistTrackRepository.delete(playlistTrack.get());
+
+        List<PlaylistTrack> playlistTrackList = playlistTrackRepository.findByIdPlaylistIdAndTrackNumberInPlaylistGreaterThan(
+                playlistId, playlistTrack.get().getTrackNumberInPlaylist());
+
+        for (PlaylistTrack playlistTrackItem : playlistTrackList) {
+            playlistTrackItem.setTrackNumberInPlaylist(playlistTrackItem.getTrackNumberInPlaylist() - 1);
+        }
+
+        playlistTrackRepository.saveAll(playlistTrackList);
+
+        return getPlaylistInfoByPlaylist(username, playlist.get());
+    }
+
+    public PlaylistInfoDTO editPlaylistUserAccessLevel(String username, int playlistId, int userId, int newAccessLevelId) {
+        Optional<UserData> userData = userDataRepository.findByUsername(username);
+        Optional<UserData> otherUserData = userDataRepository.findById(userId);
+
+        if (userData.isEmpty() || otherUserData.isEmpty()) {
+            return null;
+        }
+
+        if (userData.get().getId() == otherUserData.get().getId()) {
+            return null;
+        }
+
+        Optional<Playlist> playlist = playlistRepository.findById(playlistId);
+
+        if (playlist.isEmpty()) {
+            return null;
+        }
+
+        UserPlaylistId userPlaylistId = new UserPlaylistId(userData.get().getId(), playlistId);
+        Optional<UserPlaylist> userPlaylist = userPlaylistRepository.findById(userPlaylistId);
+
+        UserPlaylistId otherUserPlaylistId = new UserPlaylistId(userId, playlistId);
+        Optional<UserPlaylist> otherUserPlaylist = userPlaylistRepository.findById(otherUserPlaylistId);
+
+        if (userPlaylist.isEmpty() || otherUserPlaylist.isEmpty()) {
+            return null;
+        }
+
+        if (userPlaylist.get().getAccessLevelId() != ownerAccessId) {
+            return null;
+        }
+
+        if (newAccessLevelId != ownerAccessId && newAccessLevelId != moderatorAccessId && newAccessLevelId != listenerAccessId) {
+            return null;
+        }
+
+        otherUserPlaylist.get().setAccessLevelId(newAccessLevelId);
+
+        userPlaylistRepository.save(otherUserPlaylist.get());
+
+        return getPlaylistInfoByPlaylist(username, playlist.get());
     }
 }

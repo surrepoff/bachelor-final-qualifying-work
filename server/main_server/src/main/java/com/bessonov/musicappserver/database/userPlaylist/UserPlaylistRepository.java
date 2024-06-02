@@ -15,5 +15,8 @@ public interface UserPlaylistRepository extends JpaRepository<UserPlaylist, User
 
     public List<UserPlaylist> findByIdUserId(int userId, Sort sort);
     public List<UserPlaylist> findByIdUserIdAndPlaylistNumberInUserListGreaterThan(int userId, int playlistNumberInUserList);
-    public List<UserPlaylist> findByAccessLevelId(int accessLevelId);
+    public List<UserPlaylist> findByIdPlaylistIdAndAccessLevelId(int playlistId, int accessLevelId);
+    public List<UserPlaylist> findByIdPlaylistIdAndAccessLevelId(int playlistId, int accessLevelId, Sort sort);
+
+    void deleteByIdPlaylistId(int playlistId);
 }
