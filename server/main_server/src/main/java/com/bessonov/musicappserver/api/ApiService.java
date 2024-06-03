@@ -19,10 +19,9 @@ public class ApiService {
     @Value("${neural_network_microservice.server.port}")
     private String neuralNetworkMicroserviceServerPort;
 
-    private final String neuralNetworkMicroserviceServerURL =
-            "http://" + neuralNetworkMicroserviceServerIp + ":" + neuralNetworkMicroserviceServerPort + "/";
-
     public UserRecommendationDTO sendPostRequestToCreateRecommendation(RecommendationCreateDTO recommendationCreateDTO) {
+        String neuralNetworkMicroserviceServerURL =
+                "http://" + neuralNetworkMicroserviceServerIp + ":" + neuralNetworkMicroserviceServerPort + "/";
         String url = neuralNetworkMicroserviceServerURL + "recommendation/get";
 
         HttpHeaders headers = new HttpHeaders();
