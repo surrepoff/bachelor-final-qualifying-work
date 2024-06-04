@@ -5,4 +5,3 @@ databases
 librosa
 numpy
 audioread
-eyed3

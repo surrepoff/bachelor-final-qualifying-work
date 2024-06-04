@@ -1,5 +1,5 @@
-from datetime import datetime
-from sqlalchemy import Integer, Column, String, DateTime, Text, TIMESTAMP
+from sqlalchemy import Integer, Column, String, DateTime, Text, TIMESTAMP, Float
+from sqlalchemy.dialects.postgresql import ARRAY
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
 
 
@@ -7,13 +7,18 @@ class Model(DeclarativeBase):
     pass
 
 
-class UserDataTable(Model):
-    __tablename__ = "user_data"
+class AudioFeatureTable(Model):
+    __tablename__ = "track_audio_feature"
 
     id = Column('id', Integer, primary_key=True, index=True)
-    username = Column('username', Text, nullable=False)
-    email = Column('email', Text, nullable=False)
-    password = Column('password', Text, nullable=False)
-    nickname = Column('nickname', Text, nullable=False)
-    registration_date = Column('registration_date', DateTime, nullable=False)
-    last_update_date = Column('last_update_date', DateTime, nullable=False)
+    track_id = Column('track_id', Integer, nullable=False)
+    extraction_type_id = Column('track_audio_feature_extraction_type_id', Integer, nullable=False)
+
+
+class SegmentAudioFeatureTable(Model):
+    __tablename__ = "track_segment_audio_feature"
+
+    id = Column('id', Integer, primary_key=True, index=True)
+    audio_feature_id = Column('track_audio_feature_id', Integer, nullable=False)
+    segment_number = Column('segment_number', Integer, nullable=False)
+    data = Column('data', ARRAY(Float), nullable=False)
