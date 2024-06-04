@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bessonov.musicappclient.R
 import com.bessonov.musicappclient.dto.TrackInfoDTO
+import com.bessonov.musicappclient.utils.ConfigManager
 import com.bumptech.glide.Glide
 import java.util.Collections
 
@@ -40,8 +41,10 @@ class TrackAdapter(
 
         holder.bind(trackItemClickListener)
 
+        val configManager = ConfigManager(context);
+
         Glide.with(holder.itemView)
-            .load("http://192.168.1.59:8080/api/image/track/" + trackInfoDTO.track.id)
+            .load(configManager.getServerIp() + "api/image/track/" + trackInfoDTO.track.id)
             .placeholder(R.drawable.default_album)
             .into(holder.trackImage)
     }

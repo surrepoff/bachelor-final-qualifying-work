@@ -6,7 +6,7 @@ from fastapi.responses import JSONResponse
 app = FastAPI()
 
 # Whitelisted IPs
-WHITELISTED_IPS = ["localhost", "127.0.0.1", "192.168.1.59", "192.168.1.91"]
+WHITELISTED_IPS = ["localhost", "127.0.0.1", "192.168.1.59", "192.168.1.91", "192.168.159.230"]
 
 
 @app.middleware('http')

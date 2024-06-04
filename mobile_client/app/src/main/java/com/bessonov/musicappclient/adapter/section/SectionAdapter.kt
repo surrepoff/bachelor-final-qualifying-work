@@ -46,12 +46,12 @@ class SectionAdapter(
         when (section.type) {
             SectionType.ALBUM -> {
                 val albumInfoDTOList = section.items.filterIsInstance<AlbumInfoDTO>()
-                val albumAdapter = AlbumAdapter(albumInfoDTOList)
+                val albumAdapter = AlbumAdapter(context, albumInfoDTOList)
                 holder.recyclerView.adapter = albumAdapter
             }
             SectionType.ARTIST -> {
                 val artistInfoDTOList = section.items.filterIsInstance<ArtistInfoDTO>()
-                val artistAdapter = ArtistAdapter(artistInfoDTOList)
+                val artistAdapter = ArtistAdapter(context, artistInfoDTOList)
                 holder.recyclerView.adapter = artistAdapter
             }
             SectionType.TRACK -> {
