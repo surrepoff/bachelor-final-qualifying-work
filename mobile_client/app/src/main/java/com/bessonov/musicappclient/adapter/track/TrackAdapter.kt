@@ -5,9 +5,12 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bessonov.musicappclient.R
+import com.bessonov.musicappclient.api.SessionManager
 import com.bessonov.musicappclient.dto.TrackInfoDTO
 import com.bessonov.musicappclient.utils.ConfigManager
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.model.GlideUrl
+import com.bumptech.glide.load.model.LazyHeaders
 import java.util.Collections
 
 class TrackAdapter(
@@ -30,7 +33,7 @@ class TrackAdapter(
 
         holder.trackName.text = trackInfoDTO.track.name
 
-        var artistName : String = ""
+        var artistName = ""
         artistName += trackInfoDTO.artist.joinToString(", ") {it.name}
         if (trackInfoDTO.featuredArtist.size != 0) {
             artistName += " feat. " + trackInfoDTO.featuredArtist.joinToString(", ") {it.name}
@@ -41,10 +44,18 @@ class TrackAdapter(
 
         holder.bind(trackItemClickListener)
 
-        val configManager = ConfigManager(context);
+        val configManager = ConfigManager(context)
+        val sessionManager = SessionManager(context)
+
+        val glideUrl = GlideUrl(
+            configManager.getServerIp() + "/image/track/" + trackInfoDTO.track.id,
+            LazyHeaders.Builder()
+                .addHeader("Authorization", "Bearer " + sessionManager.fetchAuthToken())
+                .build()
+        )
 
         Glide.with(holder.itemView)
-            .load(configManager.getServerIp() + "api/image/track/" + trackInfoDTO.track.id)
+            .load(glideUrl)
             .placeholder(R.drawable.default_album)
             .into(holder.trackImage)
     }

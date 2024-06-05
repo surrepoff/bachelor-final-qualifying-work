@@ -1,6 +1,5 @@
 package com.bessonov.musicappclient.ui.register
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -11,18 +10,14 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import androidx.lifecycle.lifecycleScope
 import com.bessonov.musicappclient.R
 import com.bessonov.musicappclient.api.RetrofitClient
 import com.bessonov.musicappclient.api.SessionManager
 import com.bessonov.musicappclient.api.UserAPI
 import com.bessonov.musicappclient.dto.ResponseDTO
-import com.bessonov.musicappclient.dto.UserLoginDTO
 import com.bessonov.musicappclient.dto.UserRegisterDTO
-import com.bessonov.musicappclient.ui.login.LoginActivity
 import com.bessonov.musicappclient.ui.main.MainActivity
 import com.bessonov.musicappclient.ui.start.StartActivity
-import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

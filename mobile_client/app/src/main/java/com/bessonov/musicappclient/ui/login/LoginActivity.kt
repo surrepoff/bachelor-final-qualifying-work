@@ -21,7 +21,6 @@ import com.bessonov.musicappclient.ui.start.StartActivity
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import kotlin.math.log
 
 class LoginActivity : AppCompatActivity() {
     private lateinit var sessionManager: SessionManager

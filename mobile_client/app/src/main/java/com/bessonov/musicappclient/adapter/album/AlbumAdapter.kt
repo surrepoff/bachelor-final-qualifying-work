@@ -5,9 +5,12 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bessonov.musicappclient.R
+import com.bessonov.musicappclient.api.SessionManager
 import com.bessonov.musicappclient.dto.AlbumInfoDTO
 import com.bessonov.musicappclient.utils.ConfigManager
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.model.GlideUrl
+import com.bumptech.glide.load.model.LazyHeaders
 
 class AlbumAdapter(
     private val context: Context,
@@ -28,7 +31,7 @@ class AlbumAdapter(
 
         holder.albumName.text = albumInfoDTO.album.name
 
-        var artistName : String = ""
+        var artistName = ""
         artistName += albumInfoDTO.artist.joinToString(", ") {it.name}
         if (albumInfoDTO.featuredArtist.size != 0) {
             artistName += " feat. " + albumInfoDTO.featuredArtist.joinToString(", ") {it.name}
@@ -36,10 +39,18 @@ class AlbumAdapter(
 
         holder.artistName.text = artistName
 
-        val configManager = ConfigManager(context);
+        val configManager = ConfigManager(context)
+        val sessionManager = SessionManager(context)
+
+        val glideUrl = GlideUrl(
+            configManager.getServerIp() + "/image/album/" + albumInfoDTO.album.id,
+            LazyHeaders.Builder()
+                .addHeader("Authorization", "Bearer " + sessionManager.fetchAuthToken())
+                .build()
+        )
 
         Glide.with(holder.itemView)
-            .load(configManager.getServerIp() + "api/image/album/" + albumInfoDTO.album.id)
+            .load(glideUrl)
             .placeholder(R.drawable.default_album)
             .into(holder.albumImage)
     }

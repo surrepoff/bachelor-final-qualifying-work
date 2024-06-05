@@ -10,7 +10,6 @@ import androidx.core.view.WindowInsetsCompat
 import com.bessonov.musicappclient.R
 import com.bessonov.musicappclient.api.SessionManager
 import com.bessonov.musicappclient.ui.login.LoginActivity
-import com.bessonov.musicappclient.ui.main.MainActivity
 import com.bessonov.musicappclient.ui.register.RegisterActivity
 
 class StartActivity : AppCompatActivity() {

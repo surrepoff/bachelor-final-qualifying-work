@@ -55,21 +55,21 @@ class HomeFragment : Fragment() {
     }
 
     private fun populateListView() {
-        val artistSection : Section<ArtistInfoDTO> = Section<ArtistInfoDTO> (
+        val artistSection : Section<ArtistInfoDTO> = Section(
             title = "Artists",
             type = SectionType.ARTIST,
             items = artistInfoDTOList,
             orientation = LinearLayoutManager.HORIZONTAL
         )
 
-        val albumSection : Section<AlbumInfoDTO> = Section<AlbumInfoDTO> (
+        val albumSection : Section<AlbumInfoDTO> = Section(
             title = "Albums",
             type = SectionType.ALBUM,
             items = albumInfoDTOList,
             orientation = LinearLayoutManager.HORIZONTAL
         )
 
-        val trackSection : Section<TrackInfoDTO> = Section<TrackInfoDTO> (
+        val trackSection : Section<TrackInfoDTO> = Section(
             title = "Tracks",
             type = SectionType.TRACK,
             items = trackInfoDTOList,

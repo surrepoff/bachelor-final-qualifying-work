@@ -35,7 +35,7 @@ class SectionAdapter(
     override fun onBindViewHolder(holder: SectionViewHolder, position: Int) {
         val section : Section<*> = sectionList[position]
 
-        holder.header.text = section.title;
+        holder.header.text = section.title
 
         holder.recyclerView.layoutManager = if (section.orientation == LinearLayoutManager.HORIZONTAL) {
             LinearLayoutManager(holder.recyclerView.context, LinearLayoutManager.HORIZONTAL, false)
@@ -61,9 +61,6 @@ class SectionAdapter(
 
                 val itemTouchHelper = ItemTouchHelper(DragManageAdapter(trackAdapter))
                 itemTouchHelper.attachToRecyclerView(holder.recyclerView)
-            }
-            else -> {
-
             }
         }
     }

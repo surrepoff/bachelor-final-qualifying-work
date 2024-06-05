@@ -45,7 +45,7 @@ public class ImageService {
         Optional<Album>album = albumRepository.findById(albumId);
         if (album.isPresent()) {
             try {
-                String imagePath = filepath + album.get().getImageFilename();
+                String imagePath = filepath + "album/" + album.get().getImageFilename();
                 Path path = Paths.get(imagePath);
                 byte[] image = Files.readAllBytes(path);
 
@@ -65,7 +65,7 @@ public class ImageService {
         Optional<Artist>artist = artistRepository.findById(artistId);
         if (artist.isPresent()) {
             try {
-                String imagePath = filepath + artist.get().getImageFilename();
+                String imagePath = filepath + "artist/" + artist.get().getImageFilename();
                 Path path = Paths.get(imagePath);
                 byte[] image = Files.readAllBytes(path);
 
@@ -88,7 +88,7 @@ public class ImageService {
             Optional<Album>album = albumRepository.findById(albumTrack.get().getId().getAlbumId());
             if (album.isPresent()) {
                 try {
-                    String imagePath = filepath + album.get().getImageFilename();
+                    String imagePath = filepath + "album/" + album.get().getImageFilename();
                     Path path = Paths.get(imagePath);
                     byte[] image = Files.readAllBytes(path);
 

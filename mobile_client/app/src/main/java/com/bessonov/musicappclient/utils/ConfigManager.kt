@@ -25,6 +25,6 @@ class ConfigManager(private val context: Context) {
 
     fun getServerIp(): String {
         return "http://" + properties.getProperty("server.ip") + ":" +
-                properties.getProperty("server.port") + "/";
+                properties.getProperty("server.port")
     }
 }
