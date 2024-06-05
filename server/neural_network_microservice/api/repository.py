@@ -1,3 +1,7 @@
+import json
+
+from datetime import datetime
+
 from sqlalchemy import select, text
 
 from api.database import new_session
@@ -94,6 +98,23 @@ class SegmentAudioFeatureRepository:
 
             return errors
 
+    @classmethod
+    async def get_all_track_data(cls, extraction_type_id):
+        async with new_session() as session:
+            params = {'id': extraction_type_id}
+            statement = text("""SELECT 
+                                    taf.track_id,
+                                    tsaf.data
+                                FROM 
+                                    public.track_segment_audio_feature tsaf
+                                JOIN
+                                    public.track_audio_feature taf ON taf.id = tsaf.track_audio_feature_id
+                                WHERE
+                                taf.track_audio_feature_extraction_type_id = :id""")
+            result = await session.execute(statement, params)
+            data = result.fetchall()
+            return data
+
 
 class UserDataRepository:
     @classmethod
@@ -116,7 +137,7 @@ class RatingRepository:
             statement = text("""SELECT track_id, user_rating_id FROM user_track_rating WHERE user_id = :id""")
             result = await session.execute(statement, params)
             print(result)
-            rating = result.scalars()
+            rating = result.fetchall()
             print(rating)
             return rating
 
@@ -134,7 +155,7 @@ class RatingRepository:
                                 LIMIT 100""")
             result = await session.execute(statement, params)
             print(result)
-            rating = result.scalars()
+            rating = result.fetchall()
             print(rating)
             return rating
 
@@ -163,7 +184,7 @@ class RatingRepository:
                                 WHERE altr.user_id = :id""")
             result = await session.execute(statement, params)
             print(result)
-            rating = result.scalars()
+            rating = result.fetchall()
             print(rating)
             return rating
 
@@ -192,7 +213,7 @@ class RatingRepository:
                                 WHERE artr.user_id = :id""")
             result = await session.execute(statement, params)
             print(result)
-            rating = result.scalars()
+            rating = result.fetchall()
             print(rating)
             return rating
 
@@ -221,7 +242,7 @@ class RatingRepository:
                                 WHERE upr.user_id = :id""")
             result = await session.execute(statement, params)
             print(result)
-            rating = result.scalars()
+            rating = result.fetchall()
             print(rating)
             return rating
 
@@ -250,6 +271,50 @@ class RatingRepository:
                                 WHERE ur.user_id = :id""")
             result = await session.execute(statement, params)
             print(result)
-            rating = result.scalars()
+            rating = result.fetchall()
             print(rating)
             return rating
+
+
+class NeuralNetworkRepository:
+    @classmethod
+    async def save_configuration(cls, user_id: int, extraction_type_id: int, model_config, model_weights):
+        async with new_session() as session:
+            params = {'user_id': user_id, 'extraction_type_id': extraction_type_id}
+            statement = text("""SELECT id FROM user_neural_network_configuration
+                                WHERE user_id = :user_id AND
+                                track_audio_feature_extraction_type_id = :extraction_type_id""")
+            result = await session.execute(statement, params)
+            conf_id = result.scalar_one_or_none()
+
+            training_date = datetime.utcnow()
+            if conf_id is None:
+                params = {'user_id': user_id, 'extraction_type_id': extraction_type_id, "training_date": training_date,
+                          'model_config': json.dumps(model_config), 'model_weights': model_weights}
+                statement = text("""INSERT INTO user_neural_network_configuration
+                                (user_id, track_audio_feature_extraction_type_id,
+                                training_date, model_config, model_weights) 
+                                VALUES (:user_id, :extraction_type_id, :training_date, :model_config, :model_weights)""")
+                await session.execute(statement, params)
+                await session.commit()
+            else:
+                params = {'conf_id': conf_id, 'user_id': user_id, 'extraction_type_id': extraction_type_id, "training_date": training_date,
+                          'model_config': json.dumps(model_config), 'model_weights': model_weights}
+                statement = text("""UPDATE user_neural_network_configuration
+                                    SET training_date = :training_date,
+                                        model_config = :model_config,
+                                        model_weights = :model_weights
+                                    WHERE id = :conf_id""")
+                await session.execute(statement, params)
+                await session.commit()
+
+    @classmethod
+    async def load_configuration(cls, user_id: int, extraction_type_id: int):
+        async with new_session() as session:
+            params = {'user_id': user_id, 'extraction_type_id': extraction_type_id}
+            statement = text("""SELECT model_config, model_weights FROM user_neural_network_configuration
+                                WHERE user_id = :user_id AND
+                                      track_audio_feature_extraction_type_id = :extraction_type_id""")
+            result = await session.execute(statement, params)
+            conf = result.fetchone()
+            return conf

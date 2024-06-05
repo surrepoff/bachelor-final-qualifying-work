@@ -1,6 +1,7 @@
 from fastapi import APIRouter
 
 from api.schemas import IdList
+from neural_network.neural_network import train_neural_network
 
 router = APIRouter(
     prefix="/neural_network",
@@ -10,6 +11,7 @@ router = APIRouter(
 
 @router.get("/train/user/{user_id}/{extraction_type_id}")
 async def get_neural_network_by_user_id(user_id: int, extraction_type_id: int):
+    await train_neural_network(user_id, extraction_type_id)
     return {"user_id": user_id, "extraction_type_id": extraction_type_id}
 
 

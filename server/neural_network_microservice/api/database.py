@@ -1,6 +1,12 @@
+import configparser
 from sqlalchemy.ext.asyncio import create_async_engine, async_sessionmaker
 
-DATABASE_URL = "postgresql+asyncpg://postgres:postgres@192.168.1.59:5433/bfqw_db"
+
+config = configparser.ConfigParser()
+config.read('config.ini')
+
+DATABASE_URL = ("postgresql+asyncpg://" + config['DATABASE']['username'] + ":" + config['DATABASE']['password'] + "@" +
+                config['DATABASE']['ip'] + ":" + config['DATABASE']['port'] + "/" + config['DATABASE']['database_name'])
 
 engine = create_async_engine(DATABASE_URL)
 

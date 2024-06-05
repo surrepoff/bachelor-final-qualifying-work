@@ -1,5 +1,6 @@
-from api.router.recommendation_router import router as recommendation_router
 from api.router.audio_feature_router import router as audio_feature_router
+from api.router.neural_network_router import router as neural_network_route
+from api.router.recommendation_router import router as recommendation_router
 from fastapi import FastAPI, Request, status
 from fastapi.responses import JSONResponse
 
@@ -24,5 +25,6 @@ async def validate_ip(request: Request, call_next):
     # Proceed if IP is allowed
     return await call_next(request)
 
-app.include_router(recommendation_router)
 app.include_router(audio_feature_router)
+app.include_router(neural_network_route)
+app.include_router(recommendation_router)
