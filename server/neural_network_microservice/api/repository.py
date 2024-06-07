@@ -9,6 +9,19 @@ from api.models import AudioFeatureTable, SegmentAudioFeatureTable, UserRecommen
 from api.schemas import RecommendationCreateDTO
 
 
+class GenreRepository:
+    @classmethod
+    async def check_genre_exists(cls, genre_id: int) -> bool:
+        async with new_session() as session:
+            params = {'id': genre_id}
+            statement = text("""SELECT * FROM genre WHERE id = :id""")
+            result = await session.execute(statement, params)
+            print(result)
+            genre = result.scalar_one_or_none()
+            print(genre)
+            return genre is not None
+
+
 class TrackRepository:
     @classmethod
     async def get_all_track_id(cls):

@@ -4,6 +4,8 @@ import com.bessonov.musicappserver.api.ApiService;
 import com.bessonov.musicappserver.database.genre.Genre;
 import com.bessonov.musicappserver.database.genre.GenreDTO;
 import com.bessonov.musicappserver.database.genre.GenreRepository;
+import com.bessonov.musicappserver.database.trackAudioFeatureExtractionType.TrackAudioFeatureExtractionType;
+import com.bessonov.musicappserver.database.trackAudioFeatureExtractionType.TrackAudioFeatureExtractionTypeRepository;
 import com.bessonov.musicappserver.database.userData.UserData;
 import com.bessonov.musicappserver.database.userData.UserDataRepository;
 import com.bessonov.musicappserver.database.userData.UserDataShortDTO;
@@ -35,6 +37,9 @@ import java.util.Optional;
 public class RecommendationService {
     @Autowired
     GenreRepository genreRepository;
+
+    @Autowired
+    TrackAudioFeatureExtractionTypeRepository trackAudioFeatureExtractionTypeRepository;
 
     @Autowired
     UserDataRepository userDataRepository;
@@ -170,6 +175,13 @@ public class RecommendationService {
             return null;
         }
         recommendationCreateDTO.setUserId(userData.get().getId());
+
+        Optional<TrackAudioFeatureExtractionType> trackAudioFeatureExtractionType =
+                trackAudioFeatureExtractionTypeRepository.findById(recommendationCreateDTO.getExtractionTypeId());
+
+        if (trackAudioFeatureExtractionType.isEmpty()) {
+            return null;
+        }
 
         if (recommendationCreateDTO.getSize() < 1 || recommendationCreateDTO.getSize() > 20) {
             recommendationCreateDTO.setSize(10);
