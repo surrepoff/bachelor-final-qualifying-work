@@ -4,6 +4,7 @@ import java.util.List;
 
 public class RecommendationCreateDTO {
     private int userId;
+    private int extractionTypeId;
     private int size;
     private List<Integer> genreId;
     private double familiarityPercentage;
@@ -14,6 +15,14 @@ public class RecommendationCreateDTO {
 
     public void setUserId(int userId) {
         this.userId = userId;
+    }
+
+    public int getExtractionTypeId() {
+        return extractionTypeId;
+    }
+
+    public void setExtractionTypeId(int extractionTypeId) {
+        this.extractionTypeId = extractionTypeId;
     }
 
     public int getSize() {
@@ -44,6 +53,7 @@ public class RecommendationCreateDTO {
     public String toString() {
         return "RecommendationCreateDTO{" +
                 "userId=" + userId +
+                ", extractionTypeId=" + extractionTypeId +
                 ", size=" + size +
                 ", genreId=" + genreId +
                 ", familiarityPercentage=" + familiarityPercentage +

@@ -1,9 +1,9 @@
-from typing import List
-
 import librosa
 import numpy as np
 import audioread.ffdec
 import platform
+
+from typing import List
 
 from api.repository import TrackRepository, AudioFeatureRepository, SegmentAudioFeatureRepository
 

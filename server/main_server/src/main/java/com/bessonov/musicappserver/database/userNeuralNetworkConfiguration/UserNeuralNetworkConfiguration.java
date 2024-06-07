@@ -22,7 +22,7 @@ public class UserNeuralNetworkConfiguration {
     @Column(name = "training_date")
     private Date trainingDate;
 
-    @Column(name = "model_config", columnDefinition = "jsonb")
+    @Column(name = "model_config", columnDefinition = "json")
     private String modelConfig;
 
     @Column(name = "model_weights", columnDefinition = "bytea")

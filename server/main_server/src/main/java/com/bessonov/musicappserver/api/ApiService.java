@@ -1,7 +1,7 @@
 package com.bessonov.musicappserver.api;
 
-import com.bessonov.musicappserver.database.userRecommendation.UserRecommendationDTO;
 import com.bessonov.musicappserver.recommendation.RecommendationCreateDTO;
+import com.bessonov.musicappserver.recommendation.RecommendationResponseDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
@@ -19,7 +19,7 @@ public class ApiService {
     @Value("${neural_network_microservice.server.port}")
     private String neuralNetworkMicroserviceServerPort;
 
-    public UserRecommendationDTO sendPostRequestToCreateRecommendation(RecommendationCreateDTO recommendationCreateDTO) {
+    public RecommendationResponseDTO sendPostRequestToCreateRecommendation(RecommendationCreateDTO recommendationCreateDTO) {
         String neuralNetworkMicroserviceServerURL =
                 "http://" + neuralNetworkMicroserviceServerIp + ":" + neuralNetworkMicroserviceServerPort + "/";
         String url = neuralNetworkMicroserviceServerURL + "recommendation/get";
@@ -29,11 +29,11 @@ public class ApiService {
 
         HttpEntity<RecommendationCreateDTO> entity = new HttpEntity<>(recommendationCreateDTO, headers);
 
-        ResponseEntity<UserRecommendationDTO> response = restTemplate.exchange(
+        ResponseEntity<RecommendationResponseDTO> response = restTemplate.exchange(
                 url,
                 HttpMethod.POST,
                 entity,
-                UserRecommendationDTO.class
+                RecommendationResponseDTO.class
         );
 
         return response.getBody();

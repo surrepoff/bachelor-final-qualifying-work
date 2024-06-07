@@ -171,7 +171,7 @@ public class RecommendationService {
         }
         recommendationCreateDTO.setUserId(userData.get().getId());
 
-        if (recommendationCreateDTO.getSize() < 10 || recommendationCreateDTO.getSize() > 20) {
+        if (recommendationCreateDTO.getSize() < 1 || recommendationCreateDTO.getSize() > 20) {
             recommendationCreateDTO.setSize(10);
         }
 
@@ -191,9 +191,9 @@ public class RecommendationService {
         }
         recommendationCreateDTO.setGenreId(genreIdList);
 
-        UserRecommendationDTO userRecommendationDTO = apiService.sendPostRequestToCreateRecommendation(recommendationCreateDTO);
+        RecommendationResponseDTO recommendationResponseDTO = apiService.sendPostRequestToCreateRecommendation(recommendationCreateDTO);
 
-        return getByUserRecommendationId(username, userRecommendationDTO.getId());
+        return getByUserRecommendationId(username, recommendationResponseDTO.getId());
     }
 
     public RecommendationInfoDTO deleteUserRecommendation (String username, int userRecommendationId) {

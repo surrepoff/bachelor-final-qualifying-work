@@ -1,7 +1,5 @@
 from typing import List
-
 from pydantic import BaseModel
-from datetime import datetime
 
 
 class IdList(BaseModel):
@@ -10,6 +8,11 @@ class IdList(BaseModel):
 
 class RecommendationCreateDTO(BaseModel):
     userId: int
+    extractionTypeId: int
     size: int
     genreId: List[int]
     familiarityPercentage: float
+
+
+class RecommendationResponseDTO(BaseModel):
+    id: int
