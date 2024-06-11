@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.bessonov.musicappclient.R
 import com.bessonov.musicappclient.adapter.section.Section
 import com.bessonov.musicappclient.adapter.section.SectionAdapter
@@ -25,11 +26,17 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class HomeFragment : Fragment() {
+    private lateinit var swipeRefreshLayout: SwipeRefreshLayout
     private lateinit var recyclerView: RecyclerView
     private lateinit var sectionList : List<Section<*>>
+
     private lateinit var artistInfoDTOList : List<ArtistInfoDTO>
     private lateinit var albumInfoDTOList : List<AlbumInfoDTO>
     private lateinit var trackInfoDTOList : List<TrackInfoDTO>
+
+    private var isArtistInfoLoaded: Boolean = false
+    private var isAlbumInfoLoaded: Boolean = false
+    private var isTrackInfoLoaded: Boolean = false
 
 
     override fun onCreateView(
@@ -39,6 +46,8 @@ class HomeFragment : Fragment() {
     ): View {
         val view = inflater.inflate(R.layout.fragment_home, container, false)
 
+        swipeRefreshLayout = view.findViewById(R.id.fragmentHome_swipeRefreshLayout)
+
         recyclerView = view.findViewById(R.id.fragmentHome_recyclerView)
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
@@ -46,12 +55,31 @@ class HomeFragment : Fragment() {
         albumInfoDTOList = emptyList()
         trackInfoDTOList = emptyList()
 
+        isArtistInfoLoaded = false
+        isAlbumInfoLoaded = false
+        isTrackInfoLoaded = false
+
+        loadData()
+
+        swipeRefreshLayout.setOnRefreshListener {
+            loadData()
+        }
+
         return view
     }
 
     override fun onResume() {
         super.onResume()
-        loadData()
+    }
+
+    private fun checkIsInfoLoaded(){
+        if (isArtistInfoLoaded && isAlbumInfoLoaded && isTrackInfoLoaded) {
+            populateListView()
+            isArtistInfoLoaded = false
+            isAlbumInfoLoaded = false
+            isTrackInfoLoaded = false
+            swipeRefreshLayout.isRefreshing = false
+        }
     }
 
     private fun populateListView() {
@@ -96,7 +124,8 @@ class HomeFragment : Fragment() {
             override fun onResponse(call: Call<List<ArtistInfoDTO>>, response: Response<List<ArtistInfoDTO>>) {
                 if (response.isSuccessful && response.body() != null) {
                     artistInfoDTOList = response.body()!!
-                    populateListView()
+                    isArtistInfoLoaded = true
+                    checkIsInfoLoaded()
                 } else {
                     Toast.makeText(requireContext(), "Failed to load artists (onResponse)", Toast.LENGTH_SHORT).show()
                 }
@@ -117,7 +146,8 @@ class HomeFragment : Fragment() {
             override fun onResponse(call: Call<List<AlbumInfoDTO>>, response: Response<List<AlbumInfoDTO>>) {
                 if (response.isSuccessful && response.body() != null) {
                     albumInfoDTOList = response.body()!!
-                    populateListView()
+                    isAlbumInfoLoaded = true
+                    checkIsInfoLoaded()
                 } else {
                     Toast.makeText(requireContext(), "Failed to load albums (onResponse)", Toast.LENGTH_SHORT).show()
                 }
@@ -138,7 +168,8 @@ class HomeFragment : Fragment() {
             override fun onResponse(call: Call<List<TrackInfoDTO>>, response: Response<List<TrackInfoDTO>>) {
                 if (response.isSuccessful && response.body() != null) {
                     trackInfoDTOList = response.body()!!
-                    populateListView()
+                    isTrackInfoLoaded = true
+                    checkIsInfoLoaded()
                 } else {
                     Toast.makeText(requireContext(), "Failed to load tracks (onResponse)", Toast.LENGTH_SHORT).show()
                 }
