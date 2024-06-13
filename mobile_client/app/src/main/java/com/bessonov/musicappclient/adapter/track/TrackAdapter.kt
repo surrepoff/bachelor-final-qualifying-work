@@ -42,6 +42,28 @@ class TrackAdapter(
         holder.artistName.text = artistName
         holder.trackDuration.text = String.format("%02d:%02d", trackInfoDTO.track.durationInSeconds / 60, trackInfoDTO.track.durationInSeconds % 60)
 
+        if (trackInfoDTO.isAdded.isAdded) {
+            holder.addButton.setImageResource(R.drawable.ic_check)
+        }
+        else {
+            holder.addButton.setImageResource(R.drawable.ic_plus)
+        }
+
+        when (trackInfoDTO.rating.name) {
+            "Like" -> {
+                holder.likeButton.setImageResource(R.drawable.ic_thumb_up)
+                holder.dislikeButton.setImageResource(R.drawable.ic_thumb_down_outline)
+            }
+            "Dislike" -> {
+                holder.likeButton.setImageResource(R.drawable.ic_thumb_up_outline)
+                holder.dislikeButton.setImageResource(R.drawable.ic_thumb_down)
+            }
+            else -> {
+                holder.likeButton.setImageResource(R.drawable.ic_thumb_up_outline)
+                holder.dislikeButton.setImageResource(R.drawable.ic_thumb_down_outline)
+            }
+        }
+
         holder.bind(trackItemClickListener)
 
         val configManager = ConfigManager(context)

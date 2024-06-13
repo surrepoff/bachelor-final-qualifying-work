@@ -48,7 +48,7 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public ResponseDTO login(@Valid @RequestBody UserLoginDTO userLoginDTO, BindingResult result) {
+    public UserResponseDTO login(@Valid @RequestBody UserLoginDTO userLoginDTO, BindingResult result) {
         if (result.hasErrors()) {
             var errorsList = result.getAllErrors();
             var errorMessage = new StringBuilder();
@@ -58,7 +58,7 @@ public class UserController {
                 errorMessage.append(error.getField()).append(": ").append(error.getDefaultMessage()).append("; ");
             }
 
-            return new ResponseDTO(errorMessage.toString(), 400);
+            return new UserResponseDTO(errorMessage.toString(), 400);
         }
         try {
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
@@ -70,23 +70,23 @@ public class UserController {
             Optional<UserData> userData = userDataRepository.findByUsername(userLoginDTO.getUsername());
 
             if (userData.isEmpty()) {
-                return new ResponseDTO("There is no more user with this username", 400);
+                return new UserResponseDTO("There is no more user with this username", 400);
             }
 
             String jwtToken = createJwtToken(userData.get());
 
-            return new ResponseDTO(jwtToken, 200);
+            return new UserResponseDTO(jwtToken, 200);
         }
         catch (Exception ex) {
             //System.out.println("There is an Exception :");
             //ex.printStackTrace();
         }
 
-        return new ResponseDTO("Bad username or password", 400);
+        return new UserResponseDTO("Bad username or password", 400);
     }
 
     @PostMapping("/register")
-    public ResponseDTO register(@Valid @RequestBody UserRegisterDTO userRegisterDTO, BindingResult result) {
+    public UserResponseDTO register(@Valid @RequestBody UserRegisterDTO userRegisterDTO, BindingResult result) {
         if (result.hasErrors()) {
             var errorsList = result.getAllErrors();
             var errorMessage = new StringBuilder();
@@ -96,7 +96,7 @@ public class UserController {
                 errorMessage.append(error.getField()).append(": ").append(error.getDefaultMessage()).append("; ");
             }
 
-            return new ResponseDTO(errorMessage.toString(), 400);
+            return new UserResponseDTO(errorMessage.toString(), 400);
         }
 
         var bCryptPasswordEncoder = new BCryptPasswordEncoder();
@@ -114,26 +114,26 @@ public class UserController {
 
             otherUser = userDataRepository.findByUsername(userRegisterDTO.getUsername());
             if (otherUser.isPresent()) {
-                return new ResponseDTO("Username already used", 400);
+                return new UserResponseDTO("Username already used", 400);
             }
 
             otherUser = userDataRepository.findByEmail(userRegisterDTO.getEmail());
             if (otherUser.isPresent()) {
-                return new ResponseDTO("Email address already used", 400);
+                return new UserResponseDTO("Email address already used", 400);
             }
 
             userDataRepository.save(userData);
 
             String jwtToken = createJwtToken(userData);
 
-            return new ResponseDTO(jwtToken, 200);
+            return new UserResponseDTO(jwtToken, 200);
         }
         catch (Exception ex) {
             //System.out.println("There is an Exception :");
             //ex.printStackTrace();
         }
 
-        return new ResponseDTO("Failed to register", 400);
+        return new UserResponseDTO("Failed to register", 400);
     }
 
     private String createJwtToken(UserData userData) {

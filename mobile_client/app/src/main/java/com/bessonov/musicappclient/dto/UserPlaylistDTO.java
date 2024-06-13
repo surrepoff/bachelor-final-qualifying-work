@@ -4,21 +4,21 @@ import androidx.annotation.NonNull;
 
 import java.util.Date;
 
-public class UserTrackDTO {
-    private Boolean added;
+public class UserPlaylistDTO {
+    private boolean isAdded;
     private Date addedDate;
 
-    public UserTrackDTO() {
-        this.added = false;
+    public UserPlaylistDTO() {
+        this.isAdded = false;
         this.addedDate = new Date(0);
     }
 
-    public Boolean isAdded() {
-        return added;
+    public boolean isAdded() {
+        return isAdded;
     }
 
-    public void setAdded(Boolean added) {
-        this.added = added;
+    public void setAdded(boolean added) {
+        isAdded = added;
     }
 
     public Date getAddedDate() {
@@ -32,8 +32,8 @@ public class UserTrackDTO {
     @NonNull
     @Override
     public String toString() {
-        return "UserTrackDTO{" +
-                "added=" + added +
+        return "UserPlaylistDTO{" +
+                "isAdded=" + isAdded +
                 ", addedDate=" + addedDate +
                 '}';
     }

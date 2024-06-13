@@ -1,14 +1,160 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="20dp"
     tools:context=".ui.musicPlayer.FullMusicPlayerFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <ImageButton
+        android:id="@+id/fragmentFullMusicPlayer_closeButton"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="50dp"
+        android:background="@null"
+        android:contentDescription="Close Button"
+        android:scaleType="fitStart"
+        android:src="@drawable/ic_close"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-</FrameLayout>
+    <ImageView
+        android:id="@+id/fragmentFullMusicPlayer_trackImage"
+        android:layout_width="320dp"
+        android:layout_height="320dp"
+        android:layout_marginTop="20dp"
+        android:contentDescription="Track Image"
+        android:src="@drawable/default_album"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/fragmentFullMusicPlayer_closeButton" />
+
+    <TextView
+        android:id="@+id/fragmentFullMusicPlayer_trackName"
+        android:layout_width="0dp"
+        android:layout_height="30dp"
+        android:text="Track Name"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/fragmentFullMusicPlayer_trackImage" />
+
+    <TextView
+        android:id="@+id/fragmentFullMusicPlayer_artistName"
+        android:layout_width="0dp"
+        android:layout_height="30dp"
+        android:text="Artist Name"
+        android:textAlignment="center"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="@id/fragmentFullMusicPlayer_trackName"
+        app:layout_constraintStart_toStartOf="@id/fragmentFullMusicPlayer_trackName"
+        app:layout_constraintTop_toBottomOf="@id/fragmentFullMusicPlayer_trackName" />
+
+    <ImageButton
+        android:id="@+id/fragmentFullMusicPlayer_dislikeButton"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_margin="20dp"
+        android:background="@null"
+        android:contentDescription="Dislike Button"
+        android:scaleType="fitCenter"
+        android:src="@drawable/ic_thumb_down_outline"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/fragmentFullMusicPlayer_artistName" />
+
+    <ImageButton
+        android:id="@+id/fragmentFullMusicPlayer_likeButton"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_margin="20dp"
+        android:background="@null"
+        android:contentDescription="Like Button"
+        android:scaleType="fitCenter"
+        android:src="@drawable/ic_thumb_up_outline"
+        app:layout_constraintEnd_toStartOf="@id/fragmentFullMusicPlayer_dislikeButton"
+        app:layout_constraintTop_toBottomOf="@id/fragmentFullMusicPlayer_artistName" />
+
+    <ImageButton
+        android:id="@+id/fragmentFullMusicPlayer_addButton"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_margin="20dp"
+        android:background="@null"
+        android:contentDescription="Add/Remove Button"
+        android:scaleType="fitCenter"
+        android:src="@drawable/ic_plus"
+        app:layout_constraintEnd_toStartOf="@id/fragmentFullMusicPlayer_likeButton"
+        app:layout_constraintTop_toBottomOf="@id/fragmentFullMusicPlayer_artistName" />
+
+    <SeekBar
+        android:id="@+id/fragmentFullMusicPlayer_progressBar"
+        android:layout_width="0dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="20dp"
+        android:max="100"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/fragmentFullMusicPlayer_dislikeButton" />
+
+    <TextView
+        android:id="@+id/fragmentFullMusicPlayer_currentTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Current Time"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/fragmentFullMusicPlayer_progressBar" />
+
+    <TextView
+        android:id="@+id/fragmentFullMusicPlayer_fullTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Full Time"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/fragmentFullMusicPlayer_progressBar" />
+
+    <ImageButton
+        android:id="@+id/fragmentFullMusicPlayer_stopButton"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="20dp"
+        android:background="@null"
+        android:contentDescription="Stop"
+        android:scaleType="fitCenter"
+        android:src="@drawable/ic_stop"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/fragmentFullMusicPlayer_fullTime" />
+
+    <ImageButton
+        android:id="@+id/fragmentFullMusicPlayer_previousButton"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginEnd="20dp"
+        android:background="@null"
+        android:contentDescription="Previous Track"
+        android:scaleType="fitCenter"
+        android:src="@drawable/ic_previous"
+        app:layout_constraintBottom_toBottomOf="@id/fragmentFullMusicPlayer_stopButton"
+        app:layout_constraintEnd_toStartOf="@id/fragmentFullMusicPlayer_stopButton"
+        app:layout_constraintTop_toTopOf="@id/fragmentFullMusicPlayer_stopButton" />
+
+    <ImageButton
+        android:id="@+id/fragmentFullMusicPlayer_nextButton"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="20dp"
+        android:background="@null"
+        android:contentDescription="Next Track"
+        android:scaleType="fitCenter"
+        android:src="@drawable/ic_next"
+        app:layout_constraintBottom_toBottomOf="@id/fragmentFullMusicPlayer_stopButton"
+        app:layout_constraintStart_toEndOf="@id/fragmentFullMusicPlayer_stopButton"
+        app:layout_constraintTop_toTopOf="@id/fragmentFullMusicPlayer_stopButton" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

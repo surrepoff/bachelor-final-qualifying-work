@@ -197,8 +197,7 @@ public class TrackService {
             UserTrackDTO userTrackDTO = new UserTrackDTO();
 
             if (userTrack.isPresent()) {
-                userTrackDTO.setAdded(true);
-                userTrackDTO.setAddedDate(userTrack.get().getAddedDate());
+                userTrackDTO = new UserTrackDTO(userTrack.get());
             }
             trackInfoDTO.setIsAdded(userTrackDTO);
         }

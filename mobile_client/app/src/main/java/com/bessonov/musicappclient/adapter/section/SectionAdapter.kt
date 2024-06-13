@@ -11,16 +11,19 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bessonov.musicappclient.R
 import com.bessonov.musicappclient.adapter.album.AlbumAdapter
 import com.bessonov.musicappclient.adapter.artist.ArtistAdapter
+import com.bessonov.musicappclient.adapter.playlist.PlaylistAdapter
 import com.bessonov.musicappclient.adapter.track.DragManageAdapter
 import com.bessonov.musicappclient.adapter.track.TrackAdapter
 import com.bessonov.musicappclient.adapter.track.TrackItemClickListener
 import com.bessonov.musicappclient.dto.AlbumInfoDTO
 import com.bessonov.musicappclient.dto.ArtistInfoDTO
+import com.bessonov.musicappclient.dto.PlaylistInfoDTO
 import com.bessonov.musicappclient.dto.TrackInfoDTO
 
 class SectionAdapter(
     private val context: Context,
-    private val sectionList: List<Section<*>>
+    private val sectionList: List<Section<*>>,
+    private val onItemClick: (Section<*>) -> Unit
 ) : RecyclerView.Adapter<SectionViewHolder>(), TrackItemClickListener {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SectionViewHolder {
         val view = LayoutInflater.from(parent.context)
@@ -36,6 +39,9 @@ class SectionAdapter(
         val section : Section<*> = sectionList[position]
 
         holder.header.text = section.title
+        holder.header.setOnClickListener {
+            onItemClick.invoke(sectionList[position])
+        }
 
         holder.recyclerView.layoutManager = if (section.orientation == LinearLayoutManager.HORIZONTAL) {
             LinearLayoutManager(holder.recyclerView.context, LinearLayoutManager.HORIZONTAL, false)
@@ -53,6 +59,11 @@ class SectionAdapter(
                 val artistInfoDTOList = section.items.filterIsInstance<ArtistInfoDTO>()
                 val artistAdapter = ArtistAdapter(context, artistInfoDTOList)
                 holder.recyclerView.adapter = artistAdapter
+            }
+            SectionType.PLAYLIST -> {
+                val playlistInfoDTOList = section.items.filterIsInstance<PlaylistInfoDTO>()
+                val playlistAdapter = PlaylistAdapter(context, playlistInfoDTOList)
+                holder.recyclerView.adapter = playlistAdapter
             }
             SectionType.TRACK -> {
                 val trackInfoDTOList = section.items.filterIsInstance<TrackInfoDTO>()

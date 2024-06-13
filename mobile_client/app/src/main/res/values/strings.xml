@@ -4,4 +4,6 @@
     <string name="home_fragment">It\'s home fragment</string>
     <string name="search_fragment">It\'s search fragment</string>
     <string name="my_music_fragment">It\'s my music fragment</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

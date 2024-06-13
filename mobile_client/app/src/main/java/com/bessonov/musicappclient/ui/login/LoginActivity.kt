@@ -14,7 +14,7 @@ import com.bessonov.musicappclient.R
 import com.bessonov.musicappclient.api.RetrofitClient
 import com.bessonov.musicappclient.api.SessionManager
 import com.bessonov.musicappclient.api.UserAPI
-import com.bessonov.musicappclient.dto.ResponseDTO
+import com.bessonov.musicappclient.dto.UserResponseDTO
 import com.bessonov.musicappclient.dto.UserLoginDTO
 import com.bessonov.musicappclient.ui.main.MainActivity
 import com.bessonov.musicappclient.ui.start.StartActivity
@@ -65,13 +65,13 @@ class LoginActivity : AppCompatActivity() {
         val retrofitClient = RetrofitClient()
         val userAPI = retrofitClient.getRetrofit(this).create(UserAPI::class.java)
 
-        userAPI.login(UserLoginDTO(username, password)).enqueue(object : Callback<ResponseDTO> {
-            override fun onFailure(call: Call<ResponseDTO>, t: Throwable) {
+        userAPI.login(UserLoginDTO(username, password)).enqueue(object : Callback<UserResponseDTO> {
+            override fun onFailure(call: Call<UserResponseDTO>, t: Throwable) {
                 Log.e("Login", "Failed to login (onFailure)", t)
                 Toast.makeText(this@LoginActivity, "Failed to login (onFailure)", Toast.LENGTH_SHORT).show()
             }
 
-            override fun onResponse(call: Call<ResponseDTO>, response: Response<ResponseDTO>) {
+            override fun onResponse(call: Call<UserResponseDTO>, response: Response<UserResponseDTO>) {
                 val loginResponse = response.body()
                 val errorResponse = response.errorBody()?.string()
 

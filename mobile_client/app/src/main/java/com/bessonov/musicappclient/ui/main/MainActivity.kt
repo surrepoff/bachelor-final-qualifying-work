@@ -26,4 +26,8 @@ class MainActivity : AppCompatActivity() {
             tab.text = tabTitles[position]
         }.attach()
     }
+
+    fun getViewPager(): ViewPager2 {
+        return viewPager
+    }
 }

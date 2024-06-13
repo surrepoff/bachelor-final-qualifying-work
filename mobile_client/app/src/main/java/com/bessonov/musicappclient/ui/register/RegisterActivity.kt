@@ -14,7 +14,7 @@ import com.bessonov.musicappclient.R
 import com.bessonov.musicappclient.api.RetrofitClient
 import com.bessonov.musicappclient.api.SessionManager
 import com.bessonov.musicappclient.api.UserAPI
-import com.bessonov.musicappclient.dto.ResponseDTO
+import com.bessonov.musicappclient.dto.UserResponseDTO
 import com.bessonov.musicappclient.dto.UserRegisterDTO
 import com.bessonov.musicappclient.ui.main.MainActivity
 import com.bessonov.musicappclient.ui.start.StartActivity
@@ -76,13 +76,13 @@ class RegisterActivity : AppCompatActivity() {
         val retrofitClient = RetrofitClient()
         val userAPI = retrofitClient.getRetrofit(this).create(UserAPI::class.java)
 
-        userAPI.register(UserRegisterDTO(username, email, password)).enqueue(object : Callback<ResponseDTO> {
-            override fun onFailure(call: Call<ResponseDTO>, t: Throwable) {
+        userAPI.register(UserRegisterDTO(username, email, password)).enqueue(object : Callback<UserResponseDTO> {
+            override fun onFailure(call: Call<UserResponseDTO>, t: Throwable) {
                 Log.e("Register", "Failed to register (onFailure)", t)
                 Toast.makeText(this@RegisterActivity, "Failed to register (onFailure)", Toast.LENGTH_SHORT).show()
             }
 
-            override fun onResponse(call: Call<ResponseDTO>, response: Response<ResponseDTO>) {
+            override fun onResponse(call: Call<UserResponseDTO>, response: Response<UserResponseDTO>) {
                 val registerResponse = response.body()
                 val errorResponse = response.errorBody()?.string()
 

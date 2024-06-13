@@ -16,4 +16,7 @@ interface TrackAPI {
 
     @POST("/track/get/list")
     fun getByTrackIdList(@Body trackIdList: List<Int>): Call<List<TrackInfoDTO>>
+
+    @GET("/track/get/user")
+    fun getAllUser(): Call<List<TrackInfoDTO>>
 }

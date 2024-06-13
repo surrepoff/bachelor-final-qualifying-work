@@ -1,13 +1,10 @@
-package com.bessonov.musicappclient.dto;
+package com.bessonov.musicappserver.user;
 
-
-import androidx.annotation.NonNull;
-
-public class ResponseDTO {
+public class UserResponseDTO {
     private int status_code;
     private String message;
 
-    public ResponseDTO(String message, int status_code) {
+    public UserResponseDTO(String message, int status_code) {
         this.message = message;
         this.status_code = status_code;
     }
@@ -28,13 +25,11 @@ public class ResponseDTO {
         this.message = message;
     }
 
-    @NonNull
     @Override
     public String toString() {
-        return "ResponseDTO{" +
+        return "UserResponseDTO{" +
                 "status_code=" + status_code +
                 ", message='" + message + '\'' +
                 '}';
     }
 }
-

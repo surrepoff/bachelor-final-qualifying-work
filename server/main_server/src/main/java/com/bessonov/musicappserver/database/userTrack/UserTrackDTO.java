@@ -3,31 +3,31 @@ package com.bessonov.musicappserver.database.userTrack;
 import java.util.Date;
 
 public class UserTrackDTO {
-    private boolean isAdded;
+    private Boolean added;
     private Date addedDate;
 
     public UserTrackDTO() {
-        this.isAdded = false;
+        this.added = false;
         this.addedDate = new Date(0);
     }
 
     public UserTrackDTO(UserTrack userTrack) {
         if (userTrack == null) {
-            this.isAdded = false;
+            this.added = false;
             this.addedDate = new Date(0);
         }
         else {
-            this.isAdded = true;
+            this.added = true;
             this.addedDate = userTrack.getAddedDate();
         }
     }
 
-    public boolean isAdded() {
-        return isAdded;
+    public Boolean isAdded() {
+        return added;
     }
 
-    public void setAdded(boolean added) {
-        isAdded = added;
+    public void setAdded(Boolean added) {
+        this.added = added;
     }
 
     public Date getAddedDate() {
@@ -41,7 +41,7 @@ public class UserTrackDTO {
     @Override
     public String toString() {
         return "UserTrackDTO{" +
-                "isAdded=" + isAdded +
+                "added=" + added +
                 ", addedDate=" + addedDate +
                 '}';
     }

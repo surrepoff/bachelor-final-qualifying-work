@@ -21,6 +21,8 @@ import com.bessonov.musicappclient.api.AlbumAPI
 import com.bessonov.musicappclient.api.ArtistAPI
 import com.bessonov.musicappclient.api.RetrofitClient
 import com.bessonov.musicappclient.api.TrackAPI
+import com.bessonov.musicappclient.ui.main.MainActivity
+import com.bessonov.musicappclient.ui.section.SectionFragment
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -50,6 +52,13 @@ class HomeFragment : Fragment() {
 
         recyclerView = view.findViewById(R.id.fragmentHome_recyclerView)
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
+
+        recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                swipeRefreshLayout.isEnabled = !recyclerView.canScrollVertically(-1)
+            }
+        })
 
         artistInfoDTOList = emptyList()
         albumInfoDTOList = emptyList()
@@ -106,7 +115,13 @@ class HomeFragment : Fragment() {
 
         sectionList = listOf(artistSection, albumSection, trackSection)
 
-        val sectionAdapter = SectionAdapter(requireContext(), sectionList)
+        val sectionAdapter = SectionAdapter(requireContext(), sectionList) { item ->
+            val sectionFragment = SectionFragment()
+            parentFragmentManager.beginTransaction()
+                .replace(R.id.ViewPager2, sectionFragment)
+                .addToBackStack(null)
+                .commit()
+        }
         recyclerView.adapter = sectionAdapter
     }
 

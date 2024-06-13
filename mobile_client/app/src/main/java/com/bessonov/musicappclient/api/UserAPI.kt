@@ -1,6 +1,6 @@
 package com.bessonov.musicappclient.api
 
-import com.bessonov.musicappclient.dto.ResponseDTO
+import com.bessonov.musicappclient.dto.UserResponseDTO
 import com.bessonov.musicappclient.dto.UserDataDTO
 import com.bessonov.musicappclient.dto.UserLoginDTO
 import com.bessonov.musicappclient.dto.UserRegisterDTO
@@ -14,9 +14,9 @@ interface UserAPI {
     fun info(): Call<UserDataDTO>
 
     @POST("/user/login")
-    fun login(@Body userLoginDTO: UserLoginDTO): Call<ResponseDTO>
+    fun login(@Body userLoginDTO: UserLoginDTO): Call<UserResponseDTO>
 
     @POST("/user/register")
-    fun register(@Body userRegisterDTO: UserRegisterDTO): Call<ResponseDTO>
+    fun register(@Body userRegisterDTO: UserRegisterDTO): Call<UserResponseDTO>
 }
 

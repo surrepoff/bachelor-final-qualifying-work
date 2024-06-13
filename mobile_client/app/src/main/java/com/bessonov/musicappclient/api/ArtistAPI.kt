@@ -16,4 +16,7 @@ interface ArtistAPI {
 
     @POST("/artist/get/list")
     fun getByAlbumIdList(@Body artistIdList: List<Int>): Call<List<ArtistInfoDTO>>
+
+    @GET("/artist/get/user")
+    fun getAllUser(): Call<List<ArtistInfoDTO>>
 }

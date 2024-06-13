@@ -1,4 +1,6 @@
-package com.bessonov.musicappserver.database.userData;
+package com.bessonov.musicappclient.dto;
+
+import androidx.annotation.NonNull;
 
 public class UserDataShortDTO {
     private int id;
@@ -7,16 +9,6 @@ public class UserDataShortDTO {
     public UserDataShortDTO () {
         this.id = -1;
         this.nickname = "";
-    }
-
-    public UserDataShortDTO (UserData userData) {
-        if (userData == null) {
-            this.id = -1;
-            this.nickname = "";
-        } else {
-            this.id = userData.getId();
-            this.nickname = userData.getNickname();
-        }
     }
 
     public int getId() {
@@ -35,6 +27,7 @@ public class UserDataShortDTO {
         this.nickname = nickname;
     }
 
+    @NonNull
     @Override
     public String toString() {
         return "UserDataShortDTO{" +
