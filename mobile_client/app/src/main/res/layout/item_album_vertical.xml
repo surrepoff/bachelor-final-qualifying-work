@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:padding="10dp">
 
@@ -11,6 +11,7 @@
         android:layout_height="100dp"
         android:contentDescription="Image"
         android:src="@drawable/default_album"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -18,23 +19,60 @@
         android:id="@+id/itemAlbumVertical_albumName"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Album name"
+        android:layout_marginStart="10dp"
+        android:text="Album Name"
         android:textColor="@color/black"
-        android:textSize="16sp"
+        android:textSize="24sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="@id/itemAlbumVertical_albumImage"
-        app:layout_constraintStart_toStartOf="@id/itemAlbumVertical_albumImage"
-        app:layout_constraintTop_toBottomOf="@id/itemAlbumVertical_albumImage" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/itemAlbumVertical_albumImage"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/itemAlbumVertical_artistName"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Artist name"
+        android:layout_marginStart="10dp"
+        android:text="Artist Name"
         android:textSize="16sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="@id/itemAlbumVertical_albumImage"
-        app:layout_constraintStart_toStartOf="@id/itemAlbumVertical_albumImage"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/itemAlbumVertical_albumImage"
         app:layout_constraintTop_toBottomOf="@id/itemAlbumVertical_albumName" />
+
+    <ImageButton
+        android:id="@+id/itemAlbumVertical_dislikeButton"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="10dp"
+        android:background="@android:color/transparent"
+        android:contentDescription="Dislike Button"
+        android:src="@drawable/ic_thumb_down_outline"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/itemAlbumVertical_artistName" />
+
+    <ImageButton
+        android:id="@+id/itemAlbumVertical_likeButton"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_margin="10dp"
+        android:background="@android:color/transparent"
+        android:contentDescription="Like Button"
+        android:src="@drawable/ic_thumb_up_outline"
+        app:layout_constraintBottom_toBottomOf="@id/itemAlbumVertical_dislikeButton"
+        app:layout_constraintEnd_toStartOf="@id/itemAlbumVertical_dislikeButton"
+        app:layout_constraintTop_toTopOf="@id/itemAlbumVertical_dislikeButton" />
+
+    <ImageButton
+        android:id="@+id/itemAlbumVertical_addButton"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_margin="10dp"
+        android:background="@android:color/transparent"
+        android:contentDescription="Add/Remove Button"
+        android:src="@drawable/ic_plus"
+        app:layout_constraintBottom_toBottomOf="@id/itemAlbumVertical_dislikeButton"
+        app:layout_constraintEnd_toStartOf="@id/itemAlbumVertical_likeButton"
+        app:layout_constraintTop_toTopOf="@id/itemAlbumVertical_dislikeButton" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

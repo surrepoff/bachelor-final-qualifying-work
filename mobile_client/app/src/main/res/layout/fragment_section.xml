@@ -2,7 +2,7 @@
 <androidx.swiperefreshlayout.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/fragmentMyMusic_swipeRefreshLayout"
+    android:id="@+id/fragmentSection_swipeRefreshLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.section.SectionFragment">
@@ -18,7 +18,7 @@
             android:layout_margin="10dp"
             android:background="@null"
             android:contentDescription="Close Button"
-            android:scaleType="fitStart"
+            android:scaleType="centerInside"
             android:src="@drawable/ic_close"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -30,7 +30,7 @@
             android:layout_margin="10dp"
             android:text="Section Name"
             android:textColor="@color/black"
-            android:textSize="32sp"
+            android:textSize="24sp"
             app:layout_constraintBottom_toBottomOf="@id/fragmentSection_closeButton"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/fragmentSection_closeButton"

@@ -3,31 +3,31 @@ package com.bessonov.musicappserver.database.userArtist;
 import java.util.Date;
 
 public class UserArtistDTO {
-    private boolean isAdded;
+    private Boolean added;
     private Date addedDate;
 
     public UserArtistDTO() {
-        this.isAdded = false;
+        this.added = false;
         this.addedDate = new Date(0);
     }
 
     public UserArtistDTO(UserArtist userArtist) {
         if (userArtist == null) {
-            this.isAdded = false;
+            this.added = false;
             this.addedDate = new Date(0);
         }
         else {
-            this.isAdded = true;
+            this.added = true;
             this.addedDate = userArtist.getAddedDate();
         }
     }
 
-    public boolean isAdded() {
-        return isAdded;
+    public Boolean isAdded() {
+        return added;
     }
 
-    public void setAdded(boolean added) {
-        isAdded = added;
+    public void setAdded(Boolean added) {
+        this.added = added;
     }
 
     public Date getAddedDate() {
@@ -41,7 +41,7 @@ public class UserArtistDTO {
     @Override
     public String toString() {
         return "UserArtistDTO{" +
-                "isAdded=" + isAdded +
+                "added=" + added +
                 ", addedDate=" + addedDate +
                 '}';
     }

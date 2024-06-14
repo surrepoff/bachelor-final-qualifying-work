@@ -5,20 +5,20 @@ import androidx.annotation.NonNull;
 import java.util.Date;
 
 public class UserAlbumDTO {
-    private boolean isAdded;
+    private Boolean added;
     private Date addedDate;
 
-    UserAlbumDTO() {
-        this.isAdded = false;
+    public UserAlbumDTO() {
+        this.added = false;
         this.addedDate = new Date(0);
     }
 
-    public boolean isAdded() {
-        return isAdded;
+    public Boolean isAdded() {
+        return added;
     }
 
-    public void setAdded(boolean added) {
-        isAdded = added;
+    public void setAdded(Boolean added) {
+        this.added = added;
     }
 
     public Date getAddedDate() {
@@ -33,7 +33,7 @@ public class UserAlbumDTO {
     @Override
     public String toString() {
         return "UserAlbumDTO{" +
-                "isAdded=" + isAdded +
+                "added=" + added +
                 ", addedDate=" + addedDate +
                 '}';
     }

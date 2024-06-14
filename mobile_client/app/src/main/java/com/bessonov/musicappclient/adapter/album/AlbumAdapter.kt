@@ -2,7 +2,9 @@ package com.bessonov.musicappclient.adapter.album
 
 import android.content.Context
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bessonov.musicappclient.R
 import com.bessonov.musicappclient.api.SessionManager
@@ -14,12 +16,18 @@ import com.bumptech.glide.load.model.LazyHeaders
 
 class AlbumAdapter(
     private val context: Context,
-    private val albumInfoDTOList: List<AlbumInfoDTO>
+    private val albumInfoDTOList: List<AlbumInfoDTO>,
+    private val orientation: Int
 ) : RecyclerView.Adapter<AlbumViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AlbumViewHolder {
-        val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_album_vertical, parent, false)
-        return AlbumViewHolder(view)
+        val view: View = if (orientation == LinearLayoutManager.HORIZONTAL) {
+            LayoutInflater.from(parent.context)
+                .inflate(R.layout.item_album_horizontal, parent, false)
+        } else {
+            LayoutInflater.from(parent.context)
+                .inflate(R.layout.item_album_vertical, parent, false)
+        }
+        return AlbumViewHolder(view, orientation)
     }
 
     override fun getItemCount(): Int {
@@ -53,5 +61,29 @@ class AlbumAdapter(
             .load(glideUrl)
             .placeholder(R.drawable.default_album)
             .into(holder.albumImage)
+
+        if (orientation == LinearLayoutManager.VERTICAL) {
+            if (albumInfoDTO.isAdded.isAdded) {
+                holder.addButton?.setImageResource(R.drawable.ic_check)
+            }
+            else {
+                holder.addButton?.setImageResource(R.drawable.ic_plus)
+            }
+
+            when (albumInfoDTO.rating.name) {
+                "Like" -> {
+                    holder.likeButton?.setImageResource(R.drawable.ic_thumb_up)
+                    holder.dislikeButton?.setImageResource(R.drawable.ic_thumb_down_outline)
+                }
+                "Dislike" -> {
+                    holder.likeButton?.setImageResource(R.drawable.ic_thumb_up_outline)
+                    holder.dislikeButton?.setImageResource(R.drawable.ic_thumb_down)
+                }
+                else -> {
+                    holder.likeButton?.setImageResource(R.drawable.ic_thumb_up_outline)
+                    holder.dislikeButton?.setImageResource(R.drawable.ic_thumb_down_outline)
+                }
+            }
+        }
     }
 }

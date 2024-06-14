@@ -99,28 +99,28 @@ class MyMusicFragment : Fragment() {
 
     private fun populateListView() {
         val artistSection : Section<ArtistInfoDTO> = Section(
-            title = "Artists",
+            title = "My Artists",
             type = SectionType.ARTIST,
             items = artistInfoDTOList,
             orientation = LinearLayoutManager.HORIZONTAL
         )
 
         val albumSection : Section<AlbumInfoDTO> = Section(
-            title = "Albums",
+            title = "My Albums",
             type = SectionType.ALBUM,
             items = albumInfoDTOList,
             orientation = LinearLayoutManager.HORIZONTAL
         )
 
         val playlistSection : Section<PlaylistInfoDTO> = Section(
-            title = "Playlists",
+            title = "My Playlists",
             type = SectionType.PLAYLIST,
             items = playlistInfoDTOList,
             orientation = LinearLayoutManager.HORIZONTAL
         )
 
         val trackSection : Section<TrackInfoDTO> = Section(
-            title = "Tracks",
+            title = "My Tracks",
             type = SectionType.TRACK,
             items = trackInfoDTOList,
             orientation = LinearLayoutManager.VERTICAL
@@ -128,12 +128,8 @@ class MyMusicFragment : Fragment() {
 
         sectionList = listOf(artistSection, albumSection, playlistSection, trackSection)
 
-        val sectionAdapter = SectionAdapter(requireContext(), sectionList) { item ->
-            val sectionFragment = SectionFragment()
-            parentFragmentManager.beginTransaction()
-                .replace(R.id.ViewPager2, sectionFragment)
-                .addToBackStack(null)
-                .commit()
+        val sectionAdapter = SectionAdapter(requireContext(), sectionList) { section ->
+            (activity as MainActivity).openSectionFragment(section)
         }
         recyclerView.adapter = sectionAdapter
     }

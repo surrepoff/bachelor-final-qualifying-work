@@ -115,12 +115,8 @@ class HomeFragment : Fragment() {
 
         sectionList = listOf(artistSection, albumSection, trackSection)
 
-        val sectionAdapter = SectionAdapter(requireContext(), sectionList) { item ->
-            val sectionFragment = SectionFragment()
-            parentFragmentManager.beginTransaction()
-                .replace(R.id.ViewPager2, sectionFragment)
-                .addToBackStack(null)
-                .commit()
+        val sectionAdapter = SectionAdapter(requireContext(), sectionList) { section ->
+            (activity as MainActivity).openSectionFragment(section)
         }
         recyclerView.adapter = sectionAdapter
     }
