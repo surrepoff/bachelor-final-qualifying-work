@@ -1,9 +1,9 @@
 package com.bessonov.musicappclient.api
 
-import com.bessonov.musicappclient.dto.UserResponseDTO
 import com.bessonov.musicappclient.dto.UserDataDTO
 import com.bessonov.musicappclient.dto.UserLoginDTO
 import com.bessonov.musicappclient.dto.UserRegisterDTO
+import com.bessonov.musicappclient.dto.UserResponseDTO
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.GET

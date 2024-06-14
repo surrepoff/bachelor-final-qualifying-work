@@ -2,13 +2,13 @@ package com.bessonov.musicappclient.ui.home
 
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
@@ -16,17 +16,16 @@ import com.bessonov.musicappclient.R
 import com.bessonov.musicappclient.adapter.section.Section
 import com.bessonov.musicappclient.adapter.section.SectionAdapter
 import com.bessonov.musicappclient.adapter.section.SectionType
-import com.bessonov.musicappclient.dto.AlbumInfoDTO
-import com.bessonov.musicappclient.dto.ArtistInfoDTO
-import com.bessonov.musicappclient.dto.TrackInfoDTO
 import com.bessonov.musicappclient.api.AlbumAPI
 import com.bessonov.musicappclient.api.ArtistAPI
 import com.bessonov.musicappclient.api.RetrofitClient
 import com.bessonov.musicappclient.api.TrackAPI
 import com.bessonov.musicappclient.api.UserAPI
+import com.bessonov.musicappclient.dto.AlbumInfoDTO
+import com.bessonov.musicappclient.dto.ArtistInfoDTO
+import com.bessonov.musicappclient.dto.TrackInfoDTO
 import com.bessonov.musicappclient.dto.UserDataDTO
 import com.bessonov.musicappclient.ui.main.MainActivity
-import com.bessonov.musicappclient.ui.section.SectionFragment
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

@@ -14,8 +14,8 @@ import com.bessonov.musicappclient.R
 import com.bessonov.musicappclient.api.RetrofitClient
 import com.bessonov.musicappclient.api.SessionManager
 import com.bessonov.musicappclient.api.UserAPI
-import com.bessonov.musicappclient.dto.UserResponseDTO
 import com.bessonov.musicappclient.dto.UserRegisterDTO
+import com.bessonov.musicappclient.dto.UserResponseDTO
 import com.bessonov.musicappclient.ui.main.MainActivity
 import com.bessonov.musicappclient.ui.start.StartActivity
 import retrofit2.Call
