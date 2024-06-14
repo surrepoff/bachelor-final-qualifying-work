@@ -1,8 +1,8 @@
 package com.bessonov.musicappserver.database.album;
 
-import java.util.Date;
-
 import jakarta.persistence.*;
+
+import java.util.Date;
 
 @Entity
 @Table(name = "album")

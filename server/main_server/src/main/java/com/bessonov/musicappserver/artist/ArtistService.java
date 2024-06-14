@@ -7,7 +7,6 @@ import com.bessonov.musicappserver.database.artist.ArtistDTO;
 import com.bessonov.musicappserver.database.artist.ArtistRepository;
 import com.bessonov.musicappserver.database.artistTrack.ArtistTrack;
 import com.bessonov.musicappserver.database.artistTrack.ArtistTrackRepository;
-
 import com.bessonov.musicappserver.database.userArtist.UserArtist;
 import com.bessonov.musicappserver.database.userArtist.UserArtistDTO;
 import com.bessonov.musicappserver.database.userArtist.UserArtistId;

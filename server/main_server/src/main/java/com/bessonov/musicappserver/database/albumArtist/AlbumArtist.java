@@ -1,9 +1,9 @@
 package com.bessonov.musicappserver.database.albumArtist;
 
 import jakarta.persistence.Column;
+import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
-import jakarta.persistence.EmbeddedId;
 
 @Entity
 @Table(name = "album_artist")

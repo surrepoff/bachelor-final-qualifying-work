@@ -10,7 +10,6 @@ import com.bessonov.musicappserver.database.albumTrack.AlbumTrackRepository;
 import com.bessonov.musicappserver.database.artist.Artist;
 import com.bessonov.musicappserver.database.artist.ArtistDTO;
 import com.bessonov.musicappserver.database.artist.ArtistRepository;
-
 import com.bessonov.musicappserver.database.userAlbum.UserAlbum;
 import com.bessonov.musicappserver.database.userAlbum.UserAlbumDTO;
 import com.bessonov.musicappserver.database.userAlbum.UserAlbumId;
