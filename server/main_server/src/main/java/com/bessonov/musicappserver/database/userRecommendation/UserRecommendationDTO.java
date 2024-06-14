@@ -18,8 +18,7 @@ public class UserRecommendationDTO {
             this.id = -1;
             this.familiarityPercentage = -1;
             this.creationDate = new Date(0);
-        }
-        else {
+        } else {
             this.id = userRecommendation.getId();
             this.familiarityPercentage = userRecommendation.getFamiliarityPercentage();
             this.creationDate = userRecommendation.getCreationDate();

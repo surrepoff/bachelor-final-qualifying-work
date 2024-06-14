@@ -7,6 +7,7 @@ import java.util.List;
 
 @Repository
 public interface UserRecommendationGenreRepository extends JpaRepository<UserRecommendationGenre, UserRecommendationGenreId> {
-    public List<UserRecommendationGenre> findByIdUserRecommendationIdOrderByIdGenreIdAsc(int userRecommendationId);
-    public void deleteByIdUserRecommendationId(int userRecommendationId);
+    List<UserRecommendationGenre> findByIdUserRecommendationIdOrderByIdGenreIdAsc(int userRecommendationId);
+
+    void deleteByIdUserRecommendationId(int userRecommendationId);
 }

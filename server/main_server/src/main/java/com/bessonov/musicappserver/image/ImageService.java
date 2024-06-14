@@ -42,7 +42,7 @@ public class ImageService {
     private String filepath;
 
     public ResponseEntity<byte[]> getAlbumImage(int albumId) {
-        Optional<Album>album = albumRepository.findById(albumId);
+        Optional<Album> album = albumRepository.findById(albumId);
         if (album.isPresent()) {
             try {
                 String imagePath = filepath + "album/" + album.get().getImageFilename();
@@ -52,8 +52,7 @@ public class ImageService {
                 HttpHeaders headers = new HttpHeaders();
                 headers.setContentType(MediaType.IMAGE_JPEG);
                 return new ResponseEntity<>(image, headers, HttpStatus.OK);
-            }
-            catch (IOException e) {
+            } catch (IOException e) {
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
             }
         } else {
@@ -62,7 +61,7 @@ public class ImageService {
     }
 
     public ResponseEntity<byte[]> getArtistImage(int artistId) {
-        Optional<Artist>artist = artistRepository.findById(artistId);
+        Optional<Artist> artist = artistRepository.findById(artistId);
         if (artist.isPresent()) {
             try {
                 String imagePath = filepath + "artist/" + artist.get().getImageFilename();
@@ -72,8 +71,7 @@ public class ImageService {
                 HttpHeaders headers = new HttpHeaders();
                 headers.setContentType(MediaType.IMAGE_JPEG);
                 return new ResponseEntity<>(image, headers, HttpStatus.OK);
-            }
-            catch (IOException e) {
+            } catch (IOException e) {
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
             }
         } else {
@@ -82,10 +80,10 @@ public class ImageService {
     }
 
     public ResponseEntity<byte[]> getTrackImage(int trackId) {
-        Optional<Track>track = trackRepository.findById(trackId);
-        Optional<AlbumTrack>albumTrack = albumTrackRepository.findFirstByIdTrackIdOrderByIdAlbumIdAsc(trackId);
+        Optional<Track> track = trackRepository.findById(trackId);
+        Optional<AlbumTrack> albumTrack = albumTrackRepository.findFirstByIdTrackIdOrderByIdAlbumIdAsc(trackId);
         if (track.isPresent() && albumTrack.isPresent()) {
-            Optional<Album>album = albumRepository.findById(albumTrack.get().getId().getAlbumId());
+            Optional<Album> album = albumRepository.findById(albumTrack.get().getId().getAlbumId());
             if (album.isPresent()) {
                 try {
                     String imagePath = filepath + "album/" + album.get().getImageFilename();
@@ -95,12 +93,10 @@ public class ImageService {
                     HttpHeaders headers = new HttpHeaders();
                     headers.setContentType(MediaType.IMAGE_JPEG);
                     return new ResponseEntity<>(image, headers, HttpStatus.OK);
-                }
-                catch (IOException e) {
+                } catch (IOException e) {
                     return new ResponseEntity<>(HttpStatus.NOT_FOUND);
                 }
-            }
-            else {
+            } else {
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
             }
         } else {

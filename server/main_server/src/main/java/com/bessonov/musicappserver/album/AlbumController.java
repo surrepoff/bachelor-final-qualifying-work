@@ -26,7 +26,7 @@ public class AlbumController {
 
     @PostMapping("/get/list")
     public List<AlbumInfoDTO> getByAlbumIdList(@RequestBody List<Integer> albumIdList, Authentication authentication) {
-        return albumService.getByAlbumIdList(authentication.getName(),albumIdList);
+        return albumService.getByAlbumIdList(authentication.getName(), albumIdList);
     }
 
     @GetMapping("/get/user")

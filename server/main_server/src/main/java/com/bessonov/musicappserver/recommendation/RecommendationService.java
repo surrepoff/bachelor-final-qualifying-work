@@ -168,7 +168,7 @@ public class RecommendationService {
         return getUserRecommendationInfoByUserRecommendation(username, userRecommendation.get());
     }
 
-    public RecommendationInfoDTO createUserRecommendation (String username, RecommendationCreateDTO recommendationCreateDTO) {
+    public RecommendationInfoDTO createUserRecommendation(String username, RecommendationCreateDTO recommendationCreateDTO) {
         Optional<UserData> userData = userDataRepository.findByUsername(username);
 
         if (userData.isEmpty()) {
@@ -187,7 +187,7 @@ public class RecommendationService {
             recommendationCreateDTO.setSize(10);
         }
 
-        if (recommendationCreateDTO.getFamiliarityPercentage() < 0  || recommendationCreateDTO.getFamiliarityPercentage() > 1) {
+        if (recommendationCreateDTO.getFamiliarityPercentage() < 0 || recommendationCreateDTO.getFamiliarityPercentage() > 1) {
             recommendationCreateDTO.setFamiliarityPercentage(0.5);
         }
 
@@ -208,7 +208,7 @@ public class RecommendationService {
         return getByUserRecommendationId(username, recommendationResponseDTO.getId());
     }
 
-    public RecommendationInfoDTO deleteUserRecommendation (String username, int userRecommendationId) {
+    public RecommendationInfoDTO deleteUserRecommendation(String username, int userRecommendationId) {
         Optional<UserData> userData = userDataRepository.findByUsername(username);
 
         if (userData.isEmpty()) {

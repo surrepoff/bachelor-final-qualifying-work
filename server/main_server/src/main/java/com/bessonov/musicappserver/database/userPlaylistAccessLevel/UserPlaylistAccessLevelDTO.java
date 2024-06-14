@@ -13,8 +13,7 @@ public class UserPlaylistAccessLevelDTO {
         if (userPlaylistAccessLevel == null) {
             this.id = -1;
             this.name = "None";
-        }
-        else {
+        } else {
             this.id = userPlaylistAccessLevel.getId();
             this.name = userPlaylistAccessLevel.getName();
         }

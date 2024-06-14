@@ -8,21 +8,20 @@ public class TrackDTO {
     private int durationInSeconds;
     private Date releaseDate;
 
-    public TrackDTO () {
+    public TrackDTO() {
         this.id = -1;
         this.name = "";
         this.durationInSeconds = -1;
         this.releaseDate = new Date(0);
     }
 
-    public TrackDTO (Track track) {
+    public TrackDTO(Track track) {
         if (track == null) {
             this.id = -1;
             this.name = "";
             this.durationInSeconds = -1;
             this.releaseDate = new Date(0);
-        }
-        else {
+        } else {
             this.id = track.getId();
             this.name = track.getName();
             this.durationInSeconds = track.getDurationInSeconds();

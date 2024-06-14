@@ -15,8 +15,7 @@ public class UserArtistDTO {
         if (userArtist == null) {
             this.added = false;
             this.addedDate = new Date(0);
-        }
-        else {
+        } else {
             this.added = true;
             this.addedDate = userArtist.getAddedDate();
         }

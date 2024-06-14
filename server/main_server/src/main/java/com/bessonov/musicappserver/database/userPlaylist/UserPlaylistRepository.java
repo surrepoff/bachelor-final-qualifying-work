@@ -12,9 +12,11 @@ public interface UserPlaylistRepository extends JpaRepository<UserPlaylist, User
     @Query("SELECT MAX(up.playlistNumberInUserList) FROM UserPlaylist up WHERE up.Id.userId = :userId")
     Integer findMaxPlaylistNumberInUserList(@Param("userId") int userId);
 
-    public List<UserPlaylist> findByIdUserIdOrderByPlaylistNumberInUserListAsc(int userId);
-    public List<UserPlaylist> findByIdUserIdAndPlaylistNumberInUserListGreaterThan(int userId, int playlistNumberInUserList);
-    public List<UserPlaylist> findByIdPlaylistIdAndAccessLevelIdOrderByAddedDateAsc(int playlistId, int accessLevelId);
+    List<UserPlaylist> findByIdUserIdOrderByPlaylistNumberInUserListAsc(int userId);
+
+    List<UserPlaylist> findByIdUserIdAndPlaylistNumberInUserListGreaterThan(int userId, int playlistNumberInUserList);
+
+    List<UserPlaylist> findByIdPlaylistIdAndAccessLevelIdOrderByAddedDateAsc(int playlistId, int accessLevelId);
 
     void deleteByIdPlaylistId(int playlistId);
 }

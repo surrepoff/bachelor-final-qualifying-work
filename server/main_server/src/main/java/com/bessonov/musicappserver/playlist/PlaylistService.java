@@ -36,33 +36,25 @@ import java.util.Optional;
 @Transactional
 @Service
 public class PlaylistService {
-    @Autowired
-    private PlaylistRepository playlistRepository;
-
-    @Autowired
-    private PlaylistTrackRepository playlistTrackRepository;
-
-    @Autowired
-    private TrackRepository trackRepository;
-
-    @Autowired
-    private UserDataRepository userDataRepository;
-
-    @Autowired
-    private UserPlaylistRepository userPlaylistRepository;
-
-    @Autowired
-    private UserPlaylistAccessLevelRepository userPlaylistAccessLevelRepository;
-
-    @Autowired
-    private UserPlaylistRatingRepository userPlaylistRatingRepository;
-
-    @Autowired
-    private UserRatingRepository userRatingRepository;
-
     private final int ownerAccessId = 0;
     private final int moderatorAccessId = 1;
     private final int listenerAccessId = 2;
+    @Autowired
+    private PlaylistRepository playlistRepository;
+    @Autowired
+    private PlaylistTrackRepository playlistTrackRepository;
+    @Autowired
+    private TrackRepository trackRepository;
+    @Autowired
+    private UserDataRepository userDataRepository;
+    @Autowired
+    private UserPlaylistRepository userPlaylistRepository;
+    @Autowired
+    private UserPlaylistAccessLevelRepository userPlaylistAccessLevelRepository;
+    @Autowired
+    private UserPlaylistRatingRepository userPlaylistRatingRepository;
+    @Autowired
+    private UserRatingRepository userRatingRepository;
 
     public PlaylistInfoDTO getByPlaylistId(String username, int playlistId) {
         Optional<Playlist> playlist = playlistRepository.findById(playlistId);
@@ -132,7 +124,7 @@ public class PlaylistService {
         playlistInfoDTO.setTrackId(trackIdList);
 
         Optional<UserData> userData = userDataRepository.findByUsername(username);
-        if (userData.isPresent()){
+        if (userData.isPresent()) {
             UserPlaylistId userPlaylistId = new UserPlaylistId(userData.get().getId(), playlist.getId());
 
             UserRatingDTO userRatingDTO = new UserRatingDTO();
@@ -246,13 +238,11 @@ public class PlaylistService {
                         userPlaylistRepository.deleteByIdPlaylistId(playlistId);
                         userPlaylistRatingRepository.deleteByIdPlaylistId(playlistId);
                         playlistRepository.deleteById(playlistId);
-                    }
-                    else {
+                    } else {
                         listenerUserPlaylistList.get(0).setAccessLevelId(ownerAccessId);
                         userPlaylistRepository.saveAll(listenerUserPlaylistList);
                     }
-                }
-                else {
+                } else {
                     moderatorUserPlaylistList.get(0).setAccessLevelId(ownerAccessId);
                     userPlaylistRepository.saveAll(moderatorUserPlaylistList);
                 }
@@ -299,7 +289,7 @@ public class PlaylistService {
         return new UserRatingDTO(userRating.get());
     }
 
-    public PlaylistInfoDTO createPlaylist (String username, PlaylistCreateDTO playlistCreateDTO) {
+    public PlaylistInfoDTO createPlaylist(String username, PlaylistCreateDTO playlistCreateDTO) {
         Optional<UserData> userData = userDataRepository.findByUsername(username);
 
         if (userData.isEmpty()) {
@@ -341,7 +331,7 @@ public class PlaylistService {
         return getPlaylistInfoByPlaylist(username, playlist);
     }
 
-    public PlaylistInfoDTO deletePlaylist (String username, int playlistId) {
+    public PlaylistInfoDTO deletePlaylist(String username, int playlistId) {
         Optional<UserData> userData = userDataRepository.findByUsername(username);
 
         if (userData.isEmpty()) {

@@ -12,6 +12,7 @@ public interface UserTrackRepository extends JpaRepository<UserTrack, UserTrackI
     @Query("SELECT MAX(ut.trackNumberInUserList) FROM UserTrack ut WHERE ut.Id.userId = :userId")
     Integer findMaxTrackNumberInUserList(@Param("userId") int userId);
 
-    public List<UserTrack> findByIdUserIdOrderByTrackNumberInUserListAsc(int userId);
-    public List<UserTrack> findByIdUserIdAndTrackNumberInUserListGreaterThan(int userId, int trackNumberInUserList);
+    List<UserTrack> findByIdUserIdOrderByTrackNumberInUserListAsc(int userId);
+
+    List<UserTrack> findByIdUserIdAndTrackNumberInUserListGreaterThan(int userId, int trackNumberInUserList);
 }

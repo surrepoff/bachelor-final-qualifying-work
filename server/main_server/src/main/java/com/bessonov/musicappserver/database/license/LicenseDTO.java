@@ -4,17 +4,16 @@ public class LicenseDTO {
     private int id;
     private String name;
 
-    public LicenseDTO () {
+    public LicenseDTO() {
         this.id = -1;
         this.name = "";
     }
 
-    public LicenseDTO (License license) {
+    public LicenseDTO(License license) {
         if (license == null) {
             this.id = -1;
             this.name = "";
-        }
-        else {
+        } else {
             this.id = license.getId();
             this.name = license.getName();
         }

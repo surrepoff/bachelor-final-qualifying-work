@@ -142,7 +142,7 @@ public class AlbumService {
         albumInfoDTO.setTrackId(trackId);
 
         Optional<UserData> userData = userDataRepository.findByUsername(username);
-        if (userData.isPresent()){
+        if (userData.isPresent()) {
             UserAlbumId userAlbumId = new UserAlbumId(userData.get().getId(), album.getId());
 
             Optional<UserAlbumRating> userAlbumRating = userAlbumRatingRepository.findById(userAlbumId);

@@ -179,7 +179,7 @@ public class TrackService {
         trackInfoDTO.setLicense(licenseDTO);
 
         Optional<UserData> userData = userDataRepository.findByUsername(username);
-        if (userData.isPresent()){
+        if (userData.isPresent()) {
             UserTrackId userTrackId = new UserTrackId(userData.get().getId(), track.getId());
 
             Optional<UserTrackRating> userTrackRating = userTrackRatingRepository.findById(userTrackId);
@@ -313,7 +313,7 @@ public class TrackService {
         return new UserRatingDTO(userRating.get());
     }
 
-    public ResponseEntity<Resource> streamAudio(int trackId){
+    public ResponseEntity<Resource> streamAudio(int trackId) {
         Optional<Track> track = trackRepository.findById(trackId);
         if (track.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);

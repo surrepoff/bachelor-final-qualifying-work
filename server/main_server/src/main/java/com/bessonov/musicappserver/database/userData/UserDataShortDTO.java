@@ -4,12 +4,12 @@ public class UserDataShortDTO {
     private int id;
     private String nickname;
 
-    public UserDataShortDTO () {
+    public UserDataShortDTO() {
         this.id = -1;
         this.nickname = "";
     }
 
-    public UserDataShortDTO (UserData userData) {
+    public UserDataShortDTO(UserData userData) {
         if (userData == null) {
             this.id = -1;
             this.nickname = "";

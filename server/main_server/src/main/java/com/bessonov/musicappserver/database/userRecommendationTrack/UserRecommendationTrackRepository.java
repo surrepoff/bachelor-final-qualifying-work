@@ -7,6 +7,7 @@ import java.util.List;
 
 @Repository
 public interface UserRecommendationTrackRepository extends JpaRepository<UserRecommendationTrack, UserRecommendationTrackId> {
-    public List<UserRecommendationTrack> findByIdUserRecommendationIdOrderByTrackNumberInRecommendationAsc(int userRecommendationId);
-    public void deleteByIdUserRecommendationId(int userRecommendationId);
+    List<UserRecommendationTrack> findByIdUserRecommendationIdOrderByTrackNumberInRecommendationAsc(int userRecommendationId);
+
+    void deleteByIdUserRecommendationId(int userRecommendationId);
 }

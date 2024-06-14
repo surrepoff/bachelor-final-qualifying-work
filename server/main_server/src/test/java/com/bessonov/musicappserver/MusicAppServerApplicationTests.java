@@ -7,7 +7,7 @@ import java.util.List;
 
 @SpringBootTest
 class MusicAppServerApplicationTests {
-	@Test
-	void contextLoads() {
-	}
+    @Test
+    void contextLoads() {
+    }
 }

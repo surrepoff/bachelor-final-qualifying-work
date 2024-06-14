@@ -13,8 +13,7 @@ public class UserRatingDTO {
         if (userRating == null) {
             this.id = 0;
             this.name = "None";
-        }
-        else {
+        } else {
             this.id = userRating.getId();
             this.name = userRating.getName();
         }

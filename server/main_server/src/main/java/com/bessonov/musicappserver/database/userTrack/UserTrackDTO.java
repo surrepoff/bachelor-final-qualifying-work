@@ -15,8 +15,7 @@ public class UserTrackDTO {
         if (userTrack == null) {
             this.added = false;
             this.addedDate = new Date(0);
-        }
-        else {
+        } else {
             this.added = true;
             this.addedDate = userTrack.getAddedDate();
         }

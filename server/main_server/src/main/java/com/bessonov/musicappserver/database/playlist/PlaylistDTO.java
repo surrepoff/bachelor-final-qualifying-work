@@ -8,21 +8,20 @@ public class PlaylistDTO {
     private Date creationDate;
     private Date lastUpdateDate;
 
-    public PlaylistDTO () {
+    public PlaylistDTO() {
         this.id = -1;
         this.name = "";
         this.creationDate = new Date(0);
         this.lastUpdateDate = new Date(0);
     }
 
-    public PlaylistDTO (Playlist playlist) {
+    public PlaylistDTO(Playlist playlist) {
         if (playlist == null) {
             this.id = -1;
             this.name = "";
             this.creationDate = new Date(0);
             this.lastUpdateDate = new Date(0);
-        }
-        else {
+        } else {
             this.id = playlist.getId();
             this.name = playlist.getName();
             this.creationDate = playlist.getCreationDate();

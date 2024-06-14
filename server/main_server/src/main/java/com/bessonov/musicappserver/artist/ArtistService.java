@@ -121,7 +121,7 @@ public class ArtistService {
         artistInfoDTO.setTrackId(trackId);
 
         Optional<UserData> userData = userDataRepository.findByUsername(username);
-        if (userData.isPresent()){
+        if (userData.isPresent()) {
             UserArtistId userArtistId = new UserArtistId(userData.get().getId(), artist.getId());
 
             Optional<UserArtistRating> userArtistRating = userArtistRatingRepository.findById(userArtistId);

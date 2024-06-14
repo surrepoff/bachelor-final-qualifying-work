@@ -10,7 +10,7 @@ public class UserDataDTO {
     private Date registrationDate;
     private Date lastUpdateDate;
 
-    public UserDataDTO () {
+    public UserDataDTO() {
         this.id = -1;
         this.username = "";
         this.email = "";
@@ -19,7 +19,7 @@ public class UserDataDTO {
         this.lastUpdateDate = new Date(0);
     }
 
-    public UserDataDTO (UserData userData) {
+    public UserDataDTO(UserData userData) {
         if (userData == null) {
             this.id = -1;
             this.username = "";

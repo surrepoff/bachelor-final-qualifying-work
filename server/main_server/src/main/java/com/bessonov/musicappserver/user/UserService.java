@@ -22,8 +22,8 @@ public class UserService implements UserDetailsService {
 
         if (userData.isPresent()) {
             var springUser = User.withUsername(userData.get().getUsername())
-                                 .password(userData.get().getPassword())
-                                 .build();
+                    .password(userData.get().getPassword())
+                    .build();
             return springUser;
         }
 

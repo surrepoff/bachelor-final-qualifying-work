@@ -7,5 +7,5 @@ import java.util.List;
 
 @Repository
 public interface UserRecommendationRepository extends JpaRepository<UserRecommendation, Integer> {
-    public List<UserRecommendation> findByUserIdOrderByCreationDateAsc(int userId);
+    List<UserRecommendation> findByUserIdOrderByCreationDateAsc(int userId);
 }

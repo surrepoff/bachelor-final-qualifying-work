@@ -12,6 +12,7 @@ public interface UserAlbumRepository extends JpaRepository<UserAlbum, UserAlbumI
     @Query("SELECT MAX(ual.albumNumberInUserList) FROM UserAlbum ual WHERE ual.Id.userId = :userId")
     Integer findMaxAlbumNumberInUserList(@Param("userId") int userId);
 
-    public List<UserAlbum> findByIdUserIdOrderByAlbumNumberInUserListAsc(int userId);
-    public List<UserAlbum> findByIdUserIdAndAlbumNumberInUserListGreaterThan(int userId, int albumNumberInUserList);
+    List<UserAlbum> findByIdUserIdOrderByAlbumNumberInUserListAsc(int userId);
+
+    List<UserAlbum> findByIdUserIdAndAlbumNumberInUserListGreaterThan(int userId, int albumNumberInUserList);
 }

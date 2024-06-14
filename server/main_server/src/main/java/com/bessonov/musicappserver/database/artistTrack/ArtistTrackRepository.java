@@ -7,6 +7,7 @@ import java.util.List;
 
 @Repository
 public interface ArtistTrackRepository extends JpaRepository<ArtistTrack, ArtistTrackId> {
-    public List<ArtistTrack> findByIdTrackIdOrderByIdArtistIdAsc(int trackId);
-    public List<ArtistTrack> findByIdArtistIdOrderByIdTrackIdAsc(int artistId);
+    List<ArtistTrack> findByIdTrackIdOrderByIdArtistIdAsc(int trackId);
+
+    List<ArtistTrack> findByIdArtistIdOrderByIdTrackIdAsc(int artistId);
 }

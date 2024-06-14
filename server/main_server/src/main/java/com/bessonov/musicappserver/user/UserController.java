@@ -53,7 +53,7 @@ public class UserController {
             var errorsList = result.getAllErrors();
             var errorMessage = new StringBuilder();
 
-            for (var objectError: errorsList) {
+            for (var objectError : errorsList) {
                 var error = (FieldError) objectError;
                 errorMessage.append(error.getField()).append(": ").append(error.getDefaultMessage()).append("; ");
             }
@@ -62,8 +62,8 @@ public class UserController {
         }
         try {
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
-                    userLoginDTO.getUsername(),
-                    userLoginDTO.getPassword()
+                            userLoginDTO.getUsername(),
+                            userLoginDTO.getPassword()
                     )
             );
 
@@ -76,8 +76,7 @@ public class UserController {
             String jwtToken = createJwtToken(userData.get());
 
             return new UserResponseDTO(jwtToken, 200);
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             //System.out.println("There is an Exception :");
             //ex.printStackTrace();
         }
@@ -127,8 +126,7 @@ public class UserController {
             String jwtToken = createJwtToken(userData);
 
             return new UserResponseDTO(jwtToken, 200);
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             //System.out.println("There is an Exception :");
             //ex.printStackTrace();
         }
