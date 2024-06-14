@@ -96,8 +96,7 @@ class ProfileFragment : Fragment() {
 
         isUserInfoLoaded = false
 
-        isEdited = false
-        updateUI()
+        checkIsEdited()
 
         loadData()
 
@@ -221,6 +220,8 @@ class ProfileFragment : Fragment() {
     private fun checkIsInfoLoaded() {
         if (isUserInfoLoaded) {
             populateData()
+            isEdited = false
+            updateUI()
             isUserInfoLoaded = false
             swipeRefreshLayout.isRefreshing = false
         }

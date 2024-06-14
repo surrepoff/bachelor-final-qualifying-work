@@ -59,12 +59,24 @@ public class AlbumService {
     private UserRatingRepository userRatingRepository;
 
     public AlbumInfoDTO getByAlbumId(String username, int albumId) {
+        Optional<UserData> userData = userDataRepository.findByUsername(username);
+
+        if (userData.isEmpty()) {
+            return null;
+        }
+
         Optional<Album> album = albumRepository.findById(albumId);
 
         return album.map(value -> getAlbumInfoByAlbum(username, value)).orElse(null);
     }
 
     public List<AlbumInfoDTO> getByAlbumIdList(String username, List<Integer> albumIdList) {
+        Optional<UserData> userData = userDataRepository.findByUsername(username);
+
+        if (userData.isEmpty()) {
+            return null;
+        }
+
         List<AlbumInfoDTO> albumInfoDTOList = new ArrayList<>();
 
         for (Integer albumId : albumIdList) {
@@ -75,6 +87,12 @@ public class AlbumService {
     }
 
     public List<AlbumInfoDTO> getAll(String username) {
+        Optional<UserData> userData = userDataRepository.findByUsername(username);
+
+        if (userData.isEmpty()) {
+            return null;
+        }
+
         Sort sort = Sort.by(Sort.Direction.ASC, "id");
         List<Album> albumList = albumRepository.findAll(sort);
 

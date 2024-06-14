@@ -57,12 +57,24 @@ public class PlaylistService {
     private UserRatingRepository userRatingRepository;
 
     public PlaylistInfoDTO getByPlaylistId(String username, int playlistId) {
+        Optional<UserData> userData = userDataRepository.findByUsername(username);
+
+        if (userData.isEmpty()) {
+            return null;
+        }
+
         Optional<Playlist> playlist = playlistRepository.findById(playlistId);
 
         return playlist.map(value -> getPlaylistInfoByPlaylist(username, value)).orElse(null);
     }
 
     public List<PlaylistInfoDTO> getByPlaylistIdList(String username, List<Integer> playlistIdList) {
+        Optional<UserData> userData = userDataRepository.findByUsername(username);
+
+        if (userData.isEmpty()) {
+            return null;
+        }
+
         List<PlaylistInfoDTO> playlistInfoDTOList = new ArrayList<>();
 
         for (Integer playlistId : playlistIdList) {
@@ -73,6 +85,12 @@ public class PlaylistService {
     }
 
     public List<PlaylistInfoDTO> getAll(String username) {
+        Optional<UserData> userData = userDataRepository.findByUsername(username);
+
+        if (userData.isEmpty()) {
+            return null;
+        }
+
         Sort sort = Sort.by(Sort.Direction.ASC, "id");
         List<Playlist> playlistList = playlistRepository.findAll(sort);
 

@@ -1,6 +1,6 @@
 package com.bessonov.musicappserver.recommendation;
 
-import com.bessonov.musicappserver.api.ApiService;
+import com.bessonov.musicappserver.api.APIService;
 import com.bessonov.musicappserver.database.genre.Genre;
 import com.bessonov.musicappserver.database.genre.GenreDTO;
 import com.bessonov.musicappserver.database.genre.GenreRepository;
@@ -60,7 +60,7 @@ public class RecommendationService {
     UserRecommendationTrackRepository userRecommendationTrackRepository;
 
     @Autowired
-    ApiService apiService;
+    APIService apiService;
 
     @Autowired
     PlaylistService playlistService;

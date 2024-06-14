@@ -2,6 +2,7 @@ package com.bessonov.musicappserver.track;
 
 import com.bessonov.musicappserver.database.userRating.UserRatingDTO;
 import com.bessonov.musicappserver.database.userTrack.UserTrackDTO;
+import com.bessonov.musicappserver.database.userTrackHistory.UserTrackHistoryDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.http.ResponseEntity;
@@ -40,9 +41,19 @@ public class TrackController {
         return trackService.getTrackUserList(authentication.getName());
     }
 
+    @GetMapping("/get/history")
+    public List<TrackInfoDTO> getTrackHistoryList(Authentication authentication) {
+        return trackService.getTrackHistoryList(authentication.getName());
+    }
+
     @GetMapping("/add/{trackId}")
     public UserTrackDTO addTrackToUserList(@PathVariable Integer trackId, Authentication authentication) {
         return trackService.addTrackToUserList(authentication.getName(), trackId);
+    }
+
+    @GetMapping("/add/history/{trackId}")
+    public UserTrackHistoryDTO addTrackToHistoryList(@PathVariable Integer trackId, Authentication authentication) {
+        return trackService.addTrackToHistoryList(authentication.getName(), trackId);
     }
 
     @GetMapping("/remove/{trackId}")

@@ -54,12 +54,24 @@ public class ArtistService {
 
 
     public ArtistInfoDTO getByArtistId(String username, int artistId) {
+        Optional<UserData> userData = userDataRepository.findByUsername(username);
+
+        if (userData.isEmpty()) {
+            return null;
+        }
+
         Optional<Artist> artist = artistRepository.findById(artistId);
 
         return artist.map(value -> getArtistInfoByArtist(username, value)).orElse(null);
     }
 
     public List<ArtistInfoDTO> getByArtistIdList(String username, List<Integer> artistIdList) {
+        Optional<UserData> userData = userDataRepository.findByUsername(username);
+
+        if (userData.isEmpty()) {
+            return null;
+        }
+
         List<ArtistInfoDTO> artistInfoDTOList = new ArrayList<>();
 
         for (Integer artistId : artistIdList) {
@@ -70,6 +82,12 @@ public class ArtistService {
     }
 
     public List<ArtistInfoDTO> getAll(String username) {
+        Optional<UserData> userData = userDataRepository.findByUsername(username);
+
+        if (userData.isEmpty()) {
+            return null;
+        }
+
         Sort sort = Sort.by(Sort.Direction.ASC, "id");
         List<Artist> artistList = artistRepository.findAll(sort);
 

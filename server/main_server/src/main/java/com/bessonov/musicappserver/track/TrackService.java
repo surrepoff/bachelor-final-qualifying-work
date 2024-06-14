@@ -28,6 +28,9 @@ import com.bessonov.musicappserver.database.userTrack.UserTrack;
 import com.bessonov.musicappserver.database.userTrack.UserTrackDTO;
 import com.bessonov.musicappserver.database.userTrack.UserTrackId;
 import com.bessonov.musicappserver.database.userTrack.UserTrackRepository;
+import com.bessonov.musicappserver.database.userTrackHistory.UserTrackHistory;
+import com.bessonov.musicappserver.database.userTrackHistory.UserTrackHistoryDTO;
+import com.bessonov.musicappserver.database.userTrackHistory.UserTrackHistoryRepository;
 import com.bessonov.musicappserver.database.userTrackRating.UserTrackRating;
 import com.bessonov.musicappserver.database.userTrackRating.UserTrackRatingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -77,6 +80,9 @@ public class TrackService {
     private UserTrackRepository userTrackRepository;
 
     @Autowired
+    private UserTrackHistoryRepository userTrackHistoryRepository;
+
+    @Autowired
     private UserTrackRatingRepository userTrackRatingRepository;
 
     @Autowired
@@ -86,12 +92,24 @@ public class TrackService {
     private String filepath;
 
     public TrackInfoDTO getByTrackId(String username, int trackId) {
+        Optional<UserData> userData = userDataRepository.findByUsername(username);
+
+        if (userData.isEmpty()) {
+            return null;
+        }
+
         Optional<Track> track = trackRepository.findById(trackId);
 
         return track.map(value -> getTrackInfoByTrack(username, value)).orElse(null);
     }
 
     public List<TrackInfoDTO> getByTrackIdList(String username, List<Integer> trackIdList) {
+        Optional<UserData> userData = userDataRepository.findByUsername(username);
+
+        if (userData.isEmpty()) {
+            return null;
+        }
+
         List<TrackInfoDTO> trackInfoDTOList = new ArrayList<>();
 
         for (Integer trackId : trackIdList) {
@@ -102,6 +120,12 @@ public class TrackService {
     }
 
     public List<TrackInfoDTO> getAll(String username) {
+        Optional<UserData> userData = userDataRepository.findByUsername(username);
+
+        if (userData.isEmpty()) {
+            return null;
+        }
+
         Sort sort = Sort.by(Sort.Direction.ASC, "id");
         List<Track> trackList = trackRepository.findAll(sort);
 
@@ -127,6 +151,24 @@ public class TrackService {
 
         for (UserTrack userTrack : userTrackList) {
             trackInfoDTOList.add(getByTrackId(username, userTrack.getId().getTrackId()));
+        }
+
+        return trackInfoDTOList;
+    }
+
+    public List<TrackInfoDTO> getTrackHistoryList(String username) {
+        Optional<UserData> userData = userDataRepository.findByUsername(username);
+
+        if (userData.isEmpty()) {
+            return null;
+        }
+
+        List<UserTrackHistory> userTrackHistoryList = userTrackHistoryRepository.findTop10ByIdUserIdOrderByListenDateDesc(userData.get().getId());
+
+        List<TrackInfoDTO> trackInfoDTOList = new ArrayList<>();
+
+        for (UserTrackHistory userTrackHistory : userTrackHistoryList) {
+            trackInfoDTOList.add(getByTrackId(username, userTrackHistory.getId().getTrackId()));
         }
 
         return trackInfoDTOList;
@@ -238,6 +280,39 @@ public class TrackService {
         userTrackRepository.save(newUserTrack);
 
         return new UserTrackDTO(newUserTrack);
+    }
+
+    public UserTrackHistoryDTO addTrackToHistoryList(String username, int trackId) {
+        Optional<UserData> userData = userDataRepository.findByUsername(username);
+
+        if (userData.isEmpty()) {
+            return null;
+        }
+
+        Optional<Track> track = trackRepository.findById(trackId);
+
+        if (track.isEmpty()) {
+            return null;
+        }
+
+        UserTrackId userTrackId = new UserTrackId(userData.get().getId(), track.get().getId());
+
+        Optional<UserTrackHistory> userTrackHistory = userTrackHistoryRepository.findById(userTrackId);
+
+        if (userTrackHistory.isPresent()) {
+            userTrackHistory.get().setListenDate(new Date());
+            userTrackHistoryRepository.save(userTrackHistory.get());
+            return new UserTrackHistoryDTO(userTrackHistory.get());
+        }
+
+        UserTrackHistory newUserTrackHistory = new UserTrackHistory();
+
+        newUserTrackHistory.setId(userTrackId);
+        newUserTrackHistory.setListenDate(new Date());
+
+        userTrackHistoryRepository.save(newUserTrackHistory);
+
+        return new UserTrackHistoryDTO(newUserTrackHistory);
     }
 
     public UserTrackDTO removeTrackFromUserList(String username, int trackId) {
