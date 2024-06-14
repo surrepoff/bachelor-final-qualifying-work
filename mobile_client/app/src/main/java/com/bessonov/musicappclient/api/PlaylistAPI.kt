@@ -18,5 +18,5 @@ interface PlaylistAPI {
     fun getByPlaylistIdList(@Body playlistIdList: List<Int>): Call<List<PlaylistInfoDTO>>
 
     @GET("/playlist/get/user")
-    fun getAllUser(): Call<List<PlaylistInfoDTO>>
+    fun getPlaylistUserList(): Call<List<PlaylistInfoDTO>>
 }

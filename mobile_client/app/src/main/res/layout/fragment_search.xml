@@ -38,7 +38,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
-            android:id="@+id/fragmentSearch_editText"
+            android:id="@+id/fragmentSearch_searchText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
@@ -57,7 +57,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/fragmentSearch_editText" />
+            app:layout_constraintTop_toBottomOf="@id/fragmentSearch_searchText" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

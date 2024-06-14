@@ -18,5 +18,5 @@ interface AlbumAPI {
     fun getByAlbumIdList(@Body albumIdList: List<Int>): Call<List<AlbumInfoDTO>>
 
     @GET("/album/get/user")
-    fun getAllUser(): Call<List<AlbumInfoDTO>>
+    fun getAlbumUserList(): Call<List<AlbumInfoDTO>>
 }

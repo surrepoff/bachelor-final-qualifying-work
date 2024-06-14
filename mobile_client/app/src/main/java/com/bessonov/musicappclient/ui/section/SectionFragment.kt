@@ -26,10 +26,13 @@ import com.bessonov.musicappclient.api.AlbumAPI
 import com.bessonov.musicappclient.api.ArtistAPI
 import com.bessonov.musicappclient.api.PlaylistAPI
 import com.bessonov.musicappclient.api.RetrofitClient
+import com.bessonov.musicappclient.api.SearchAPI
 import com.bessonov.musicappclient.api.TrackAPI
 import com.bessonov.musicappclient.dto.AlbumInfoDTO
 import com.bessonov.musicappclient.dto.ArtistInfoDTO
 import com.bessonov.musicappclient.dto.PlaylistInfoDTO
+import com.bessonov.musicappclient.dto.SearchInfoDTO
+import com.bessonov.musicappclient.dto.SearchRequestDTO
 import com.bessonov.musicappclient.dto.TrackInfoDTO
 import retrofit2.Call
 import retrofit2.Callback
@@ -66,6 +69,7 @@ class SectionFragment(
 
         recyclerView.layoutManager =
             LinearLayoutManager(recyclerView.context, LinearLayoutManager.VERTICAL, false)
+
         populateListView()
 
         return view
@@ -120,6 +124,10 @@ class SectionFragment(
                 loadMyArtists()
             }
 
+            "Founded Artists" -> {
+                loadSearch(section.info, SectionType.ARTIST)
+            }
+
             "Albums" -> {
                 loadAlbums()
             }
@@ -128,8 +136,16 @@ class SectionFragment(
                 loadMyAlbums()
             }
 
+            "Founded Albums" -> {
+                loadSearch(section.info, SectionType.ALBUM)
+            }
+
             "My Playlists" -> {
                 loadMyPlaylists()
+            }
+
+            "Founded Playlists" -> {
+                loadSearch(section.info, SectionType.PLAYLIST)
             }
 
             "Tracks" -> {
@@ -138,6 +154,14 @@ class SectionFragment(
 
             "My Tracks" -> {
                 loadMyTracks()
+            }
+
+            "Founded Tracks" -> {
+                loadSearch(section.info, SectionType.TRACK)
+            }
+
+            "Track History" -> {
+                loadTrackHistory()
             }
         }
     }
@@ -178,7 +202,7 @@ class SectionFragment(
         val retrofitClient = RetrofitClient()
         val artistAPI = retrofitClient.getRetrofit(requireContext()).create(ArtistAPI::class.java)
 
-        artistAPI.getAllUser().enqueue(object : Callback<List<ArtistInfoDTO>> {
+        artistAPI.getArtistUserList().enqueue(object : Callback<List<ArtistInfoDTO>> {
             override fun onResponse(
                 call: Call<List<ArtistInfoDTO>>,
                 response: Response<List<ArtistInfoDTO>>
@@ -242,7 +266,7 @@ class SectionFragment(
         val retrofitClient = RetrofitClient()
         val albumAPI = retrofitClient.getRetrofit(requireContext()).create(AlbumAPI::class.java)
 
-        albumAPI.getAllUser().enqueue(object : Callback<List<AlbumInfoDTO>> {
+        albumAPI.getAlbumUserList().enqueue(object : Callback<List<AlbumInfoDTO>> {
             override fun onResponse(
                 call: Call<List<AlbumInfoDTO>>,
                 response: Response<List<AlbumInfoDTO>>
@@ -275,7 +299,7 @@ class SectionFragment(
         val playlistAPI =
             retrofitClient.getRetrofit(requireContext()).create(PlaylistAPI::class.java)
 
-        playlistAPI.getAllUser().enqueue(object : Callback<List<PlaylistInfoDTO>> {
+        playlistAPI.getPlaylistUserList().enqueue(object : Callback<List<PlaylistInfoDTO>> {
             override fun onResponse(
                 call: Call<List<PlaylistInfoDTO>>,
                 response: Response<List<PlaylistInfoDTO>>
@@ -339,7 +363,7 @@ class SectionFragment(
         val retrofitClient = RetrofitClient()
         val trackAPI = retrofitClient.getRetrofit(requireContext()).create(TrackAPI::class.java)
 
-        trackAPI.getAllUser().enqueue(object : Callback<List<TrackInfoDTO>> {
+        trackAPI.getTrackUserList().enqueue(object : Callback<List<TrackInfoDTO>> {
             override fun onResponse(
                 call: Call<List<TrackInfoDTO>>,
                 response: Response<List<TrackInfoDTO>>
@@ -361,6 +385,86 @@ class SectionFragment(
                 Toast.makeText(
                     requireContext(),
                     "Failed to load tracks (onFailure)",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+        })
+    }
+
+    private fun loadTrackHistory() {
+        val retrofitClient = RetrofitClient()
+        val trackAPI = retrofitClient.getRetrofit(requireContext()).create(TrackAPI::class.java)
+
+        trackAPI.getTrackHistoryList().enqueue(object : Callback<List<TrackInfoDTO>> {
+            override fun onResponse(
+                call: Call<List<TrackInfoDTO>>,
+                response: Response<List<TrackInfoDTO>>
+            ) {
+                if (response.isSuccessful && response.body() != null) {
+                    section.items = (response.body() as List<Nothing>?)!!
+                    populateListView()
+                } else {
+                    Toast.makeText(
+                        requireContext(),
+                        "Failed to load history (onResponse)",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+
+            override fun onFailure(call: Call<List<TrackInfoDTO>>, t: Throwable) {
+                Log.e("LoadHistory", "Failed to load history", t)
+                Toast.makeText(
+                    requireContext(),
+                    "Failed to load history (onFailure)",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+        })
+    }
+
+    private fun loadSearch(name: String, type: SectionType) {
+        val retrofitClient = RetrofitClient()
+        val searchAPI = retrofitClient.getRetrofit(requireContext()).create(SearchAPI::class.java)
+
+        searchAPI.searchByName(SearchRequestDTO(name)).enqueue(object : Callback<SearchInfoDTO> {
+            override fun onResponse(call: Call<SearchInfoDTO>, response: Response<SearchInfoDTO>) {
+                if (response.isSuccessful && response.body() != null) {
+                    val searchInfoDTO = response.body()!!
+
+                    when (section.type) {
+                        SectionType.ALBUM -> {
+                            section.items = (searchInfoDTO.foundedAlbum as List<Nothing>)
+                        }
+
+                        SectionType.ARTIST -> {
+                            section.items = (searchInfoDTO.foundedArtist as List<Nothing>)
+                        }
+
+                        SectionType.PLAYLIST -> {
+                            section.items = (searchInfoDTO.foundedPlaylist as List<Nothing>)
+                        }
+
+                        SectionType.TRACK -> {
+                            section.items = (searchInfoDTO.foundedTrack as List<Nothing>)
+                        }
+                    }
+
+                    populateListView()
+                } else {
+                    Toast.makeText(
+                        requireContext(),
+                        "Failed to load search (onResponse)",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+
+            override fun onFailure(call: Call<SearchInfoDTO>, t: Throwable) {
+                Log.e("LoadSearch", "Failed to load search", t)
+                Toast.makeText(
+                    requireContext(),
+                    "Failed to load search (onFailure)",
                     Toast.LENGTH_SHORT
                 ).show()
             }

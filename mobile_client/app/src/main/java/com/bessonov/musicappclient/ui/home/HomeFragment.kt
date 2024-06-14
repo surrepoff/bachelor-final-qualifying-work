@@ -114,21 +114,24 @@ class HomeFragment : Fragment() {
             title = "Artists",
             type = SectionType.ARTIST,
             items = artistInfoDTOList,
-            orientation = LinearLayoutManager.HORIZONTAL
+            orientation = LinearLayoutManager.HORIZONTAL,
+            info = ""
         )
 
         val albumSection: Section<AlbumInfoDTO> = Section(
             title = "Albums",
             type = SectionType.ALBUM,
             items = albumInfoDTOList,
-            orientation = LinearLayoutManager.HORIZONTAL
+            orientation = LinearLayoutManager.HORIZONTAL,
+            info = ""
         )
 
         val trackSection: Section<TrackInfoDTO> = Section(
             title = "Tracks",
             type = SectionType.TRACK,
             items = trackInfoDTOList,
-            orientation = LinearLayoutManager.VERTICAL
+            orientation = LinearLayoutManager.VERTICAL,
+            info = ""
         )
 
         sectionList = listOf(artistSection, albumSection, trackSection)

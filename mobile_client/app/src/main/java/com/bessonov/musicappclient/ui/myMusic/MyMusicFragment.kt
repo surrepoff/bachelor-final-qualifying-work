@@ -121,28 +121,32 @@ class MyMusicFragment : Fragment() {
             title = "My Artists",
             type = SectionType.ARTIST,
             items = artistInfoDTOList,
-            orientation = LinearLayoutManager.HORIZONTAL
+            orientation = LinearLayoutManager.HORIZONTAL,
+            info = ""
         )
 
         val albumSection: Section<AlbumInfoDTO> = Section(
             title = "My Albums",
             type = SectionType.ALBUM,
             items = albumInfoDTOList,
-            orientation = LinearLayoutManager.HORIZONTAL
+            orientation = LinearLayoutManager.HORIZONTAL,
+            info = ""
         )
 
         val playlistSection: Section<PlaylistInfoDTO> = Section(
             title = "My Playlists",
             type = SectionType.PLAYLIST,
             items = playlistInfoDTOList,
-            orientation = LinearLayoutManager.HORIZONTAL
+            orientation = LinearLayoutManager.HORIZONTAL,
+            info = ""
         )
 
         val trackSection: Section<TrackInfoDTO> = Section(
             title = "My Tracks",
             type = SectionType.TRACK,
             items = trackInfoDTOList,
-            orientation = LinearLayoutManager.VERTICAL
+            orientation = LinearLayoutManager.VERTICAL,
+            info = ""
         )
 
         sectionList = listOf(artistSection, albumSection, playlistSection, trackSection)
@@ -165,7 +169,7 @@ class MyMusicFragment : Fragment() {
         val retrofitClient = RetrofitClient()
         val artistAPI = retrofitClient.getRetrofit(requireContext()).create(ArtistAPI::class.java)
 
-        artistAPI.getAllUser().enqueue(object : Callback<List<ArtistInfoDTO>> {
+        artistAPI.getArtistUserList().enqueue(object : Callback<List<ArtistInfoDTO>> {
             override fun onResponse(
                 call: Call<List<ArtistInfoDTO>>,
                 response: Response<List<ArtistInfoDTO>>
@@ -198,7 +202,7 @@ class MyMusicFragment : Fragment() {
         val retrofitClient = RetrofitClient()
         val albumAPI = retrofitClient.getRetrofit(requireContext()).create(AlbumAPI::class.java)
 
-        albumAPI.getAllUser().enqueue(object : Callback<List<AlbumInfoDTO>> {
+        albumAPI.getAlbumUserList().enqueue(object : Callback<List<AlbumInfoDTO>> {
             override fun onResponse(
                 call: Call<List<AlbumInfoDTO>>,
                 response: Response<List<AlbumInfoDTO>>
@@ -232,7 +236,7 @@ class MyMusicFragment : Fragment() {
         val playlistAPI =
             retrofitClient.getRetrofit(requireContext()).create(PlaylistAPI::class.java)
 
-        playlistAPI.getAllUser().enqueue(object : Callback<List<PlaylistInfoDTO>> {
+        playlistAPI.getPlaylistUserList().enqueue(object : Callback<List<PlaylistInfoDTO>> {
             override fun onResponse(
                 call: Call<List<PlaylistInfoDTO>>,
                 response: Response<List<PlaylistInfoDTO>>
@@ -265,7 +269,7 @@ class MyMusicFragment : Fragment() {
         val retrofitClient = RetrofitClient()
         val trackAPI = retrofitClient.getRetrofit(requireContext()).create(TrackAPI::class.java)
 
-        trackAPI.getAllUser().enqueue(object : Callback<List<TrackInfoDTO>> {
+        trackAPI.getTrackUserList().enqueue(object : Callback<List<TrackInfoDTO>> {
             override fun onResponse(
                 call: Call<List<TrackInfoDTO>>,
                 response: Response<List<TrackInfoDTO>>

@@ -66,28 +66,28 @@ public class SearchService {
         for (Album album : albumList) {
             albumIdList.add(album.getId());
         }
-        searchInfoDTO.setAlbum(albumService.getByAlbumIdList(username, albumIdList));
+        searchInfoDTO.setFoundedAlbum(albumService.getByAlbumIdList(username, albumIdList));
 
         List<Artist> artistList = artistRepository.findByNameContainingOrderByNameAsc(name);
         List<Integer> artistIdList = new ArrayList<>();
         for (Artist artist : artistList) {
             artistIdList.add(artist.getId());
         }
-        searchInfoDTO.setArtist(artistService.getByArtistIdList(username, artistIdList));
+        searchInfoDTO.setFoundedArtist(artistService.getByArtistIdList(username, artistIdList));
 
         List<Playlist> playlistList = playlistRepository.findByNameContainingOrderByNameAsc(name);
         List<Integer> playlistIdList = new ArrayList<>();
         for (Playlist playlist : playlistList) {
             playlistIdList.add(playlist.getId());
         }
-        searchInfoDTO.setPlaylist(playlistService.getByPlaylistIdList(username, playlistIdList));
+        searchInfoDTO.setFoundedPlaylist(playlistService.getByPlaylistIdList(username, playlistIdList));
 
         List<Track> trackList = trackRepository.findByNameContainingOrderByNameAsc(name);
         List<Integer> trackIdList = new ArrayList<>();
         for (Track track : trackList) {
             trackIdList.add(track.getId());
         }
-        searchInfoDTO.setTrack(trackService.getByTrackIdList(username, trackIdList));
+        searchInfoDTO.setFoundedTrack(trackService.getByTrackIdList(username, trackIdList));
 
         return searchInfoDTO;
     }

@@ -18,7 +18,7 @@ public class SearchController {
     private AuthenticationManager authenticationManager;
 
     @PostMapping("/name")
-    public SearchInfoDTO searchByName(@RequestBody String name, Authentication authentication) {
-        return searchService.searchByName(name, authentication.getName());
+    public SearchInfoDTO searchByName(@RequestBody SearchRequestDTO name, Authentication authentication) {
+        return searchService.searchByName(name.getName(), authentication.getName());
     }
 }

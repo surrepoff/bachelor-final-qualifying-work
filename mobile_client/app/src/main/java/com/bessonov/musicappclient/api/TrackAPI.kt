@@ -18,5 +18,8 @@ interface TrackAPI {
     fun getByTrackIdList(@Body trackIdList: List<Int>): Call<List<TrackInfoDTO>>
 
     @GET("/track/get/user")
-    fun getAllUser(): Call<List<TrackInfoDTO>>
+    fun getTrackUserList(): Call<List<TrackInfoDTO>>
+
+    @GET("/track/get/history")
+    fun getTrackHistoryList(): Call<List<TrackInfoDTO>>
 }
