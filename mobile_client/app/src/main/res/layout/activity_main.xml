@@ -23,10 +23,9 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:menu="@menu/bottom_navigation_menu"
         app:tabIndicatorColor="@android:color/holo_blue_bright"
         app:tabSelectedTextColor="@android:color/holo_blue_dark"
-        app:tabTextColor="@android:color/darker_gray"
-        app:menu="@menu/bottom_navigation_menu"
-        />
+        app:tabTextColor="@android:color/darker_gray" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
