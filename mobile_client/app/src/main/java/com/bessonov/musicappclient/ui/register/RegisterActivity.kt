@@ -76,32 +76,47 @@ class RegisterActivity : AppCompatActivity() {
         val retrofitClient = RetrofitClient()
         val userAPI = retrofitClient.getRetrofit(this).create(UserAPI::class.java)
 
-        userAPI.register(UserRegisterDTO(username, email, password)).enqueue(object : Callback<UserResponseDTO> {
-            override fun onFailure(call: Call<UserResponseDTO>, t: Throwable) {
-                Log.e("Register", "Failed to register (onFailure)", t)
-                Toast.makeText(this@RegisterActivity, "Failed to register (onFailure)", Toast.LENGTH_SHORT).show()
-            }
-
-            override fun onResponse(call: Call<UserResponseDTO>, response: Response<UserResponseDTO>) {
-                val registerResponse = response.body()
-                val errorResponse = response.errorBody()?.string()
-
-                if (response.isSuccessful) {
-                    if (registerResponse != null && registerResponse.status_code == 200) {
-                        Log.d("Register", "Response $registerResponse")
-                        sessionManager.saveAuthToken(registerResponse.toString())
-                        startActivity(Intent(this@RegisterActivity, MainActivity::class.java))
-                        finish()
-                    }
-                    else {
-                        Log.e("Register", "Failed to register : ${registerResponse?.message}")
-                        Toast.makeText(this@RegisterActivity, "Failed to register : ${registerResponse?.message}", Toast.LENGTH_SHORT).show()
-                    }
-                } else {
-                    Log.e("Register", "Failed to register (onResponse) : $errorResponse")
-                    Toast.makeText(this@RegisterActivity, "Failed to register (onResponse): $errorResponse", Toast.LENGTH_SHORT).show()
+        userAPI.register(UserRegisterDTO(username, email, password))
+            .enqueue(object : Callback<UserResponseDTO> {
+                override fun onFailure(call: Call<UserResponseDTO>, t: Throwable) {
+                    Log.e("Register", "Failed to register (onFailure)", t)
+                    Toast.makeText(
+                        this@RegisterActivity,
+                        "Failed to register (onFailure)",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
-            }
-        })
+
+                override fun onResponse(
+                    call: Call<UserResponseDTO>,
+                    response: Response<UserResponseDTO>
+                ) {
+                    val registerResponse = response.body()
+                    val errorResponse = response.errorBody()?.string()
+
+                    if (response.isSuccessful) {
+                        if (registerResponse != null && registerResponse.status_code == 200) {
+                            Log.d("Register", "Response $registerResponse")
+                            sessionManager.saveAuthToken(registerResponse.toString())
+                            startActivity(Intent(this@RegisterActivity, MainActivity::class.java))
+                            finish()
+                        } else {
+                            Log.e("Register", "Failed to register : ${registerResponse?.message}")
+                            Toast.makeText(
+                                this@RegisterActivity,
+                                "Failed to register : ${registerResponse?.message}",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
+                    } else {
+                        Log.e("Register", "Failed to register (onResponse) : $errorResponse")
+                        Toast.makeText(
+                            this@RegisterActivity,
+                            "Failed to register (onResponse): $errorResponse",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                }
+            })
     }
 }

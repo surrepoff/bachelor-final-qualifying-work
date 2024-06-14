@@ -52,7 +52,8 @@ class LoginActivity : AppCompatActivity() {
             if (username.isNotBlank() && password.isNotBlank()) {
                 loginUser(username, password)
             } else {
-                Toast.makeText(this, "Username and password must not be empty", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Username and password must not be empty", Toast.LENGTH_SHORT)
+                    .show()
             }
         }
 
@@ -68,10 +69,17 @@ class LoginActivity : AppCompatActivity() {
         userAPI.login(UserLoginDTO(username, password)).enqueue(object : Callback<UserResponseDTO> {
             override fun onFailure(call: Call<UserResponseDTO>, t: Throwable) {
                 Log.e("Login", "Failed to login (onFailure)", t)
-                Toast.makeText(this@LoginActivity, "Failed to login (onFailure)", Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    this@LoginActivity,
+                    "Failed to login (onFailure)",
+                    Toast.LENGTH_SHORT
+                ).show()
             }
 
-            override fun onResponse(call: Call<UserResponseDTO>, response: Response<UserResponseDTO>) {
+            override fun onResponse(
+                call: Call<UserResponseDTO>,
+                response: Response<UserResponseDTO>
+            ) {
                 val loginResponse = response.body()
                 val errorResponse = response.errorBody()?.string()
 
@@ -81,14 +89,21 @@ class LoginActivity : AppCompatActivity() {
                         sessionManager.saveAuthToken(loginResponse.message)
                         startActivity(Intent(this@LoginActivity, MainActivity::class.java))
                         finish()
-                    }
-                    else {
+                    } else {
                         Log.e("Login", "Failed to login : ${loginResponse?.message}")
-                        Toast.makeText(this@LoginActivity, "Failed to login : ${loginResponse?.message}", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(
+                            this@LoginActivity,
+                            "Failed to login : ${loginResponse?.message}",
+                            Toast.LENGTH_SHORT
+                        ).show()
                     }
                 } else {
                     Log.e("Login", "Failed to login (onResponse) : $errorResponse")
-                    Toast.makeText(this@LoginActivity, "Failed to login (onResponse): $errorResponse", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        this@LoginActivity,
+                        "Failed to login (onResponse): $errorResponse",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
             }
         })

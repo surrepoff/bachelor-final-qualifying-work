@@ -27,9 +27,8 @@ class AlbumViewHolder(
             addButton = null
             likeButton = null
             dislikeButton = null
-        }
-        else {
-            albumName =  itemView.findViewById(R.id.itemAlbumVertical_albumName)
+        } else {
+            albumName = itemView.findViewById(R.id.itemAlbumVertical_albumName)
             albumImage = itemView.findViewById(R.id.itemAlbumVertical_albumImage)
             artistName = itemView.findViewById(R.id.itemAlbumVertical_artistName)
             addButton = itemView.findViewById(R.id.itemAlbumVertical_addButton)

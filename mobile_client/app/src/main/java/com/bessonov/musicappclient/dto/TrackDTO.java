@@ -10,7 +10,7 @@ public class TrackDTO {
     private int durationInSeconds;
     private Date releaseDate;
 
-    public TrackDTO () {
+    public TrackDTO() {
         this.id = -1;
         this.name = "";
         this.durationInSeconds = -1;

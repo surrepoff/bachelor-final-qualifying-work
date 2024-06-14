@@ -27,9 +27,8 @@ class PlaylistViewHolder(
             addButton = null
             likeButton = null
             dislikeButton = null
-        }
-        else {
-            playlistName =  itemView.findViewById(R.id.itemPlaylistVertical_playlistName)
+        } else {
+            playlistName = itemView.findViewById(R.id.itemPlaylistVertical_playlistName)
             playlistImage = itemView.findViewById(R.id.itemPlaylistVertical_playlistImage)
             ownerName = itemView.findViewById(R.id.itemPlaylistVertical_ownerName)
             addButton = itemView.findViewById(R.id.itemPlaylistVertical_addButton)

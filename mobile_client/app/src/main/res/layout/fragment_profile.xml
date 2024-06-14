@@ -12,16 +12,301 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <ImageButton
+            android:id="@+id/fragmentProfile_closeButton"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@null"
+            android:contentDescription="Close Button"
+            android:scaleType="centerInside"
+            android:src="@drawable/ic_close"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/fragmentProfile_profileName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:text="Профиль пользователя"
+            android:textColor="@color/black"
+            android:textSize="24sp"
+            app:layout_constraintBottom_toBottomOf="@id/fragmentProfile_closeButton"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/fragmentProfile_closeButton"
+            app:layout_constraintTop_toTopOf="@id/fragmentProfile_closeButton" />
+
+        <ImageView
+            android:id="@+id/fragmentProfile_userImage"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:background="@null"
+            android:contentDescription="User Profile Image"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_account_circle_outline"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/fragmentProfile_closeButton" />
+
         <TextView
             android:id="@+id/fragmentProfile_nicknameLabel"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
             android:text="Имя пользователя:"
             android:textColor="@color/black"
             android:textSize="24sp"
+            app:layout_constraintBottom_toTopOf="@id/fragmentProfile_nicknameText"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/fragmentProfile_userImage"
+            app:layout_constraintTop_toBottomOf="@id/fragmentProfile_closeButton" />
+
+        <EditText
+            android:id="@+id/fragmentProfile_nicknameText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:autofillHints="name"
+            android:hint="Новое имя пользователя"
+            android:inputType="text"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="@id/fragmentProfile_userImage"
+            app:layout_constraintEnd_toStartOf="@id/fragmentProfile_nicknameEdit"
+            app:layout_constraintStart_toStartOf="@id/fragmentProfile_nicknameLabel"
+            app:layout_constraintTop_toBottomOf="@id/fragmentProfile_nicknameLabel" />
+
+        <ImageButton
+            android:id="@+id/fragmentProfile_nicknameEdit"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@null"
+            android:contentDescription="Edit Nickname"
+            android:scaleType="centerInside"
+            android:src="@drawable/ic_pencil"
+            app:layout_constraintBottom_toBottomOf="@id/fragmentProfile_nicknameText"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/fragmentProfile_nicknameText"
+            app:layout_constraintTop_toTopOf="@id/fragmentProfile_nicknameText" />
+
+        <TextView
+            android:id="@+id/fragmentProfile_registrationLabel"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Дата регистрации:"
+            android:textColor="@color/black"
+            android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@id/fragmentProfile_userImage" />
+
+        <TextView
+            android:id="@+id/fragmentProfile_registrationText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="DATE"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/fragmentProfile_registrationLabel" />
+
+        <TextView
+            android:id="@+id/fragmentProfile_lastUpdateLabel"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Дата последнего обновления:"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/fragmentProfile_registrationText" />
+
+        <TextView
+            android:id="@+id/fragmentProfile_lastUpdateText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="DATE"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/fragmentProfile_lastUpdateLabel" />
+
+        <TextView
+            android:id="@+id/fragmentProfile_loginLabel"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Логин пользователя:"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/fragmentProfile_lastUpdateText" />
+
+        <EditText
+            android:id="@+id/fragmentProfile_loginText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:autofillHints="name"
+            android:hint="Новый логин пользователя"
+            android:inputType="text"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toStartOf="@id/fragmentProfile_loginEdit"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/fragmentProfile_loginLabel" />
+
+        <ImageButton
+            android:id="@+id/fragmentProfile_loginEdit"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@null"
+            android:contentDescription="Edit Login"
+            android:scaleType="centerInside"
+            android:src="@drawable/ic_pencil"
+            app:layout_constraintBottom_toBottomOf="@id/fragmentProfile_loginText"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/fragmentProfile_loginText"
+            app:layout_constraintTop_toTopOf="@id/fragmentProfile_loginText" />
+
+        <TextView
+            android:id="@+id/fragmentProfile_emailLabel"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Адрес электронной почты пользователя:"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/fragmentProfile_loginText" />
+
+        <EditText
+            android:id="@+id/fragmentProfile_emailText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:autofillHints="name"
+            android:hint="Новый адрес пользователя"
+            android:inputType="textEmailAddress"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toStartOf="@id/fragmentProfile_emailEdit"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/fragmentProfile_emailLabel" />
+
+        <ImageButton
+            android:id="@+id/fragmentProfile_emailEdit"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@null"
+            android:contentDescription="Edit Login"
+            android:scaleType="centerInside"
+            android:src="@drawable/ic_pencil"
+            app:layout_constraintBottom_toBottomOf="@id/fragmentProfile_emailText"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/fragmentProfile_emailText"
+            app:layout_constraintTop_toTopOf="@id/fragmentProfile_emailText" />
+
+        <TextView
+            android:id="@+id/fragmentProfile_newPasswordLabel"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="Изменить пароль"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/fragmentProfile_emailText" />
+
+        <ImageButton
+            android:id="@+id/fragmentProfile_newPasswordEdit"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@null"
+            android:contentDescription="Edit Login"
+            android:scaleType="centerInside"
+            android:src="@drawable/ic_pencil"
+            app:layout_constraintBottom_toBottomOf="@id/fragmentProfile_repeatNewPasswordText"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/fragmentProfile_newPasswordText"
+            app:layout_constraintTop_toTopOf="@id/fragmentProfile_newPasswordText" />
+
+        <EditText
+            android:id="@+id/fragmentProfile_newPasswordText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:autofillHints="password"
+            android:hint="Новый пароль пользователя"
+            android:inputType="textPassword"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toStartOf="@id/fragmentProfile_newPasswordEdit"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/fragmentProfile_newPasswordLabel" />
+
+        <EditText
+            android:id="@+id/fragmentProfile_repeatNewPasswordText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:autofillHints="password"
+            android:hint="Повторите новый пароль пользователя"
+            android:inputType="textPassword"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toStartOf="@id/fragmentProfile_newPasswordEdit"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/fragmentProfile_newPasswordText" />
+
+        <TextView
+            android:id="@+id/fragmentProfile_passwordLabel"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Для изменения введите пароль:"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/fragmentProfile_repeatNewPasswordText" />
+
+        <EditText
+            android:id="@+id/fragmentProfile_passwordText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:autofillHints="name"
+            android:hint="Текущий пароль пользователя"
+            android:inputType="textPassword"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/fragmentProfile_passwordLabel" />
+
+        <Button
+            android:id="@+id/fragmentProfile_saveButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:text="Сохранить"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/fragmentProfile_cancelButton"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/fragmentProfile_passwordText" />
+
+        <Button
+            android:id="@+id/fragmentProfile_cancelButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:backgroundTint="@color/black"
+            android:text="Отменить"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/fragmentProfile_saveButton"
+            app:layout_constraintTop_toBottomOf="@id/fragmentProfile_passwordText" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

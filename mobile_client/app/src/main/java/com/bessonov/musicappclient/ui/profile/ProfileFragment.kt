@@ -1,60 +1,272 @@
 package com.bessonov.musicappclient.ui.profile
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.EditText
+import android.widget.ImageButton
+import android.widget.TextView
+import android.widget.Toast
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.bessonov.musicappclient.R
+import com.bessonov.musicappclient.api.RetrofitClient
+import com.bessonov.musicappclient.api.UserAPI
+import com.bessonov.musicappclient.dto.UserDataDTO
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [ProfileFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class ProfileFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+    private lateinit var swipeRefreshLayout: SwipeRefreshLayout
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
+    private lateinit var closeButton: ImageButton
+
+    private lateinit var nicknameText: EditText
+    private lateinit var nicknameEdit: ImageButton
+
+    private lateinit var registrationText: TextView
+    private lateinit var lastUpdateText: TextView
+
+    private lateinit var loginText: EditText
+    private lateinit var loginEdit: ImageButton
+
+    private lateinit var emailText: EditText
+    private lateinit var emailEdit: ImageButton
+
+    private lateinit var newPasswordText: EditText
+    private lateinit var repeatNewPasswordText: EditText
+    private lateinit var newPasswordEdit: ImageButton
+
+    private lateinit var passwordLabel: TextView
+    private lateinit var passwordText: EditText
+
+    private lateinit var saveButton: Button
+    private lateinit var cancelButton: Button
+
+    private lateinit var userDataDTO: UserDataDTO
+
+    private var isUserInfoLoaded: Boolean = false
+
+    private var isEdited: Boolean = false
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        val view = inflater.inflate(R.layout.fragment_profile, container, false)
+
+        swipeRefreshLayout = view.findViewById(R.id.fragmentProfile_swipeRefreshLayout)
+
+        closeButton = view.findViewById(R.id.fragmentProfile_closeButton)
+
+        nicknameText = view.findViewById(R.id.fragmentProfile_nicknameText)
+        nicknameText.isEnabled = false
+        nicknameEdit = view.findViewById(R.id.fragmentProfile_nicknameEdit)
+
+        registrationText = view.findViewById(R.id.fragmentProfile_registrationText)
+        lastUpdateText = view.findViewById(R.id.fragmentProfile_lastUpdateText)
+
+        loginText = view.findViewById(R.id.fragmentProfile_loginText)
+        loginText.isEnabled = false
+        loginEdit = view.findViewById(R.id.fragmentProfile_loginEdit)
+
+        emailText = view.findViewById(R.id.fragmentProfile_emailText)
+        emailText.isEnabled = false
+        emailEdit = view.findViewById(R.id.fragmentProfile_emailEdit)
+
+        newPasswordText = view.findViewById(R.id.fragmentProfile_newPasswordText)
+        newPasswordText.isEnabled = false
+        repeatNewPasswordText = view.findViewById(R.id.fragmentProfile_repeatNewPasswordText)
+        repeatNewPasswordText.isEnabled = false
+        newPasswordEdit = view.findViewById(R.id.fragmentProfile_newPasswordEdit)
+
+        passwordLabel = view.findViewById(R.id.fragmentProfile_passwordLabel)
+        passwordText = view.findViewById(R.id.fragmentProfile_passwordText)
+        saveButton = view.findViewById(R.id.fragmentProfile_saveButton)
+        cancelButton = view.findViewById(R.id.fragmentProfile_cancelButton)
+
+        userDataDTO = UserDataDTO()
+
+        isUserInfoLoaded = false
+
+        isEdited = false
+        updateUI()
+
+        loadData()
+
+        val textWatcher = object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+            override fun afterTextChanged(s: Editable?) {
+                checkIsEdited()
+            }
+        }
+
+        swipeRefreshLayout.setOnRefreshListener {
+            loadData()
+        }
+
+        closeButton.setOnClickListener {
+            activity?.supportFragmentManager?.popBackStack()
+        }
+
+        nicknameEdit.setOnClickListener {
+            nicknameText.isEnabled = !nicknameText.isEnabled
+        }
+
+        nicknameText.addTextChangedListener(textWatcher)
+
+        loginEdit.setOnClickListener {
+            loginText.isEnabled = !loginText.isEnabled
+        }
+
+        loginText.addTextChangedListener(textWatcher)
+
+        emailEdit.setOnClickListener {
+            emailText.isEnabled = !emailText.isEnabled
+        }
+
+        emailText.addTextChangedListener(textWatcher)
+
+        newPasswordEdit.setOnClickListener {
+            newPasswordText.isEnabled = !newPasswordText.isEnabled
+            repeatNewPasswordText.isEnabled = !repeatNewPasswordText.isEnabled
+        }
+
+        newPasswordText.addTextChangedListener(textWatcher)
+        repeatNewPasswordText.addTextChangedListener(textWatcher)
+
+        saveButton.setOnClickListener {
+            //
+        }
+
+        cancelButton.setOnClickListener {
+            populateData()
+            newPasswordText.setText("")
+            repeatNewPasswordText.setText("")
+            checkIsEdited()
+            nicknameText.isEnabled = false
+            loginText.isEnabled = false
+            emailText.isEnabled = false
+            newPasswordText.isEnabled = false
+            repeatNewPasswordText.isEnabled = false
+        }
+
+        return view
+    }
+
+    private fun checkIsEdited() {
+        if (nicknameText.text.toString() != userDataDTO.nickname) {
+            isEdited = true
+            updateUI()
+            return
+        }
+
+        if (loginText.text.toString() != userDataDTO.username) {
+            isEdited = true
+            updateUI()
+            return
+        }
+
+        if (emailText.text.toString() != userDataDTO.email) {
+            isEdited = true
+            updateUI()
+            return
+        }
+
+        if (newPasswordText.text.toString().isNotBlank()) {
+            isEdited = true
+            updateUI()
+            return
+        }
+
+        if (repeatNewPasswordText.text.toString().isNotBlank()) {
+            isEdited = true
+            updateUI()
+            return
+        }
+
+        isEdited = false
+        updateUI()
+        return
+    }
+
+    private fun updateUI() {
+        if (isEdited) {
+            passwordLabel.visibility = View.VISIBLE
+            passwordText.visibility = View.VISIBLE
+            passwordText.isEnabled = true
+            saveButton.visibility = View.VISIBLE
+            saveButton.isEnabled = true
+            cancelButton.visibility = View.VISIBLE
+            cancelButton.isEnabled = true
+        } else {
+            passwordLabel.visibility = View.INVISIBLE
+            passwordText.visibility = View.INVISIBLE
+            passwordText.isEnabled = false
+            saveButton.visibility = View.INVISIBLE
+            saveButton.isEnabled = false
+            cancelButton.visibility = View.INVISIBLE
+            cancelButton.isEnabled = false
         }
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_profile, container, false)
+    private fun checkIsInfoLoaded() {
+        if (isUserInfoLoaded) {
+            populateData()
+            isUserInfoLoaded = false
+            swipeRefreshLayout.isRefreshing = false
+        }
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment ProfileFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            ProfileFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+    private fun populateData() {
+        nicknameText.setText(userDataDTO.nickname)
+        registrationText.text = userDataDTO.registrationDate.toString()
+        lastUpdateText.text = userDataDTO.lastUpdateDate.toString()
+        loginText.setText(userDataDTO.username)
+        emailText.setText(userDataDTO.email)
+    }
+
+    private fun loadData() {
+        loadUser()
+    }
+
+    private fun loadUser() {
+        val retrofitClient = RetrofitClient()
+        val userAPI = retrofitClient.getRetrofit(requireContext()).create(UserAPI::class.java)
+
+        userAPI.info().enqueue(object : Callback<UserDataDTO> {
+            override fun onResponse(call: Call<UserDataDTO>, response: Response<UserDataDTO>) {
+                if (response.isSuccessful && response.body() != null) {
+                    userDataDTO = response.body()!!
+                    isUserInfoLoaded = true
+                    checkIsInfoLoaded()
+                } else {
+                    Toast.makeText(
+                        requireContext(),
+                        "Failed to load user (onResponse)",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
             }
+
+            override fun onFailure(call: Call<UserDataDTO>, t: Throwable) {
+                Log.e("LoadUser", "Failed to load user", t)
+                Toast.makeText(
+                    requireContext(),
+                    "Failed to load user (onFailure)",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+        })
     }
 }

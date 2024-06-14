@@ -15,7 +15,4 @@ class FullMusicPlayerFragment : BottomSheetDialogFragment() {
     private lateinit var artistName: TextView
     private lateinit var stopButton: Button
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
 }

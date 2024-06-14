@@ -34,18 +34,21 @@ class TrackAdapter(
         holder.trackName.text = trackInfoDTO.track.name
 
         var artistName = ""
-        artistName += trackInfoDTO.artist.joinToString(", ") {it.name}
+        artistName += trackInfoDTO.artist.joinToString(", ") { it.name }
         if (trackInfoDTO.featuredArtist.size != 0) {
-            artistName += " feat. " + trackInfoDTO.featuredArtist.joinToString(", ") {it.name}
+            artistName += " feat. " + trackInfoDTO.featuredArtist.joinToString(", ") { it.name }
         }
 
         holder.artistName.text = artistName
-        holder.trackDuration.text = String.format("%02d:%02d", trackInfoDTO.track.durationInSeconds / 60, trackInfoDTO.track.durationInSeconds % 60)
+        holder.trackDuration.text = String.format(
+            "%02d:%02d",
+            trackInfoDTO.track.durationInSeconds / 60,
+            trackInfoDTO.track.durationInSeconds % 60
+        )
 
         if (trackInfoDTO.isAdded.isAdded) {
             holder.addButton.setImageResource(R.drawable.ic_check)
-        }
-        else {
+        } else {
             holder.addButton.setImageResource(R.drawable.ic_plus)
         }
 
@@ -54,10 +57,12 @@ class TrackAdapter(
                 holder.likeButton.setImageResource(R.drawable.ic_thumb_up)
                 holder.dislikeButton.setImageResource(R.drawable.ic_thumb_down_outline)
             }
+
             "Dislike" -> {
                 holder.likeButton.setImageResource(R.drawable.ic_thumb_up_outline)
                 holder.dislikeButton.setImageResource(R.drawable.ic_thumb_down)
             }
+
             else -> {
                 holder.likeButton.setImageResource(R.drawable.ic_thumb_up_outline)
                 holder.dislikeButton.setImageResource(R.drawable.ic_thumb_down_outline)

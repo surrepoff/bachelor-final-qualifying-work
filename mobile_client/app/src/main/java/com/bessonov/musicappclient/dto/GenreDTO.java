@@ -6,7 +6,7 @@ public class GenreDTO {
     private int id;
     private String name;
 
-    public GenreDTO () {
+    public GenreDTO() {
         this.id = -1;
         this.name = "";
     }

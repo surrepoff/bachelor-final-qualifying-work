@@ -9,7 +9,7 @@ public class AlbumDTO {
     private String name;
     private Date releaseDate;
 
-    public AlbumDTO () {
+    public AlbumDTO() {
         this.id = -1;
         this.name = "";
         this.releaseDate = new Date(0);

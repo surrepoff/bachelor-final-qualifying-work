@@ -36,18 +36,27 @@ class SectionAdapter(
     }
 
     override fun onBindViewHolder(holder: SectionViewHolder, position: Int) {
-        val section : Section<*> = sectionList[position]
+        val section: Section<*> = sectionList[position]
 
         holder.header.text = section.title
         holder.header.setOnClickListener {
             onItemClick.invoke(sectionList[position])
         }
 
-        holder.recyclerView.layoutManager = if (section.orientation == LinearLayoutManager.HORIZONTAL) {
-            LinearLayoutManager(holder.recyclerView.context, LinearLayoutManager.HORIZONTAL, false)
-        } else {
-            LinearLayoutManager(holder.recyclerView.context, LinearLayoutManager.VERTICAL, false)
-        }
+        holder.recyclerView.layoutManager =
+            if (section.orientation == LinearLayoutManager.HORIZONTAL) {
+                LinearLayoutManager(
+                    holder.recyclerView.context,
+                    LinearLayoutManager.HORIZONTAL,
+                    false
+                )
+            } else {
+                LinearLayoutManager(
+                    holder.recyclerView.context,
+                    LinearLayoutManager.VERTICAL,
+                    false
+                )
+            }
 
         when (section.type) {
             SectionType.ALBUM -> {
@@ -55,16 +64,20 @@ class SectionAdapter(
                 val albumAdapter = AlbumAdapter(context, albumInfoDTOList, section.orientation)
                 holder.recyclerView.adapter = albumAdapter
             }
+
             SectionType.ARTIST -> {
                 val artistInfoDTOList = section.items.filterIsInstance<ArtistInfoDTO>()
                 val artistAdapter = ArtistAdapter(context, artistInfoDTOList, section.orientation)
                 holder.recyclerView.adapter = artistAdapter
             }
+
             SectionType.PLAYLIST -> {
                 val playlistInfoDTOList = section.items.filterIsInstance<PlaylistInfoDTO>()
-                val playlistAdapter = PlaylistAdapter(context, playlistInfoDTOList, section.orientation)
+                val playlistAdapter =
+                    PlaylistAdapter(context, playlistInfoDTOList, section.orientation)
                 holder.recyclerView.adapter = playlistAdapter
             }
+
             SectionType.TRACK -> {
                 val trackInfoDTOList = section.items.filterIsInstance<TrackInfoDTO>()
                 val trackAdapter = TrackAdapter(context, trackInfoDTOList, this@SectionAdapter)
@@ -77,14 +90,29 @@ class SectionAdapter(
     }
 
     override fun onTrackItemClick(view: View, position: Int) {
-        Toast.makeText(context, "Track item clicked at position $position", Toast.LENGTH_SHORT).show()
+        Toast.makeText(context, "Track item clicked at position $position", Toast.LENGTH_SHORT)
+            .show()
     }
 
     override fun onTrackButtonClick(view: View, position: Int, buttonId: Int) {
         when (buttonId) {
-            1 -> Toast.makeText(context, "Track Add Button clicked at position $position", Toast.LENGTH_SHORT).show()
-            2 -> Toast.makeText(context, "Track Like Button clicked at position $position", Toast.LENGTH_SHORT).show()
-            3 -> Toast.makeText(context, "Track Dislike Button clicked at position $position", Toast.LENGTH_SHORT).show()
+            1 -> Toast.makeText(
+                context,
+                "Track Add Button clicked at position $position",
+                Toast.LENGTH_SHORT
+            ).show()
+
+            2 -> Toast.makeText(
+                context,
+                "Track Like Button clicked at position $position",
+                Toast.LENGTH_SHORT
+            ).show()
+
+            3 -> Toast.makeText(
+                context,
+                "Track Dislike Button clicked at position $position",
+                Toast.LENGTH_SHORT
+            ).show()
         }
     }
 }

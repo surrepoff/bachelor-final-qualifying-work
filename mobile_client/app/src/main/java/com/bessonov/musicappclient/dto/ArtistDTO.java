@@ -6,7 +6,7 @@ public class ArtistDTO {
     private int id;
     private String name;
 
-    public ArtistDTO () {
+    public ArtistDTO() {
         this.id = -1;
         this.name = "";
     }

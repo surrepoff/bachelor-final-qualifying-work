@@ -11,7 +11,7 @@ class RetrofitClient {
     private lateinit var retrofit: Retrofit
     private lateinit var configManager: ConfigManager
 
-    fun getRetrofit(context: Context) : Retrofit {
+    fun getRetrofit(context: Context): Retrofit {
         if (!::retrofit.isInitialized) {
             configManager = ConfigManager(context)
             baseUrl = configManager.getServerIp()

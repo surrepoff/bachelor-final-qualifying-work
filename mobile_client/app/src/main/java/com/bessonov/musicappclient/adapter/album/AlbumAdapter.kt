@@ -40,9 +40,9 @@ class AlbumAdapter(
         holder.albumName.text = albumInfoDTO.album.name
 
         var artistName = ""
-        artistName += albumInfoDTO.artist.joinToString(", ") {it.name}
+        artistName += albumInfoDTO.artist.joinToString(", ") { it.name }
         if (albumInfoDTO.featuredArtist.size != 0) {
-            artistName += " feat. " + albumInfoDTO.featuredArtist.joinToString(", ") {it.name}
+            artistName += " feat. " + albumInfoDTO.featuredArtist.joinToString(", ") { it.name }
         }
 
         holder.artistName.text = artistName
@@ -65,8 +65,7 @@ class AlbumAdapter(
         if (orientation == LinearLayoutManager.VERTICAL) {
             if (albumInfoDTO.isAdded.isAdded) {
                 holder.addButton?.setImageResource(R.drawable.ic_check)
-            }
-            else {
+            } else {
                 holder.addButton?.setImageResource(R.drawable.ic_plus)
             }
 
@@ -75,10 +74,12 @@ class AlbumAdapter(
                     holder.likeButton?.setImageResource(R.drawable.ic_thumb_up)
                     holder.dislikeButton?.setImageResource(R.drawable.ic_thumb_down_outline)
                 }
+
                 "Dislike" -> {
                     holder.likeButton?.setImageResource(R.drawable.ic_thumb_up_outline)
                     holder.dislikeButton?.setImageResource(R.drawable.ic_thumb_down)
                 }
+
                 else -> {
                     holder.likeButton?.setImageResource(R.drawable.ic_thumb_up_outline)
                     holder.dislikeButton?.setImageResource(R.drawable.ic_thumb_down_outline)

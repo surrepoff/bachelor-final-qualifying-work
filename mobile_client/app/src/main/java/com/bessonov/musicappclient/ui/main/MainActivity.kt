@@ -2,23 +2,22 @@ package com.bessonov.musicappclient.ui.main
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Window
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentContainerView
 import androidx.fragment.app.FragmentManager
-import androidx.viewpager2.widget.ViewPager2
 import com.bessonov.musicappclient.R
 import com.bessonov.musicappclient.adapter.section.Section
 import com.bessonov.musicappclient.ui.home.HomeFragment
 import com.bessonov.musicappclient.ui.myMusic.MyMusicFragment
+import com.bessonov.musicappclient.ui.profile.ProfileFragment
 import com.bessonov.musicappclient.ui.search.SearchFragment
 import com.bessonov.musicappclient.ui.section.SectionFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.google.android.material.tabs.TabLayout
-import com.google.android.material.tabs.TabLayoutMediator
 
 class MainActivity : AppCompatActivity() {
-    private lateinit var bottomNavigationView : BottomNavigationView
-    private lateinit var fragmentContainerView : FragmentContainerView
+    private lateinit var bottomNavigationView: BottomNavigationView
+    private lateinit var fragmentContainerView: FragmentContainerView
 
     private lateinit var homeFragment: HomeFragment
     private lateinit var searchFragment: SearchFragment
@@ -28,6 +27,8 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        requestWindowFeature(Window.FEATURE_NO_TITLE)
+        supportActionBar?.hide()
         setContentView(R.layout.activity_main)
 
         bottomNavigationView = findViewById(R.id.bottomNavigationView)
@@ -54,14 +55,17 @@ class MainActivity : AppCompatActivity() {
                     showFragment(homeFragment)
                     true
                 }
+
                 R.id.navigation_search -> {
                     showFragment(searchFragment)
                     true
                 }
+
                 R.id.navigation_my_music -> {
                     showFragment(myMusicFragment)
                     true
                 }
+
                 else -> false
             }
         }
@@ -81,6 +85,13 @@ class MainActivity : AppCompatActivity() {
     fun openSectionFragment(section: Section<*>) {
         supportFragmentManager.beginTransaction().apply {
             replace(R.id.fragmentContainerView, SectionFragment(section))
+            addToBackStack(null)
+        }.commit()
+    }
+
+    fun openProfileFragment() {
+        supportFragmentManager.beginTransaction().apply {
+            replace(R.id.fragmentContainerView, ProfileFragment())
             addToBackStack(null)
         }.commit()
     }

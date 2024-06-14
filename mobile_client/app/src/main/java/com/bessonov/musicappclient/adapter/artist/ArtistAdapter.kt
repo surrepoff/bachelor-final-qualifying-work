@@ -58,8 +58,7 @@ class ArtistAdapter(
         if (orientation == LinearLayoutManager.VERTICAL) {
             if (artistInfoDTO.isAdded.isAdded) {
                 holder.addButton?.setImageResource(R.drawable.ic_check)
-            }
-            else {
+            } else {
                 holder.addButton?.setImageResource(R.drawable.ic_plus)
             }
 
@@ -68,10 +67,12 @@ class ArtistAdapter(
                     holder.likeButton?.setImageResource(R.drawable.ic_thumb_up)
                     holder.dislikeButton?.setImageResource(R.drawable.ic_thumb_down_outline)
                 }
+
                 "Dislike" -> {
                     holder.likeButton?.setImageResource(R.drawable.ic_thumb_up_outline)
                     holder.dislikeButton?.setImageResource(R.drawable.ic_thumb_down)
                 }
+
                 else -> {
                     holder.likeButton?.setImageResource(R.drawable.ic_thumb_up_outline)
                     holder.dislikeButton?.setImageResource(R.drawable.ic_thumb_down_outline)

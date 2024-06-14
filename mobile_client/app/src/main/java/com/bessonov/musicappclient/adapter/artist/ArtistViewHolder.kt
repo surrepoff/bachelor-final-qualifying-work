@@ -25,9 +25,8 @@ class ArtistViewHolder(
             addButton = null
             likeButton = null
             dislikeButton = null
-        }
-        else {
-            artistName =  itemView.findViewById(R.id.itemArtistVertical_artistName)
+        } else {
+            artistName = itemView.findViewById(R.id.itemArtistVertical_artistName)
             artistImage = itemView.findViewById(R.id.itemArtistVertical_artistImage)
             addButton = itemView.findViewById(R.id.itemArtistVertical_addButton)
             likeButton = itemView.findViewById(R.id.itemArtistVertical_likeButton)

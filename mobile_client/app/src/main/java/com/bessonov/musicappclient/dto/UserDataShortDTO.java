@@ -6,7 +6,7 @@ public class UserDataShortDTO {
     private int id;
     private String nickname;
 
-    public UserDataShortDTO () {
+    public UserDataShortDTO() {
         this.id = -1;
         this.nickname = "";
     }

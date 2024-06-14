@@ -6,7 +6,7 @@ public class LicenseDTO {
     private int id;
     private String name;
 
-    public LicenseDTO () {
+    public LicenseDTO() {
         this.id = -1;
         this.name = "";
     }

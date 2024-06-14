@@ -10,7 +10,7 @@ public class PlaylistDTO {
     private Date creationDate;
     private Date lastUpdateDate;
 
-    public PlaylistDTO () {
+    public PlaylistDTO() {
         this.id = -1;
         this.name = "";
         this.creationDate = new Date(0);
