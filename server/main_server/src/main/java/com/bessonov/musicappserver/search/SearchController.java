@@ -14,9 +14,6 @@ public class SearchController {
     @Autowired
     private SearchService searchService;
 
-    @Autowired
-    private AuthenticationManager authenticationManager;
-
     @PostMapping("/name")
     public SearchInfoDTO searchByName(@RequestBody SearchRequestDTO name, Authentication authentication) {
         return searchService.searchByName(name.getName(), authentication.getName());

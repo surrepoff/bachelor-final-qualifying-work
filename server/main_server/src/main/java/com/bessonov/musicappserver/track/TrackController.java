@@ -18,9 +18,6 @@ public class TrackController {
     @Autowired
     private TrackService trackService;
 
-    @Autowired
-    private AuthenticationManager authenticationManager;
-
     @GetMapping("/get/all")
     public List<TrackInfoDTO> getAll(Authentication authentication) {
         return trackService.getAll(authentication.getName());

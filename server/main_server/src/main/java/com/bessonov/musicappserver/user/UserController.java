@@ -16,6 +16,7 @@ import org.springframework.security.oauth2.jwt.JwsHeader;
 import org.springframework.security.oauth2.jwt.JwtClaimsSet;
 import org.springframework.security.oauth2.jwt.JwtEncoderParameters;
 import org.springframework.security.oauth2.jwt.NimbusJwtEncoder;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
@@ -23,27 +24,27 @@ import org.springframework.web.bind.annotation.*;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @RestController
 @RequestMapping("/user")
 public class UserController {
-    @Value("${security.jwt.secret-key}")
-    private String jwtSecretKey;
-
-    @Value("${security.jwt.issuer}")
-    private String jwtIssuer;
-
     @Autowired
     private UserDataRepository userDataRepository;
 
     @Autowired
     private AuthenticationManager authenticationManager;
 
+    @Autowired
+    private UserService userService;
+
     @GetMapping("/info")
     public UserDataDTO info(Authentication authentication) {
         Optional<UserData> userData = userDataRepository.findByUsername(authentication.getName());
-
         return userData.map(UserDataDTO::new).orElse(null);
     }
 
@@ -73,7 +74,7 @@ public class UserController {
                 return new UserResponseDTO("There is no more user with this username", 400);
             }
 
-            String jwtToken = createJwtToken(userData.get());
+            String jwtToken = userService.createJwtToken(userData.get());
 
             return new UserResponseDTO(jwtToken, 200);
         } catch (Exception ex) {
@@ -123,7 +124,7 @@ public class UserController {
 
             userDataRepository.save(userData);
 
-            String jwtToken = createJwtToken(userData);
+            String jwtToken = userService.createJwtToken(userData);
 
             return new UserResponseDTO(jwtToken, 200);
         } catch (Exception ex) {
@@ -134,19 +135,28 @@ public class UserController {
         return new UserResponseDTO("Failed to register", 400);
     }
 
-    private String createJwtToken(UserData userData) {
-        Instant now = Instant.now();
+    @PostMapping("/edit")
+    private UserEditResponseDTO edit(@RequestBody UserEditRequestDTO userEditRequestDTO, Authentication authentication) {
+        Map<String, String> editMap = new HashMap<>();
 
-        JwtClaimsSet claims = JwtClaimsSet.builder()
-                .issuer(jwtIssuer)
-                .issuedAt(now)
-                .expiresAt(now.plus(8, ChronoUnit.HOURS))
-                .subject(userData.getUsername())
-                .build();
+        Optional<UserData> userData = userDataRepository.findByUsername(authentication.getName());
 
-        var encoder = new NimbusJwtEncoder(new ImmutableSecret<>(jwtSecretKey.getBytes()));
-        var params = JwtEncoderParameters.from(JwsHeader.with(MacAlgorithm.HS256).build(), claims);
+        if (userData.isEmpty()) {
+            editMap.put("error", "User not found");
+            return new UserEditResponseDTO(editMap);
+        }
 
-        return encoder.encode(params).getTokenValue();
+        try {
+            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
+                            authentication.getName(),
+                            userEditRequestDTO.getPassword()
+                    )
+            );
+        } catch (Exception ex) {
+            editMap.put("error", "Invalid password");
+            return new UserEditResponseDTO(editMap);
+        }
+
+        return new UserEditResponseDTO(userService.edit(authentication.getName(), userEditRequestDTO));
     }
 }

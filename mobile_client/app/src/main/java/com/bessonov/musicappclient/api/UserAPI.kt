@@ -1,6 +1,8 @@
 package com.bessonov.musicappclient.api
 
 import com.bessonov.musicappclient.dto.UserDataDTO
+import com.bessonov.musicappclient.dto.UserEditRequestDTO
+import com.bessonov.musicappclient.dto.UserEditResponseDTO
 import com.bessonov.musicappclient.dto.UserLoginDTO
 import com.bessonov.musicappclient.dto.UserRegisterDTO
 import com.bessonov.musicappclient.dto.UserResponseDTO
@@ -18,5 +20,8 @@ interface UserAPI {
 
     @POST("/user/register")
     fun register(@Body userRegisterDTO: UserRegisterDTO): Call<UserResponseDTO>
+
+    @POST("/user/edit")
+    fun edit(@Body userEditRequestDTO: UserEditRequestDTO): Call<UserEditResponseDTO>
 }
 

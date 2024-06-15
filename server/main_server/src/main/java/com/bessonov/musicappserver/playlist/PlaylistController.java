@@ -15,9 +15,6 @@ public class PlaylistController {
     @Autowired
     private PlaylistService playlistService;
 
-    @Autowired
-    private AuthenticationManager authenticationManager;
-
     @GetMapping("/get/all")
     public List<PlaylistInfoDTO> getAll(Authentication authentication) {
         return playlistService.getAll(authentication.getName());

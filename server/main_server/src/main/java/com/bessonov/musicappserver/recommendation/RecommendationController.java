@@ -14,9 +14,6 @@ public class RecommendationController {
     @Autowired
     private RecommendationService recommendationService;
 
-    @Autowired
-    private AuthenticationManager authenticationManager;
-
     @GetMapping("/get/all")
     public List<RecommendationInfoDTO> getAll(Authentication authentication) {
         return recommendationService.getAll(authentication.getName());

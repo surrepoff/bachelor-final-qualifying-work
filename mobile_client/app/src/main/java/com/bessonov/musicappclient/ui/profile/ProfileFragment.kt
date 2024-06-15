@@ -16,8 +16,11 @@ import androidx.fragment.app.Fragment
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.bessonov.musicappclient.R
 import com.bessonov.musicappclient.api.RetrofitClient
+import com.bessonov.musicappclient.api.SessionManager
 import com.bessonov.musicappclient.api.UserAPI
 import com.bessonov.musicappclient.dto.UserDataDTO
+import com.bessonov.musicappclient.dto.UserEditRequestDTO
+import com.bessonov.musicappclient.dto.UserEditResponseDTO
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -143,7 +146,7 @@ class ProfileFragment : Fragment() {
         repeatNewPasswordText.addTextChangedListener(textWatcher)
 
         saveButton.setOnClickListener {
-            //
+            saveDate();
         }
 
         cancelButton.setOnClickListener {
@@ -267,5 +270,100 @@ class ProfileFragment : Fragment() {
                 ).show()
             }
         })
+    }
+
+    private fun saveDate() {
+        if (!isEdited)
+            return
+
+        if (passwordText.text.isEmpty()) {
+            Toast.makeText(
+                requireContext(),
+                "Введите текущий пароль для изменения данных",
+                Toast.LENGTH_LONG
+            ).show()
+            return
+        }
+
+        if (newPasswordText.text.toString() != repeatNewPasswordText.text.toString()) {
+            Toast.makeText(
+                requireContext(),
+                "Поля 'Новый пароль' и 'Повторите новый пароль' не совпадают",
+                Toast.LENGTH_LONG
+            ).show()
+            return
+        }
+
+        val userEditRequestDTO : UserEditRequestDTO = UserEditRequestDTO()
+        userEditRequestDTO.password = passwordText.text.toString()
+
+        val editMap : HashMap<String, String> = HashMap<String, String>()
+
+        if (nicknameText.text.toString() != userDataDTO.nickname) {
+            editMap["nickname"] = nicknameText.text.toString()
+        }
+
+        if (loginText.text.toString() != userDataDTO.username) {
+            editMap["username"] = loginText.text.toString()
+        }
+
+        if (emailText.text.toString() != userDataDTO.email) {
+            editMap["email"] = emailText.text.toString()
+        }
+
+        if (newPasswordText.text.toString().isNotBlank() && repeatNewPasswordText.text.toString().isNotBlank()) {
+            editMap["password"] = newPasswordText.text.toString()
+        }
+
+        userEditRequestDTO.editMap = editMap
+
+        val retrofitClient = RetrofitClient()
+        val userAPI = retrofitClient.getRetrofit(requireContext()).create(UserAPI::class.java)
+
+        userAPI.edit(userEditRequestDTO).enqueue(object : Callback<UserEditResponseDTO> {
+            override fun onResponse(call: Call<UserEditResponseDTO>, response: Response<UserEditResponseDTO>) {
+                if (response.isSuccessful && response.body() != null) {
+                    checkEditResponse(response.body()!!)
+                } else {
+                    Toast.makeText(
+                        requireContext(),
+                        "Failed to edit user (onResponse)",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+
+            override fun onFailure(call: Call<UserEditResponseDTO>, t: Throwable) {
+                Log.e("LoadUser", "Failed to edit user", t)
+                Toast.makeText(
+                    requireContext(),
+                    "Failed to edit user (onFailure)",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+        })
+    }
+
+    private fun checkEditResponse (userEditResponseDTO : UserEditResponseDTO) {
+        for ((key, value) in userEditResponseDTO.editMap.entries) {
+            if (key == "username" && !value.startsWith("Error")) {
+                val sessionManager = SessionManager(requireContext())
+                sessionManager.saveAuthToken(value)
+
+                Toast.makeText(
+                    requireContext(),
+                    "username: Successfully changed",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+            else {
+                Toast.makeText(
+                    requireContext(),
+                    "$key: $value",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+        }
+        loadData()
     }
 }
