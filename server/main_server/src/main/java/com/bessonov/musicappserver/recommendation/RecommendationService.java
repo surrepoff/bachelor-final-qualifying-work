@@ -20,7 +20,7 @@ import com.bessonov.musicappserver.database.userRecommendationGenre.UserRecommen
 import com.bessonov.musicappserver.database.userRecommendationGenre.UserRecommendationGenreRepository;
 import com.bessonov.musicappserver.database.userRecommendationTrack.UserRecommendationTrack;
 import com.bessonov.musicappserver.database.userRecommendationTrack.UserRecommendationTrackRepository;
-import com.bessonov.musicappserver.playlist.PlaylistCreateDTO;
+import com.bessonov.musicappserver.playlist.PlaylistEditDTO;
 import com.bessonov.musicappserver.playlist.PlaylistInfoDTO;
 import com.bessonov.musicappserver.playlist.PlaylistService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -247,8 +247,8 @@ public class RecommendationService {
             trackIdList.add(userRecommendationTrack.getId().getTrackId());
         }
 
-        PlaylistCreateDTO playlistCreateDTO = new PlaylistCreateDTO("Rec №" + userRecommendationId, trackIdList);
+        PlaylistEditDTO playlistEditDTO = new PlaylistEditDTO("Rec №" + userRecommendationId, trackIdList);
 
-        return playlistService.createPlaylist(username, playlistCreateDTO);
+        return playlistService.createPlaylist(username, playlistEditDTO);
     }
 }

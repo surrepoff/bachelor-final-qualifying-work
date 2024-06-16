@@ -294,10 +294,10 @@ class ProfileFragment : Fragment() {
             return
         }
 
-        val userEditRequestDTO : UserEditRequestDTO = UserEditRequestDTO()
+        val userEditRequestDTO: UserEditRequestDTO = UserEditRequestDTO()
         userEditRequestDTO.password = passwordText.text.toString()
 
-        val editMap : HashMap<String, String> = HashMap<String, String>()
+        val editMap: HashMap<String, String> = HashMap<String, String>()
 
         if (nicknameText.text.toString() != userDataDTO.nickname) {
             editMap["nickname"] = nicknameText.text.toString()
@@ -311,7 +311,9 @@ class ProfileFragment : Fragment() {
             editMap["email"] = emailText.text.toString()
         }
 
-        if (newPasswordText.text.toString().isNotBlank() && repeatNewPasswordText.text.toString().isNotBlank()) {
+        if (newPasswordText.text.toString().isNotBlank() && repeatNewPasswordText.text.toString()
+                .isNotBlank()
+        ) {
             editMap["password"] = newPasswordText.text.toString()
         }
 
@@ -321,7 +323,10 @@ class ProfileFragment : Fragment() {
         val userAPI = retrofitClient.getRetrofit(requireContext()).create(UserAPI::class.java)
 
         userAPI.edit(userEditRequestDTO).enqueue(object : Callback<UserEditResponseDTO> {
-            override fun onResponse(call: Call<UserEditResponseDTO>, response: Response<UserEditResponseDTO>) {
+            override fun onResponse(
+                call: Call<UserEditResponseDTO>,
+                response: Response<UserEditResponseDTO>
+            ) {
                 if (response.isSuccessful && response.body() != null) {
                     checkEditResponse(response.body()!!)
                 } else {
@@ -344,7 +349,7 @@ class ProfileFragment : Fragment() {
         })
     }
 
-    private fun checkEditResponse (userEditResponseDTO : UserEditResponseDTO) {
+    private fun checkEditResponse(userEditResponseDTO: UserEditResponseDTO) {
         for ((key, value) in userEditResponseDTO.editMap.entries) {
             if (key == "username" && !value.startsWith("Error")) {
                 val sessionManager = SessionManager(requireContext())
@@ -355,8 +360,7 @@ class ProfileFragment : Fragment() {
                     "username: Successfully changed",
                     Toast.LENGTH_SHORT
                 ).show()
-            }
-            else {
+            } else {
                 Toast.makeText(
                     requireContext(),
                     "$key: $value",

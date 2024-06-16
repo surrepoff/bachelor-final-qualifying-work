@@ -3,13 +3,13 @@
     <item
         android:id="@+id/navigation_home"
         android:icon="@drawable/ic_home"
-        android:title="Home" />
+        android:title="Главная" />
     <item
         android:id="@+id/navigation_search"
         android:icon="@drawable/ic_magnify"
-        android:title="Search" />
+        android:title="Поиск" />
     <item
         android:id="@+id/navigation_my_music"
         android:icon="@drawable/ic_music"
-        android:title="My Music" />
+        android:title="Моя Музыка" />
 </menu>

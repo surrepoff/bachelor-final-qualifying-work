@@ -307,7 +307,7 @@ public class PlaylistService {
         return new UserRatingDTO(userRating.get());
     }
 
-    public PlaylistInfoDTO createPlaylist(String username, PlaylistCreateDTO playlistCreateDTO) {
+    public PlaylistInfoDTO createPlaylist(String username, PlaylistEditDTO playlistEditDTO) {
         Optional<UserData> userData = userDataRepository.findByUsername(username);
 
         if (userData.isEmpty()) {
@@ -315,14 +315,14 @@ public class PlaylistService {
         }
 
         Playlist playlist = new Playlist();
-        playlist.setName(playlistCreateDTO.getName());
+        playlist.setName(playlistEditDTO.getName());
         playlist.setCreationDate(new Date());
         playlist.setLastUpdateDate(new Date());
 
         playlist = playlistRepository.save(playlist);
 
         int trackNumberInPlaylist = 1;
-        for (Integer trackId : playlistCreateDTO.getTrackId()) {
+        for (Integer trackId : playlistEditDTO.getTrackId()) {
             Optional<Track> track = trackRepository.findById(trackId);
 
             if (track.isPresent()) {
@@ -379,6 +379,54 @@ public class PlaylistService {
         playlistRepository.deleteById(playlistId);
 
         return new PlaylistInfoDTO();
+    }
+
+    public PlaylistInfoDTO editPlaylist(String username, int playlistId, PlaylistEditDTO playlistEditDTO) {
+        Optional<UserData> userData = userDataRepository.findByUsername(username);
+
+        if (userData.isEmpty()) {
+            return null;
+        }
+
+        Optional<Playlist> playlist = playlistRepository.findById(playlistId);
+
+        if (playlist.isEmpty()) {
+            return null;
+        }
+
+        UserPlaylistId userPlaylistId = new UserPlaylistId(userData.get().getId(), playlistId);
+        Optional<UserPlaylist> userPlaylist = userPlaylistRepository.findById(userPlaylistId);
+
+        if (userPlaylist.isEmpty()) {
+            return null;
+        }
+
+        if (userPlaylist.get().getAccessLevelId() != ownerAccessId && userPlaylist.get().getAccessLevelId() != moderatorAccessId) {
+            return null;
+        }
+
+        playlist.get().setName(playlistEditDTO.getName());
+        playlist.get().setLastUpdateDate(new Date());
+
+        List<Integer> trackIdList = new ArrayList<>();
+        for (Integer trackId : playlistEditDTO.getTrackId()) {
+            if (!trackIdList.contains(trackId)) {
+                trackIdList.add(trackId);
+            }
+        }
+
+        playlistTrackRepository.deleteByIdPlaylistId(playlistId);
+
+        int trackNumberInPlaylist = 1;
+        for (Integer trackId : trackIdList) {
+            PlaylistTrackId playlistTrackId = new PlaylistTrackId(playlistId, trackId);
+            PlaylistTrack playlistTrack = new PlaylistTrack();
+            playlistTrack.setId(playlistTrackId);
+            playlistTrack.setTrackNumberInPlaylist(trackNumberInPlaylist++);
+            playlistTrackRepository.save(playlistTrack);
+        }
+
+        return getPlaylistInfoByPlaylist(username, playlist.get());
     }
 
     public PlaylistInfoDTO editPlaylistRename(String username, int playlistId, String newPlaylistName) {

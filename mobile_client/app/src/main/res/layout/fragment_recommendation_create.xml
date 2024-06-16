@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="10dp"
+    tools:context=".ui.recommendation.RecommendationCreateFragment">
+
+    <ImageButton
+        android:id="@+id/fragmentRecommendationCreate_closeButton"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:background="@null"
+        android:contentDescription="Close Button"
+        android:scaleType="centerInside"
+        android:src="@drawable/ic_close"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/fragmentRecommendationCreate_headerName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:text="Получить рекомендацию"
+        android:textColor="@color/black"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="@id/fragmentRecommendationCreate_closeButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/fragmentRecommendationCreate_closeButton"
+        app:layout_constraintTop_toTopOf="@id/fragmentRecommendationCreate_closeButton" />
+
+    <TextView
+        android:id="@+id/fragmentRecommendationCreate_sizeName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="Количество треков: "
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/fragmentRecommendationCreate_closeButton" />
+
+    <EditText
+        android:id="@+id/fragmentRecommendationCreate_sizeText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:autofillHints="10"
+        android:hint="Введите число"
+        android:inputType="numberDecimal"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@id/fragmentRecommendationCreate_sizeName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/fragmentRecommendationCreate_sizeName"
+        app:layout_constraintTop_toTopOf="@id/fragmentRecommendationCreate_sizeName" />
+
+    <TextView
+        android:id="@+id/fragmentRecommendationCreate_familiarityName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="Процент знакомых треков: "
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/fragmentRecommendationCreate_sizeName" />
+
+    <TextView
+        android:id="@+id/fragmentRecommendationCreate_familiarityValue"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Значение"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@id/fragmentRecommendationCreate_familiarityName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/fragmentRecommendationCreate_familiarityName"
+        app:layout_constraintTop_toTopOf="@id/fragmentRecommendationCreate_familiarityName" />
+
+    <SeekBar
+        android:id="@+id/fragmentRecommendationCreate_familiaritySeekBar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:max="100"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/fragmentRecommendationCreate_familiarityName" />
+
+    <TextView
+        android:id="@+id/fragmentRecommendationCreate_familiarityMin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="0%"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/fragmentRecommendationCreate_familiaritySeekBar" />
+
+    <TextView
+        android:id="@+id/fragmentRecommendationCreate_familiarityMax"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="100%"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/fragmentRecommendationCreate_familiaritySeekBar" />
+
+    <TextView
+        android:id="@+id/fragmentRecommendationCreate_genreName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="Жанры в рекомендации"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/fragmentRecommendationCreate_familiarityMin" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/fragmentRecommendationCreate_genreRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintBottom_toTopOf="@id/fragmentRecommendationCreate_createButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/fragmentRecommendationCreate_genreName" />
+
+    <Button
+        android:id="@+id/fragmentRecommendationCreate_createButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:text="Получить"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/fragmentRecommendationCreate_cancelButton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/fragmentRecommendationCreate_genreRecyclerView" />
+
+    <Button
+        android:id="@+id/fragmentRecommendationCreate_cancelButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:backgroundTint="@color/black"
+        android:text="Отмена"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/fragmentRecommendationCreate_createButton"
+        app:layout_constraintTop_toBottomOf="@id/fragmentRecommendationCreate_genreRecyclerView" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

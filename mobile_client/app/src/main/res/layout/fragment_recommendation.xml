@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.swiperefreshlayout.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.recommendation.RecommendationFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="10dp">
+
+        <ImageButton
+            android:id="@+id/fragmentRecommendation_closeButton"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@null"
+            android:contentDescription="Close Button"
+            android:scaleType="centerInside"
+            android:src="@drawable/ic_close"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/fragmentRecommendation_headerName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:text="Рекомендация"
+            android:textColor="@color/black"
+            android:textSize="24sp"
+            app:layout_constraintBottom_toBottomOf="@id/fragmentRecommendation_closeButton"
+            app:layout_constraintEnd_toStartOf="@id/fragmentRecommendation_recommendationAdd"
+            app:layout_constraintStart_toEndOf="@id/fragmentRecommendation_closeButton"
+            app:layout_constraintTop_toTopOf="@id/fragmentRecommendation_closeButton" />
+
+        <ImageButton
+            android:id="@+id/fragmentRecommendation_recommendationAdd"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@null"
+            android:contentDescription="Add Recommendation As Playlist"
+            android:scaleType="centerInside"
+            android:src="@drawable/ic_plus"
+            app:layout_constraintBottom_toBottomOf="@id/fragmentRecommendation_headerName"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/fragmentRecommendation_headerName" />
+
+        <ImageView
+            android:id="@+id/fragmentRecommendation_recommendationImage"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="10dp"
+            android:contentDescription="Image"
+            android:src="@drawable/default_album"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/fragmentRecommendation_closeButton" />
+
+        <TextView
+            android:id="@+id/fragmentRecommendation_recommendationName"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="10dp"
+            android:text="Название"
+            android:textColor="@color/black"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/fragmentRecommendation_recommendationImage"
+            app:layout_constraintTop_toTopOf="@id/fragmentRecommendation_recommendationImage" />
+
+        <TextView
+            android:id="@+id/fragmentRecommendation_ownerName"
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="10dp"
+            android:text="Имя владельца"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/fragmentRecommendation_recommendationImage"
+            app:layout_constraintTop_toBottomOf="@id/fragmentRecommendation_recommendationName" />
+
+        <ImageButton
+            android:id="@+id/fragmentRecommendation_dislikeButton"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="10dp"
+            android:background="@android:color/transparent"
+            android:contentDescription="Dislike Button"
+            android:src="@drawable/ic_thumb_down_outline"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/fragmentRecommendation_ownerName" />
+
+        <ImageButton
+            android:id="@+id/fragmentRecommendation_likeButton"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_margin="10dp"
+            android:background="@android:color/transparent"
+            android:contentDescription="Like Button"
+            android:src="@drawable/ic_thumb_up_outline"
+            app:layout_constraintBottom_toBottomOf="@id/fragmentRecommendation_dislikeButton"
+            app:layout_constraintEnd_toStartOf="@id/fragmentRecommendation_dislikeButton"
+            app:layout_constraintTop_toTopOf="@id/fragmentRecommendation_dislikeButton" />
+
+        <TextView
+            android:id="@+id/fragmentRecommendation_createName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Дата создания: "
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/fragmentRecommendation_dislikeButton" />
+
+        <TextView
+            android:id="@+id/fragmentRecommendation_createText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="DATE"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="@id/fragmentRecommendation_createName"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/fragmentRecommendation_createName"
+            app:layout_constraintTop_toTopOf="@id/fragmentRecommendation_createName" />
+
+        <TextView
+            android:id="@+id/fragmentRecommendation_trackName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Треки"
+            android:textColor="@color/black"
+            android:textSize="24sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/fragmentRecommendation_createText" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/fragmentRecommendation_trackRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="10dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/fragmentRecommendation_trackName"
+            app:layout_constraintVertical_bias="0.0" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

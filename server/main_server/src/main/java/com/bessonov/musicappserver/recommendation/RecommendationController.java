@@ -2,7 +2,6 @@ package com.bessonov.musicappserver.recommendation;
 
 import com.bessonov.musicappserver.playlist.PlaylistInfoDTO;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 

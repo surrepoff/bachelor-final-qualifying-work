@@ -3,7 +3,6 @@ package com.bessonov.musicappserver.playlist;
 import com.bessonov.musicappserver.database.userPlaylist.UserPlaylistDTO;
 import com.bessonov.musicappserver.database.userRating.UserRatingDTO;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
@@ -51,13 +50,18 @@ public class PlaylistController {
     }
 
     @PostMapping("/create")
-    public PlaylistInfoDTO createPlaylist(@RequestBody PlaylistCreateDTO playlistCreateDTO, Authentication authentication) {
-        return playlistService.createPlaylist(authentication.getName(), playlistCreateDTO);
+    public PlaylistInfoDTO createPlaylist(@RequestBody PlaylistEditDTO playlistEditDTO, Authentication authentication) {
+        return playlistService.createPlaylist(authentication.getName(), playlistEditDTO);
     }
 
     @GetMapping("/delete/{playlistId}")
     public PlaylistInfoDTO deletePlaylist(@PathVariable Integer playlistId, Authentication authentication) {
         return playlistService.deletePlaylist(authentication.getName(), playlistId);
+    }
+
+    @PostMapping("/edit/{playlistId}")
+    public PlaylistInfoDTO editPlaylist(@PathVariable Integer playlistId, @RequestBody PlaylistEditDTO playlistEditDTO, Authentication authentication) {
+        return playlistService.editPlaylist(authentication.getName(), playlistId, playlistEditDTO);
     }
 
     @PostMapping("/edit/{playlistId}/rename")

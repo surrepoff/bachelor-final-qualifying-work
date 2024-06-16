@@ -29,7 +29,7 @@
             android:layout_height="50dp"
             android:background="@color/purple_500"
             android:padding="10dp"
-            android:text="User Nickame"
+            android:text="Имя пользователя"
             android:textColor="@color/white"
             android:textSize="24sp"
             android:textStyle="bold"

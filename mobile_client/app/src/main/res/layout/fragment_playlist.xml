@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.swiperefreshlayout.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.playlist.PlaylistFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="10dp">
+
+        <ImageButton
+            android:id="@+id/fragmentPlaylist_closeButton"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@null"
+            android:contentDescription="Close Button"
+            android:scaleType="centerInside"
+            android:src="@drawable/ic_close"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/fragmentPlaylist_headerName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:text="Плейлист"
+            android:textColor="@color/black"
+            android:textSize="24sp"
+            app:layout_constraintBottom_toBottomOf="@id/fragmentPlaylist_closeButton"
+            app:layout_constraintEnd_toStartOf="@id/fragmentPlaylist_playlistEdit"
+            app:layout_constraintStart_toEndOf="@id/fragmentPlaylist_closeButton"
+            app:layout_constraintTop_toTopOf="@id/fragmentPlaylist_closeButton" />
+
+        <ImageButton
+            android:id="@+id/fragmentPlaylist_playlistEdit"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@null"
+            android:contentDescription="Edit Playlist"
+            android:scaleType="centerInside"
+            android:src="@drawable/ic_pencil"
+            app:layout_constraintBottom_toBottomOf="@id/fragmentPlaylist_headerName"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/fragmentPlaylist_headerName" />
+
+        <ImageView
+            android:id="@+id/fragmentPlaylist_playlistImage"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="10dp"
+            android:contentDescription="Image"
+            android:src="@drawable/default_album"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/fragmentPlaylist_closeButton" />
+
+        <TextView
+            android:id="@+id/fragmentPlaylist_playlistName"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="10dp"
+            android:text="Название плейлиста"
+            android:textColor="@color/black"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/fragmentPlaylist_playlistImage"
+            app:layout_constraintTop_toTopOf="@id/fragmentPlaylist_playlistImage" />
+
+        <TextView
+            android:id="@+id/fragmentPlaylist_ownerName"
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="10dp"
+            android:text="Имя владельца"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/fragmentPlaylist_playlistImage"
+            app:layout_constraintTop_toBottomOf="@id/fragmentPlaylist_playlistName" />
+
+        <ImageButton
+            android:id="@+id/fragmentPlaylist_dislikeButton"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="10dp"
+            android:background="@android:color/transparent"
+            android:contentDescription="Dislike Button"
+            android:src="@drawable/ic_thumb_down_outline"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/fragmentPlaylist_ownerName" />
+
+        <ImageButton
+            android:id="@+id/fragmentPlaylist_likeButton"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_margin="10dp"
+            android:background="@android:color/transparent"
+            android:contentDescription="Like Button"
+            android:src="@drawable/ic_thumb_up_outline"
+            app:layout_constraintBottom_toBottomOf="@id/fragmentPlaylist_dislikeButton"
+            app:layout_constraintEnd_toStartOf="@id/fragmentPlaylist_dislikeButton"
+            app:layout_constraintTop_toTopOf="@id/fragmentPlaylist_dislikeButton" />
+
+        <ImageButton
+            android:id="@+id/fragmentPlaylist_addButton"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_margin="10dp"
+            android:background="@android:color/transparent"
+            android:contentDescription="Add/Remove Button"
+            android:src="@drawable/ic_plus"
+            app:layout_constraintBottom_toBottomOf="@id/fragmentPlaylist_dislikeButton"
+            app:layout_constraintEnd_toStartOf="@id/fragmentPlaylist_likeButton"
+            app:layout_constraintTop_toTopOf="@id/fragmentPlaylist_dislikeButton" />
+
+        <TextView
+            android:id="@+id/fragmentPlaylist_createName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="Дата создания: "
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/fragmentPlaylist_dislikeButton" />
+
+        <TextView
+            android:id="@+id/fragmentPlaylist_createText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="DATE"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="@id/fragmentPlaylist_createName"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/fragmentPlaylist_createName"
+            app:layout_constraintTop_toTopOf="@id/fragmentPlaylist_createName" />
+
+        <TextView
+            android:id="@+id/fragmentPlaylist_lastUpdateName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="Дата последнего изменения: "
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/fragmentPlaylist_createText" />
+
+        <TextView
+            android:id="@+id/fragmentPlaylist_lastUpdateText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="DATE"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="@id/fragmentPlaylist_lastUpdateName"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/fragmentPlaylist_lastUpdateName"
+            app:layout_constraintTop_toTopOf="@id/fragmentPlaylist_lastUpdateName" />
+
+        <TextView
+            android:id="@+id/fragmentPlaylist_trackName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Треки"
+            android:textColor="@color/black"
+            android:textSize="24sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/fragmentPlaylist_lastUpdateText" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/fragmentPlaylist_trackRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="10dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/fragmentPlaylist_trackName" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

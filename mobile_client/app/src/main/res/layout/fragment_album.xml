@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.swiperefreshlayout.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.album.AlbumFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="10dp">
+
+        <ImageButton
+            android:id="@+id/fragmentAlbum_closeButton"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@null"
+            android:contentDescription="Close Button"
+            android:scaleType="centerInside"
+            android:src="@drawable/ic_close"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/fragmentAlbum_headerName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:text="Альбом"
+            android:textColor="@color/black"
+            android:textSize="24sp"
+            app:layout_constraintBottom_toBottomOf="@id/fragmentAlbum_closeButton"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/fragmentAlbum_closeButton"
+            app:layout_constraintTop_toTopOf="@id/fragmentAlbum_closeButton" />
+
+        <ImageView
+            android:id="@+id/fragmentAlbum_albumImage"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="10dp"
+            android:contentDescription="Image"
+            android:src="@drawable/default_album"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/fragmentAlbum_closeButton" />
+
+        <TextView
+            android:id="@+id/fragmentAlbum_albumName"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="10dp"
+            android:text="Название альбома"
+            android:textColor="@color/black"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/fragmentAlbum_albumImage"
+            app:layout_constraintTop_toTopOf="@id/fragmentAlbum_albumImage" />
+
+        <TextView
+            android:id="@+id/fragmentAlbum_artistName"
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="10dp"
+            android:text="Имя артиста"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/fragmentAlbum_albumImage"
+            app:layout_constraintTop_toBottomOf="@id/fragmentAlbum_albumName" />
+
+        <ImageButton
+            android:id="@+id/fragmentAlbum_dislikeButton"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="10dp"
+            android:background="@android:color/transparent"
+            android:contentDescription="Dislike Button"
+            android:src="@drawable/ic_thumb_down_outline"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/fragmentAlbum_artistName" />
+
+        <ImageButton
+            android:id="@+id/fragmentAlbum_likeButton"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_margin="10dp"
+            android:background="@android:color/transparent"
+            android:contentDescription="Like Button"
+            android:src="@drawable/ic_thumb_up_outline"
+            app:layout_constraintBottom_toBottomOf="@id/fragmentAlbum_dislikeButton"
+            app:layout_constraintEnd_toStartOf="@id/fragmentAlbum_dislikeButton"
+            app:layout_constraintTop_toTopOf="@id/fragmentAlbum_dislikeButton" />
+
+        <ImageButton
+            android:id="@+id/fragmentAlbum_addButton"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_margin="10dp"
+            android:background="@android:color/transparent"
+            android:contentDescription="Add/Remove Button"
+            android:src="@drawable/ic_plus"
+            app:layout_constraintBottom_toBottomOf="@id/fragmentAlbum_dislikeButton"
+            app:layout_constraintEnd_toStartOf="@id/fragmentAlbum_likeButton"
+            app:layout_constraintTop_toTopOf="@id/fragmentAlbum_dislikeButton" />
+
+        <TextView
+            android:id="@+id/fragmentAlbum_trackName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Треки"
+            android:textColor="@color/black"
+            android:textSize="24sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/fragmentAlbum_dislikeButton" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/fragmentAlbum_trackRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="10dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/fragmentAlbum_trackName"
+            app:layout_constraintVertical_bias="0.0" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

@@ -2,11 +2,11 @@ package com.bessonov.musicappserver.playlist;
 
 import java.util.List;
 
-public class PlaylistCreateDTO {
+public class PlaylistEditDTO {
     private String name;
     private List<Integer> trackId;
 
-    public PlaylistCreateDTO(String name, List<Integer> trackId) {
+    public PlaylistEditDTO(String name, List<Integer> trackId) {
         this.name = name;
         this.trackId = trackId;
     }
@@ -29,7 +29,7 @@ public class PlaylistCreateDTO {
 
     @Override
     public String toString() {
-        return "PlaylistCreateDTO{" +
+        return "PlaylistEditDTO{" +
                 "name='" + name + '\'' +
                 ", trackId=" + trackId +
                 '}';
