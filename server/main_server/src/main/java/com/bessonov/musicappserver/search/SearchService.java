@@ -13,6 +13,7 @@ import com.bessonov.musicappserver.database.track.TrackRepository;
 import com.bessonov.musicappserver.database.userData.UserData;
 import com.bessonov.musicappserver.database.userData.UserDataRepository;
 import com.bessonov.musicappserver.playlist.PlaylistService;
+import com.bessonov.musicappserver.track.TrackInfoDTO;
 import com.bessonov.musicappserver.track.TrackService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -90,5 +91,21 @@ public class SearchService {
         searchInfoDTO.setFoundedTrack(trackService.getByTrackIdList(username, trackIdList));
 
         return searchInfoDTO;
+    }
+
+    public List<TrackInfoDTO> searchTrackByName(String name, String username) {
+        Optional<UserData> userData = userDataRepository.findByUsername(username);
+
+        if (userData.isEmpty()) {
+            return null;
+        }
+
+        List<Track> trackList = trackRepository.findByNameContainingOrderByNameAsc(name);
+        List<Integer> trackIdList = new ArrayList<>();
+        for (Track track : trackList) {
+            trackIdList.add(track.getId());
+        }
+
+        return trackService.getByTrackIdList(username, trackIdList);
     }
 }

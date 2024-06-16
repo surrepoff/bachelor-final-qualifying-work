@@ -1,6 +1,8 @@
 package com.bessonov.musicappclient.api
 
 import com.bessonov.musicappclient.dto.ArtistInfoDTO
+import com.bessonov.musicappclient.dto.UserArtistDTO
+import com.bessonov.musicappclient.dto.UserRatingDTO
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -19,4 +21,13 @@ interface ArtistAPI {
 
     @GET("/artist/get/user")
     fun getArtistUserList(): Call<List<ArtistInfoDTO>>
+
+    @GET("/artist/add/{artistId}")
+    fun addArtistToUserList(@Path("artistId") artistId: Int): Call<UserArtistDTO>
+
+    @GET("/artist/remove/{artistId}")
+    fun removeArtistFromUserList(@Path("artistId") artistId: Int): Call<UserArtistDTO>
+
+    @POST("/artist/rate/{artistId}")
+    fun rateArtist(@Path("artistId") artistId: Int, @Body rateId: Int): Call<UserRatingDTO>
 }

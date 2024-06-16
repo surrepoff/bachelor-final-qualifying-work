@@ -1,6 +1,8 @@
 package com.bessonov.musicappclient.api
 
 import com.bessonov.musicappclient.dto.AlbumInfoDTO
+import com.bessonov.musicappclient.dto.UserAlbumDTO
+import com.bessonov.musicappclient.dto.UserRatingDTO
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -19,4 +21,13 @@ interface AlbumAPI {
 
     @GET("/album/get/user")
     fun getAlbumUserList(): Call<List<AlbumInfoDTO>>
+
+    @GET("/album/add/{albumId}")
+    fun addAlbumToUserList(@Path("albumId") albumId: Int): Call<UserAlbumDTO>
+
+    @GET("/album/remove/{albumId}")
+    fun removeAlbumFromUserList(@Path("albumId") albumId: Int): Call<UserAlbumDTO>
+
+    @POST("/album/rate/{albumId}")
+    fun rateAlbum(@Path("albumId") albumId: Int, @Body rateId: Int): Call<UserRatingDTO>
 }
