@@ -60,4 +60,3 @@ class UserRecommendationTrackTable(Model):
     user_recommendation_id = Column('user_recommendation_id', Integer, primary_key=True, index=True)
     track_id = Column('track_id', Integer, primary_key=True, nullable=False)
     track_number_in_recommendation = Column('track_number_in_recommendation', Integer, nullable=False)
-

@@ -1,13 +1,11 @@
-import json
-import random
-import numpy as np
-import tensorflow as tf
 import pickle
+import random
 
+import numpy as np
+from keras.models import model_from_json
+from sklearn.model_selection import train_test_split
 from tensorflow.keras import Sequential
 from tensorflow.keras.layers import Dense, Input, Flatten, GaussianDropout
-from sklearn.model_selection import train_test_split
-from keras.models import model_from_json
 
 from api.repository import SegmentAudioFeatureRepository, NeuralNetworkRepository, TrackRepository
 from api.schemas import RecommendationCreateDTO
@@ -143,6 +141,8 @@ class NeuralNetwork:
         genres_track_count = await TrackRepository.get_track_count_by_genre(recommendationCreateDTO.genreId)
         recommendation_size = min(recommendationCreateDTO.size, genres_track_count)
 
+        counter = 0
+
         while len(recommendation) < recommendation_size:
             for track_id in track_id_sorted_by_rating:
                 if len(recommendation) >= recommendation_size:
@@ -159,6 +159,10 @@ class NeuralNetwork:
                 else:
                     if random_number < 1 - recommendationCreateDTO.familiarityPercentage:
                         recommendation.append(track_id)
+
+                counter += 1
+                if counter >= recommendation_size * 1000:
+                    break
 
         random.shuffle(recommendation)
 

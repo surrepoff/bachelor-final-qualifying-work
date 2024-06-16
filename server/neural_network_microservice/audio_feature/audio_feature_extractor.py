@@ -1,9 +1,9 @@
+import platform
+from typing import List
+
+import audioread.ffdec
 import librosa
 import numpy as np
-import audioread.ffdec
-import platform
-
-from typing import List
 
 from api.repository import TrackRepository, AudioFeatureRepository, SegmentAudioFeatureRepository
 
@@ -231,7 +231,7 @@ class AudioFeatureExtractor:
 
         audio_filename = AUDIO_PATH + audio_filename
 
-        audio_feature_id = await AudioFeatureRepository.get_audio_feature_id(track_id,extraction_type_id)
+        audio_feature_id = await AudioFeatureRepository.get_audio_feature_id(track_id, extraction_type_id)
 
         audio_duration = AudioFeatureExtractor._get_audio_duration(self, audio_filename)
         print("Длина файла: ", audio_duration)

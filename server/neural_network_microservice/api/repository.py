@@ -369,7 +369,7 @@ class NeuralNetworkRepository:
             for i in range(len(recommendation)):
                 user_recommendation_track = UserRecommendationTrackTable(user_recommendation_id=user_recommendation.id,
                                                                          track_id=recommendation[i],
-                                                                         track_number_in_recommendation=i+1)
+                                                                         track_number_in_recommendation=i + 1)
                 session.add(user_recommendation_track)
                 await session.commit()
 
