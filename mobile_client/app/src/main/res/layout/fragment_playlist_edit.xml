@@ -11,7 +11,7 @@
         android:id="@+id/fragmentPlaylistEdit_closeButton"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:background="@null"
+        android:background="@android:color/transparent"
         android:contentDescription="Close Button"
         android:scaleType="centerInside"
         android:src="@drawable/ic_close"

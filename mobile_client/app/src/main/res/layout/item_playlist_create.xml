@@ -6,10 +6,10 @@
     android:padding="10dp">
 
     <TextView
-        android:id="@+id/itemRecommendationCreate_headerName"
+        android:id="@+id/itemPlaylistCreate_headerName"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Персональные рекомендации"
+        android:text="Плейлисты"
         android:textColor="@color/black"
         android:textSize="24sp"
         android:textStyle="bold"
@@ -18,15 +18,15 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/itemRecommendationCreate_createButton"
+        android:id="@+id/itemPlaylistCreate_createButton"
         android:layout_width="match_parent"
         android:backgroundTint="@color/black"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:text="Получить рекомендацию"
+        android:text="Создать плейлист"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/itemRecommendationCreate_headerName" />
+        app:layout_constraintTop_toBottomOf="@id/itemPlaylistCreate_headerName" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

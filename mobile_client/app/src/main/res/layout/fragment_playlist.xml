@@ -15,7 +15,7 @@
             android:id="@+id/fragmentPlaylist_closeButton"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:background="@null"
+            android:background="@android:color/transparent"
             android:contentDescription="Close Button"
             android:scaleType="centerInside"
             android:src="@drawable/ic_close"
@@ -40,7 +40,7 @@
             android:id="@+id/fragmentPlaylist_playlistEdit"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:background="@null"
+            android:background="@android:color/transparent"
             android:contentDescription="Edit Playlist"
             android:scaleType="centerInside"
             android:src="@drawable/ic_pencil"
@@ -116,6 +116,18 @@
             android:src="@drawable/ic_plus"
             app:layout_constraintBottom_toBottomOf="@id/fragmentPlaylist_dislikeButton"
             app:layout_constraintEnd_toStartOf="@id/fragmentPlaylist_likeButton"
+            app:layout_constraintTop_toTopOf="@id/fragmentPlaylist_dislikeButton" />
+
+        <ImageButton
+            android:id="@+id/fragmentPlaylist_deleteButton"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="20dp"
+            android:background="@android:color/transparent"
+            android:contentDescription="Delete Button"
+            android:src="@drawable/ic_trash_can_outline"
+            app:layout_constraintBottom_toBottomOf="@id/fragmentPlaylist_dislikeButton"
+            app:layout_constraintStart_toEndOf="@id/fragmentPlaylist_playlistImage"
             app:layout_constraintTop_toTopOf="@id/fragmentPlaylist_dislikeButton" />
 
         <TextView

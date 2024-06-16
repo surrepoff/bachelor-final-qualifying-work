@@ -133,6 +133,14 @@ class MyMusicFragment : Fragment() {
             info = ""
         )
 
+        val playlistCreateSection: Section<String> = Section(
+            title = "Создать плейлист",
+            type = SectionType.PLAYLIST_CREATE,
+            items = listOf(""),
+            orientation = LinearLayoutManager.VERTICAL,
+            info = ""
+        )
+
         val playlistSection: Section<PlaylistInfoDTO> = Section(
             title = "Мои Плейлисты",
             type = SectionType.PLAYLIST,
@@ -149,7 +157,7 @@ class MyMusicFragment : Fragment() {
             info = ""
         )
 
-        sectionList = listOf(artistSection, albumSection, playlistSection, trackSection)
+        sectionList = listOf(artistSection, albumSection, playlistCreateSection, playlistSection, trackSection)
 
         val sectionAdapter = SectionAdapter(requireContext(), sectionList) { section ->
             (activity as MainActivity).openSectionFragment(section)

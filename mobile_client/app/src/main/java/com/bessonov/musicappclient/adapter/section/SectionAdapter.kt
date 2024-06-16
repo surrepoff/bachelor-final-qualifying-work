@@ -12,6 +12,7 @@ import com.bessonov.musicappclient.R
 import com.bessonov.musicappclient.adapter.album.AlbumAdapter
 import com.bessonov.musicappclient.adapter.artist.ArtistAdapter
 import com.bessonov.musicappclient.adapter.playlist.PlaylistAdapter
+import com.bessonov.musicappclient.adapter.playlistCreate.PlaylistCreateAdapter
 import com.bessonov.musicappclient.adapter.recommendation.RecommendationAdapter
 import com.bessonov.musicappclient.adapter.recommendationCreate.RecommendationCreateAdapter
 import com.bessonov.musicappclient.adapter.track.DragManageAdapter
@@ -22,6 +23,7 @@ import com.bessonov.musicappclient.dto.ArtistInfoDTO
 import com.bessonov.musicappclient.dto.PlaylistInfoDTO
 import com.bessonov.musicappclient.dto.RecommendationInfoDTO
 import com.bessonov.musicappclient.dto.TrackInfoDTO
+import com.bessonov.musicappclient.ui.main.MainActivity
 
 class SectionAdapter(
     private val context: Context,
@@ -81,6 +83,16 @@ class SectionAdapter(
                 holder.recyclerView.adapter = playlistAdapter
             }
 
+            SectionType.PLAYLIST_CREATE -> {
+                val playlistCreateList = section.items.filterIsInstance<String>()
+                val playlistCreateAdapter =
+                    PlaylistCreateAdapter(context, playlistCreateList) {
+                        onItemClick.invoke(sectionList[position])
+                    }
+                holder.header.visibility = View.GONE
+                holder.recyclerView.adapter = playlistCreateAdapter
+            }
+
             SectionType.RECOMMENDATION -> {
                 val recommendationInfoDTOList =
                     section.items.filterIsInstance<RecommendationInfoDTO>()
@@ -92,7 +104,9 @@ class SectionAdapter(
             SectionType.RECOMMENDATION_CREATE -> {
                 val recommendationCreateList = section.items.filterIsInstance<String>()
                 val recommendationCreateAdapter =
-                    RecommendationCreateAdapter(context, recommendationCreateList)
+                    RecommendationCreateAdapter(context, recommendationCreateList){
+                        onItemClick.invoke(sectionList[position])
+                    }
                 holder.header.visibility = View.GONE
                 holder.recyclerView.adapter = recommendationCreateAdapter
             }

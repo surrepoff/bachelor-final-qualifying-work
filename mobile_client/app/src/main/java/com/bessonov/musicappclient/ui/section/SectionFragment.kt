@@ -17,6 +17,7 @@ import com.bessonov.musicappclient.R
 import com.bessonov.musicappclient.adapter.album.AlbumAdapter
 import com.bessonov.musicappclient.adapter.artist.ArtistAdapter
 import com.bessonov.musicappclient.adapter.playlist.PlaylistAdapter
+import com.bessonov.musicappclient.adapter.recommendation.RecommendationAdapter
 import com.bessonov.musicappclient.adapter.section.Section
 import com.bessonov.musicappclient.adapter.section.SectionType
 import com.bessonov.musicappclient.adapter.track.DragManageAdapter
@@ -25,12 +26,14 @@ import com.bessonov.musicappclient.adapter.track.TrackItemClickListener
 import com.bessonov.musicappclient.api.AlbumAPI
 import com.bessonov.musicappclient.api.ArtistAPI
 import com.bessonov.musicappclient.api.PlaylistAPI
+import com.bessonov.musicappclient.api.RecommendationAPI
 import com.bessonov.musicappclient.api.RetrofitClient
 import com.bessonov.musicappclient.api.SearchAPI
 import com.bessonov.musicappclient.api.TrackAPI
 import com.bessonov.musicappclient.dto.AlbumInfoDTO
 import com.bessonov.musicappclient.dto.ArtistInfoDTO
 import com.bessonov.musicappclient.dto.PlaylistInfoDTO
+import com.bessonov.musicappclient.dto.RecommendationInfoDTO
 import com.bessonov.musicappclient.dto.SearchInfoDTO
 import com.bessonov.musicappclient.dto.SearchRequestDTO
 import com.bessonov.musicappclient.dto.TrackInfoDTO
@@ -101,6 +104,14 @@ class SectionFragment(
                 recyclerView.adapter = playlistAdapter
             }
 
+            SectionType.RECOMMENDATION -> {
+                val recommendationInfoDTOList =
+                    section.items.filterIsInstance<RecommendationInfoDTO>()
+                val recommendationAdapter =
+                    RecommendationAdapter(requireContext(), recommendationInfoDTOList, LinearLayoutManager.VERTICAL)
+                recyclerView.adapter = recommendationAdapter
+            }
+
             SectionType.TRACK -> {
                 val trackInfoDTOList = section.items.filterIsInstance<TrackInfoDTO>()
                 val trackAdapter =
@@ -120,6 +131,10 @@ class SectionFragment(
 
     private fun loadData() {
         when (section.title) {
+            "Мои Рекомендации" -> {
+                loadRecommendations()
+            }
+
             "Артисты" -> {
                 loadArtists()
             }
@@ -168,6 +183,40 @@ class SectionFragment(
                 loadTrackHistory()
             }
         }
+    }
+
+    private fun loadRecommendations() {
+        val retrofitClient = RetrofitClient()
+        val recommendationAPI =
+            retrofitClient.getRetrofit(requireContext()).create(RecommendationAPI::class.java)
+
+        recommendationAPI.getUserRecommendationList()
+            .enqueue(object : Callback<List<RecommendationInfoDTO>> {
+                override fun onResponse(
+                    call: Call<List<RecommendationInfoDTO>>,
+                    response: Response<List<RecommendationInfoDTO>>
+                ) {
+                    if (response.isSuccessful && response.body() != null) {
+                        section.items = (response.body() as List<Nothing>?)!!
+                        populateListView()
+                    } else {
+                        Toast.makeText(
+                            requireContext(),
+                            "Failed to load recommendations (onResponse)",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                }
+
+                override fun onFailure(call: Call<List<RecommendationInfoDTO>>, t: Throwable) {
+                    Log.e("LoadRecommendations", "Failed to load recommendations", t)
+                    Toast.makeText(
+                        requireContext(),
+                        "Failed to load recommendations (onFailure)",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            })
     }
 
     private fun loadArtists() {

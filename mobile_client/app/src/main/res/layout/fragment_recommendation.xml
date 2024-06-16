@@ -15,7 +15,7 @@
             android:id="@+id/fragmentRecommendation_closeButton"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:background="@null"
+            android:background="@android:color/transparent"
             android:contentDescription="Close Button"
             android:scaleType="centerInside"
             android:src="@drawable/ic_close"
@@ -104,6 +104,18 @@
             android:src="@drawable/ic_thumb_up_outline"
             app:layout_constraintBottom_toBottomOf="@id/fragmentRecommendation_dislikeButton"
             app:layout_constraintEnd_toStartOf="@id/fragmentRecommendation_dislikeButton"
+            app:layout_constraintTop_toTopOf="@id/fragmentRecommendation_dislikeButton" />
+
+        <ImageButton
+            android:id="@+id/fragmentRecommendation_deleteButton"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="20dp"
+            android:background="@android:color/transparent"
+            android:contentDescription="Delete Button"
+            android:src="@drawable/ic_trash_can_outline"
+            app:layout_constraintBottom_toBottomOf="@id/fragmentRecommendation_dislikeButton"
+            app:layout_constraintStart_toEndOf="@id/fragmentRecommendation_recommendationImage"
             app:layout_constraintTop_toTopOf="@id/fragmentRecommendation_dislikeButton" />
 
         <TextView

@@ -1,4 +1,4 @@
-package com.bessonov.musicappclient.adapter.recommendationCreate
+package com.bessonov.musicappclient.adapter.playlistCreate
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -8,26 +8,26 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bessonov.musicappclient.R
 import com.bessonov.musicappclient.adapter.section.Section
 
-class RecommendationCreateAdapter(
+class PlaylistCreateAdapter(
     private val context: Context,
-    private val recommendationCreateList: List<String>,
+    private val playlistCreateList: List<String>,
     private val onButtonClick: () -> Unit
-) : RecyclerView.Adapter<RecommendationCreateViewHolder>() {
+) : RecyclerView.Adapter<PlaylistCreateViewHolder>() {
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): RecommendationCreateViewHolder {
+    ): PlaylistCreateViewHolder {
         val view: View = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_recommendation_create, parent, false)
-        return RecommendationCreateViewHolder(view)
+            .inflate(R.layout.item_playlist_create, parent, false)
+        return PlaylistCreateViewHolder(view)
     }
 
     override fun getItemCount(): Int {
-        return recommendationCreateList.size
+        return playlistCreateList.size
     }
 
-    override fun onBindViewHolder(holder: RecommendationCreateViewHolder, position: Int) {
-        val recommendationCreate = recommendationCreateList[position]
+    override fun onBindViewHolder(holder: PlaylistCreateViewHolder, position: Int) {
+        val recommendationCreate = playlistCreateList[position]
 
         holder.createButton.setOnClickListener {
             onButtonClick.invoke()
