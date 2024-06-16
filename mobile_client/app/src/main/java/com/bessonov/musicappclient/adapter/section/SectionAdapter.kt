@@ -12,12 +12,15 @@ import com.bessonov.musicappclient.R
 import com.bessonov.musicappclient.adapter.album.AlbumAdapter
 import com.bessonov.musicappclient.adapter.artist.ArtistAdapter
 import com.bessonov.musicappclient.adapter.playlist.PlaylistAdapter
+import com.bessonov.musicappclient.adapter.recommendation.RecommendationAdapter
+import com.bessonov.musicappclient.adapter.recommendationCreate.RecommendationCreateAdapter
 import com.bessonov.musicappclient.adapter.track.DragManageAdapter
 import com.bessonov.musicappclient.adapter.track.TrackAdapter
 import com.bessonov.musicappclient.adapter.track.TrackItemClickListener
 import com.bessonov.musicappclient.dto.AlbumInfoDTO
 import com.bessonov.musicappclient.dto.ArtistInfoDTO
 import com.bessonov.musicappclient.dto.PlaylistInfoDTO
+import com.bessonov.musicappclient.dto.RecommendationInfoDTO
 import com.bessonov.musicappclient.dto.TrackInfoDTO
 
 class SectionAdapter(
@@ -76,6 +79,22 @@ class SectionAdapter(
                 val playlistAdapter =
                     PlaylistAdapter(context, playlistInfoDTOList, section.orientation)
                 holder.recyclerView.adapter = playlistAdapter
+            }
+
+            SectionType.RECOMMENDATION -> {
+                val recommendationInfoDTOList =
+                    section.items.filterIsInstance<RecommendationInfoDTO>()
+                val recommendationAdapter =
+                    RecommendationAdapter(context, recommendationInfoDTOList, section.orientation)
+                holder.recyclerView.adapter = recommendationAdapter
+            }
+
+            SectionType.RECOMMENDATION_CREATE -> {
+                val recommendationCreateList = section.items.filterIsInstance<String>()
+                val recommendationCreateAdapter =
+                    RecommendationCreateAdapter(context, recommendationCreateList)
+                holder.header.visibility = View.GONE
+                holder.recyclerView.adapter = recommendationCreateAdapter
             }
 
             SectionType.TRACK -> {

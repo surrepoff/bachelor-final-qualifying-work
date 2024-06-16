@@ -142,7 +142,7 @@ class SearchFragment : Fragment() {
 
         if (isSearch) {
             val artistSection: Section<ArtistInfoDTO> = Section(
-                title = "Founded Artists",
+                title = "Найденные Артисты",
                 type = SectionType.ARTIST,
                 items = searchInfoDTO.foundedArtist,
                 orientation = LinearLayoutManager.HORIZONTAL,
@@ -150,7 +150,7 @@ class SearchFragment : Fragment() {
             )
 
             val albumSection: Section<AlbumInfoDTO> = Section(
-                title = "Founded Albums",
+                title = "Найденные Альбомы",
                 type = SectionType.ALBUM,
                 items = searchInfoDTO.foundedAlbum,
                 orientation = LinearLayoutManager.HORIZONTAL,
@@ -158,7 +158,7 @@ class SearchFragment : Fragment() {
             )
 
             val playlistSection: Section<PlaylistInfoDTO> = Section(
-                title = "Founded Playlists",
+                title = "Найденные Плейлисты",
                 type = SectionType.PLAYLIST,
                 items = searchInfoDTO.foundedPlaylist,
                 orientation = LinearLayoutManager.HORIZONTAL,
@@ -166,7 +166,7 @@ class SearchFragment : Fragment() {
             )
 
             val trackSection: Section<TrackInfoDTO> = Section(
-                title = "Founded Tracks",
+                title = "Найденные Треки",
                 type = SectionType.TRACK,
                 items = searchInfoDTO.foundedTrack,
                 orientation = LinearLayoutManager.VERTICAL,
@@ -181,7 +181,7 @@ class SearchFragment : Fragment() {
             recyclerView.adapter = sectionAdapter
         } else {
             val trackHistorySection: Section<TrackInfoDTO> = Section(
-                title = "Track History",
+                title = "История Прослушивания",
                 type = SectionType.TRACK,
                 items = historyTrackInfoDTOList,
                 orientation = LinearLayoutManager.VERTICAL,

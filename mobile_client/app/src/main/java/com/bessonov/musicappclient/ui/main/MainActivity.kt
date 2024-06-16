@@ -1,6 +1,7 @@
 package com.bessonov.musicappclient.ui.main
 
 import android.os.Bundle
+import android.view.View
 import android.view.Window
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
@@ -17,7 +18,8 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {
     private lateinit var bottomNavigationView: BottomNavigationView
-    private lateinit var fragmentContainerView: FragmentContainerView
+    private lateinit var mainFragmentContainerView: FragmentContainerView
+    private lateinit var shortMusicPlayerFragmentContainerView: FragmentContainerView
 
     private lateinit var homeFragment: HomeFragment
     private lateinit var searchFragment: SearchFragment
@@ -32,7 +34,11 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         bottomNavigationView = findViewById(R.id.bottomNavigationView)
-        fragmentContainerView = findViewById(R.id.fragmentContainerView)
+        mainFragmentContainerView = findViewById(R.id.mainFragmentContainerView)
+        shortMusicPlayerFragmentContainerView =
+            findViewById(R.id.shortMusicPlayerFragmentContainerView)
+
+        shortMusicPlayerFragmentContainerView.visibility = View.GONE
 
         homeFragment = HomeFragment()
         searchFragment = SearchFragment()
@@ -40,9 +46,11 @@ class MainActivity : AppCompatActivity() {
 
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction().apply {
-                add(R.id.fragmentContainerView, homeFragment, "HOME").hide(homeFragment)
-                add(R.id.fragmentContainerView, searchFragment, "SEARCH").hide(searchFragment)
-                add(R.id.fragmentContainerView, myMusicFragment, "MY_MUSIC").hide(myMusicFragment)
+                add(R.id.mainFragmentContainerView, homeFragment, "HOME").hide(homeFragment)
+                add(R.id.mainFragmentContainerView, searchFragment, "SEARCH").hide(searchFragment)
+                add(R.id.mainFragmentContainerView, myMusicFragment, "MY_MUSIC").hide(
+                    myMusicFragment
+                )
             }.commit()
 
             activeFragment = homeFragment
@@ -84,14 +92,14 @@ class MainActivity : AppCompatActivity() {
 
     fun openSectionFragment(section: Section<*>) {
         supportFragmentManager.beginTransaction().apply {
-            replace(R.id.fragmentContainerView, SectionFragment(section))
+            replace(R.id.mainFragmentContainerView, SectionFragment(section))
             addToBackStack(null)
         }.commit()
     }
 
     fun openProfileFragment() {
         supportFragmentManager.beginTransaction().apply {
-            replace(R.id.fragmentContainerView, ProfileFragment())
+            replace(R.id.mainFragmentContainerView, ProfileFragment())
             addToBackStack(null)
         }.commit()
     }

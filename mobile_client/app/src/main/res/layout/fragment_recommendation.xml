@@ -32,20 +32,20 @@
             android:textColor="@color/black"
             android:textSize="24sp"
             app:layout_constraintBottom_toBottomOf="@id/fragmentRecommendation_closeButton"
-            app:layout_constraintEnd_toStartOf="@id/fragmentRecommendation_recommendationAdd"
             app:layout_constraintStart_toEndOf="@id/fragmentRecommendation_closeButton"
             app:layout_constraintTop_toTopOf="@id/fragmentRecommendation_closeButton" />
 
-        <ImageButton
+        <Button
             android:id="@+id/fragmentRecommendation_recommendationAdd"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
             android:background="@null"
-            android:contentDescription="Add Recommendation As Playlist"
-            android:scaleType="centerInside"
-            android:src="@drawable/ic_plus"
+            android:backgroundTint="@color/black"
+            android:text="Сохранить как плейлист"
             app:layout_constraintBottom_toBottomOf="@id/fragmentRecommendation_headerName"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/fragmentRecommendation_headerName"
             app:layout_constraintTop_toTopOf="@id/fragmentRecommendation_headerName" />
 
         <ImageView
@@ -110,24 +110,24 @@
             android:id="@+id/fragmentRecommendation_createName"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
             android:text="Дата создания: "
             android:textColor="@color/black"
             android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="@id/fragmentRecommendation_createText"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/fragmentRecommendation_dislikeButton" />
+            app:layout_constraintTop_toTopOf="@id/fragmentRecommendation_createText" />
 
         <TextView
             android:id="@+id/fragmentRecommendation_createText"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:text="DATE"
             android:textColor="@color/black"
             android:textSize="16sp"
-            app:layout_constraintBottom_toBottomOf="@id/fragmentRecommendation_createName"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/fragmentRecommendation_createName"
-            app:layout_constraintTop_toTopOf="@id/fragmentRecommendation_createName" />
+            app:layout_constraintTop_toBottomOf="@id/fragmentRecommendation_dislikeButton" />
 
         <TextView
             android:id="@+id/fragmentRecommendation_trackName"

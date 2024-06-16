@@ -5,6 +5,7 @@
     android:id="@+id/fragmentSection_swipeRefreshLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="10dp"
     tools:context=".ui.section.SectionFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -15,7 +16,6 @@
             android:id="@+id/fragmentSection_closeButton"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:layout_margin="10dp"
             android:background="@null"
             android:contentDescription="Close Button"
             android:scaleType="centerInside"
@@ -27,7 +27,7 @@
             android:id="@+id/fragmentSection_sectionName"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
+            android:layout_marginStart="10dp"
             android:text="Название секции"
             android:textColor="@color/black"
             android:textSize="24sp"
@@ -44,7 +44,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/fragmentSection_sectionName" />
+            app:layout_constraintTop_toBottomOf="@id/fragmentSection_closeButton" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

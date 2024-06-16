@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="10dp">
+
+    <ImageView
+        android:id="@+id/itemRecommendationVertical_recommendationImage"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:contentDescription="Image"
+        android:src="@drawable/default_album"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/itemRecommendationVertical_recommendationName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:text="Название"
+        android:textColor="@color/black"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/itemRecommendationVertical_recommendationImage"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/itemRecommendationVertical_ownerName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:text="Имя владельца"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/itemRecommendationVertical_recommendationImage"
+        app:layout_constraintTop_toBottomOf="@id/itemRecommendationVertical_recommendationName" />
+
+    <ImageButton
+        android:id="@+id/itemRecommendationVertical_dislikeButton"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="10dp"
+        android:background="@android:color/transparent"
+        android:contentDescription="Dislike Button"
+        android:src="@drawable/ic_thumb_down_outline"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/itemRecommendationVertical_ownerName" />
+
+    <ImageButton
+        android:id="@+id/itemRecommendationVertical_likeButton"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_margin="10dp"
+        android:background="@android:color/transparent"
+        android:contentDescription="Like Button"
+        android:src="@drawable/ic_thumb_up_outline"
+        app:layout_constraintBottom_toBottomOf="@id/itemRecommendationVertical_dislikeButton"
+        app:layout_constraintEnd_toStartOf="@id/itemRecommendationVertical_dislikeButton"
+        app:layout_constraintTop_toTopOf="@id/itemRecommendationVertical_dislikeButton" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

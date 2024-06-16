@@ -2,9 +2,9 @@ package com.bessonov.musicappclient.ui.musicPlayer
 
 import android.widget.Button
 import android.widget.TextView
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import androidx.fragment.app.Fragment
 
-class FullMusicPlayerFragment : BottomSheetDialogFragment() {
+class FullMusicPlayerFragment : Fragment() {
     private lateinit var trackTitle: TextView
     private lateinit var artistName: TextView
     private lateinit var stopButton: Button

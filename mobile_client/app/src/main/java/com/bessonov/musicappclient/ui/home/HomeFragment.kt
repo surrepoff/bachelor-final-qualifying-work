@@ -18,11 +18,13 @@ import com.bessonov.musicappclient.adapter.section.SectionAdapter
 import com.bessonov.musicappclient.adapter.section.SectionType
 import com.bessonov.musicappclient.api.AlbumAPI
 import com.bessonov.musicappclient.api.ArtistAPI
+import com.bessonov.musicappclient.api.RecommendationAPI
 import com.bessonov.musicappclient.api.RetrofitClient
 import com.bessonov.musicappclient.api.TrackAPI
 import com.bessonov.musicappclient.api.UserAPI
 import com.bessonov.musicappclient.dto.AlbumInfoDTO
 import com.bessonov.musicappclient.dto.ArtistInfoDTO
+import com.bessonov.musicappclient.dto.RecommendationInfoDTO
 import com.bessonov.musicappclient.dto.TrackInfoDTO
 import com.bessonov.musicappclient.dto.UserDataDTO
 import com.bessonov.musicappclient.ui.main.MainActivity
@@ -37,11 +39,13 @@ class HomeFragment : Fragment() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var sectionList: List<Section<*>>
 
+    private lateinit var recommendationInfoDTOList: List<RecommendationInfoDTO>
     private lateinit var artistInfoDTOList: List<ArtistInfoDTO>
     private lateinit var albumInfoDTOList: List<AlbumInfoDTO>
     private lateinit var trackInfoDTOList: List<TrackInfoDTO>
     private lateinit var userDataDTO: UserDataDTO
 
+    private var isRecommendationInfoLoaded: Boolean = false
     private var isArtistInfoLoaded: Boolean = false
     private var isAlbumInfoLoaded: Boolean = false
     private var isTrackInfoLoaded: Boolean = false
@@ -69,11 +73,13 @@ class HomeFragment : Fragment() {
             }
         })
 
+        recommendationInfoDTOList = emptyList()
         artistInfoDTOList = emptyList()
         albumInfoDTOList = emptyList()
         trackInfoDTOList = emptyList()
         userDataDTO = UserDataDTO()
 
+        isRecommendationInfoLoaded = false
         isArtistInfoLoaded = false
         isAlbumInfoLoaded = false
         isTrackInfoLoaded = false
@@ -97,8 +103,9 @@ class HomeFragment : Fragment() {
     }
 
     private fun checkIsInfoLoaded() {
-        if (isArtistInfoLoaded && isAlbumInfoLoaded && isTrackInfoLoaded && isUserInfoLoaded) {
+        if (isRecommendationInfoLoaded && isArtistInfoLoaded && isAlbumInfoLoaded && isTrackInfoLoaded && isUserInfoLoaded) {
             populateData()
+            isRecommendationInfoLoaded = false
             isArtistInfoLoaded = false
             isAlbumInfoLoaded = false
             isTrackInfoLoaded = false
@@ -110,8 +117,24 @@ class HomeFragment : Fragment() {
     private fun populateData() {
         userNickname.text = userDataDTO.nickname
 
+        val recommendationCreateSection: Section<String> = Section(
+            title = "Создать рекомендацию",
+            type = SectionType.RECOMMENDATION_CREATE,
+            items = listOf(""),
+            orientation = LinearLayoutManager.VERTICAL,
+            info = ""
+        )
+
+        val recommendationSection: Section<RecommendationInfoDTO> = Section(
+            title = "Мои Рекомендации",
+            type = SectionType.RECOMMENDATION,
+            items = recommendationInfoDTOList,
+            orientation = LinearLayoutManager.HORIZONTAL,
+            info = ""
+        )
+
         val artistSection: Section<ArtistInfoDTO> = Section(
-            title = "Artists",
+            title = "Артисты",
             type = SectionType.ARTIST,
             items = artistInfoDTOList,
             orientation = LinearLayoutManager.HORIZONTAL,
@@ -119,7 +142,7 @@ class HomeFragment : Fragment() {
         )
 
         val albumSection: Section<AlbumInfoDTO> = Section(
-            title = "Albums",
+            title = "Альбомы",
             type = SectionType.ALBUM,
             items = albumInfoDTOList,
             orientation = LinearLayoutManager.HORIZONTAL,
@@ -127,14 +150,20 @@ class HomeFragment : Fragment() {
         )
 
         val trackSection: Section<TrackInfoDTO> = Section(
-            title = "Tracks",
+            title = "Треки",
             type = SectionType.TRACK,
             items = trackInfoDTOList,
             orientation = LinearLayoutManager.VERTICAL,
             info = ""
         )
 
-        sectionList = listOf(artistSection, albumSection, trackSection)
+        sectionList = listOf(
+            recommendationCreateSection,
+            recommendationSection,
+            artistSection,
+            albumSection,
+            trackSection
+        )
 
         val sectionAdapter = SectionAdapter(requireContext(), sectionList) { section ->
             (activity as MainActivity).openSectionFragment(section)
@@ -143,10 +172,46 @@ class HomeFragment : Fragment() {
     }
 
     private fun loadData() {
+        loadRecommendations()
         loadArtists()
         loadAlbums()
         loadTracks()
         loadUser()
+    }
+
+    private fun loadRecommendations() {
+        val retrofitClient = RetrofitClient()
+        val recommendationAPI =
+            retrofitClient.getRetrofit(requireContext()).create(RecommendationAPI::class.java)
+
+        recommendationAPI.getUserRecommendationList()
+            .enqueue(object : Callback<List<RecommendationInfoDTO>> {
+                override fun onResponse(
+                    call: Call<List<RecommendationInfoDTO>>,
+                    response: Response<List<RecommendationInfoDTO>>
+                ) {
+                    if (response.isSuccessful && response.body() != null) {
+                        recommendationInfoDTOList = response.body()!!
+                        isRecommendationInfoLoaded = true
+                        checkIsInfoLoaded()
+                    } else {
+                        Toast.makeText(
+                            requireContext(),
+                            "Failed to load recommendations (onResponse)",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                }
+
+                override fun onFailure(call: Call<List<RecommendationInfoDTO>>, t: Throwable) {
+                    Log.e("LoadRecommendations", "Failed to load recommendations", t)
+                    Toast.makeText(
+                        requireContext(),
+                        "Failed to load recommendations (onFailure)",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            })
     }
 
     private fun loadArtists() {

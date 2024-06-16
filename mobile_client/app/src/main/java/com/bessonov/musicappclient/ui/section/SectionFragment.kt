@@ -110,57 +110,61 @@ class SectionFragment(
                 val itemTouchHelper = ItemTouchHelper(DragManageAdapter(trackAdapter))
                 itemTouchHelper.attachToRecyclerView(recyclerView)
             }
+
+            else -> {
+                //
+            }
         }
         swipeRefreshLayout.isRefreshing = false
     }
 
     private fun loadData() {
         when (section.title) {
-            "Artists" -> {
+            "Артисты" -> {
                 loadArtists()
             }
 
-            "My Artists" -> {
+            "Мои Артисты" -> {
                 loadMyArtists()
             }
 
-            "Founded Artists" -> {
+            "Найденные Артисты" -> {
                 loadSearch(section.info, SectionType.ARTIST)
             }
 
-            "Albums" -> {
+            "Альбомы" -> {
                 loadAlbums()
             }
 
-            "My Albums" -> {
+            "Мои Альбомы" -> {
                 loadMyAlbums()
             }
 
-            "Founded Albums" -> {
+            "Найденные Альбомы" -> {
                 loadSearch(section.info, SectionType.ALBUM)
             }
 
-            "My Playlists" -> {
+            "Мои Плейлисты" -> {
                 loadMyPlaylists()
             }
 
-            "Founded Playlists" -> {
+            "Найденные Плейлисты" -> {
                 loadSearch(section.info, SectionType.PLAYLIST)
             }
 
-            "Tracks" -> {
+            "Треки" -> {
                 loadTracks()
             }
 
-            "My Tracks" -> {
+            "Мои Треки" -> {
                 loadMyTracks()
             }
 
-            "Founded Tracks" -> {
+            "Найденные Треки" -> {
                 loadSearch(section.info, SectionType.TRACK)
             }
 
-            "Track History" -> {
+            "История Прослушивания" -> {
                 loadTrackHistory()
             }
         }
@@ -447,6 +451,10 @@ class SectionFragment(
 
                         SectionType.TRACK -> {
                             section.items = (searchInfoDTO.foundedTrack as List<Nothing>)
+                        }
+
+                        else -> {
+                            //
                         }
                     }
 

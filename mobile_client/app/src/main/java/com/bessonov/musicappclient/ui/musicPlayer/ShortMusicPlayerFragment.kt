@@ -6,11 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
+import androidx.fragment.app.Fragment
 import com.bessonov.musicappclient.R
 import com.bessonov.musicappclient.dto.TrackInfoDTO
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
-class ShortMusicPlayerFragment : BottomSheetDialogFragment() {
+class ShortMusicPlayerFragment : Fragment() {
     private lateinit var trackTitle: TextView
     private lateinit var artistName: TextView
     private lateinit var stopButton: Button

@@ -118,7 +118,7 @@ class MyMusicFragment : Fragment() {
         userNickname.text = userDataDTO.nickname
 
         val artistSection: Section<ArtistInfoDTO> = Section(
-            title = "My Artists",
+            title = "Мои Артисты",
             type = SectionType.ARTIST,
             items = artistInfoDTOList,
             orientation = LinearLayoutManager.HORIZONTAL,
@@ -126,7 +126,7 @@ class MyMusicFragment : Fragment() {
         )
 
         val albumSection: Section<AlbumInfoDTO> = Section(
-            title = "My Albums",
+            title = "Мои Альбомы",
             type = SectionType.ALBUM,
             items = albumInfoDTOList,
             orientation = LinearLayoutManager.HORIZONTAL,
@@ -134,7 +134,7 @@ class MyMusicFragment : Fragment() {
         )
 
         val playlistSection: Section<PlaylistInfoDTO> = Section(
-            title = "My Playlists",
+            title = "Мои Плейлисты",
             type = SectionType.PLAYLIST,
             items = playlistInfoDTOList,
             orientation = LinearLayoutManager.HORIZONTAL,
@@ -142,7 +142,7 @@ class MyMusicFragment : Fragment() {
         )
 
         val trackSection: Section<TrackInfoDTO> = Section(
-            title = "My Tracks",
+            title = "Мои Треки",
             type = SectionType.TRACK,
             items = trackInfoDTOList,
             orientation = LinearLayoutManager.VERTICAL,

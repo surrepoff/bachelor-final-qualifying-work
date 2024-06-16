@@ -122,47 +122,47 @@
             android:id="@+id/fragmentPlaylist_createName"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
             android:text="Дата создания: "
             android:textColor="@color/black"
             android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="@id/fragmentPlaylist_createText"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/fragmentPlaylist_dislikeButton" />
+            app:layout_constraintTop_toTopOf="@id/fragmentPlaylist_createText" />
 
         <TextView
             android:id="@+id/fragmentPlaylist_createText"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:text="DATE"
             android:textColor="@color/black"
             android:textSize="16sp"
-            app:layout_constraintBottom_toBottomOf="@id/fragmentPlaylist_createName"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/fragmentPlaylist_createName"
-            app:layout_constraintTop_toTopOf="@id/fragmentPlaylist_createName" />
+            app:layout_constraintTop_toBottomOf="@id/fragmentPlaylist_dislikeButton" />
 
         <TextView
             android:id="@+id/fragmentPlaylist_lastUpdateName"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
             android:text="Дата последнего изменения: "
             android:textColor="@color/black"
             android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="@id/fragmentPlaylist_lastUpdateText"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/fragmentPlaylist_createText" />
+            app:layout_constraintTop_toTopOf="@id/fragmentPlaylist_lastUpdateText" />
 
         <TextView
             android:id="@+id/fragmentPlaylist_lastUpdateText"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
             android:text="DATE"
             android:textColor="@color/black"
             android:textSize="16sp"
-            app:layout_constraintBottom_toBottomOf="@id/fragmentPlaylist_lastUpdateName"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/fragmentPlaylist_lastUpdateName"
-            app:layout_constraintTop_toTopOf="@id/fragmentPlaylist_lastUpdateName" />
+            app:layout_constraintTop_toBottomOf="@id/fragmentPlaylist_createText" />
 
         <TextView
             android:id="@+id/fragmentPlaylist_trackName"
