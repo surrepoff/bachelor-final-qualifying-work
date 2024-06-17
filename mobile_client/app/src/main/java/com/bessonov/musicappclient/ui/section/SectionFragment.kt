@@ -22,7 +22,6 @@ import com.bessonov.musicappclient.adapter.section.Section
 import com.bessonov.musicappclient.adapter.section.SectionType
 import com.bessonov.musicappclient.adapter.track.DragManageAdapter
 import com.bessonov.musicappclient.adapter.track.TrackAdapter
-import com.bessonov.musicappclient.adapter.track.TrackItemClickListener
 import com.bessonov.musicappclient.api.AlbumAPI
 import com.bessonov.musicappclient.api.ArtistAPI
 import com.bessonov.musicappclient.api.PlaylistAPI
@@ -43,7 +42,7 @@ import retrofit2.Response
 
 class SectionFragment(
     private val section: Section<*>
-) : Fragment(), TrackItemClickListener {
+) : Fragment() {
     private lateinit var swipeRefreshLayout: SwipeRefreshLayout
     private lateinit var sectionName: TextView
     private lateinit var closeButton: ImageButton
@@ -83,14 +82,18 @@ class SectionFragment(
             SectionType.ALBUM -> {
                 val albumInfoDTOList = section.items.filterIsInstance<AlbumInfoDTO>()
                 val albumAdapter =
-                    AlbumAdapter(requireContext(), albumInfoDTOList, LinearLayoutManager.VERTICAL)
+                    AlbumAdapter(requireContext(), albumInfoDTOList, LinearLayoutManager.VERTICAL) {
+                        _, _ ->
+                    }
                 recyclerView.adapter = albumAdapter
             }
 
             SectionType.ARTIST -> {
                 val artistInfoDTOList = section.items.filterIsInstance<ArtistInfoDTO>()
                 val artistAdapter =
-                    ArtistAdapter(requireContext(), artistInfoDTOList, LinearLayoutManager.VERTICAL)
+                    ArtistAdapter(requireContext(), artistInfoDTOList, LinearLayoutManager.VERTICAL) {
+                            _, _ ->
+                    }
                 recyclerView.adapter = artistAdapter
             }
 
@@ -100,7 +103,9 @@ class SectionFragment(
                     requireContext(),
                     playlistInfoDTOList,
                     LinearLayoutManager.VERTICAL
-                )
+                ) {
+                        _, _ ->
+                }
                 recyclerView.adapter = playlistAdapter
             }
 
@@ -108,14 +113,22 @@ class SectionFragment(
                 val recommendationInfoDTOList =
                     section.items.filterIsInstance<RecommendationInfoDTO>()
                 val recommendationAdapter =
-                    RecommendationAdapter(requireContext(), recommendationInfoDTOList, LinearLayoutManager.VERTICAL)
+                    RecommendationAdapter(
+                        requireContext(),
+                        recommendationInfoDTOList,
+                        LinearLayoutManager.VERTICAL
+                    ) {
+                            _, _ ->
+                    }
                 recyclerView.adapter = recommendationAdapter
             }
 
             SectionType.TRACK -> {
                 val trackInfoDTOList = section.items.filterIsInstance<TrackInfoDTO>()
                 val trackAdapter =
-                    TrackAdapter(requireContext(), trackInfoDTOList, this@SectionFragment)
+                    TrackAdapter(requireContext(), trackInfoDTOList) {
+                            _, _ ->
+                    }
                 recyclerView.adapter = trackAdapter
 
                 val itemTouchHelper = ItemTouchHelper(DragManageAdapter(trackAdapter))
@@ -144,7 +157,7 @@ class SectionFragment(
             }
 
             "Найденные Артисты" -> {
-                loadSearch(section.info, SectionType.ARTIST)
+                loadSearch(section.info)
             }
 
             "Альбомы" -> {
@@ -156,7 +169,7 @@ class SectionFragment(
             }
 
             "Найденные Альбомы" -> {
-                loadSearch(section.info, SectionType.ALBUM)
+                loadSearch(section.info)
             }
 
             "Мои Плейлисты" -> {
@@ -164,7 +177,7 @@ class SectionFragment(
             }
 
             "Найденные Плейлисты" -> {
-                loadSearch(section.info, SectionType.PLAYLIST)
+                loadSearch(section.info)
             }
 
             "Треки" -> {
@@ -176,7 +189,7 @@ class SectionFragment(
             }
 
             "Найденные Треки" -> {
-                loadSearch(section.info, SectionType.TRACK)
+                loadSearch(section.info)
             }
 
             "История Прослушивания" -> {
@@ -476,7 +489,7 @@ class SectionFragment(
         })
     }
 
-    private fun loadSearch(name: String, type: SectionType) {
+    private fun loadSearch(name: String) {
         val retrofitClient = RetrofitClient()
         val searchAPI = retrofitClient.getRetrofit(requireContext()).create(SearchAPI::class.java)
 
@@ -526,32 +539,5 @@ class SectionFragment(
                 ).show()
             }
         })
-    }
-
-    override fun onTrackItemClick(view: View, position: Int) {
-        Toast.makeText(context, "Track item clicked at position $position", Toast.LENGTH_SHORT)
-            .show()
-    }
-
-    override fun onTrackButtonClick(view: View, position: Int, buttonId: Int) {
-        when (buttonId) {
-            1 -> Toast.makeText(
-                context,
-                "Track Add Button clicked at position $position",
-                Toast.LENGTH_SHORT
-            ).show()
-
-            2 -> Toast.makeText(
-                context,
-                "Track Like Button clicked at position $position",
-                Toast.LENGTH_SHORT
-            ).show()
-
-            3 -> Toast.makeText(
-                context,
-                "Track Dislike Button clicked at position $position",
-                Toast.LENGTH_SHORT
-            ).show()
-        }
     }
 }

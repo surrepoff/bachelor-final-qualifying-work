@@ -5,6 +5,6 @@ import retrofit2.Call
 import retrofit2.http.GET
 
 interface GenreAPI {
-    @GET("/artist/get/all")
+    @GET("/genre/get/all")
     fun getAll(): Call<List<GenreDTO>>
 }

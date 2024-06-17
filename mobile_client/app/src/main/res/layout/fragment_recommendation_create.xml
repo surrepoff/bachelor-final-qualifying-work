@@ -48,7 +48,7 @@
         android:layout_height="wrap_content"
         android:autofillHints="10"
         android:hint="Введите число"
-        android:inputType="numberDecimal"
+        android:inputType="number"
         android:textColor="@color/black"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="@id/fragmentRecommendationCreate_sizeName"

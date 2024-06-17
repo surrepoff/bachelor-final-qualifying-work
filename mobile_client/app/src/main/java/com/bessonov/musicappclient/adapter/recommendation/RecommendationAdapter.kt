@@ -8,11 +8,13 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bessonov.musicappclient.R
 import com.bessonov.musicappclient.dto.RecommendationInfoDTO
+import com.bessonov.musicappclient.utils.ButtonType
 
 class RecommendationAdapter(
     private val context: Context,
     private val recommendationInfoDTOList: List<RecommendationInfoDTO>,
-    private val orientation: Int
+    private val orientation: Int,
+    private val onItemClick: (ButtonType, Any) -> Unit
 ) : RecyclerView.Adapter<RecommendationViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecommendationViewHolder {
         val view: View = if (orientation == LinearLayoutManager.HORIZONTAL) {
@@ -32,12 +34,24 @@ class RecommendationAdapter(
     override fun onBindViewHolder(holder: RecommendationViewHolder, position: Int) {
         val recommendationInfoDTO = recommendationInfoDTOList[position]
 
+        holder.itemView.setOnClickListener {
+            onItemClick.invoke(ButtonType.ITEM, recommendationInfoDTO)
+        }
+
         val recommendationName = "Rec №" + recommendationInfoDTO.recommendation.id
         holder.recommendationName.text = recommendationName
 
         holder.ownerName.text = recommendationInfoDTO.user.nickname
 
         if (orientation == LinearLayoutManager.VERTICAL) {
+            holder.likeButton?.setOnClickListener {
+                onItemClick.invoke(ButtonType.LIKE, recommendationInfoDTO)
+            }
+
+            holder.dislikeButton?.setOnClickListener {
+                onItemClick.invoke(ButtonType.DISLIKE, recommendationInfoDTO)
+            }
+
             when (recommendationInfoDTO.rating.name) {
                 "Like" -> {
                     holder.likeButton?.setImageResource(R.drawable.ic_thumb_up)

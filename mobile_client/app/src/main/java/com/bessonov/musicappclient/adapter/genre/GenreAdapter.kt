@@ -12,6 +12,8 @@ class GenreAdapter(
     private val context: Context,
     private val genreDTOList: List<GenreDTO>
 ) : RecyclerView.Adapter<GenreViewHolder>() {
+    private val checkBoxStates: MutableList<Boolean> = MutableList(genreDTOList.size) { true }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GenreViewHolder {
         val view: View =
             LayoutInflater.from(parent.context).inflate(R.layout.item_genre, parent, false)
@@ -24,7 +26,14 @@ class GenreAdapter(
 
     override fun onBindViewHolder(holder: GenreViewHolder, position: Int) {
         val genreDTO = genreDTOList[position]
-        holder.genreCheckBox.text = genreDTO.name
+        holder.genreName.text = genreDTO.name
         holder.genreCheckBox.isChecked = true
+        holder.genreCheckBox.setOnCheckedChangeListener { _, isChecked ->
+            checkBoxStates[position] = isChecked
+        }
+    }
+
+    fun getCheckedItems(): List<GenreDTO> {
+        return genreDTOList.filterIndexed { index, _ -> checkBoxStates[index] }
     }
 }

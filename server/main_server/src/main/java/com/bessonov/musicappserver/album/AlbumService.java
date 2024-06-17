@@ -186,7 +186,7 @@ public class AlbumService {
         return albumInfoDTO;
     }
 
-    public UserAlbumDTO addAlbumToUserList(String username, int albumId) {
+    public AlbumInfoDTO addAlbumToUserList(String username, int albumId) {
         Optional<UserData> userData = userDataRepository.findByUsername(username);
 
         if (userData.isEmpty()) {
@@ -204,7 +204,7 @@ public class AlbumService {
         Optional<UserAlbum> userAlbum = userAlbumRepository.findById(userAlbumId);
 
         if (userAlbum.isPresent()) {
-            return new UserAlbumDTO(userAlbum.get());
+            return getAlbumInfoByAlbum(username, album.get());
         }
 
         UserAlbum newUserAlbum = new UserAlbum();
@@ -219,10 +219,10 @@ public class AlbumService {
 
         userAlbumRepository.save(newUserAlbum);
 
-        return new UserAlbumDTO(newUserAlbum);
+        return getAlbumInfoByAlbum(username, album.get());
     }
 
-    public UserAlbumDTO removeAlbumFromUserList(String username, int albumId) {
+    public AlbumInfoDTO removeAlbumFromUserList(String username, int albumId) {
         Optional<UserData> userData = userDataRepository.findByUsername(username);
 
         if (userData.isEmpty()) {
@@ -240,7 +240,7 @@ public class AlbumService {
         Optional<UserAlbum> userAlbum = userAlbumRepository.findById(userAlbumId);
 
         if (userAlbum.isEmpty()) {
-            return new UserAlbumDTO();
+            return getAlbumInfoByAlbum(username, album.get());
         }
 
         userAlbumRepository.delete(userAlbum.get());
@@ -254,10 +254,10 @@ public class AlbumService {
 
         userAlbumRepository.saveAll(userAlbumList);
 
-        return new UserAlbumDTO();
+        return getAlbumInfoByAlbum(username, album.get());
     }
 
-    public UserRatingDTO rateAlbum(String username, int albumId, int rateId) {
+    public AlbumInfoDTO rateAlbum(String username, int albumId, int rateId) {
         Optional<UserRating> userRating = userRatingRepository.findById(rateId);
 
         if (userRating.isEmpty()) {
@@ -283,7 +283,7 @@ public class AlbumService {
         if (userAlbumRating.isPresent()) {
             userAlbumRating.get().setUserRatingId(rateId);
             userAlbumRatingRepository.save(userAlbumRating.get());
-            return new UserRatingDTO(userRating.get());
+            return getAlbumInfoByAlbum(username, album.get());
         }
 
         UserAlbumRating newUserAlbumRating = new UserAlbumRating();
@@ -291,6 +291,6 @@ public class AlbumService {
         newUserAlbumRating.setUserRatingId(rateId);
 
         userAlbumRatingRepository.save(newUserAlbumRating);
-        return new UserRatingDTO(userRating.get());
+        return getAlbumInfoByAlbum(username, album.get());
     }
 }

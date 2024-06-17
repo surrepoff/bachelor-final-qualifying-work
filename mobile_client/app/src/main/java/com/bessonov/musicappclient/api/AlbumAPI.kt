@@ -23,11 +23,11 @@ interface AlbumAPI {
     fun getAlbumUserList(): Call<List<AlbumInfoDTO>>
 
     @GET("/album/add/{albumId}")
-    fun addAlbumToUserList(@Path("albumId") albumId: Int): Call<UserAlbumDTO>
+    fun addAlbumToUserList(@Path("albumId") albumId: Int): Call<AlbumInfoDTO>
 
     @GET("/album/remove/{albumId}")
-    fun removeAlbumFromUserList(@Path("albumId") albumId: Int): Call<UserAlbumDTO>
+    fun removeAlbumFromUserList(@Path("albumId") albumId: Int): Call<AlbumInfoDTO>
 
     @POST("/album/rate/{albumId}")
-    fun rateAlbum(@Path("albumId") albumId: Int, @Body rateId: Int): Call<UserRatingDTO>
+    fun rateAlbum(@Path("albumId") albumId: Int, @Body rateId: Int): Call<AlbumInfoDTO>
 }

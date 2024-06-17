@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bessonov.musicappclient.R
 import com.bessonov.musicappclient.api.SessionManager
 import com.bessonov.musicappclient.dto.ArtistInfoDTO
+import com.bessonov.musicappclient.utils.ButtonType
 import com.bessonov.musicappclient.utils.ConfigManager
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.model.GlideUrl
@@ -18,7 +19,8 @@ import com.bumptech.glide.load.model.LazyHeaders
 class ArtistAdapter(
     private val context: Context,
     private val artistInfoDTOList: List<ArtistInfoDTO>,
-    private val orientation: Int
+    private val orientation: Int,
+    private val onItemClick: (ButtonType, Any) -> Unit
 ) : RecyclerView.Adapter<ArtistViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ArtistViewHolder {
         val view: View = if (orientation == LinearLayoutManager.HORIZONTAL) {
@@ -38,6 +40,10 @@ class ArtistAdapter(
     override fun onBindViewHolder(holder: ArtistViewHolder, position: Int) {
         val artistInfoDTO = artistInfoDTOList[position]
 
+        holder.itemView.setOnClickListener {
+            onItemClick.invoke(ButtonType.ITEM, artistInfoDTO)
+        }
+
         holder.artistName.text = artistInfoDTO.artist.name
 
         val configManager = ConfigManager(context)
@@ -56,10 +62,22 @@ class ArtistAdapter(
             .into(holder.artistImage)
 
         if (orientation == LinearLayoutManager.VERTICAL) {
+            holder.addButton?.setOnClickListener {
+                onItemClick.invoke(ButtonType.ADD, artistInfoDTO)
+            }
+
             if (artistInfoDTO.isAdded.isAdded) {
                 holder.addButton?.setImageResource(R.drawable.ic_check)
             } else {
                 holder.addButton?.setImageResource(R.drawable.ic_plus)
+            }
+
+            holder.likeButton?.setOnClickListener {
+                onItemClick.invoke(ButtonType.LIKE, artistInfoDTO)
+            }
+
+            holder.dislikeButton?.setOnClickListener {
+                onItemClick.invoke(ButtonType.DISLIKE, artistInfoDTO)
             }
 
             when (artistInfoDTO.rating.name) {

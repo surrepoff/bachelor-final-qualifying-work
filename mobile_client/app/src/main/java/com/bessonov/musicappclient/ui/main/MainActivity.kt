@@ -10,12 +10,20 @@ import androidx.fragment.app.FragmentManager
 import com.bessonov.musicappclient.R
 import com.bessonov.musicappclient.adapter.section.Section
 import com.bessonov.musicappclient.adapter.section.SectionType
+import com.bessonov.musicappclient.dto.AlbumInfoDTO
+import com.bessonov.musicappclient.dto.ArtistInfoDTO
+import com.bessonov.musicappclient.dto.PlaylistInfoDTO
+import com.bessonov.musicappclient.dto.RecommendationInfoDTO
+import com.bessonov.musicappclient.ui.album.AlbumFragment
+import com.bessonov.musicappclient.ui.artist.ArtistFragment
 import com.bessonov.musicappclient.ui.home.HomeFragment
 import com.bessonov.musicappclient.ui.myMusic.MyMusicFragment
 import com.bessonov.musicappclient.ui.playlist.PlaylistAddTrackFragment
 import com.bessonov.musicappclient.ui.playlist.PlaylistEditFragment
+import com.bessonov.musicappclient.ui.playlist.PlaylistFragment
 import com.bessonov.musicappclient.ui.profile.ProfileFragment
 import com.bessonov.musicappclient.ui.recommendation.RecommendationCreateFragment
+import com.bessonov.musicappclient.ui.recommendation.RecommendationFragment
 import com.bessonov.musicappclient.ui.search.SearchFragment
 import com.bessonov.musicappclient.ui.section.SectionFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -126,9 +134,44 @@ class MainActivity : AppCompatActivity() {
         }.commit()
     }
 
+    fun openAlbumFragment(albumInfoDTO: AlbumInfoDTO) {
+        supportFragmentManager.beginTransaction().apply {
+            replace(R.id.mainFragmentContainerView, AlbumFragment(albumInfoDTO))
+            addToBackStack(null)
+        }.commit()
+    }
+
+    fun openArtistFragment(artistInfoDTO: ArtistInfoDTO) {
+        supportFragmentManager.beginTransaction().apply {
+            replace(R.id.mainFragmentContainerView, ArtistFragment(artistInfoDTO))
+            addToBackStack(null)
+        }.commit()
+    }
+
+    fun openPlaylistFragment(playlistInfoDTO: PlaylistInfoDTO) {
+        supportFragmentManager.beginTransaction().apply {
+            replace(R.id.mainFragmentContainerView, PlaylistFragment(playlistInfoDTO))
+            addToBackStack(null)
+        }.commit()
+    }
+
     fun openPlaylistAddTrackFragment() {
         supportFragmentManager.beginTransaction().apply {
             replace(R.id.mainFragmentContainerView, PlaylistAddTrackFragment())
+            addToBackStack(null)
+        }.commit()
+    }
+
+    fun openPlaylistEditFragment(playlistInfoDTO: PlaylistInfoDTO) {
+        supportFragmentManager.beginTransaction().apply {
+            replace(R.id.mainFragmentContainerView, PlaylistEditFragment(false, playlistInfoDTO))
+            addToBackStack(null)
+        }.commit()
+    }
+
+    fun openRecommendationFragment(recommendationInfoDTO: RecommendationInfoDTO) {
+        supportFragmentManager.beginTransaction().apply {
+            replace(R.id.mainFragmentContainerView, RecommendationFragment(recommendationInfoDTO))
             addToBackStack(null)
         }.commit()
     }

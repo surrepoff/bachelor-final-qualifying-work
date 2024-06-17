@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bessonov.musicappclient.R
 import com.bessonov.musicappclient.api.SessionManager
 import com.bessonov.musicappclient.dto.AlbumInfoDTO
+import com.bessonov.musicappclient.utils.ButtonType
 import com.bessonov.musicappclient.utils.ConfigManager
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.model.GlideUrl
@@ -17,7 +18,8 @@ import com.bumptech.glide.load.model.LazyHeaders
 class AlbumAdapter(
     private val context: Context,
     private val albumInfoDTOList: List<AlbumInfoDTO>,
-    private val orientation: Int
+    private val orientation: Int,
+    private val onItemClick: (ButtonType, Any) -> Unit
 ) : RecyclerView.Adapter<AlbumViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AlbumViewHolder {
         val view: View = if (orientation == LinearLayoutManager.HORIZONTAL) {
@@ -36,6 +38,10 @@ class AlbumAdapter(
 
     override fun onBindViewHolder(holder: AlbumViewHolder, position: Int) {
         val albumInfoDTO = albumInfoDTOList[position]
+
+        holder.itemView.setOnClickListener {
+            onItemClick.invoke(ButtonType.ITEM, albumInfoDTO)
+        }
 
         holder.albumName.text = albumInfoDTO.album.name
 
@@ -63,10 +69,22 @@ class AlbumAdapter(
             .into(holder.albumImage)
 
         if (orientation == LinearLayoutManager.VERTICAL) {
+            holder.addButton?.setOnClickListener {
+                onItemClick.invoke(ButtonType.ADD, albumInfoDTO)
+            }
+
             if (albumInfoDTO.isAdded.isAdded) {
                 holder.addButton?.setImageResource(R.drawable.ic_check)
             } else {
                 holder.addButton?.setImageResource(R.drawable.ic_plus)
+            }
+
+            holder.likeButton?.setOnClickListener {
+                onItemClick.invoke(ButtonType.LIKE, albumInfoDTO)
+            }
+
+            holder.dislikeButton?.setOnClickListener {
+                onItemClick.invoke(ButtonType.DISLIKE, albumInfoDTO)
             }
 
             when (albumInfoDTO.rating.name) {

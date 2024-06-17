@@ -8,11 +8,13 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bessonov.musicappclient.R
 import com.bessonov.musicappclient.dto.PlaylistInfoDTO
+import com.bessonov.musicappclient.utils.ButtonType
 
 class PlaylistAdapter(
     private val context: Context,
     private val playlistInfoDTOList: List<PlaylistInfoDTO>,
-    private val orientation: Int
+    private val orientation: Int,
+    private val onItemClick: (ButtonType, Any) -> Unit
 ) : RecyclerView.Adapter<PlaylistViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PlaylistViewHolder {
         val view: View = if (orientation == LinearLayoutManager.HORIZONTAL) {
@@ -32,6 +34,10 @@ class PlaylistAdapter(
     override fun onBindViewHolder(holder: PlaylistViewHolder, position: Int) {
         val playlistInfoDTO = playlistInfoDTOList[position]
 
+        holder.itemView.setOnClickListener {
+            onItemClick.invoke(ButtonType.ITEM, playlistInfoDTO)
+        }
+
         holder.playlistName.text = playlistInfoDTO.playlist.name
 
         var ownerName = ""
@@ -40,10 +46,22 @@ class PlaylistAdapter(
         holder.ownerName.text = ownerName
 
         if (orientation == LinearLayoutManager.VERTICAL) {
+            holder.addButton?.setOnClickListener {
+                onItemClick.invoke(ButtonType.ADD, playlistInfoDTO)
+            }
+
             if (playlistInfoDTO.isAdded.isAdded) {
                 holder.addButton?.setImageResource(R.drawable.ic_check)
             } else {
                 holder.addButton?.setImageResource(R.drawable.ic_plus)
+            }
+
+            holder.likeButton?.setOnClickListener {
+                onItemClick.invoke(ButtonType.LIKE, playlistInfoDTO)
+            }
+
+            holder.dislikeButton?.setOnClickListener {
+                onItemClick.invoke(ButtonType.DISLIKE, playlistInfoDTO)
             }
 
             when (playlistInfoDTO.rating.name) {

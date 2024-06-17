@@ -14,20 +14,20 @@ interface ArtistAPI {
     fun getAll(): Call<List<ArtistInfoDTO>>
 
     @GET("/artist/get/{artistId}")
-    fun getByAlbumId(@Path("artistId") artistId: Int): Call<ArtistInfoDTO>
+    fun getByArtistId(@Path("artistId") artistId: Int): Call<ArtistInfoDTO>
 
     @POST("/artist/get/list")
-    fun getByAlbumIdList(@Body artistIdList: List<Int>): Call<List<ArtistInfoDTO>>
+    fun getByArtistIdList(@Body artistIdList: List<Int>): Call<List<ArtistInfoDTO>>
 
     @GET("/artist/get/user")
     fun getArtistUserList(): Call<List<ArtistInfoDTO>>
 
     @GET("/artist/add/{artistId}")
-    fun addArtistToUserList(@Path("artistId") artistId: Int): Call<UserArtistDTO>
+    fun addArtistToUserList(@Path("artistId") artistId: Int): Call<ArtistInfoDTO>
 
     @GET("/artist/remove/{artistId}")
-    fun removeArtistFromUserList(@Path("artistId") artistId: Int): Call<UserArtistDTO>
+    fun removeArtistFromUserList(@Path("artistId") artistId: Int): Call<ArtistInfoDTO>
 
     @POST("/artist/rate/{artistId}")
-    fun rateArtist(@Path("artistId") artistId: Int, @Body rateId: Int): Call<UserRatingDTO>
+    fun rateArtist(@Path("artistId") artistId: Int, @Body rateId: Int): Call<ArtistInfoDTO>
 }

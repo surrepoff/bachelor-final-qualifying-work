@@ -24,13 +24,13 @@ interface PlaylistAPI {
     fun getPlaylistUserList(): Call<List<PlaylistInfoDTO>>
 
     @GET("/playlist/add/{playlistId}")
-    fun addPlaylistToUserList(@Path("playlistId") playlistId: Int): Call<UserPlaylistDTO>
+    fun addPlaylistToUserList(@Path("playlistId") playlistId: Int): Call<PlaylistInfoDTO>
 
     @GET("/playlist/remove/{playlistId}")
-    fun removePlaylistFromUserList(@Path("playlistId") playlistId: Int): Call<UserPlaylistDTO>
+    fun removePlaylistFromUserList(@Path("playlistId") playlistId: Int): Call<PlaylistInfoDTO>
 
     @POST("/playlist/rate/{playlistId}")
-    fun ratePlaylist(@Path("playlistId") playlistId: Int, @Body rateId: Int): Call<UserRatingDTO>
+    fun ratePlaylist(@Path("playlistId") playlistId: Int, @Body rateId: Int): Call<PlaylistInfoDTO>
 
     @POST("/playlist/create")
     fun createPlaylist(@Body playlistEditDTO: PlaylistEditDTO): Call<PlaylistInfoDTO>

@@ -25,9 +25,12 @@ import com.bessonov.musicappclient.api.UserAPI
 import com.bessonov.musicappclient.dto.AlbumInfoDTO
 import com.bessonov.musicappclient.dto.ArtistInfoDTO
 import com.bessonov.musicappclient.dto.PlaylistInfoDTO
+import com.bessonov.musicappclient.dto.RecommendationInfoDTO
 import com.bessonov.musicappclient.dto.TrackInfoDTO
 import com.bessonov.musicappclient.dto.UserDataDTO
 import com.bessonov.musicappclient.ui.main.MainActivity
+import com.bessonov.musicappclient.utils.ButtonType
+import com.bessonov.musicappclient.utils.ItemType
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -157,11 +160,106 @@ class MyMusicFragment : Fragment() {
             info = ""
         )
 
-        sectionList = listOf(artistSection, albumSection, playlistCreateSection, playlistSection, trackSection)
+        sectionList = listOf(
+            artistSection,
+            albumSection,
+            playlistCreateSection,
+            playlistSection,
+            trackSection
+        )
 
-        val sectionAdapter = SectionAdapter(requireContext(), sectionList) { section ->
-            (activity as MainActivity).openSectionFragment(section)
-        }
+        val sectionAdapter =
+            SectionAdapter(requireContext(), sectionList, onSectionClick = { section ->
+                (activity as MainActivity).openSectionFragment(section)
+            },
+                onItemClick = { itemType, buttonType, any ->
+                    when (itemType) {
+                        ItemType.ALBUM -> {
+                            when (buttonType) {
+                                ButtonType.ITEM -> {
+                                    (activity as MainActivity).openAlbumFragment(any as AlbumInfoDTO)
+                                }
+
+                                ButtonType.ADD -> {
+
+                                }
+
+                                ButtonType.LIKE -> {
+
+                                }
+
+                                ButtonType.DISLIKE -> {
+
+                                }
+                            }
+                        }
+
+                        ItemType.ARTIST -> {
+                            when (buttonType) {
+                                ButtonType.ITEM -> {
+                                    (activity as MainActivity).openArtistFragment(any as ArtistInfoDTO)
+                                }
+
+                                ButtonType.ADD -> {
+
+                                }
+
+                                ButtonType.LIKE -> {
+
+                                }
+
+                                ButtonType.DISLIKE -> {
+
+                                }
+                            }
+                        }
+
+                        ItemType.PLAYLIST -> {
+                            when (buttonType) {
+                                ButtonType.ITEM -> {
+                                    (activity as MainActivity).openPlaylistFragment(any as PlaylistInfoDTO)
+                                }
+
+                                ButtonType.ADD -> {
+
+                                }
+
+                                ButtonType.LIKE -> {
+
+                                }
+
+                                ButtonType.DISLIKE -> {
+
+                                }
+                            }
+                        }
+
+                        ItemType.RECOMMENDATION -> {
+                            when (buttonType) {
+                                ButtonType.ITEM -> {
+                                    (activity as MainActivity).openRecommendationFragment(any as RecommendationInfoDTO)
+                                }
+
+                                ButtonType.ADD -> {
+
+                                }
+
+                                ButtonType.LIKE -> {
+
+                                }
+
+                                ButtonType.DISLIKE -> {
+
+                                }
+                            }
+                        }
+
+                        ItemType.TRACK -> {
+
+                        }
+                    }
+                })
+
         recyclerView.adapter = sectionAdapter
     }
 

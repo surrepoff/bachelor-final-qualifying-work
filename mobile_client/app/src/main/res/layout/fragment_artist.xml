@@ -2,6 +2,7 @@
 <androidx.swiperefreshlayout.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/fragmentArtist_swipeRefreshLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.artist.ArtistFragment">
@@ -106,7 +107,7 @@
             app:layout_constraintTop_toBottomOf="@id/fragmentArtist_dislikeButton" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/fragmentAlbum_trackRecyclerView"
+            android:id="@+id/fragmentArtist_trackRecyclerView"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginTop="10dp"

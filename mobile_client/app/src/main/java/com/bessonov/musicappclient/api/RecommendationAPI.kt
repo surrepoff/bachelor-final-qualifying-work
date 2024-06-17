@@ -14,7 +14,7 @@ interface RecommendationAPI {
     fun getAll(): Call<List<RecommendationInfoDTO>>
 
     @GET("/recommendation/get/{userRecommendationId}")
-    fun getByUserRecommendationId(): Call<RecommendationInfoDTO>
+    fun getByUserRecommendationId(@Path("userRecommendationId") userRecommendationId: Int): Call<RecommendationInfoDTO>
 
     @POST("/recommendation/get/list")
     fun getByUserRecommendationIdList(@Body userRecommendationIdList: List<Int>): Call<List<RecommendationInfoDTO>>

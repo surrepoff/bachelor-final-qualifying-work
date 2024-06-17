@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bessonov.musicappclient.R
-import com.bessonov.musicappclient.adapter.section.Section
 
 class RecommendationCreateAdapter(
     private val context: Context,

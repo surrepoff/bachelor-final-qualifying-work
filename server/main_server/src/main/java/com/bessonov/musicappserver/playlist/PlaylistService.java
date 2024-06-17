@@ -173,7 +173,7 @@ public class PlaylistService {
         return playlistInfoDTO;
     }
 
-    public UserPlaylistDTO addPlaylistToUserList(String username, int playlistId) {
+    public PlaylistInfoDTO addPlaylistToUserList(String username, int playlistId) {
         Optional<UserData> userData = userDataRepository.findByUsername(username);
 
         if (userData.isEmpty()) {
@@ -191,7 +191,7 @@ public class PlaylistService {
         Optional<UserPlaylist> userPlaylist = userPlaylistRepository.findById(userPlaylistId);
 
         if (userPlaylist.isPresent()) {
-            return new UserPlaylistDTO(userPlaylist.get());
+            return getPlaylistInfoByPlaylist(username, playlist.get());
         }
 
         UserPlaylist newUserPlaylist = new UserPlaylist();
@@ -207,10 +207,10 @@ public class PlaylistService {
 
         userPlaylistRepository.save(newUserPlaylist);
 
-        return new UserPlaylistDTO(newUserPlaylist);
+        return getPlaylistInfoByPlaylist(username, playlist.get());
     }
 
-    public UserPlaylistDTO removePlaylistFromUserList(String username, int playlistId) {
+    public PlaylistInfoDTO removePlaylistFromUserList(String username, int playlistId) {
         Optional<UserData> userData = userDataRepository.findByUsername(username);
 
         if (userData.isEmpty()) {
@@ -228,7 +228,7 @@ public class PlaylistService {
         Optional<UserPlaylist> userPlaylist = userPlaylistRepository.findById(userPlaylistId);
 
         if (userPlaylist.isEmpty()) {
-            return new UserPlaylistDTO();
+            return getPlaylistInfoByPlaylist(username, playlist.get());
         }
 
         userPlaylistRepository.delete(userPlaylist.get());
@@ -267,10 +267,10 @@ public class PlaylistService {
             }
         }
 
-        return new UserPlaylistDTO();
+        return getPlaylistInfoByPlaylist(username, playlist.get());
     }
 
-    public UserRatingDTO ratePlaylist(String username, int playlistId, int rateId) {
+    public PlaylistInfoDTO ratePlaylist(String username, int playlistId, int rateId) {
         Optional<UserRating> userRating = userRatingRepository.findById(rateId);
 
         if (userRating.isEmpty()) {
@@ -296,7 +296,7 @@ public class PlaylistService {
         if (userPlaylistRating.isPresent()) {
             userPlaylistRating.get().setUserRatingId(rateId);
             userPlaylistRatingRepository.save(userPlaylistRating.get());
-            return new UserRatingDTO(userRating.get());
+            return getPlaylistInfoByPlaylist(username, playlist.get());
         }
 
         UserPlaylistRating newUserPlaylistRating = new UserPlaylistRating();
@@ -304,7 +304,7 @@ public class PlaylistService {
         newUserPlaylistRating.setUserRatingId(rateId);
 
         userPlaylistRatingRepository.save(newUserPlaylistRating);
-        return new UserRatingDTO(userRating.get());
+        return getPlaylistInfoByPlaylist(username, playlist.get());
     }
 
     public PlaylistInfoDTO createPlaylist(String username, PlaylistEditDTO playlistEditDTO) {

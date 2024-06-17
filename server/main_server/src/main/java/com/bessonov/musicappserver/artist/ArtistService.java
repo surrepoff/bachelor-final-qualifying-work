@@ -165,7 +165,7 @@ public class ArtistService {
         return artistInfoDTO;
     }
 
-    public UserArtistDTO addArtistToUserList(String username, int artistId) {
+    public ArtistInfoDTO addArtistToUserList(String username, int artistId) {
         Optional<UserData> userData = userDataRepository.findByUsername(username);
 
         if (userData.isEmpty()) {
@@ -183,7 +183,7 @@ public class ArtistService {
         Optional<UserArtist> userArtist = userArtistRepository.findById(userArtistId);
 
         if (userArtist.isPresent()) {
-            return new UserArtistDTO(userArtist.get());
+            return getArtistInfoByArtist(username, artist.get());
         }
 
         UserArtist newUserArtist = new UserArtist();
@@ -198,10 +198,10 @@ public class ArtistService {
 
         userArtistRepository.save(newUserArtist);
 
-        return new UserArtistDTO(newUserArtist);
+        return getArtistInfoByArtist(username, artist.get());
     }
 
-    public UserArtistDTO removeArtistFromUserList(String username, int artistId) {
+    public ArtistInfoDTO removeArtistFromUserList(String username, int artistId) {
         Optional<UserData> userData = userDataRepository.findByUsername(username);
 
         if (userData.isEmpty()) {
@@ -219,7 +219,7 @@ public class ArtistService {
         Optional<UserArtist> userArtist = userArtistRepository.findById(userArtistId);
 
         if (userArtist.isEmpty()) {
-            return new UserArtistDTO();
+            return getArtistInfoByArtist(username, artist.get());
         }
 
         userArtistRepository.delete(userArtist.get());
@@ -233,10 +233,10 @@ public class ArtistService {
 
         userArtistRepository.saveAll(userArtistList);
 
-        return new UserArtistDTO();
+        return getArtistInfoByArtist(username, artist.get());
     }
 
-    public UserRatingDTO rateArtist(String username, int artistId, int rateId) {
+    public ArtistInfoDTO rateArtist(String username, int artistId, int rateId) {
         Optional<UserRating> userRating = userRatingRepository.findById(rateId);
 
         if (userRating.isEmpty()) {
@@ -262,7 +262,7 @@ public class ArtistService {
         if (userArtistRating.isPresent()) {
             userArtistRating.get().setUserRatingId(rateId);
             userArtistRatingRepository.save(userArtistRating.get());
-            return new UserRatingDTO(userRating.get());
+            return getArtistInfoByArtist(username, artist.get());
         }
 
         UserArtistRating newUserArtistRating = new UserArtistRating();
@@ -270,6 +270,6 @@ public class ArtistService {
         newUserArtistRating.setUserRatingId(rateId);
 
         userArtistRatingRepository.save(newUserArtistRating);
-        return new UserRatingDTO(userRating.get());
+        return getArtistInfoByArtist(username, artist.get());
     }
 }

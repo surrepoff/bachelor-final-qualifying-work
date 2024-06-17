@@ -30,7 +30,7 @@ async def get_user_recommendation(recommendationCreateDTO: RecommendationCreateD
 
     genre_set = set()
     for genre_id in recommendationCreateDTO.genreId:
-        if GenreRepository.check_genre_exists(genre_id):
+        if await GenreRepository.check_genre_exists(genre_id):
             genre_set.add(genre_id)
 
     genre_list = []

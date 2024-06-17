@@ -118,7 +118,22 @@ public class RecommendationService {
         recommendationInfoDTO.setRecommendation(new UserRecommendationDTO(userRecommendation));
 
         Optional<UserData> userData = userDataRepository.findByUsername(username);
-        userData.ifPresent(data -> recommendationInfoDTO.setUser(new UserDataShortDTO(data)));
+
+        if (userData.isEmpty()) {
+            return null;
+        }
+
+        Optional<UserData> ownerUserDate = userDataRepository.findById(userRecommendation.getUserId());
+
+        if (ownerUserDate.isEmpty()) {
+            return null;
+        }
+
+        if (userData.get() != ownerUserDate.get()) {
+            return null;
+        }
+
+        recommendationInfoDTO.setUser(new UserDataShortDTO(ownerUserDate.get()));
 
         List<GenreDTO> genreDTOList = new ArrayList<>();
         List<UserRecommendationGenre> userRecommendationGenreList = userRecommendationGenreRepository.findByIdUserRecommendationIdOrderByIdGenreIdAsc(userRecommendation.getId());

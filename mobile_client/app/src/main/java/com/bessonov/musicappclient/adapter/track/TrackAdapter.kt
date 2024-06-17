@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bessonov.musicappclient.R
 import com.bessonov.musicappclient.api.SessionManager
 import com.bessonov.musicappclient.dto.TrackInfoDTO
+import com.bessonov.musicappclient.utils.ButtonType
 import com.bessonov.musicappclient.utils.ConfigManager
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.model.GlideUrl
@@ -16,7 +17,7 @@ import java.util.Collections
 class TrackAdapter(
     private val context: Context,
     private val trackInfoDTOList: List<TrackInfoDTO>,
-    private val trackItemClickListener: TrackItemClickListener
+    private val onItemClick: (ButtonType, Any) -> Unit
 ) : RecyclerView.Adapter<TrackViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TrackViewHolder {
         val view = LayoutInflater.from(parent.context)
@@ -30,6 +31,10 @@ class TrackAdapter(
 
     override fun onBindViewHolder(holder: TrackViewHolder, position: Int) {
         val trackInfoDTO = trackInfoDTOList[position]
+
+        holder.itemView.setOnClickListener {
+            onItemClick.invoke(ButtonType.ITEM, trackInfoDTO)
+        }
 
         holder.trackName.text = trackInfoDTO.track.name
 
@@ -46,10 +51,22 @@ class TrackAdapter(
             trackInfoDTO.track.durationInSeconds % 60
         )
 
+        holder.addButton.setOnClickListener {
+            onItemClick.invoke(ButtonType.ADD, trackInfoDTO)
+        }
+
         if (trackInfoDTO.isAdded.isAdded) {
             holder.addButton.setImageResource(R.drawable.ic_check)
         } else {
             holder.addButton.setImageResource(R.drawable.ic_plus)
+        }
+
+        holder.likeButton.setOnClickListener {
+            onItemClick.invoke(ButtonType.LIKE, trackInfoDTO)
+        }
+
+        holder.dislikeButton.setOnClickListener {
+            onItemClick.invoke(ButtonType.DISLIKE, trackInfoDTO)
         }
 
         when (trackInfoDTO.rating.name) {
@@ -68,8 +85,6 @@ class TrackAdapter(
                 holder.dislikeButton.setImageResource(R.drawable.ic_thumb_down_outline)
             }
         }
-
-        holder.bind(trackItemClickListener)
 
         val configManager = ConfigManager(context)
         val sessionManager = SessionManager(context)

@@ -35,17 +35,17 @@ public class ArtistController {
     }
 
     @GetMapping("/add/{artistId}")
-    public UserArtistDTO addArtistToUserList(@PathVariable Integer artistId, Authentication authentication) {
+    public ArtistInfoDTO addArtistToUserList(@PathVariable Integer artistId, Authentication authentication) {
         return artistService.addArtistToUserList(authentication.getName(), artistId);
     }
 
     @GetMapping("/remove/{artistId}")
-    public UserArtistDTO removeArtistFromUserList(@PathVariable Integer artistId, Authentication authentication) {
+    public ArtistInfoDTO removeArtistFromUserList(@PathVariable Integer artistId, Authentication authentication) {
         return artistService.removeArtistFromUserList(authentication.getName(), artistId);
     }
 
     @PostMapping("/rate/{artistId}")
-    public UserRatingDTO rateArtist(@PathVariable Integer artistId, @RequestBody Integer rateId, Authentication authentication) {
+    public ArtistInfoDTO rateArtist(@PathVariable Integer artistId, @RequestBody Integer rateId, Authentication authentication) {
         return artistService.rateArtist(authentication.getName(), artistId, rateId);
     }
 }

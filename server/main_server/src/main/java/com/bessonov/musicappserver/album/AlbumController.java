@@ -35,17 +35,17 @@ public class AlbumController {
     }
 
     @GetMapping("/add/{albumId}")
-    public UserAlbumDTO addAlbumToUserList(@PathVariable Integer albumId, Authentication authentication) {
+    public AlbumInfoDTO addAlbumToUserList(@PathVariable Integer albumId, Authentication authentication) {
         return albumService.addAlbumToUserList(authentication.getName(), albumId);
     }
 
     @GetMapping("/remove/{albumId}")
-    public UserAlbumDTO removeAlbumFromUserList(@PathVariable Integer albumId, Authentication authentication) {
+    public AlbumInfoDTO removeAlbumFromUserList(@PathVariable Integer albumId, Authentication authentication) {
         return albumService.removeAlbumFromUserList(authentication.getName(), albumId);
     }
 
     @PostMapping("/rate/{albumId}")
-    public UserRatingDTO rateAlbum(@PathVariable Integer albumId, @RequestBody Integer rateId, Authentication authentication) {
+    public AlbumInfoDTO rateAlbum(@PathVariable Integer albumId, @RequestBody Integer rateId, Authentication authentication) {
         return albumService.rateAlbum(authentication.getName(), albumId, rateId);
     }
 }
