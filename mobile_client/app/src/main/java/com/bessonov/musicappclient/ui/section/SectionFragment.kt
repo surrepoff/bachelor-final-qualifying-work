@@ -35,6 +35,9 @@ import com.bessonov.musicappclient.dto.RecommendationInfoDTO
 import com.bessonov.musicappclient.dto.SearchInfoDTO
 import com.bessonov.musicappclient.dto.SearchRequestDTO
 import com.bessonov.musicappclient.dto.TrackInfoDTO
+import com.bessonov.musicappclient.ui.main.MainActivity
+import com.bessonov.musicappclient.utils.ItemClickHandler
+import com.bessonov.musicappclient.utils.ItemType
 import com.bessonov.musicappclient.utils.RetrofitClient
 import retrofit2.Call
 import retrofit2.Callback
@@ -77,7 +80,14 @@ class SectionFragment(
         return view
     }
 
+    override fun onResume() {
+        super.onResume()
+        loadData()
+    }
+
     private fun populateListView() {
+        val itemClickHandler =
+            ItemClickHandler(activity as MainActivity, requireContext(), recyclerView)
         when (section.type) {
             SectionType.ALBUM -> {
                 val albumInfoDTOList = section.items.filterIsInstance<AlbumInfoDTO>()
@@ -86,7 +96,14 @@ class SectionFragment(
                         requireContext(),
                         albumInfoDTOList,
                         LinearLayoutManager.VERTICAL
-                    ) { _, _ ->
+                    ) { buttonType, any, itemPosition ->
+                        itemClickHandler.onItemClick(
+                            ItemType.ALBUM,
+                            -1,
+                            buttonType,
+                            any,
+                            itemPosition
+                        )
                     }
                 recyclerView.adapter = albumAdapter
             }
@@ -98,7 +115,14 @@ class SectionFragment(
                         requireContext(),
                         artistInfoDTOList,
                         LinearLayoutManager.VERTICAL
-                    ) { _, _ ->
+                    ) { buttonType, any, itemPosition ->
+                        itemClickHandler.onItemClick(
+                            ItemType.ARTIST,
+                            -1,
+                            buttonType,
+                            any,
+                            itemPosition
+                        )
                     }
                 recyclerView.adapter = artistAdapter
             }
@@ -109,7 +133,14 @@ class SectionFragment(
                     requireContext(),
                     playlistInfoDTOList,
                     LinearLayoutManager.VERTICAL
-                ) { _, _ ->
+                ) { buttonType, any, itemPosition ->
+                    itemClickHandler.onItemClick(
+                        ItemType.PLAYLIST,
+                        -1,
+                        buttonType,
+                        any,
+                        itemPosition
+                    )
                 }
                 recyclerView.adapter = playlistAdapter
             }
@@ -122,7 +153,14 @@ class SectionFragment(
                         requireContext(),
                         recommendationInfoDTOList,
                         LinearLayoutManager.VERTICAL
-                    ) { _, _ ->
+                    ) { buttonType, any, itemPosition ->
+                        itemClickHandler.onItemClick(
+                            ItemType.RECOMMENDATION,
+                            -1,
+                            buttonType,
+                            any,
+                            itemPosition
+                        )
                     }
                 recyclerView.adapter = recommendationAdapter
             }
@@ -130,7 +168,16 @@ class SectionFragment(
             SectionType.TRACK -> {
                 val trackInfoDTOList = section.items.filterIsInstance<TrackInfoDTO>()
                 val trackAdapter =
-                    TrackAdapter(requireContext(), trackInfoDTOList) { _, _ ->
+                    TrackAdapter(
+                        requireContext(), trackInfoDTOList
+                    ) { buttonType, any, itemPosition ->
+                        itemClickHandler.onItemClick(
+                            ItemType.TRACK,
+                            -1,
+                            buttonType,
+                            any,
+                            itemPosition
+                        )
                     }
                 recyclerView.adapter = trackAdapter
 

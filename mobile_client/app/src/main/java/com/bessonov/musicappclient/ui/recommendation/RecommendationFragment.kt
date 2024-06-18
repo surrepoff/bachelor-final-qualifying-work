@@ -21,6 +21,8 @@ import com.bessonov.musicappclient.dto.PlaylistInfoDTO
 import com.bessonov.musicappclient.dto.RecommendationInfoDTO
 import com.bessonov.musicappclient.dto.TrackInfoDTO
 import com.bessonov.musicappclient.ui.main.MainActivity
+import com.bessonov.musicappclient.utils.ItemClickHandler
+import com.bessonov.musicappclient.utils.ItemType
 import com.bessonov.musicappclient.utils.RetrofitClient
 import retrofit2.Call
 import retrofit2.Callback
@@ -133,7 +135,19 @@ class RecommendationFragment(
 
         createText.text = recommendationInfoDTO.recommendation.creationDate.toString()
 
-        val trackAdapter = TrackAdapter(requireContext(), trackInfoDTOList) { _, _ ->
+        val itemClickHandler =
+            ItemClickHandler(activity as MainActivity, requireContext(), trackRecyclerView)
+
+        val trackAdapter = TrackAdapter(
+            requireContext(), trackInfoDTOList
+        ) { buttonType, any, itemPosition ->
+            itemClickHandler.onItemClick(
+                ItemType.TRACK,
+                -1,
+                buttonType,
+                any,
+                itemPosition
+            )
         }
 
         trackRecyclerView.adapter = trackAdapter

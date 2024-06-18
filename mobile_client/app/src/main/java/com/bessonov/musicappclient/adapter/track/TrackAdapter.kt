@@ -16,8 +16,8 @@ import java.util.Collections
 
 class TrackAdapter(
     private val context: Context,
-    private val trackInfoDTOList: List<TrackInfoDTO>,
-    private val onItemClick: (ButtonType, Any) -> Unit
+    private var trackInfoDTOList: List<TrackInfoDTO>,
+    private val onItemClick: (ButtonType, Any, Int) -> Unit
 ) : RecyclerView.Adapter<TrackViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TrackViewHolder {
         val view = LayoutInflater.from(parent.context)
@@ -33,7 +33,7 @@ class TrackAdapter(
         val trackInfoDTO = trackInfoDTOList[position]
 
         holder.itemView.setOnClickListener {
-            onItemClick.invoke(ButtonType.ITEM, trackInfoDTO)
+            onItemClick.invoke(ButtonType.ITEM, trackInfoDTO, position)
         }
 
         holder.trackName.text = trackInfoDTO.track.name
@@ -52,7 +52,7 @@ class TrackAdapter(
         )
 
         holder.addButton.setOnClickListener {
-            onItemClick.invoke(ButtonType.ADD, trackInfoDTO)
+            onItemClick.invoke(ButtonType.ADD, trackInfoDTO, position)
         }
 
         if (trackInfoDTO.isAdded.isAdded) {
@@ -62,11 +62,11 @@ class TrackAdapter(
         }
 
         holder.likeButton.setOnClickListener {
-            onItemClick.invoke(ButtonType.LIKE, trackInfoDTO)
+            onItemClick.invoke(ButtonType.LIKE, trackInfoDTO, position)
         }
 
         holder.dislikeButton.setOnClickListener {
-            onItemClick.invoke(ButtonType.DISLIKE, trackInfoDTO)
+            onItemClick.invoke(ButtonType.DISLIKE, trackInfoDTO, position)
         }
 
         when (trackInfoDTO.rating.name) {
@@ -113,5 +113,12 @@ class TrackAdapter(
             }
         }
         notifyItemMoved(fromPosition, toPosition)
+    }
+
+    fun updateItem(position: Int, trackInfoDTO: TrackInfoDTO) {
+        val trackInfoDTOMutableList = trackInfoDTOList.toMutableList()
+        trackInfoDTOMutableList[position] = trackInfoDTO
+        trackInfoDTOList = trackInfoDTOMutableList.toList()
+        notifyItemChanged(position)
     }
 }

@@ -19,7 +19,10 @@ import com.bessonov.musicappclient.api.ArtistAPI
 import com.bessonov.musicappclient.api.TrackAPI
 import com.bessonov.musicappclient.dto.ArtistInfoDTO
 import com.bessonov.musicappclient.dto.TrackInfoDTO
+import com.bessonov.musicappclient.ui.main.MainActivity
 import com.bessonov.musicappclient.utils.ConfigManager
+import com.bessonov.musicappclient.utils.ItemClickHandler
+import com.bessonov.musicappclient.utils.ItemType
 import com.bessonov.musicappclient.utils.RetrofitClient
 import com.bessonov.musicappclient.utils.SessionManager
 import com.bumptech.glide.Glide
@@ -134,7 +137,19 @@ class ArtistFragment(
             }
         }
 
-        val trackAdapter = TrackAdapter(requireContext(), trackInfoDTOList) { _, _ ->
+        val itemClickHandler =
+            ItemClickHandler(activity as MainActivity, requireContext(), trackRecyclerView)
+
+        val trackAdapter = TrackAdapter(
+            requireContext(), trackInfoDTOList
+        ) { buttonType, any, itemPosition ->
+            itemClickHandler.onItemClick(
+                ItemType.TRACK,
+                -1,
+                buttonType,
+                any,
+                itemPosition
+            )
         }
 
         trackRecyclerView.adapter = trackAdapter

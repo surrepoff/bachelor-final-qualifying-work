@@ -12,9 +12,9 @@ import com.bessonov.musicappclient.utils.ButtonType
 
 class RecommendationAdapter(
     private val context: Context,
-    private val recommendationInfoDTOList: List<RecommendationInfoDTO>,
+    private var recommendationInfoDTOList: List<RecommendationInfoDTO>,
     private val orientation: Int,
-    private val onItemClick: (ButtonType, Any) -> Unit
+    private val onItemClick: (ButtonType, Any, Int) -> Unit
 ) : RecyclerView.Adapter<RecommendationViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecommendationViewHolder {
         val view: View = if (orientation == LinearLayoutManager.HORIZONTAL) {
@@ -35,7 +35,7 @@ class RecommendationAdapter(
         val recommendationInfoDTO = recommendationInfoDTOList[position]
 
         holder.itemView.setOnClickListener {
-            onItemClick.invoke(ButtonType.ITEM, recommendationInfoDTO)
+            onItemClick.invoke(ButtonType.ITEM, recommendationInfoDTO, position)
         }
 
         val recommendationName = "Rec №" + recommendationInfoDTO.recommendation.id
@@ -45,11 +45,11 @@ class RecommendationAdapter(
 
         if (orientation == LinearLayoutManager.VERTICAL) {
             holder.likeButton?.setOnClickListener {
-                onItemClick.invoke(ButtonType.LIKE, recommendationInfoDTO)
+                onItemClick.invoke(ButtonType.LIKE, recommendationInfoDTO, position)
             }
 
             holder.dislikeButton?.setOnClickListener {
-                onItemClick.invoke(ButtonType.DISLIKE, recommendationInfoDTO)
+                onItemClick.invoke(ButtonType.DISLIKE, recommendationInfoDTO, position)
             }
 
             when (recommendationInfoDTO.rating.name) {
@@ -69,5 +69,12 @@ class RecommendationAdapter(
                 }
             }
         }
+    }
+
+    fun updateItem(position: Int, recommendationInfoDTO: RecommendationInfoDTO) {
+        val recommendationInfoDTOMutableList = recommendationInfoDTOList.toMutableList()
+        recommendationInfoDTOMutableList[position] = recommendationInfoDTO
+        recommendationInfoDTOList = recommendationInfoDTOMutableList.toList()
+        notifyItemChanged(position)
     }
 }

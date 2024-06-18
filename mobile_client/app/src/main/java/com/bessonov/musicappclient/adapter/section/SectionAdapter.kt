@@ -28,7 +28,7 @@ class SectionAdapter(
     private val context: Context,
     private val sectionList: List<Section<*>>,
     private val onSectionClick: (Section<*>) -> Unit,
-    private val onItemClick: (ItemType, ButtonType, Any) -> Unit
+    private val onItemClick: (ItemType, Int, ButtonType, Any, Int) -> Unit
 ) : RecyclerView.Adapter<SectionViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SectionViewHolder {
         val view = LayoutInflater.from(parent.context)
@@ -71,8 +71,8 @@ class SectionAdapter(
                         context,
                         albumInfoDTOList,
                         section.orientation
-                    ) { buttonType, any ->
-                        onItemClick.invoke(ItemType.ALBUM, buttonType, any)
+                    ) { buttonType, any, itemPosition ->
+                        onItemClick.invoke(ItemType.ALBUM, position, buttonType, any, itemPosition)
                     }
                 holder.recyclerView.adapter = albumAdapter
             }
@@ -83,8 +83,8 @@ class SectionAdapter(
                     context,
                     artistInfoDTOList,
                     section.orientation
-                ) { buttonType, any ->
-                    onItemClick.invoke(ItemType.ARTIST, buttonType, any)
+                ) { buttonType, any, itemPosition ->
+                    onItemClick.invoke(ItemType.ARTIST, position, buttonType, any, itemPosition)
                 }
                 holder.recyclerView.adapter = artistAdapter
             }
@@ -96,8 +96,14 @@ class SectionAdapter(
                         context,
                         playlistInfoDTOList,
                         section.orientation
-                    ) { buttonType, any ->
-                        onItemClick.invoke(ItemType.PLAYLIST, buttonType, any)
+                    ) { buttonType, any, itemPosition ->
+                        onItemClick.invoke(
+                            ItemType.PLAYLIST,
+                            position,
+                            buttonType,
+                            any,
+                            itemPosition
+                        )
                     }
                 holder.recyclerView.adapter = playlistAdapter
             }
@@ -120,8 +126,14 @@ class SectionAdapter(
                         context,
                         recommendationInfoDTOList,
                         section.orientation
-                    ) { buttonType, any ->
-                        onItemClick.invoke(ItemType.RECOMMENDATION, buttonType, any)
+                    ) { buttonType, any, itemPosition ->
+                        onItemClick.invoke(
+                            ItemType.RECOMMENDATION,
+                            position,
+                            buttonType,
+                            any,
+                            itemPosition
+                        )
                     }
                 holder.recyclerView.adapter = recommendationAdapter
             }
@@ -138,9 +150,10 @@ class SectionAdapter(
 
             SectionType.TRACK -> {
                 val trackInfoDTOList = section.items.filterIsInstance<TrackInfoDTO>()
-                val trackAdapter = TrackAdapter(context, trackInfoDTOList) { buttonType, any ->
-                    onItemClick.invoke(ItemType.TRACK, buttonType, any)
-                }
+                val trackAdapter =
+                    TrackAdapter(context, trackInfoDTOList) { buttonType, any, itemPosition ->
+                        onItemClick.invoke(ItemType.TRACK, position, buttonType, any, itemPosition)
+                    }
                 holder.recyclerView.adapter = trackAdapter
 
                 val itemTouchHelper = ItemTouchHelper(DragManageAdapter(trackAdapter))

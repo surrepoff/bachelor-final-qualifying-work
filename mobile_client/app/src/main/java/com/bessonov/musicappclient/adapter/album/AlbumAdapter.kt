@@ -17,9 +17,9 @@ import com.bumptech.glide.load.model.LazyHeaders
 
 class AlbumAdapter(
     private val context: Context,
-    private val albumInfoDTOList: List<AlbumInfoDTO>,
+    private var albumInfoDTOList: List<AlbumInfoDTO>,
     private val orientation: Int,
-    private val onItemClick: (ButtonType, Any) -> Unit
+    private val onItemClick: (ButtonType, Any, Int) -> Unit
 ) : RecyclerView.Adapter<AlbumViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AlbumViewHolder {
         val view: View = if (orientation == LinearLayoutManager.HORIZONTAL) {
@@ -40,7 +40,7 @@ class AlbumAdapter(
         val albumInfoDTO = albumInfoDTOList[position]
 
         holder.itemView.setOnClickListener {
-            onItemClick.invoke(ButtonType.ITEM, albumInfoDTO)
+            onItemClick.invoke(ButtonType.ITEM, albumInfoDTO, position)
         }
 
         holder.albumName.text = albumInfoDTO.album.name
@@ -70,7 +70,7 @@ class AlbumAdapter(
 
         if (orientation == LinearLayoutManager.VERTICAL) {
             holder.addButton?.setOnClickListener {
-                onItemClick.invoke(ButtonType.ADD, albumInfoDTO)
+                onItemClick.invoke(ButtonType.ADD, albumInfoDTO, position)
             }
 
             if (albumInfoDTO.isAdded.isAdded) {
@@ -80,11 +80,11 @@ class AlbumAdapter(
             }
 
             holder.likeButton?.setOnClickListener {
-                onItemClick.invoke(ButtonType.LIKE, albumInfoDTO)
+                onItemClick.invoke(ButtonType.LIKE, albumInfoDTO, position)
             }
 
             holder.dislikeButton?.setOnClickListener {
-                onItemClick.invoke(ButtonType.DISLIKE, albumInfoDTO)
+                onItemClick.invoke(ButtonType.DISLIKE, albumInfoDTO, position)
             }
 
             when (albumInfoDTO.rating.name) {
@@ -104,5 +104,12 @@ class AlbumAdapter(
                 }
             }
         }
+    }
+
+    fun updateItem(position: Int, albumInfoDTO: AlbumInfoDTO) {
+        val albumInfoDTOMutableList = albumInfoDTOList.toMutableList()
+        albumInfoDTOMutableList[position] = albumInfoDTO
+        albumInfoDTOList = albumInfoDTOMutableList.toList()
+        notifyItemChanged(position)
     }
 }

@@ -141,7 +141,8 @@ class SearchFragment : Fragment() {
     private fun populateData() {
         userNickname.text = userDataDTO.nickname
 
-        val itemClickHandler = ItemClickHandler(activity as MainActivity, requireContext())
+        val itemClickHandler =
+            ItemClickHandler(activity as MainActivity, requireContext(), recyclerView)
 
         if (isSearch) {
             val artistSection: Section<ArtistInfoDTO> = Section(
@@ -184,8 +185,14 @@ class SearchFragment : Fragment() {
                 onSectionClick = { section ->
                     (activity as MainActivity).openSectionFragment(section)
                 },
-                onItemClick = { itemType, buttonType, any ->
-                    itemClickHandler.onItemClick(itemType, buttonType, any)
+                onItemClick = { itemType, sectionPosition, buttonType, any, itemPosition ->
+                    itemClickHandler.onItemClick(
+                        itemType,
+                        sectionPosition,
+                        buttonType,
+                        any,
+                        itemPosition
+                    )
                 })
 
             recyclerView.adapter = sectionAdapter
@@ -206,8 +213,14 @@ class SearchFragment : Fragment() {
                 onSectionClick = { section ->
                     (activity as MainActivity).openSectionFragment(section)
                 },
-                onItemClick = { itemType, buttonType, any ->
-                    itemClickHandler.onItemClick(itemType, buttonType, any)
+                onItemClick = { itemType, sectionPosition, buttonType, any, itemPosition ->
+                    itemClickHandler.onItemClick(
+                        itemType,
+                        sectionPosition,
+                        buttonType,
+                        any,
+                        itemPosition
+                    )
                 })
 
             recyclerView.adapter = sectionAdapter

@@ -18,9 +18,9 @@ import com.bumptech.glide.load.model.LazyHeaders
 
 class ArtistAdapter(
     private val context: Context,
-    private val artistInfoDTOList: List<ArtistInfoDTO>,
+    private var artistInfoDTOList: List<ArtistInfoDTO>,
     private val orientation: Int,
-    private val onItemClick: (ButtonType, Any) -> Unit
+    private val onItemClick: (ButtonType, Any, Int) -> Unit
 ) : RecyclerView.Adapter<ArtistViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ArtistViewHolder {
         val view: View = if (orientation == LinearLayoutManager.HORIZONTAL) {
@@ -41,7 +41,7 @@ class ArtistAdapter(
         val artistInfoDTO = artistInfoDTOList[position]
 
         holder.itemView.setOnClickListener {
-            onItemClick.invoke(ButtonType.ITEM, artistInfoDTO)
+            onItemClick.invoke(ButtonType.ITEM, artistInfoDTO, position)
         }
 
         holder.artistName.text = artistInfoDTO.artist.name
@@ -63,7 +63,7 @@ class ArtistAdapter(
 
         if (orientation == LinearLayoutManager.VERTICAL) {
             holder.addButton?.setOnClickListener {
-                onItemClick.invoke(ButtonType.ADD, artistInfoDTO)
+                onItemClick.invoke(ButtonType.ADD, artistInfoDTO, position)
             }
 
             if (artistInfoDTO.isAdded.isAdded) {
@@ -73,11 +73,11 @@ class ArtistAdapter(
             }
 
             holder.likeButton?.setOnClickListener {
-                onItemClick.invoke(ButtonType.LIKE, artistInfoDTO)
+                onItemClick.invoke(ButtonType.LIKE, artistInfoDTO, position)
             }
 
             holder.dislikeButton?.setOnClickListener {
-                onItemClick.invoke(ButtonType.DISLIKE, artistInfoDTO)
+                onItemClick.invoke(ButtonType.DISLIKE, artistInfoDTO, position)
             }
 
             when (artistInfoDTO.rating.name) {
@@ -97,5 +97,12 @@ class ArtistAdapter(
                 }
             }
         }
+    }
+
+    fun updateItem(position: Int, artistInfoDTO: ArtistInfoDTO) {
+        val artistInfoDTOMutableList = artistInfoDTOList.toMutableList()
+        artistInfoDTOMutableList[position] = artistInfoDTO
+        artistInfoDTOList = artistInfoDTOMutableList.toList()
+        notifyItemChanged(position)
     }
 }

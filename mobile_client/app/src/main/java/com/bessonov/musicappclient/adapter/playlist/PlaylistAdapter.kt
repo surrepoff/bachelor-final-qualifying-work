@@ -12,9 +12,9 @@ import com.bessonov.musicappclient.utils.ButtonType
 
 class PlaylistAdapter(
     private val context: Context,
-    private val playlistInfoDTOList: List<PlaylistInfoDTO>,
+    private var playlistInfoDTOList: List<PlaylistInfoDTO>,
     private val orientation: Int,
-    private val onItemClick: (ButtonType, Any) -> Unit
+    private val onItemClick: (ButtonType, Any, Int) -> Unit
 ) : RecyclerView.Adapter<PlaylistViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PlaylistViewHolder {
         val view: View = if (orientation == LinearLayoutManager.HORIZONTAL) {
@@ -35,7 +35,7 @@ class PlaylistAdapter(
         val playlistInfoDTO = playlistInfoDTOList[position]
 
         holder.itemView.setOnClickListener {
-            onItemClick.invoke(ButtonType.ITEM, playlistInfoDTO)
+            onItemClick.invoke(ButtonType.ITEM, playlistInfoDTO, position)
         }
 
         holder.playlistName.text = playlistInfoDTO.playlist.name
@@ -47,7 +47,7 @@ class PlaylistAdapter(
 
         if (orientation == LinearLayoutManager.VERTICAL) {
             holder.addButton?.setOnClickListener {
-                onItemClick.invoke(ButtonType.ADD, playlistInfoDTO)
+                onItemClick.invoke(ButtonType.ADD, playlistInfoDTO, position)
             }
 
             if (playlistInfoDTO.isAdded.isAdded) {
@@ -57,11 +57,11 @@ class PlaylistAdapter(
             }
 
             holder.likeButton?.setOnClickListener {
-                onItemClick.invoke(ButtonType.LIKE, playlistInfoDTO)
+                onItemClick.invoke(ButtonType.LIKE, playlistInfoDTO, position)
             }
 
             holder.dislikeButton?.setOnClickListener {
-                onItemClick.invoke(ButtonType.DISLIKE, playlistInfoDTO)
+                onItemClick.invoke(ButtonType.DISLIKE, playlistInfoDTO, position)
             }
 
             when (playlistInfoDTO.rating.name) {
@@ -81,5 +81,12 @@ class PlaylistAdapter(
                 }
             }
         }
+    }
+
+    fun updateItem(position: Int, playlistInfoDTO: PlaylistInfoDTO) {
+        val playlistInfoDTOMutableList = playlistInfoDTOList.toMutableList()
+        playlistInfoDTOMutableList[position] = playlistInfoDTO
+        playlistInfoDTOList = playlistInfoDTOMutableList.toList()
+        notifyItemChanged(position)
     }
 }
