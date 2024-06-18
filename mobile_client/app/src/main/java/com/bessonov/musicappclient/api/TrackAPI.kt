@@ -1,7 +1,6 @@
 package com.bessonov.musicappclient.api
 
 import com.bessonov.musicappclient.dto.TrackInfoDTO
-import com.bessonov.musicappclient.dto.UserRatingDTO
 import com.bessonov.musicappclient.dto.UserTrackDTO
 import okhttp3.ResponseBody
 import retrofit2.Call
@@ -27,16 +26,16 @@ interface TrackAPI {
     fun getTrackHistoryList(): Call<List<TrackInfoDTO>>
 
     @GET("/track/add/{trackId}")
-    fun addTrackToUserList(@Path("trackId") trackId: Int): Call<UserTrackDTO>
+    fun addTrackToUserList(@Path("trackId") trackId: Int): Call<TrackInfoDTO>
 
     @GET("/track/add/history/{trackId}")
     fun addTrackToHistoryList(@Path("trackId") trackId: Int): Call<UserTrackDTO>
 
     @GET("/track/remove/{trackId}")
-    fun removeTrackFromUserList(@Path("trackId") trackId: Int): Call<UserTrackDTO>
+    fun removeTrackFromUserList(@Path("trackId") trackId: Int): Call<TrackInfoDTO>
 
     @POST("/track/rate/{trackId}")
-    fun rateTrack(@Path("trackId") trackId: Int, @Body rateId: Int): Call<UserRatingDTO>
+    fun rateTrack(@Path("trackId") trackId: Int, @Body rateId: Int): Call<TrackInfoDTO>
 
     @GET("/track/stream/{trackId}")
     fun streamAudio(@Path("trackId") trackId: Int): Call<ResponseBody>

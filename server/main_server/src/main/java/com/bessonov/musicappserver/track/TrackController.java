@@ -43,7 +43,7 @@ public class TrackController {
     }
 
     @GetMapping("/add/{trackId}")
-    public UserTrackDTO addTrackToUserList(@PathVariable Integer trackId, Authentication authentication) {
+    public TrackInfoDTO addTrackToUserList(@PathVariable Integer trackId, Authentication authentication) {
         return trackService.addTrackToUserList(authentication.getName(), trackId);
     }
 
@@ -53,12 +53,12 @@ public class TrackController {
     }
 
     @GetMapping("/remove/{trackId}")
-    public UserTrackDTO removeTrackFromUserList(@PathVariable Integer trackId, Authentication authentication) {
+    public TrackInfoDTO removeTrackFromUserList(@PathVariable Integer trackId, Authentication authentication) {
         return trackService.removeTrackFromUserList(authentication.getName(), trackId);
     }
 
     @PostMapping("/rate/{trackId}")
-    public UserRatingDTO rateTrack(@PathVariable Integer trackId, @RequestBody Integer rateId, Authentication authentication) {
+    public TrackInfoDTO rateTrack(@PathVariable Integer trackId, @RequestBody Integer rateId, Authentication authentication) {
         return trackService.rateTrack(authentication.getName(), trackId, rateId);
     }
 

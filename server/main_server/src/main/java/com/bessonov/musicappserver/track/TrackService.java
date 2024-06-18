@@ -246,7 +246,7 @@ public class TrackService {
         return trackInfoDTO;
     }
 
-    public UserTrackDTO addTrackToUserList(String username, int trackId) {
+    public TrackInfoDTO addTrackToUserList(String username, int trackId) {
         Optional<UserData> userData = userDataRepository.findByUsername(username);
 
         if (userData.isEmpty()) {
@@ -264,7 +264,7 @@ public class TrackService {
         Optional<UserTrack> userTrack = userTrackRepository.findById(userTrackId);
 
         if (userTrack.isPresent()) {
-            return new UserTrackDTO(userTrack.get());
+            return getTrackInfoByTrack(username, track.get());
         }
 
         UserTrack newUserTrack = new UserTrack();
@@ -279,7 +279,7 @@ public class TrackService {
 
         userTrackRepository.save(newUserTrack);
 
-        return new UserTrackDTO(newUserTrack);
+        return getTrackInfoByTrack(username, track.get());
     }
 
     public UserTrackHistoryDTO addTrackToHistoryList(String username, int trackId) {
@@ -315,7 +315,7 @@ public class TrackService {
         return new UserTrackHistoryDTO(newUserTrackHistory);
     }
 
-    public UserTrackDTO removeTrackFromUserList(String username, int trackId) {
+    public TrackInfoDTO removeTrackFromUserList(String username, int trackId) {
         Optional<UserData> userData = userDataRepository.findByUsername(username);
 
         if (userData.isEmpty()) {
@@ -333,7 +333,7 @@ public class TrackService {
         Optional<UserTrack> userTrack = userTrackRepository.findById(userTrackId);
 
         if (userTrack.isEmpty()) {
-            return new UserTrackDTO();
+            return getTrackInfoByTrack(username, track.get());
         }
 
         userTrackRepository.delete(userTrack.get());
@@ -347,10 +347,10 @@ public class TrackService {
 
         userTrackRepository.saveAll(userTrackList);
 
-        return new UserTrackDTO();
+        return getTrackInfoByTrack(username, track.get());
     }
 
-    public UserRatingDTO rateTrack(String username, int trackId, int rateId) {
+    public TrackInfoDTO rateTrack(String username, int trackId, int rateId) {
         Optional<UserRating> userRating = userRatingRepository.findById(rateId);
 
         if (userRating.isEmpty()) {
@@ -376,7 +376,7 @@ public class TrackService {
         if (userTrackRating.isPresent()) {
             userTrackRating.get().setUserRatingId(rateId);
             userTrackRatingRepository.save(userTrackRating.get());
-            return new UserRatingDTO(userRating.get());
+            return getTrackInfoByTrack(username, track.get());
         }
 
         UserTrackRating newUserTrackRating = new UserTrackRating();
@@ -384,7 +384,7 @@ public class TrackService {
         newUserTrackRating.setUserRatingId(rateId);
 
         userTrackRatingRepository.save(newUserTrackRating);
-        return new UserRatingDTO(userRating.get());
+        return getTrackInfoByTrack(username, track.get());
     }
 
     public ResponseEntity<Resource> streamAudio(int trackId) {
