@@ -67,7 +67,11 @@ class SectionAdapter(
             SectionType.ALBUM -> {
                 val albumInfoDTOList = section.items.filterIsInstance<AlbumInfoDTO>()
                 val albumAdapter =
-                    AlbumAdapter(context, albumInfoDTOList, section.orientation) { buttonType, any ->
+                    AlbumAdapter(
+                        context,
+                        albumInfoDTOList,
+                        section.orientation
+                    ) { buttonType, any ->
                         onItemClick.invoke(ItemType.ALBUM, buttonType, any)
                     }
                 holder.recyclerView.adapter = albumAdapter

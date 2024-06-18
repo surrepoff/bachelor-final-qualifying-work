@@ -26,7 +26,6 @@ import com.bessonov.musicappclient.api.AlbumAPI
 import com.bessonov.musicappclient.api.ArtistAPI
 import com.bessonov.musicappclient.api.PlaylistAPI
 import com.bessonov.musicappclient.api.RecommendationAPI
-import com.bessonov.musicappclient.api.RetrofitClient
 import com.bessonov.musicappclient.api.SearchAPI
 import com.bessonov.musicappclient.api.TrackAPI
 import com.bessonov.musicappclient.dto.AlbumInfoDTO
@@ -36,6 +35,7 @@ import com.bessonov.musicappclient.dto.RecommendationInfoDTO
 import com.bessonov.musicappclient.dto.SearchInfoDTO
 import com.bessonov.musicappclient.dto.SearchRequestDTO
 import com.bessonov.musicappclient.dto.TrackInfoDTO
+import com.bessonov.musicappclient.utils.RetrofitClient
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -82,8 +82,11 @@ class SectionFragment(
             SectionType.ALBUM -> {
                 val albumInfoDTOList = section.items.filterIsInstance<AlbumInfoDTO>()
                 val albumAdapter =
-                    AlbumAdapter(requireContext(), albumInfoDTOList, LinearLayoutManager.VERTICAL) {
-                        _, _ ->
+                    AlbumAdapter(
+                        requireContext(),
+                        albumInfoDTOList,
+                        LinearLayoutManager.VERTICAL
+                    ) { _, _ ->
                     }
                 recyclerView.adapter = albumAdapter
             }
@@ -91,8 +94,11 @@ class SectionFragment(
             SectionType.ARTIST -> {
                 val artistInfoDTOList = section.items.filterIsInstance<ArtistInfoDTO>()
                 val artistAdapter =
-                    ArtistAdapter(requireContext(), artistInfoDTOList, LinearLayoutManager.VERTICAL) {
-                            _, _ ->
+                    ArtistAdapter(
+                        requireContext(),
+                        artistInfoDTOList,
+                        LinearLayoutManager.VERTICAL
+                    ) { _, _ ->
                     }
                 recyclerView.adapter = artistAdapter
             }
@@ -103,8 +109,7 @@ class SectionFragment(
                     requireContext(),
                     playlistInfoDTOList,
                     LinearLayoutManager.VERTICAL
-                ) {
-                        _, _ ->
+                ) { _, _ ->
                 }
                 recyclerView.adapter = playlistAdapter
             }
@@ -117,8 +122,7 @@ class SectionFragment(
                         requireContext(),
                         recommendationInfoDTOList,
                         LinearLayoutManager.VERTICAL
-                    ) {
-                            _, _ ->
+                    ) { _, _ ->
                     }
                 recyclerView.adapter = recommendationAdapter
             }
@@ -126,8 +130,7 @@ class SectionFragment(
             SectionType.TRACK -> {
                 val trackInfoDTOList = section.items.filterIsInstance<TrackInfoDTO>()
                 val trackAdapter =
-                    TrackAdapter(requireContext(), trackInfoDTOList) {
-                            _, _ ->
+                    TrackAdapter(requireContext(), trackInfoDTOList) { _, _ ->
                     }
                 recyclerView.adapter = trackAdapter
 

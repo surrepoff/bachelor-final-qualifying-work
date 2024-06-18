@@ -15,13 +15,11 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.bessonov.musicappclient.R
 import com.bessonov.musicappclient.adapter.track.TrackAdapter
 import com.bessonov.musicappclient.api.PlaylistAPI
-import com.bessonov.musicappclient.api.RetrofitClient
 import com.bessonov.musicappclient.api.TrackAPI
 import com.bessonov.musicappclient.dto.PlaylistInfoDTO
 import com.bessonov.musicappclient.dto.TrackInfoDTO
-import com.bessonov.musicappclient.dto.UserPlaylistDTO
-import com.bessonov.musicappclient.dto.UserRatingDTO
 import com.bessonov.musicappclient.ui.main.MainActivity
+import com.bessonov.musicappclient.utils.RetrofitClient
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -82,8 +80,7 @@ class PlaylistFragment(
         addButton.setOnClickListener {
             if (playlistInfoDTO.isAdded.isAdded) {
                 removePlaylist()
-            }
-            else {
+            } else {
                 addPlaylist()
             }
         }
@@ -94,6 +91,7 @@ class PlaylistFragment(
                 "Like" -> {
                     ratePlaylist(0)
                 }
+
                 else -> {
                     ratePlaylist(1)
                 }
@@ -106,6 +104,7 @@ class PlaylistFragment(
                 "Dislike" -> {
                     ratePlaylist(0)
                 }
+
                 else -> {
                     ratePlaylist(-1)
                 }
@@ -166,8 +165,7 @@ class PlaylistFragment(
         createText.text = playlistInfoDTO.playlist.creationDate.toString()
         lastUpdateText.text = playlistInfoDTO.playlist.lastUpdateDate.toString()
 
-        val trackAdapter = TrackAdapter(requireContext(), trackInfoDTOList) {
-            _, _ ->
+        val trackAdapter = TrackAdapter(requireContext(), trackInfoDTOList) { _, _ ->
         }
 
         trackRecyclerView.adapter = trackAdapter

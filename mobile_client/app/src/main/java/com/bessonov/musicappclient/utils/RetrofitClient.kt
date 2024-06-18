@@ -1,7 +1,6 @@
-package com.bessonov.musicappclient.api
+package com.bessonov.musicappclient.utils
 
 import android.content.Context
-import com.bessonov.musicappclient.utils.ConfigManager
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory

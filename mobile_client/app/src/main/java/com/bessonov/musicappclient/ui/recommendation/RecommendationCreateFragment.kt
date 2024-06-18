@@ -18,11 +18,11 @@ import com.bessonov.musicappclient.R
 import com.bessonov.musicappclient.adapter.genre.GenreAdapter
 import com.bessonov.musicappclient.api.GenreAPI
 import com.bessonov.musicappclient.api.RecommendationAPI
-import com.bessonov.musicappclient.api.RetrofitClient
 import com.bessonov.musicappclient.dto.GenreDTO
 import com.bessonov.musicappclient.dto.RecommendationCreateDTO
 import com.bessonov.musicappclient.dto.RecommendationInfoDTO
 import com.bessonov.musicappclient.ui.main.MainActivity
+import com.bessonov.musicappclient.utils.RetrofitClient
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

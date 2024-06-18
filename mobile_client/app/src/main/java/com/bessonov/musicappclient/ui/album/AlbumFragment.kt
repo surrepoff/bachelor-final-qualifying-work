@@ -6,9 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
-import java.text.SimpleDateFormat
-import java.util.Date
-import java.util.Locale
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
@@ -19,21 +16,20 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.bessonov.musicappclient.R
 import com.bessonov.musicappclient.adapter.track.TrackAdapter
 import com.bessonov.musicappclient.api.AlbumAPI
-import com.bessonov.musicappclient.api.PlaylistAPI
-import com.bessonov.musicappclient.api.RetrofitClient
-import com.bessonov.musicappclient.api.SessionManager
 import com.bessonov.musicappclient.api.TrackAPI
 import com.bessonov.musicappclient.dto.AlbumInfoDTO
-import com.bessonov.musicappclient.dto.PlaylistInfoDTO
 import com.bessonov.musicappclient.dto.TrackInfoDTO
-import com.bessonov.musicappclient.ui.main.MainActivity
 import com.bessonov.musicappclient.utils.ConfigManager
+import com.bessonov.musicappclient.utils.RetrofitClient
+import com.bessonov.musicappclient.utils.SessionManager
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.model.GlideUrl
 import com.bumptech.glide.load.model.LazyHeaders
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.text.SimpleDateFormat
+import java.util.Locale
 
 class AlbumFragment(
     private var albumInfoDTO: AlbumInfoDTO
@@ -77,8 +73,7 @@ class AlbumFragment(
         addButton.setOnClickListener {
             if (albumInfoDTO.isAdded.isAdded) {
                 removeAlbum()
-            }
-            else {
+            } else {
                 addAlbum()
             }
         }
@@ -89,6 +84,7 @@ class AlbumFragment(
                 "Like" -> {
                     rateAlbum(0)
                 }
+
                 else -> {
                     rateAlbum(1)
                 }
@@ -101,6 +97,7 @@ class AlbumFragment(
                 "Dislike" -> {
                     rateAlbum(0)
                 }
+
                 else -> {
                     rateAlbum(-1)
                 }
@@ -154,8 +151,7 @@ class AlbumFragment(
         val format = SimpleDateFormat("dd MMMM yyyy", Locale("ru"))
         releaseText.text = format.format(albumInfoDTO.album.releaseDate)
 
-        val trackAdapter = TrackAdapter(requireContext(), trackInfoDTOList) {
-                _, _ ->
+        val trackAdapter = TrackAdapter(requireContext(), trackInfoDTOList) { _, _ ->
         }
 
         trackRecyclerView.adapter = trackAdapter

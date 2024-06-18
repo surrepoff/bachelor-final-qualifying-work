@@ -1,8 +1,6 @@
 package com.bessonov.musicappclient.api
 
 import com.bessonov.musicappclient.dto.AlbumInfoDTO
-import com.bessonov.musicappclient.dto.UserAlbumDTO
-import com.bessonov.musicappclient.dto.UserRatingDTO
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.GET

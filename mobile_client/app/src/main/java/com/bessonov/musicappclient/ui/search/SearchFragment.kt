@@ -19,21 +19,19 @@ import com.bessonov.musicappclient.R
 import com.bessonov.musicappclient.adapter.section.Section
 import com.bessonov.musicappclient.adapter.section.SectionAdapter
 import com.bessonov.musicappclient.adapter.section.SectionType
-import com.bessonov.musicappclient.api.RetrofitClient
 import com.bessonov.musicappclient.api.SearchAPI
 import com.bessonov.musicappclient.api.TrackAPI
 import com.bessonov.musicappclient.api.UserAPI
 import com.bessonov.musicappclient.dto.AlbumInfoDTO
 import com.bessonov.musicappclient.dto.ArtistInfoDTO
 import com.bessonov.musicappclient.dto.PlaylistInfoDTO
-import com.bessonov.musicappclient.dto.RecommendationInfoDTO
 import com.bessonov.musicappclient.dto.SearchInfoDTO
 import com.bessonov.musicappclient.dto.SearchRequestDTO
 import com.bessonov.musicappclient.dto.TrackInfoDTO
 import com.bessonov.musicappclient.dto.UserDataDTO
 import com.bessonov.musicappclient.ui.main.MainActivity
-import com.bessonov.musicappclient.utils.ButtonType
-import com.bessonov.musicappclient.utils.ItemType
+import com.bessonov.musicappclient.utils.ItemClickHandler
+import com.bessonov.musicappclient.utils.RetrofitClient
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -143,6 +141,8 @@ class SearchFragment : Fragment() {
     private fun populateData() {
         userNickname.text = userDataDTO.nickname
 
+        val itemClickHandler = ItemClickHandler(activity as MainActivity, requireContext())
+
         if (isSearch) {
             val artistSection: Section<ArtistInfoDTO> = Section(
                 title = "Найденные Артисты",
@@ -178,97 +178,15 @@ class SearchFragment : Fragment() {
 
             sectionList = listOf(artistSection, albumSection, playlistSection, trackSection)
 
-            val sectionAdapter =
-                SectionAdapter(requireContext(), sectionList, onSectionClick = { section ->
+            val sectionAdapter = SectionAdapter(
+                requireContext(),
+                sectionList,
+                onSectionClick = { section ->
                     (activity as MainActivity).openSectionFragment(section)
                 },
-                    onItemClick = { itemType, buttonType, any ->
-                        when (itemType) {
-                            ItemType.ALBUM -> {
-                                when (buttonType) {
-                                    ButtonType.ITEM -> {
-                                        (activity as MainActivity).openAlbumFragment(any as AlbumInfoDTO)
-                                    }
-
-                                    ButtonType.ADD -> {
-
-                                    }
-
-                                    ButtonType.LIKE -> {
-
-                                    }
-
-                                    ButtonType.DISLIKE -> {
-
-                                    }
-                                }
-                            }
-
-                            ItemType.ARTIST -> {
-                                when (buttonType) {
-                                    ButtonType.ITEM -> {
-                                        (activity as MainActivity).openArtistFragment(any as ArtistInfoDTO)
-                                    }
-
-                                    ButtonType.ADD -> {
-
-                                    }
-
-                                    ButtonType.LIKE -> {
-
-                                    }
-
-                                    ButtonType.DISLIKE -> {
-
-                                    }
-                                }
-                            }
-
-                            ItemType.PLAYLIST -> {
-                                when (buttonType) {
-                                    ButtonType.ITEM -> {
-                                        (activity as MainActivity).openPlaylistFragment(any as PlaylistInfoDTO)
-                                    }
-
-                                    ButtonType.ADD -> {
-
-                                    }
-
-                                    ButtonType.LIKE -> {
-
-                                    }
-
-                                    ButtonType.DISLIKE -> {
-
-                                    }
-                                }
-                            }
-
-                            ItemType.RECOMMENDATION -> {
-                                when (buttonType) {
-                                    ButtonType.ITEM -> {
-                                        (activity as MainActivity).openRecommendationFragment(any as RecommendationInfoDTO)
-                                    }
-
-                                    ButtonType.ADD -> {
-
-                                    }
-
-                                    ButtonType.LIKE -> {
-
-                                    }
-
-                                    ButtonType.DISLIKE -> {
-
-                                    }
-                                }
-                            }
-
-                            ItemType.TRACK -> {
-
-                            }
-                        }
-                    })
+                onItemClick = { itemType, buttonType, any ->
+                    itemClickHandler.onItemClick(itemType, buttonType, any)
+                })
 
             recyclerView.adapter = sectionAdapter
         } else {
@@ -282,97 +200,15 @@ class SearchFragment : Fragment() {
 
             sectionList = listOf(trackHistorySection)
 
-            val sectionAdapter =
-                SectionAdapter(requireContext(), sectionList, onSectionClick = { section ->
+            val sectionAdapter = SectionAdapter(
+                requireContext(),
+                sectionList,
+                onSectionClick = { section ->
                     (activity as MainActivity).openSectionFragment(section)
                 },
-                    onItemClick = { itemType, buttonType, any ->
-                        when (itemType) {
-                            ItemType.ALBUM -> {
-                                when (buttonType) {
-                                    ButtonType.ITEM -> {
-                                        (activity as MainActivity).openAlbumFragment(any as AlbumInfoDTO)
-                                    }
-
-                                    ButtonType.ADD -> {
-
-                                    }
-
-                                    ButtonType.LIKE -> {
-
-                                    }
-
-                                    ButtonType.DISLIKE -> {
-
-                                    }
-                                }
-                            }
-
-                            ItemType.ARTIST -> {
-                                when (buttonType) {
-                                    ButtonType.ITEM -> {
-                                        (activity as MainActivity).openArtistFragment(any as ArtistInfoDTO)
-                                    }
-
-                                    ButtonType.ADD -> {
-
-                                    }
-
-                                    ButtonType.LIKE -> {
-
-                                    }
-
-                                    ButtonType.DISLIKE -> {
-
-                                    }
-                                }
-                            }
-
-                            ItemType.PLAYLIST -> {
-                                when (buttonType) {
-                                    ButtonType.ITEM -> {
-                                        (activity as MainActivity).openPlaylistFragment(any as PlaylistInfoDTO)
-                                    }
-
-                                    ButtonType.ADD -> {
-
-                                    }
-
-                                    ButtonType.LIKE -> {
-
-                                    }
-
-                                    ButtonType.DISLIKE -> {
-
-                                    }
-                                }
-                            }
-
-                            ItemType.RECOMMENDATION -> {
-                                when (buttonType) {
-                                    ButtonType.ITEM -> {
-                                        (activity as MainActivity).openRecommendationFragment(any as RecommendationInfoDTO)
-                                    }
-
-                                    ButtonType.ADD -> {
-
-                                    }
-
-                                    ButtonType.LIKE -> {
-
-                                    }
-
-                                    ButtonType.DISLIKE -> {
-
-                                    }
-                                }
-                            }
-
-                            ItemType.TRACK -> {
-
-                            }
-                        }
-                    })
+                onItemClick = { itemType, buttonType, any ->
+                    itemClickHandler.onItemClick(itemType, buttonType, any)
+                })
 
             recyclerView.adapter = sectionAdapter
         }

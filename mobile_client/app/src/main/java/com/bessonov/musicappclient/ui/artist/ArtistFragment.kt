@@ -15,23 +15,19 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.bessonov.musicappclient.R
 import com.bessonov.musicappclient.adapter.track.TrackAdapter
-import com.bessonov.musicappclient.api.AlbumAPI
 import com.bessonov.musicappclient.api.ArtistAPI
-import com.bessonov.musicappclient.api.RetrofitClient
-import com.bessonov.musicappclient.api.SessionManager
 import com.bessonov.musicappclient.api.TrackAPI
-import com.bessonov.musicappclient.dto.AlbumInfoDTO
 import com.bessonov.musicappclient.dto.ArtistInfoDTO
 import com.bessonov.musicappclient.dto.TrackInfoDTO
 import com.bessonov.musicappclient.utils.ConfigManager
+import com.bessonov.musicappclient.utils.RetrofitClient
+import com.bessonov.musicappclient.utils.SessionManager
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.model.GlideUrl
 import com.bumptech.glide.load.model.LazyHeaders
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.text.SimpleDateFormat
-import java.util.Locale
 
 class ArtistFragment(
     private var artistInfoDTO: ArtistInfoDTO
@@ -72,8 +68,7 @@ class ArtistFragment(
         addButton.setOnClickListener {
             if (artistInfoDTO.isAdded.isAdded) {
                 removeArtist()
-            }
-            else {
+            } else {
                 addArtist()
             }
         }
@@ -84,6 +79,7 @@ class ArtistFragment(
                 "Like" -> {
                     rateArtist(0)
                 }
+
                 else -> {
                     rateArtist(1)
                 }
@@ -96,6 +92,7 @@ class ArtistFragment(
                 "Dislike" -> {
                     rateArtist(0)
                 }
+
                 else -> {
                     rateArtist(-1)
                 }
@@ -137,8 +134,7 @@ class ArtistFragment(
             }
         }
 
-        val trackAdapter = TrackAdapter(requireContext(), trackInfoDTOList) {
-                _, _ ->
+        val trackAdapter = TrackAdapter(requireContext(), trackInfoDTOList) { _, _ ->
         }
 
         trackRecyclerView.adapter = trackAdapter

@@ -2,8 +2,6 @@ package com.bessonov.musicappclient.api
 
 import com.bessonov.musicappclient.dto.PlaylistEditDTO
 import com.bessonov.musicappclient.dto.PlaylistInfoDTO
-import com.bessonov.musicappclient.dto.UserPlaylistDTO
-import com.bessonov.musicappclient.dto.UserRatingDTO
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.GET

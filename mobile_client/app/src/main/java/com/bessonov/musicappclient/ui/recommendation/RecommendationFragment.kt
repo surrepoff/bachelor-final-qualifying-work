@@ -15,14 +15,13 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.bessonov.musicappclient.R
 import com.bessonov.musicappclient.adapter.track.TrackAdapter
-import com.bessonov.musicappclient.api.PlaylistAPI
 import com.bessonov.musicappclient.api.RecommendationAPI
-import com.bessonov.musicappclient.api.RetrofitClient
 import com.bessonov.musicappclient.api.TrackAPI
 import com.bessonov.musicappclient.dto.PlaylistInfoDTO
 import com.bessonov.musicappclient.dto.RecommendationInfoDTO
 import com.bessonov.musicappclient.dto.TrackInfoDTO
 import com.bessonov.musicappclient.ui.main.MainActivity
+import com.bessonov.musicappclient.utils.RetrofitClient
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -79,6 +78,7 @@ class RecommendationFragment(
                 "Like" -> {
                     rateRecommendation(0)
                 }
+
                 else -> {
                     rateRecommendation(1)
                 }
@@ -91,6 +91,7 @@ class RecommendationFragment(
                 "Dislike" -> {
                     rateRecommendation(0)
                 }
+
                 else -> {
                     rateRecommendation(-1)
                 }
@@ -132,8 +133,7 @@ class RecommendationFragment(
 
         createText.text = recommendationInfoDTO.recommendation.creationDate.toString()
 
-        val trackAdapter = TrackAdapter(requireContext(), trackInfoDTOList) {
-                _, _ ->
+        val trackAdapter = TrackAdapter(requireContext(), trackInfoDTOList) { _, _ ->
         }
 
         trackRecyclerView.adapter = trackAdapter

@@ -1,4 +1,4 @@
-package com.bessonov.musicappclient.api
+package com.bessonov.musicappclient.utils
 
 import android.content.Context
 import okhttp3.Interceptor

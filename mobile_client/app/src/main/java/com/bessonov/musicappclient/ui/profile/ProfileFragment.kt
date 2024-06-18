@@ -15,12 +15,12 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.bessonov.musicappclient.R
-import com.bessonov.musicappclient.api.RetrofitClient
-import com.bessonov.musicappclient.api.SessionManager
 import com.bessonov.musicappclient.api.UserAPI
 import com.bessonov.musicappclient.dto.UserDataDTO
 import com.bessonov.musicappclient.dto.UserEditRequestDTO
 import com.bessonov.musicappclient.dto.UserEditResponseDTO
+import com.bessonov.musicappclient.utils.RetrofitClient
+import com.bessonov.musicappclient.utils.SessionManager
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
