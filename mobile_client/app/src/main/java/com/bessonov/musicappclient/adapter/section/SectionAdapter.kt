@@ -4,7 +4,6 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bessonov.musicappclient.R
@@ -14,7 +13,6 @@ import com.bessonov.musicappclient.adapter.playlist.PlaylistAdapter
 import com.bessonov.musicappclient.adapter.playlistCreate.PlaylistCreateAdapter
 import com.bessonov.musicappclient.adapter.recommendation.RecommendationAdapter
 import com.bessonov.musicappclient.adapter.recommendationCreate.RecommendationCreateAdapter
-import com.bessonov.musicappclient.adapter.track.DragManageAdapter
 import com.bessonov.musicappclient.adapter.track.TrackAdapter
 import com.bessonov.musicappclient.dto.AlbumInfoDTO
 import com.bessonov.musicappclient.dto.ArtistInfoDTO
@@ -155,9 +153,6 @@ class SectionAdapter(
                         onItemClick.invoke(ItemType.TRACK, position, buttonType, any, itemPosition)
                     }
                 holder.recyclerView.adapter = trackAdapter
-
-                val itemTouchHelper = ItemTouchHelper(DragManageAdapter(trackAdapter))
-                itemTouchHelper.attachToRecyclerView(holder.recyclerView)
             }
         }
     }

@@ -197,7 +197,20 @@ class ItemClickHandler(
             ItemType.TRACK -> {
                 when (buttonType) {
                     ButtonType.ITEM -> {
-                        //
+                        val trackInfoDTOList = if (sectionPosition != -1) {
+                            val sectionViewHolder =
+                                ((recyclerView.findViewHolderForAdapterPosition(sectionPosition)) as SectionViewHolder)
+                            val trackAdapter =
+                                sectionViewHolder.recyclerView.adapter as TrackAdapter
+
+                            trackAdapter.getTrackInfoDTOList()
+                        } else {
+                            val trackAdapter = recyclerView.adapter as TrackAdapter
+
+                            trackAdapter.getTrackInfoDTOList()
+                        }
+
+                        activity.openShortMusicPlayerFragment(trackInfoDTOList, itemPosition)
                     }
 
                     ButtonType.ADD -> {

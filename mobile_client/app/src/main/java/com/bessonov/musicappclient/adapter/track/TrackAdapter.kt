@@ -12,7 +12,6 @@ import com.bessonov.musicappclient.utils.SessionManager
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.model.GlideUrl
 import com.bumptech.glide.load.model.LazyHeaders
-import java.util.Collections
 
 class TrackAdapter(
     private val context: Context,
@@ -102,23 +101,14 @@ class TrackAdapter(
             .into(holder.trackImage)
     }
 
-    fun swapItems(fromPosition: Int, toPosition: Int) {
-        if (fromPosition < toPosition) {
-            for (i in fromPosition until toPosition) {
-                Collections.swap(trackInfoDTOList, i, i + 1)
-            }
-        } else {
-            for (i in fromPosition downTo toPosition + 1) {
-                Collections.swap(trackInfoDTOList, i, i - 1)
-            }
-        }
-        notifyItemMoved(fromPosition, toPosition)
-    }
-
     fun updateItem(position: Int, trackInfoDTO: TrackInfoDTO) {
         val trackInfoDTOMutableList = trackInfoDTOList.toMutableList()
         trackInfoDTOMutableList[position] = trackInfoDTO
         trackInfoDTOList = trackInfoDTOMutableList.toList()
         notifyItemChanged(position)
+    }
+
+    fun getTrackInfoDTOList(): List<TrackInfoDTO> {
+        return trackInfoDTOList
     }
 }

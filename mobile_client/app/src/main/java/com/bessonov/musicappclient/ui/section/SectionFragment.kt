@@ -9,7 +9,6 @@ import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
@@ -20,7 +19,6 @@ import com.bessonov.musicappclient.adapter.playlist.PlaylistAdapter
 import com.bessonov.musicappclient.adapter.recommendation.RecommendationAdapter
 import com.bessonov.musicappclient.adapter.section.Section
 import com.bessonov.musicappclient.adapter.section.SectionType
-import com.bessonov.musicappclient.adapter.track.DragManageAdapter
 import com.bessonov.musicappclient.adapter.track.TrackAdapter
 import com.bessonov.musicappclient.api.AlbumAPI
 import com.bessonov.musicappclient.api.ArtistAPI
@@ -180,9 +178,6 @@ class SectionFragment(
                         )
                     }
                 recyclerView.adapter = trackAdapter
-
-                val itemTouchHelper = ItemTouchHelper(DragManageAdapter(trackAdapter))
-                itemTouchHelper.attachToRecyclerView(recyclerView)
             }
 
             else -> {

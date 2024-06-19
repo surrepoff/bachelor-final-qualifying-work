@@ -33,7 +33,7 @@ interface PlaylistAPI {
     @POST("/playlist/create")
     fun createPlaylist(@Body playlistEditDTO: PlaylistEditDTO): Call<PlaylistInfoDTO>
 
-    @GET("/playlist/delete/{artistId}")
+    @GET("/playlist/delete/{playlistId}")
     fun deletePlaylist(@Path("playlistId") playlistId: Int): Call<PlaylistInfoDTO>
 
     @POST("/playlist/edit/{playlistId}")

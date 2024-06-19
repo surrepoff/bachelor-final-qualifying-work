@@ -1,7 +1,5 @@
 package com.bessonov.musicappserver.track;
 
-import com.bessonov.musicappserver.database.userRating.UserRatingDTO;
-import com.bessonov.musicappserver.database.userTrack.UserTrackDTO;
 import com.bessonov.musicappserver.database.userTrackHistory.UserTrackHistoryDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;

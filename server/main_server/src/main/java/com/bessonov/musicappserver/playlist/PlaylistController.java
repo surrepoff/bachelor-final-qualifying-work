@@ -1,7 +1,5 @@
 package com.bessonov.musicappserver.playlist;
 
-import com.bessonov.musicappserver.database.userPlaylist.UserPlaylistDTO;
-import com.bessonov.musicappserver.database.userRating.UserRatingDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;

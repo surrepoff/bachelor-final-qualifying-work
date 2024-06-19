@@ -122,10 +122,17 @@ class PlaylistEditFragment(
             } else {
                 editPlaylist(playlistEditDTO)
             }
+
+            playlistEditViewModel.setCurrentTrackIdList(emptyList())
+            playlistEditViewModel.setAddTrackIdList(emptyList())
+            playlistEditViewModel.setRemoveTrackIdList(emptyList())
         }
 
         cancelButton = view.findViewById(R.id.fragmentPlaylistEdit_cancelButton)
         cancelButton.setOnClickListener {
+            playlistEditViewModel.setCurrentTrackIdList(emptyList())
+            playlistEditViewModel.setAddTrackIdList(emptyList())
+            playlistEditViewModel.setRemoveTrackIdList(emptyList())
             activity?.supportFragmentManager?.popBackStack()
         }
 
@@ -293,9 +300,7 @@ class PlaylistEditFragment(
                     response: Response<PlaylistInfoDTO>
                 ) {
                     if (response.isSuccessful && response.body() != null) {
-                        val playlist = response.body()!!
                         activity?.supportFragmentManager?.popBackStack()
-                        (activity as MainActivity).openPlaylistFragment(playlist)
                     } else {
                         Toast.makeText(
                             requireContext(),

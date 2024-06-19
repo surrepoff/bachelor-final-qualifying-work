@@ -56,11 +56,11 @@
 
     <ImageButton
         android:id="@+id/itemTrackAdd_addButton"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:background="@android:color/transparent"
         android:contentDescription="Add Button"
-        android:scaleType="fitCenter"
+        android:scaleType="centerInside"
         android:src="@drawable/ic_plus"
         app:layout_constraintBottom_toBottomOf="@id/itemTrackAdd_trackImage"
         app:layout_constraintEnd_toEndOf="parent"

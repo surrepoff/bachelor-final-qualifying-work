@@ -9,7 +9,6 @@ import com.bessonov.musicappserver.database.trackAudioFeatureExtractionType.Trac
 import com.bessonov.musicappserver.database.userData.UserData;
 import com.bessonov.musicappserver.database.userData.UserDataRepository;
 import com.bessonov.musicappserver.database.userData.UserDataShortDTO;
-import com.bessonov.musicappserver.database.userNeuralNetworkConfiguration.UserNeuralNetworkConfigurationRepository;
 import com.bessonov.musicappserver.database.userRating.UserRating;
 import com.bessonov.musicappserver.database.userRating.UserRatingDTO;
 import com.bessonov.musicappserver.database.userRating.UserRatingRepository;
@@ -43,9 +42,6 @@ public class RecommendationService {
 
     @Autowired
     UserDataRepository userDataRepository;
-
-    @Autowired
-    UserNeuralNetworkConfigurationRepository userNeuralNetworkConfigurationRepository;
 
     @Autowired
     UserRatingRepository userRatingRepository;
@@ -150,10 +146,8 @@ public class RecommendationService {
         }
         recommendationInfoDTO.setTrackId(trackIdList);
 
-        if (userData.isPresent()) {
-            Optional<UserRating> userRating = userRatingRepository.findById(userRecommendation.getUserRatingId());
-            userRating.ifPresent(rating -> recommendationInfoDTO.setRating(new UserRatingDTO(rating)));
-        }
+        Optional<UserRating> userRating = userRatingRepository.findById(userRecommendation.getUserRatingId());
+        userRating.ifPresent(rating -> recommendationInfoDTO.setRating(new UserRatingDTO(rating)));
 
         return recommendationInfoDTO;
     }
@@ -236,9 +230,9 @@ public class RecommendationService {
             return null;
         }
 
-        userRecommendationRepository.delete(userRecommendation.get());
         userRecommendationGenreRepository.deleteByIdUserRecommendationId(userRecommendationId);
         userRecommendationTrackRepository.deleteByIdUserRecommendationId(userRecommendationId);
+        userRecommendationRepository.delete(userRecommendation.get());
 
         return new RecommendationInfoDTO();
     }

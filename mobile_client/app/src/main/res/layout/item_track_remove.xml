@@ -56,11 +56,11 @@
 
     <ImageButton
         android:id="@+id/itemTrackRemove_removeButton"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:background="@android:color/transparent"
         android:contentDescription="Remove Button"
-        android:scaleType="fitCenter"
+        android:scaleType="centerInside"
         android:src="@drawable/ic_trash_can_outline"
         app:layout_constraintBottom_toBottomOf="@id/itemTrackRemove_trackImage"
         app:layout_constraintEnd_toEndOf="parent"

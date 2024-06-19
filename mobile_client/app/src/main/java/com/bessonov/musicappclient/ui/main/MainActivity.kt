@@ -14,9 +14,13 @@ import com.bessonov.musicappclient.dto.AlbumInfoDTO
 import com.bessonov.musicappclient.dto.ArtistInfoDTO
 import com.bessonov.musicappclient.dto.PlaylistInfoDTO
 import com.bessonov.musicappclient.dto.RecommendationInfoDTO
+import com.bessonov.musicappclient.dto.TrackInfoDTO
 import com.bessonov.musicappclient.ui.album.AlbumFragment
 import com.bessonov.musicappclient.ui.artist.ArtistFragment
 import com.bessonov.musicappclient.ui.home.HomeFragment
+import com.bessonov.musicappclient.ui.musicPlayer.FullMusicPlayerFragment
+import com.bessonov.musicappclient.ui.musicPlayer.MusicPlayerManager
+import com.bessonov.musicappclient.ui.musicPlayer.ShortMusicPlayerFragment
 import com.bessonov.musicappclient.ui.myMusic.MyMusicFragment
 import com.bessonov.musicappclient.ui.playlist.PlaylistAddTrackFragment
 import com.bessonov.musicappclient.ui.playlist.PlaylistEditFragment
@@ -37,7 +41,12 @@ class MainActivity : AppCompatActivity() {
     private lateinit var searchFragment: SearchFragment
     private lateinit var myMusicFragment: MyMusicFragment
 
+    private var showShortMusicPlayer: Boolean = false
+    private lateinit var shortMusicPlayerFragment: ShortMusicPlayerFragment
+
     private var activeFragment: Fragment? = null
+
+    lateinit var musicPlayerManager: MusicPlayerManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,13 +59,26 @@ class MainActivity : AppCompatActivity() {
         shortMusicPlayerFragmentContainerView =
             findViewById(R.id.shortMusicPlayerFragmentContainerView)
 
-        shortMusicPlayerFragmentContainerView.visibility = View.GONE
+        if (showShortMusicPlayer)
+            shortMusicPlayerFragmentContainerView.visibility = View.VISIBLE
+        else
+            shortMusicPlayerFragmentContainerView.visibility = View.GONE
 
         homeFragment = HomeFragment()
         searchFragment = SearchFragment()
         myMusicFragment = MyMusicFragment()
 
+        shortMusicPlayerFragment = ShortMusicPlayerFragment()
+
+        musicPlayerManager = MusicPlayerManager(this@MainActivity) {
+            updateMusicPlayerFragment()
+        }
+
         if (savedInstanceState == null) {
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.shortMusicPlayerFragmentContainerView, shortMusicPlayerFragment)
+                .commit()
+
             supportFragmentManager.beginTransaction().apply {
                 add(R.id.mainFragmentContainerView, homeFragment, "HOME").hide(homeFragment)
                 add(R.id.mainFragmentContainerView, searchFragment, "SEARCH").hide(searchFragment)
@@ -89,6 +111,48 @@ class MainActivity : AppCompatActivity() {
                 else -> false
             }
         }
+    }
+
+    fun showShortMusicPlayer(showShortMusicPlayer: Boolean) {
+        this.showShortMusicPlayer = showShortMusicPlayer
+        if (this.showShortMusicPlayer)
+            shortMusicPlayerFragmentContainerView.visibility = View.VISIBLE
+        else
+            shortMusicPlayerFragmentContainerView.visibility = View.GONE
+    }
+
+    fun openShortMusicPlayerFragment(
+        trackInfoDTOList: List<TrackInfoDTO>,
+        currentTrackPosition: Int
+    ) {
+        musicPlayerManager.playTrack(trackInfoDTOList, currentTrackPosition)
+
+        if (musicPlayerManager.isMusicPlayerCreated())
+            showShortMusicPlayer(true)
+    }
+
+    fun openFullMusicPlayerFragment() {
+        showShortMusicPlayer(false)
+
+        val fullMusicPlayerFragment =
+            FullMusicPlayerFragment(this@MainActivity, musicPlayerManager.getTrackInfoDTO())
+
+        supportFragmentManager.beginTransaction().apply {
+            replace(R.id.mainFragmentContainerView, fullMusicPlayerFragment, "MUSIC_PLAYER")
+            addToBackStack(null)
+        }.commit()
+    }
+
+    fun closeFullMusicPlayerFragment() {
+        supportFragmentManager.popBackStack()
+        showShortMusicPlayer(true)
+    }
+
+    private fun updateMusicPlayerFragment() {
+        shortMusicPlayerFragment.setTrackInfo(musicPlayerManager.getTrackInfoDTO())
+        val fullMusicPlayerFragment = supportFragmentManager.findFragmentByTag("MUSIC_PLAYER")
+        if (fullMusicPlayerFragment != null)
+            (fullMusicPlayerFragment as FullMusicPlayerFragment).setTrackInfo(musicPlayerManager.getTrackInfoDTO())
     }
 
     private fun showFragment(fragment: Fragment) {
@@ -178,5 +242,8 @@ class MainActivity : AppCompatActivity() {
 
     private fun clearBackStackIfNeeded() {
         supportFragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
+
+        if (musicPlayerManager.isMusicPlayerCreated())
+            showShortMusicPlayer(true)
     }
 }
