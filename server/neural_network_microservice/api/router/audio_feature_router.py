@@ -1,7 +1,7 @@
 from fastapi import APIRouter
 
 from api.repository import ExtractionTypeRepository, TrackRepository, SegmentAudioFeatureRepository
-from api.schemas import IdList
+from api.schemas import IdList, StatusResponseDTO
 from audio_feature.audio_feature_extractor import AudioFeatureExtractor
 
 router = APIRouter(
@@ -14,20 +14,20 @@ router = APIRouter(
 async def get_audio_feature_by_track_id(track_id: int, extraction_type_id: int):
     extraction_type = await ExtractionTypeRepository.get_extraction_type(extraction_type_id)
     if extraction_type is None:
-        return {"status": "No extraction type"}
+        return StatusResponseDTO(status="no extraction type")
 
     adh = AudioFeatureExtractor(extraction_type.start_delta, extraction_type.segment_duration)
 
     status = await adh.extract_audio_features_from_track(track_id, extraction_type_id)
 
-    return {"status": status}
+    return StatusResponseDTO(status=status)
 
 
 @router.post("/get/list/{extraction_type_id}")
 async def get_audio_feature_by_track_id_list(id_list: IdList, extraction_type_id: int):
     extraction_type = await ExtractionTypeRepository.get_extraction_type(extraction_type_id)
     if extraction_type is None:
-        return {"status": "No extraction type"}
+        return StatusResponseDTO(status="no extraction type")
 
     adh = AudioFeatureExtractor(extraction_type.start_delta, extraction_type.segment_duration)
 
@@ -41,14 +41,14 @@ async def get_audio_feature_by_track_id_list(id_list: IdList, extraction_type_id
             error_id.append(track_id)
             status = str(error) + "error(s): " + str(error_id)
 
-    return {"status": status}
+    return StatusResponseDTO(status=status)
 
 
 @router.get("/get/all/{extraction_type_id}")
 async def get_audio_feature_all(extraction_type_id: int):
     extraction_type = await ExtractionTypeRepository.get_extraction_type(extraction_type_id)
     if extraction_type is None:
-        return {"status": "No extraction type"}
+        return StatusResponseDTO(status="no extraction type")
 
     adh = AudioFeatureExtractor(extraction_type.start_delta, extraction_type.segment_duration)
 
@@ -64,10 +64,10 @@ async def get_audio_feature_all(extraction_type_id: int):
             error_id.append(track_id)
             status = str(error) + "error(s): " + str(error_id)
 
-    return {"status": status}
+    return StatusResponseDTO(status=status)
 
 
 @router.get("/check")
 async def check_records():
     result = await SegmentAudioFeatureRepository.check_all_records()
-    return {"result": result}
+    return StatusResponseDTO(status=result)

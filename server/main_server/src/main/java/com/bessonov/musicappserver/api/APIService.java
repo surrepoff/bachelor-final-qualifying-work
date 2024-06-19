@@ -2,11 +2,14 @@ package com.bessonov.musicappserver.api;
 
 import com.bessonov.musicappserver.recommendation.RecommendationCreateDTO;
 import com.bessonov.musicappserver.recommendation.RecommendationResponseDTO;
+import com.bessonov.musicappserver.utils.StatusResponseDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+
+import java.util.Objects;
 
 @Service
 public class APIService {
@@ -37,5 +40,18 @@ public class APIService {
         );
 
         return response.getBody();
+    }
+
+    public Boolean sendGetRequestToTrainNeuralNetworkByUserId(Integer userId, Integer extractionTypeId) {
+        String neuralNetworkMicroserviceServerURL =
+                "http://" + neuralNetworkMicroserviceServerIp + ":" + neuralNetworkMicroserviceServerPort + "/";
+        String url = neuralNetworkMicroserviceServerURL + "/neural_network/train/user/" + userId + "/" + extractionTypeId;
+
+        ResponseEntity<StatusResponseDTO> response = restTemplate.getForEntity(
+                url,
+                StatusResponseDTO.class
+        );
+
+        return Objects.equals(Objects.requireNonNull(response.getBody()).getStatus(), "success");
     }
 }

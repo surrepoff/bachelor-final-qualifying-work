@@ -52,4 +52,14 @@ public class RecommendationController {
     public PlaylistInfoDTO addUserRecommendationAsPlaylist(@PathVariable Integer userRecommendationId, Authentication authentication) {
         return recommendationService.addUserRecommendationAsPlaylist(authentication.getName(), userRecommendationId);
     }
+
+    @GetMapping("/update/status/{extractionTypeId}")
+    public Boolean getUpdateUserNeuralNetworkStatus(@PathVariable Integer extractionTypeId, Authentication authentication) {
+        return recommendationService.getUpdateUserNeuralNetworkStatus(authentication.getName(), extractionTypeId);
+    }
+
+    @GetMapping("/update/{extractionTypeId}")
+    public Boolean updateUserNeuralNetwork(@PathVariable Integer extractionTypeId, Authentication authentication) {
+        return recommendationService.updateUserNeuralNetwork(authentication.getName(), extractionTypeId);
+    }
 }

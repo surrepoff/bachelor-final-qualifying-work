@@ -17,3 +17,7 @@ class RecommendationCreateDTO(BaseModel):
 
 class RecommendationResponseDTO(BaseModel):
     id: int
+
+
+class StatusResponseDTO(BaseModel):
+    status: str

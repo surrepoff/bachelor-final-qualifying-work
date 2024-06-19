@@ -9,6 +9,8 @@ import com.bessonov.musicappserver.database.trackAudioFeatureExtractionType.Trac
 import com.bessonov.musicappserver.database.userData.UserData;
 import com.bessonov.musicappserver.database.userData.UserDataRepository;
 import com.bessonov.musicappserver.database.userData.UserDataShortDTO;
+import com.bessonov.musicappserver.database.userNeuralNetworkConfiguration.UserNeuralNetworkConfiguration;
+import com.bessonov.musicappserver.database.userNeuralNetworkConfiguration.UserNeuralNetworkConfigurationRepository;
 import com.bessonov.musicappserver.database.userRating.UserRating;
 import com.bessonov.musicappserver.database.userRating.UserRatingDTO;
 import com.bessonov.musicappserver.database.userRating.UserRatingRepository;
@@ -27,6 +29,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -42,6 +45,9 @@ public class RecommendationService {
 
     @Autowired
     UserDataRepository userDataRepository;
+
+    @Autowired
+    UserNeuralNetworkConfigurationRepository userNeuralNetworkConfigurationRepository;
 
     @Autowired
     UserRatingRepository userRatingRepository;
@@ -259,5 +265,69 @@ public class RecommendationService {
         PlaylistEditDTO playlistEditDTO = new PlaylistEditDTO("Rec №" + userRecommendationId, trackIdList);
 
         return playlistService.createPlaylist(username, playlistEditDTO);
+    }
+
+    public Boolean getUpdateUserNeuralNetworkStatus(String username, int extractionTypeId) {
+        Optional<UserData> userData = userDataRepository.findByUsername(username);
+
+        if (userData.isEmpty()) {
+            return null;
+        }
+
+        Optional<TrackAudioFeatureExtractionType> trackAudioFeatureExtractionType =
+                trackAudioFeatureExtractionTypeRepository.findById(extractionTypeId);
+
+        if (trackAudioFeatureExtractionType.isEmpty()) {
+            return null;
+        }
+
+        Optional<UserNeuralNetworkConfiguration> userNeuralNetworkConfiguration = userNeuralNetworkConfigurationRepository.findByUserIdAndTrackAudioFeatureExtractionTypeId(userData.get().getId(), extractionTypeId);
+
+        if (userNeuralNetworkConfiguration.isEmpty()) {
+            return true;
+        }
+
+        ZonedDateTime currentTime = ZonedDateTime.now();
+        ZoneOffset offset = (ZoneId.systemDefault()).getRules().getOffset(java.time.Instant.now());
+
+        Instant instant = userNeuralNetworkConfiguration.get().getTrainingDate().toInstant();
+        ZonedDateTime previousTime = instant.atZone(ZoneId.systemDefault()).plusSeconds(offset.getTotalSeconds());
+
+        Duration duration = Duration.between(previousTime, currentTime);
+
+        return duration.toMinutes() >= 30;
+    }
+
+    public Boolean updateUserNeuralNetwork(String username, int extractionTypeId) {
+        Optional<UserData> userData = userDataRepository.findByUsername(username);
+
+        if (userData.isEmpty()) {
+            return null;
+        }
+
+        Optional<TrackAudioFeatureExtractionType> trackAudioFeatureExtractionType =
+                trackAudioFeatureExtractionTypeRepository.findById(extractionTypeId);
+
+        if (trackAudioFeatureExtractionType.isEmpty()) {
+            return null;
+        }
+
+        Optional<UserNeuralNetworkConfiguration> userNeuralNetworkConfiguration = userNeuralNetworkConfigurationRepository.findByUserIdAndTrackAudioFeatureExtractionTypeId(userData.get().getId(), extractionTypeId);
+
+        if (userNeuralNetworkConfiguration.isPresent()) {
+            ZonedDateTime currentTime = ZonedDateTime.now();
+            ZoneOffset offset = (ZoneId.systemDefault()).getRules().getOffset(java.time.Instant.now());
+
+            Instant instant = userNeuralNetworkConfiguration.get().getTrainingDate().toInstant();
+            ZonedDateTime previousTime = instant.atZone(ZoneId.systemDefault()).plusSeconds(offset.getTotalSeconds());
+
+            Duration duration = Duration.between(previousTime, currentTime);
+
+            if (duration.toMinutes() < 30) {
+                return false;
+            }
+        }
+
+        return apiService.sendGetRequestToTrainNeuralNetworkByUserId(userData.get().getId(), extractionTypeId);
     }
 }

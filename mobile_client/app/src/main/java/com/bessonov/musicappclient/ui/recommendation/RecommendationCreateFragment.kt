@@ -29,6 +29,7 @@ import retrofit2.Response
 
 class RecommendationCreateFragment : Fragment() {
     private lateinit var closeButton: ImageButton
+    private lateinit var updateButton: Button
     private lateinit var sizeText: EditText
     private lateinit var familiarityValue: TextView
     private lateinit var familiaritySeekBar: SeekBar
@@ -50,6 +51,14 @@ class RecommendationCreateFragment : Fragment() {
 
         closeButton.setOnClickListener {
             activity?.supportFragmentManager?.popBackStack()
+        }
+
+        updateButton = view.findViewById(R.id.fragmentRecommendationCreate_updateButton)
+        updateButton.visibility = View.INVISIBLE
+        getUpdateNeuralNetworkStatus()
+        updateButton.setOnClickListener {
+            updateNeuralNetwork()
+            updateButton.visibility = View.INVISIBLE
         }
 
         sizeText = view.findViewById(R.id.fragmentRecommendationCreate_sizeText)
@@ -174,6 +183,89 @@ class RecommendationCreateFragment : Fragment() {
                     Toast.makeText(
                         requireContext(),
                         "Failed to create recommendation (onFailure)",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            })
+    }
+
+    private fun getUpdateNeuralNetworkStatus() {
+        val retrofitClient = RetrofitClient()
+        val recommendationAPI =
+            retrofitClient.getRetrofit(requireContext()).create(RecommendationAPI::class.java)
+
+        recommendationAPI.getUpdateUserNeuralNetworkStatus(0)
+            .enqueue(object : Callback<Boolean> {
+                override fun onResponse(
+                    call: Call<Boolean>,
+                    response: Response<Boolean>
+                ) {
+                    if (response.isSuccessful && response.body() != null) {
+                        if (response.body()!!) {
+                            updateButton.visibility = View.VISIBLE
+                        } else {
+                            updateButton.visibility = View.INVISIBLE
+                        }
+                    } else {
+                        Toast.makeText(
+                            requireContext(),
+                            "Failed to get update status (onResponse)",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                }
+
+                override fun onFailure(call: Call<Boolean>, t: Throwable) {
+                    Log.e("GetUpdateStatus", "Failed to get update status", t)
+                    Toast.makeText(
+                        requireContext(),
+                        "Failed to get update status (onFailure)",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            })
+    }
+
+    private fun updateNeuralNetwork() {
+        val retrofitClient = RetrofitClient()
+        val recommendationAPI =
+            retrofitClient.getRetrofit(requireContext()).create(RecommendationAPI::class.java)
+
+        recommendationAPI.updateUserNeuralNetwork(0)
+            .enqueue(object : Callback<Boolean> {
+                override fun onResponse(
+                    call: Call<Boolean>,
+                    response: Response<Boolean>
+                ) {
+                    if (response.isSuccessful && response.body() != null) {
+                        if (response.body()!!) {
+                            Toast.makeText(
+                                requireContext(),
+                                "Нейросеть была обновлена",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        } else {
+                            Toast.makeText(
+                                requireContext(),
+                                "Нейросеть не была обновлена",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
+                        getUpdateNeuralNetworkStatus()
+                    } else {
+                        Toast.makeText(
+                            requireContext(),
+                            "Failed to get update status (onResponse)",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                }
+
+                override fun onFailure(call: Call<Boolean>, t: Throwable) {
+                    Log.e("GetUpdateStatus", "Failed to get update status", t)
+                    Toast.makeText(
+                        requireContext(),
+                        "Failed to get update status (onFailure)",
                         Toast.LENGTH_SHORT
                     ).show()
                 }

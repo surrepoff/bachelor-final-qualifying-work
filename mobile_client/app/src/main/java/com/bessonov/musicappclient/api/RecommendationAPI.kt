@@ -37,5 +37,9 @@ interface RecommendationAPI {
     @GET("/recommendation/add/{userRecommendationId}")
     fun addUserRecommendationAsPlaylist(@Path("userRecommendationId") userRecommendationId: Int): Call<PlaylistInfoDTO>
 
+    @GET("/recommendation/update/status/{extractionTypeId}")
+    fun getUpdateUserNeuralNetworkStatus(@Path("extractionTypeId") extractionTypeId: Int): Call<Boolean>
 
+    @GET("/recommendation/update/{extractionTypeId}")
+    fun updateUserNeuralNetwork(@Path("extractionTypeId") extractionTypeId: Int): Call<Boolean>
 }
