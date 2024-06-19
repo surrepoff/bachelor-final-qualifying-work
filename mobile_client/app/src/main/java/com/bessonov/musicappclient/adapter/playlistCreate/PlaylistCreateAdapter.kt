@@ -26,8 +26,6 @@ class PlaylistCreateAdapter(
     }
 
     override fun onBindViewHolder(holder: PlaylistCreateViewHolder, position: Int) {
-        val recommendationCreate = playlistCreateList[position]
-
         holder.createButton.setOnClickListener {
             onButtonClick.invoke()
         }

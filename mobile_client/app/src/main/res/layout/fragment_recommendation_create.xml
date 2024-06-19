@@ -23,13 +23,23 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
         android:text="Получить рекомендацию"
         android:textColor="@color/black"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="@id/fragmentRecommendationCreate_closeButton"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/fragmentRecommendationCreate_updateButton"
         app:layout_constraintStart_toEndOf="@id/fragmentRecommendationCreate_closeButton"
         app:layout_constraintTop_toTopOf="@id/fragmentRecommendationCreate_closeButton" />
+
+    <Button
+        android:id="@+id/fragmentRecommendationCreate_updateButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Обновить\nнейросеть"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/fragmentRecommendationCreate_sizeName"

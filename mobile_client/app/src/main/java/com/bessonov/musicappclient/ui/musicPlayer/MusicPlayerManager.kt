@@ -3,11 +3,18 @@ package com.bessonov.musicappclient.ui.musicPlayer
 import android.content.Context
 import android.media.MediaPlayer
 import android.util.Log
+import android.widget.Toast
+import com.bessonov.musicappclient.api.TrackAPI
 import com.bessonov.musicappclient.dto.TrackInfoDTO
+import com.bessonov.musicappclient.dto.UserTrackDTO
 import com.bessonov.musicappclient.utils.ConfigManager
+import com.bessonov.musicappclient.utils.RetrofitClient
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class MusicPlayerManager(
-    context: Context,
+    private val context: Context,
     private val onTrackChanged: () -> Unit
 ) {
     private var mediaPlayer: MediaPlayer? = null
@@ -38,15 +45,11 @@ class MusicPlayerManager(
         this.trackInfoDTOList = trackInfoDTOList
         this.currentTrackPosition = currentTrackPosition
 
-        Log.d("PlayTrack2", trackInfoDTOList.toString() + currentTrackPosition.toString())
-
         playTrack()
     }
 
     private fun playTrack(currentTrackPosition: Int) {
         this.currentTrackPosition = currentTrackPosition
-
-        Log.d("PlayTrack1", trackInfoDTOList.toString() + currentTrackPosition.toString())
 
         playTrack()
     }
@@ -74,9 +77,9 @@ class MusicPlayerManager(
             onTrackChanged.invoke()
         }
 
-        isPaused = false
+        addToTrackHistory(trackInfoDTOList[currentTrackPosition])
 
-        Log.d("PlayTrack0", trackInfoDTOList.toString() + currentTrackPosition.toString())
+        isPaused = false
     }
 
     fun isMusicPlayerCreated(): Boolean {
@@ -149,5 +152,38 @@ class MusicPlayerManager(
                 playTrack(true)
             }
         }
+    }
+
+    private fun addToTrackHistory(trackInfoDTO: TrackInfoDTO) {
+        val retrofitClient = RetrofitClient()
+        val trackAPI =
+            retrofitClient.getRetrofit(context).create(TrackAPI::class.java)
+
+        trackAPI.addTrackToHistoryList(trackInfoDTO.track.id)
+            .enqueue(object : Callback<UserTrackDTO> {
+                override fun onResponse(
+                    call: Call<UserTrackDTO>,
+                    response: Response<UserTrackDTO>
+                ) {
+                    if (response.isSuccessful && response.body() != null) {
+                        //
+                    } else {
+                        Toast.makeText(
+                            context,
+                            "Failed to add track to history (onResponse)",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                }
+
+                override fun onFailure(call: Call<UserTrackDTO>, t: Throwable) {
+                    Log.e("AddTrackHistory", "Failed to add track history", t)
+                    Toast.makeText(
+                        context,
+                        "Failed to add track history (onFailure)",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            })
     }
 }

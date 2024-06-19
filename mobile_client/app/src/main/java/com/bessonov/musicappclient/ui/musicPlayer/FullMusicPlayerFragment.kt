@@ -47,8 +47,6 @@ class FullMusicPlayerFragment(
     private lateinit var previousButton: ImageButton
     private lateinit var nextButton: ImageButton
 
-    //private lateinit var trackInfoDTO: TrackInfoDTO
-
     private var updateProgressBarThread: Thread? = null
 
     override fun onCreateView(
@@ -75,7 +73,7 @@ class FullMusicPlayerFragment(
             }
         }
 
-        likeButton = view.findViewById<ImageButton?>(R.id.fragmentFullMusicPlayer_likeButton)
+        likeButton = view.findViewById(R.id.fragmentFullMusicPlayer_likeButton)
         likeButton.setOnClickListener {
             when (trackInfoDTO.rating.name) {
                 "Like" -> {
