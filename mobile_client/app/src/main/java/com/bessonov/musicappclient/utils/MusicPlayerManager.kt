@@ -1,4 +1,4 @@
-package com.bessonov.musicappclient.ui.musicPlayer
+package com.bessonov.musicappclient.utils
 
 import android.content.Context
 import android.media.MediaPlayer
@@ -7,8 +7,6 @@ import android.widget.Toast
 import com.bessonov.musicappclient.api.TrackAPI
 import com.bessonov.musicappclient.dto.TrackInfoDTO
 import com.bessonov.musicappclient.dto.UserTrackDTO
-import com.bessonov.musicappclient.utils.ConfigManager
-import com.bessonov.musicappclient.utils.RetrofitClient
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
