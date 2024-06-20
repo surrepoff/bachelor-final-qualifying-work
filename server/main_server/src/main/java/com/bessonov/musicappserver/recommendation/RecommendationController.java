@@ -13,19 +13,9 @@ public class RecommendationController {
     @Autowired
     private RecommendationService recommendationService;
 
-    @GetMapping("/get/all")
-    public List<RecommendationInfoDTO> getAll(Authentication authentication) {
-        return recommendationService.getAll(authentication.getName());
-    }
-
     @GetMapping("/get/{userRecommendationId}")
     public RecommendationInfoDTO getByUserRecommendationId(@PathVariable Integer userRecommendationId, Authentication authentication) {
         return recommendationService.getByUserRecommendationId(authentication.getName(), userRecommendationId);
-    }
-
-    @PostMapping("/get/list")
-    public List<RecommendationInfoDTO> getByUserRecommendationIdList(@RequestBody List<Integer> userRecommendationIdList, Authentication authentication) {
-        return recommendationService.getByUserRecommendationIdList(authentication.getName(), userRecommendationIdList);
     }
 
     @GetMapping("/get/user")

@@ -25,7 +25,6 @@ import com.bessonov.musicappserver.playlist.PlaylistEditDTO;
 import com.bessonov.musicappserver.playlist.PlaylistInfoDTO;
 import com.bessonov.musicappserver.playlist.PlaylistService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -71,29 +70,6 @@ public class RecommendationService {
         Optional<UserRecommendation> userRecommendation = userRecommendationRepository.findById(userRecommendationId);
 
         return userRecommendation.map(value -> getUserRecommendationInfoByUserRecommendation(username, value)).orElse(null);
-    }
-
-    public List<RecommendationInfoDTO> getByUserRecommendationIdList(String username, List<Integer> userRecommendationIdList) {
-        List<RecommendationInfoDTO> recommendationInfoDTOList = new ArrayList<>();
-
-        for (Integer userRecommendationId : userRecommendationIdList) {
-            recommendationInfoDTOList.add(getByUserRecommendationId(username, userRecommendationId));
-        }
-
-        return recommendationInfoDTOList;
-    }
-
-    public List<RecommendationInfoDTO> getAll(String username) {
-        Sort sort = Sort.by(Sort.Direction.ASC, "id");
-        List<UserRecommendation> userRecommendationList = userRecommendationRepository.findAll(sort);
-
-        List<RecommendationInfoDTO> recommendationInfoDTOList = new ArrayList<>();
-
-        for (UserRecommendation userRecommendation : userRecommendationList) {
-            recommendationInfoDTOList.add(getUserRecommendationInfoByUserRecommendation(username, userRecommendation));
-        }
-
-        return recommendationInfoDTOList;
     }
 
     public List<RecommendationInfoDTO> getUserRecommendationList(String username) {

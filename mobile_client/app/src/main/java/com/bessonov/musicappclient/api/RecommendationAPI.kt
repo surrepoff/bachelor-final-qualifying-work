@@ -10,14 +10,8 @@ import retrofit2.http.POST
 import retrofit2.http.Path
 
 interface RecommendationAPI {
-    @GET("/recommendation/get/all")
-    fun getAll(): Call<List<RecommendationInfoDTO>>
-
     @GET("/recommendation/get/{userRecommendationId}")
     fun getByUserRecommendationId(@Path("userRecommendationId") userRecommendationId: Int): Call<RecommendationInfoDTO>
-
-    @POST("/recommendation/get/list")
-    fun getByUserRecommendationIdList(@Body userRecommendationIdList: List<Int>): Call<List<RecommendationInfoDTO>>
 
     @GET("/recommendation/get/user")
     fun getUserRecommendationList(): Call<List<RecommendationInfoDTO>>
