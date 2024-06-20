@@ -39,7 +39,4 @@ interface TrackAPI {
 
     @GET("/track/stream/{trackId}")
     fun streamAudio(@Path("trackId") trackId: Int): Call<ResponseBody>
-
-    @GET("/track/download/{trackId}")
-    fun downloadFile(@Path("trackId") trackId: Int): Call<ResponseBody>
 }

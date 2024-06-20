@@ -405,23 +405,4 @@ public class TrackService {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }
     }
-
-    public ResponseEntity<Resource> downloadFile(int trackId) {
-        Optional<Track> track = trackRepository.findById(trackId);
-        if (track.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
-        }
-        try {
-            FileSystemResource file = new FileSystemResource(filepath + track.get().getAudioFilename());
-            HttpHeaders headers = new HttpHeaders();
-            headers.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + track.get().getAudioFilename());
-            headers.add(HttpHeaders.CONTENT_TYPE, "application/octet-stream");
-
-            return ResponseEntity.ok()
-                    .headers(headers)
-                    .body(file);
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
-        }
-    }
 }

@@ -64,9 +64,4 @@ public class TrackController {
     public ResponseEntity<Resource> streamAudio(@PathVariable Integer trackId) {
         return trackService.streamAudio(trackId);
     }
-
-    @GetMapping("/download/{trackId}")
-    public ResponseEntity<Resource> downloadFile(@PathVariable Integer trackId) {
-        return trackService.downloadFile(trackId);
-    }
 }
