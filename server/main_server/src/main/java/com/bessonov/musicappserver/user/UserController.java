@@ -47,7 +47,7 @@ public class UserController {
                 errorMessage.append(error.getField()).append(": ").append(error.getDefaultMessage()).append("; ");
             }
 
-            return new UserResponseDTO(errorMessage.toString(), 400);
+            return new UserResponseDTO(false, errorMessage.toString());
         }
         try {
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
@@ -59,18 +59,16 @@ public class UserController {
             Optional<UserData> userData = userDataRepository.findByUsername(userLoginDTO.getUsername());
 
             if (userData.isEmpty()) {
-                return new UserResponseDTO("There is no more user with this username", 400);
+                return new UserResponseDTO(false, "Пользователя с таким логином не существует");
             }
 
             String jwtToken = userService.createJwtToken(userData.get());
 
-            return new UserResponseDTO(jwtToken, 200);
-        } catch (Exception ex) {
-            //System.out.println("There is an Exception :");
-            //ex.printStackTrace();
+            return new UserResponseDTO(true, jwtToken);
+        } catch (Exception ignored) {
         }
 
-        return new UserResponseDTO("Bad username or password", 400);
+        return new UserResponseDTO(false, "Неверный логин или пароль");
     }
 
     @PostMapping("/register")
@@ -84,7 +82,7 @@ public class UserController {
                 errorMessage.append(error.getField()).append(": ").append(error.getDefaultMessage()).append("; ");
             }
 
-            return new UserResponseDTO(errorMessage.toString(), 400);
+            return new UserResponseDTO(false, errorMessage.toString());
         }
 
         var bCryptPasswordEncoder = new BCryptPasswordEncoder();
@@ -102,35 +100,33 @@ public class UserController {
 
             otherUser = userDataRepository.findByUsername(userRegisterDTO.getUsername());
             if (otherUser.isPresent()) {
-                return new UserResponseDTO("Username already used", 400);
+                return new UserResponseDTO(false, "Логин уже используется");
             }
 
             otherUser = userDataRepository.findByEmail(userRegisterDTO.getEmail());
             if (otherUser.isPresent()) {
-                return new UserResponseDTO("Email address already used", 400);
+                return new UserResponseDTO(false, "Адрес электронной почты уже используется");
             }
 
             userDataRepository.save(userData);
 
             String jwtToken = userService.createJwtToken(userData);
 
-            return new UserResponseDTO(jwtToken, 200);
-        } catch (Exception ex) {
-            //System.out.println("There is an Exception :");
-            //ex.printStackTrace();
+            return new UserResponseDTO(true, jwtToken);
+        } catch (Exception ignored) {
         }
 
-        return new UserResponseDTO("Failed to register", 400);
+        return new UserResponseDTO(false, "Не удалось зарегистрировать пользователя");
     }
 
     @PostMapping("/edit")
-    private UserEditResponseDTO edit(@RequestBody UserEditRequestDTO userEditRequestDTO, Authentication authentication) {
+    public UserEditResponseDTO edit(@RequestBody UserEditRequestDTO userEditRequestDTO, Authentication authentication) {
         Map<String, String> editMap = new HashMap<>();
 
         Optional<UserData> userData = userDataRepository.findByUsername(authentication.getName());
 
         if (userData.isEmpty()) {
-            editMap.put("error", "User not found");
+            editMap.put("error", "Пользователя с таким логином не существует");
             return new UserEditResponseDTO(editMap);
         }
 
@@ -141,7 +137,7 @@ public class UserController {
                     )
             );
         } catch (Exception ex) {
-            editMap.put("error", "Invalid password");
+            editMap.put("error", "Неверный пароль");
             return new UserEditResponseDTO(editMap);
         }
 

@@ -1,20 +1,20 @@
 package com.bessonov.musicappserver.user;
 
 public class UserResponseDTO {
-    private int status_code;
+    private Boolean status;
     private String message;
 
-    public UserResponseDTO(String message, int status_code) {
+    public UserResponseDTO(Boolean status, String message) {
+        this.status = status;
         this.message = message;
-        this.status_code = status_code;
     }
 
-    public int getStatus_code() {
-        return status_code;
+    public Boolean getStatus() {
+        return status;
     }
 
-    public void setStatus_code(int status_code) {
-        this.status_code = status_code;
+    public void setStatus(Boolean status) {
+        this.status = status;
     }
 
     public String getMessage() {
@@ -28,7 +28,7 @@ public class UserResponseDTO {
     @Override
     public String toString() {
         return "UserResponseDTO{" +
-                "status_code=" + status_code +
+                "status=" + status +
                 ", message='" + message + '\'' +
                 '}';
     }

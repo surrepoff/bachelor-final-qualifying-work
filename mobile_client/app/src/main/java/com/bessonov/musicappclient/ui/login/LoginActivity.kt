@@ -84,7 +84,7 @@ class LoginActivity : AppCompatActivity() {
                 val errorResponse = response.errorBody()?.string()
 
                 if (response.isSuccessful) {
-                    if (loginResponse != null && loginResponse.status_code == 200) {
+                    if (loginResponse != null && loginResponse.status) {
                         Log.d("Login", "Response $loginResponse")
                         sessionManager.saveAuthToken(loginResponse.message)
                         startActivity(Intent(this@LoginActivity, MainActivity::class.java))

@@ -95,7 +95,7 @@ class RegisterActivity : AppCompatActivity() {
                     val errorResponse = response.errorBody()?.string()
 
                     if (response.isSuccessful) {
-                        if (registerResponse != null && registerResponse.status_code == 200) {
+                        if (registerResponse != null && registerResponse.status) {
                             Log.d("Register", "Response $registerResponse")
                             sessionManager.saveAuthToken(registerResponse.toString())
                             startActivity(Intent(this@RegisterActivity, MainActivity::class.java))
