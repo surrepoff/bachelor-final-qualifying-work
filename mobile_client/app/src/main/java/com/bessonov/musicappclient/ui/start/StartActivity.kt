@@ -8,9 +8,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.bessonov.musicappclient.R
+import com.bessonov.musicappclient.manager.SessionManager
 import com.bessonov.musicappclient.ui.login.LoginActivity
 import com.bessonov.musicappclient.ui.register.RegisterActivity
-import com.bessonov.musicappclient.utils.SessionManager
 
 class StartActivity : AppCompatActivity() {
     private lateinit var sessionManager: SessionManager

@@ -6,9 +6,9 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bessonov.musicappclient.R
 import com.bessonov.musicappclient.dto.TrackInfoDTO
+import com.bessonov.musicappclient.manager.ConfigManager
+import com.bessonov.musicappclient.manager.SessionManager
 import com.bessonov.musicappclient.utils.ButtonType
-import com.bessonov.musicappclient.utils.ConfigManager
-import com.bessonov.musicappclient.utils.SessionManager
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.model.GlideUrl
 import com.bumptech.glide.load.model.LazyHeaders

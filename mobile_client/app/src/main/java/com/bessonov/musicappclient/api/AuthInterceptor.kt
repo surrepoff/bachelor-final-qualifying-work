@@ -1,6 +1,7 @@
-package com.bessonov.musicappclient.utils
+package com.bessonov.musicappclient.api
 
 import android.content.Context
+import com.bessonov.musicappclient.manager.SessionManager
 import okhttp3.Interceptor
 import okhttp3.Response
 

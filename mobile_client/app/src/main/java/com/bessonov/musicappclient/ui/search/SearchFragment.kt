@@ -19,6 +19,7 @@ import com.bessonov.musicappclient.R
 import com.bessonov.musicappclient.adapter.section.Section
 import com.bessonov.musicappclient.adapter.section.SectionAdapter
 import com.bessonov.musicappclient.adapter.section.SectionType
+import com.bessonov.musicappclient.api.RetrofitClient
 import com.bessonov.musicappclient.api.SearchAPI
 import com.bessonov.musicappclient.api.TrackAPI
 import com.bessonov.musicappclient.api.UserAPI
@@ -31,7 +32,6 @@ import com.bessonov.musicappclient.dto.TrackInfoDTO
 import com.bessonov.musicappclient.dto.UserDataDTO
 import com.bessonov.musicappclient.ui.main.MainActivity
 import com.bessonov.musicappclient.utils.ItemClickHandler
-import com.bessonov.musicappclient.utils.RetrofitClient
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

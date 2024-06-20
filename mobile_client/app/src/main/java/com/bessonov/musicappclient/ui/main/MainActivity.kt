@@ -15,6 +15,7 @@ import com.bessonov.musicappclient.dto.ArtistInfoDTO
 import com.bessonov.musicappclient.dto.PlaylistInfoDTO
 import com.bessonov.musicappclient.dto.RecommendationInfoDTO
 import com.bessonov.musicappclient.dto.TrackInfoDTO
+import com.bessonov.musicappclient.manager.MusicPlayerManager
 import com.bessonov.musicappclient.ui.album.AlbumFragment
 import com.bessonov.musicappclient.ui.artist.ArtistFragment
 import com.bessonov.musicappclient.ui.home.HomeFragment
@@ -29,7 +30,6 @@ import com.bessonov.musicappclient.ui.recommendation.RecommendationCreateFragmen
 import com.bessonov.musicappclient.ui.recommendation.RecommendationFragment
 import com.bessonov.musicappclient.ui.search.SearchFragment
 import com.bessonov.musicappclient.ui.section.SectionFragment
-import com.bessonov.musicappclient.utils.MusicPlayerManager
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {

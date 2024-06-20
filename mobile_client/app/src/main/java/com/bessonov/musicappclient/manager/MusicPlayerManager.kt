@@ -1,9 +1,10 @@
-package com.bessonov.musicappclient.utils
+package com.bessonov.musicappclient.manager
 
 import android.content.Context
 import android.media.MediaPlayer
 import android.util.Log
 import android.widget.Toast
+import com.bessonov.musicappclient.api.RetrofitClient
 import com.bessonov.musicappclient.api.TrackAPI
 import com.bessonov.musicappclient.dto.TrackInfoDTO
 import com.bessonov.musicappclient.dto.UserTrackDTO

@@ -14,6 +14,7 @@ import com.bessonov.musicappclient.api.AlbumAPI
 import com.bessonov.musicappclient.api.ArtistAPI
 import com.bessonov.musicappclient.api.PlaylistAPI
 import com.bessonov.musicappclient.api.RecommendationAPI
+import com.bessonov.musicappclient.api.RetrofitClient
 import com.bessonov.musicappclient.api.TrackAPI
 import com.bessonov.musicappclient.dto.AlbumInfoDTO
 import com.bessonov.musicappclient.dto.ArtistInfoDTO

@@ -15,13 +15,13 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.bessonov.musicappclient.R
 import com.bessonov.musicappclient.adapter.track.TrackAdapter
 import com.bessonov.musicappclient.api.PlaylistAPI
+import com.bessonov.musicappclient.api.RetrofitClient
 import com.bessonov.musicappclient.api.TrackAPI
 import com.bessonov.musicappclient.dto.PlaylistInfoDTO
 import com.bessonov.musicappclient.dto.TrackInfoDTO
 import com.bessonov.musicappclient.ui.main.MainActivity
 import com.bessonov.musicappclient.utils.ItemClickHandler
 import com.bessonov.musicappclient.utils.ItemType
-import com.bessonov.musicappclient.utils.RetrofitClient
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

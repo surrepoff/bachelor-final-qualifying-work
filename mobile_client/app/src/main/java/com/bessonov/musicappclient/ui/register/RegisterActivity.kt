@@ -11,13 +11,13 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.bessonov.musicappclient.R
+import com.bessonov.musicappclient.api.RetrofitClient
 import com.bessonov.musicappclient.api.UserAPI
 import com.bessonov.musicappclient.dto.UserRegisterDTO
 import com.bessonov.musicappclient.dto.UserResponseDTO
+import com.bessonov.musicappclient.manager.SessionManager
 import com.bessonov.musicappclient.ui.main.MainActivity
 import com.bessonov.musicappclient.ui.start.StartActivity
-import com.bessonov.musicappclient.utils.RetrofitClient
-import com.bessonov.musicappclient.utils.SessionManager
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

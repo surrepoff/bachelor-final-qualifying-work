@@ -1,4 +1,4 @@
-package com.bessonov.musicappclient.utils
+package com.bessonov.musicappclient.manager
 
 import android.content.Context
 import android.content.SharedPreferences

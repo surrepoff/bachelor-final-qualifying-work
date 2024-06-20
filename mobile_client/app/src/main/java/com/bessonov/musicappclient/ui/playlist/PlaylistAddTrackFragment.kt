@@ -17,11 +17,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bessonov.musicappclient.R
 import com.bessonov.musicappclient.adapter.trackAdd.TrackAddAdapter
+import com.bessonov.musicappclient.api.RetrofitClient
 import com.bessonov.musicappclient.api.SearchAPI
 import com.bessonov.musicappclient.api.TrackAPI
 import com.bessonov.musicappclient.dto.SearchRequestDTO
 import com.bessonov.musicappclient.dto.TrackInfoDTO
-import com.bessonov.musicappclient.utils.RetrofitClient
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
