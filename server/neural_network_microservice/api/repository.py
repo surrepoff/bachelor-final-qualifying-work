@@ -16,9 +16,7 @@ class GenreRepository:
             params = {'id': genre_id}
             statement = text("""SELECT * FROM genre WHERE id = :id""")
             result = await session.execute(statement, params)
-            print(result)
             genre = result.scalar_one_or_none()
-            print(genre)
             return genre is not None
 
 
@@ -29,7 +27,6 @@ class TrackRepository:
             statement = text("""SELECT id FROM track""")
             result = await session.execute(statement)
             id_list = [row[0] for row in result.fetchall()]
-            print(id_list)
             return id_list
 
     @classmethod
@@ -38,9 +35,7 @@ class TrackRepository:
             params = {'id': track_id}
             statement = text("""SELECT audio_filename FROM track WHERE id = :id""")
             result = await session.execute(statement, params)
-            print(result)
             filename = result.scalar_one_or_none()
-            print(filename)
             return filename
 
     @classmethod
@@ -51,9 +46,7 @@ class TrackRepository:
                 params = {'genre_id': genre}
                 statement = text("""SELECT COUNT(id) FROM track WHERE primary_genre_id = :genre_id""")
                 result = await session.execute(statement, params)
-                print(result)
                 count += result.scalar_one_or_none()
-                print(count)
             return count
 
 
@@ -65,9 +58,7 @@ class ExtractionTypeRepository:
             statement = text("""SELECT start_delta, segment_duration FROM track_audio_feature_extraction_type WHERE 
             id = :id""")
             result = await session.execute(statement, params)
-            print(result)
             extraction_type = result.fetchone()
-            print(extraction_type)
             return extraction_type
 
 
@@ -150,9 +141,7 @@ class UserDataRepository:
             params = {'id': user_id}
             statement = text("""SELECT * FROM track WHERE id = :id""")
             result = await session.execute(statement, params)
-            print(result)
             user = result.scalar_one_or_none()
-            print(user)
             return user is not None
 
     @classmethod
@@ -161,7 +150,6 @@ class UserDataRepository:
             statement = text("""SELECT id FROM user_data""")
             result = await session.execute(statement)
             id_list = [row[0] for row in result.fetchall()]
-            print(id_list)
             return id_list
 
 
@@ -172,9 +160,7 @@ class RatingRepository:
             params = {'id': user_id}
             statement = text("""SELECT track_id, user_rating_id FROM user_track_rating WHERE user_id = :id""")
             result = await session.execute(statement, params)
-            print(result)
             rating = result.fetchall()
-            print(rating)
             return rating
 
     @classmethod
@@ -190,9 +176,7 @@ class RatingRepository:
                                     utk.listen_date DESC
                                 LIMIT 100""")
             result = await session.execute(statement, params)
-            print(result)
             rating = result.fetchall()
-            print(rating)
             return rating
 
     @classmethod
@@ -219,9 +203,7 @@ class RatingRepository:
                                     ) sub ON alt.album_id = sub.album_id
                                 WHERE altr.user_id = :id""")
             result = await session.execute(statement, params)
-            print(result)
             rating = result.fetchall()
-            print(rating)
             return rating
 
     @classmethod
@@ -248,9 +230,7 @@ class RatingRepository:
                                     ) sub ON art.artist_id = sub.artist_id
                                 WHERE artr.user_id = :id""")
             result = await session.execute(statement, params)
-            print(result)
             rating = result.fetchall()
-            print(rating)
             return rating
 
     @classmethod
@@ -277,9 +257,7 @@ class RatingRepository:
                                     ) sub ON pt.playlist_id = sub.playlist_id
                                 WHERE upr.user_id = :id""")
             result = await session.execute(statement, params)
-            print(result)
             rating = result.fetchall()
-            print(rating)
             return rating
 
     @classmethod
@@ -306,9 +284,7 @@ class RatingRepository:
                                     ) sub ON urt.user_recommendation_id = sub.user_recommendation_id
                                 WHERE ur.user_id = :id""")
             result = await session.execute(statement, params)
-            print(result)
             rating = result.fetchall()
-            print(rating)
             return rating
 
 
