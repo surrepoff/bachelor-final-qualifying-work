@@ -47,7 +47,7 @@ async def get_user_recommendation(recommendationCreateDTO: RecommendationCreateD
     return recommendationResponseDTO
 
 
-@router.get("/rating/{user_id}")
+@router.get("/track/rating/{user_id}")
 async def get_track_rating(user_id: int):
     rating = await TrackRatingService.get_track_rating(user_id)
     return rating
