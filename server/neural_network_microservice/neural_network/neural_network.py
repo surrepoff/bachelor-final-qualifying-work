@@ -6,7 +6,7 @@ from keras.models import model_from_json
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import MinMaxScaler
 from tensorflow.keras import Sequential
-from tensorflow.keras.layers import Dense, Input, Flatten, GaussianDropout
+from tensorflow.keras.layers import Dense, Input, GaussianDropout
 
 from api.repository import SegmentAudioFeatureRepository, NeuralNetworkRepository, TrackRepository
 from api.schemas import RecommendationCreateDTO
