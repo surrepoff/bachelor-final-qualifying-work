@@ -116,17 +116,17 @@ class RecommendationCreateFragment : Fragment() {
                 } else {
                     Toast.makeText(
                         requireContext(),
-                        "Failed to load genres (onResponse)",
+                        "Не удалось загрузить жанры (onResponse)",
                         Toast.LENGTH_SHORT
                     ).show()
                 }
             }
 
             override fun onFailure(call: Call<List<GenreDTO>>, t: Throwable) {
-                Log.e("LoadGenre", "Failed to load genres", t)
+                Log.e("LoadGenre", "Не удалось загрузить жанры", t)
                 Toast.makeText(
                     requireContext(),
-                    "Failed to load genres (onFailure)",
+                    "Не удалось загрузить жанры (onFailure)",
                     Toast.LENGTH_SHORT
                 ).show()
             }
@@ -134,11 +134,16 @@ class RecommendationCreateFragment : Fragment() {
     }
 
     private fun createRecommendation() {
-        Log.d("CreateRecommendation", "Start createRecommendation")
+        Log.d("CreateRecommendation", "Начало createRecommendation")
         val checkedGenreDTOList = genreAdapter.getCheckedItems()
 
         if (checkedGenreDTOList.isEmpty()) {
-            Log.d("CreateRecommendation", "List is empty")
+            Log.d("CreateRecommendation", "Список жанров пуст")
+            Toast.makeText(
+                requireContext(),
+                "Список жанров пуст",
+                Toast.LENGTH_SHORT
+            ).show()
             return
         }
 
@@ -172,17 +177,17 @@ class RecommendationCreateFragment : Fragment() {
                     } else {
                         Toast.makeText(
                             requireContext(),
-                            "Failed to create recommendation (onResponse)",
+                            "Не удалось создать рекомендацию (onResponse)",
                             Toast.LENGTH_SHORT
                         ).show()
                     }
                 }
 
                 override fun onFailure(call: Call<RecommendationInfoDTO>, t: Throwable) {
-                    Log.e("CreateRecommendation", "Failed to create recommendation", t)
+                    Log.e("CreateRecommendation", "Не удалось создать рекомендацию", t)
                     Toast.makeText(
                         requireContext(),
-                        "Failed to create recommendation (onFailure)",
+                        "Не удалось создать рекомендацию (onFailure)",
                         Toast.LENGTH_SHORT
                     ).show()
                 }
@@ -209,17 +214,17 @@ class RecommendationCreateFragment : Fragment() {
                     } else {
                         Toast.makeText(
                             requireContext(),
-                            "Failed to get update status (onResponse)",
+                            "Не удалось получить статус обновления нейросети (onResponse)",
                             Toast.LENGTH_SHORT
                         ).show()
                     }
                 }
 
                 override fun onFailure(call: Call<Boolean>, t: Throwable) {
-                    Log.e("GetUpdateStatus", "Failed to get update status", t)
+                    Log.e("GetUpdateStatus", "Не удалось получить статус обновления нейросети", t)
                     Toast.makeText(
                         requireContext(),
-                        "Failed to get update status (onFailure)",
+                        "Не удалось получить статус обновления нейросети (onFailure)",
                         Toast.LENGTH_SHORT
                     ).show()
                 }
@@ -255,17 +260,17 @@ class RecommendationCreateFragment : Fragment() {
                     } else {
                         Toast.makeText(
                             requireContext(),
-                            "Failed to get update status (onResponse)",
+                            "Не удалось обновить нейросеть (onResponse)",
                             Toast.LENGTH_SHORT
                         ).show()
                     }
                 }
 
                 override fun onFailure(call: Call<Boolean>, t: Throwable) {
-                    Log.e("GetUpdateStatus", "Failed to get update status", t)
+                    Log.e("UpdateNeuralNetwork", "Не удалось обновить нейросеть", t)
                     Toast.makeText(
                         requireContext(),
-                        "Failed to get update status (onFailure)",
+                        "Не удалось обновить нейросеть (onFailure)",
                         Toast.LENGTH_SHORT
                     ).show()
                 }

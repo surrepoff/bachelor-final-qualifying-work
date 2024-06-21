@@ -212,17 +212,17 @@ class MyMusicFragment : Fragment() {
                 } else {
                     Toast.makeText(
                         requireContext(),
-                        "Failed to load artists (onResponse)",
+                        "Не удалось загрузить артистов (onResponse)",
                         Toast.LENGTH_SHORT
                     ).show()
                 }
             }
 
             override fun onFailure(call: Call<List<ArtistInfoDTO>>, t: Throwable) {
-                Log.e("LoadArtists", "Failed to load artists", t)
+                Log.e("LoadArtists", "Не удалось загрузить артистов", t)
                 Toast.makeText(
                     requireContext(),
-                    "Failed to load artists (onFailure)",
+                    "Не удалось загрузить артистов (onFailure)",
                     Toast.LENGTH_SHORT
                 ).show()
             }
@@ -245,17 +245,17 @@ class MyMusicFragment : Fragment() {
                 } else {
                     Toast.makeText(
                         requireContext(),
-                        "Failed to load albums (onResponse)",
+                        "Не удалось загрузить альбомы (onResponse)",
                         Toast.LENGTH_SHORT
                     ).show()
                 }
             }
 
             override fun onFailure(call: Call<List<AlbumInfoDTO>>, t: Throwable) {
-                Log.e("LoadAlbums", "Failed to load albums", t)
+                Log.e("LoadAlbums", "Не удалось загрузить альбомы", t)
                 Toast.makeText(
                     requireContext(),
-                    "Failed to load albums (onFailure)",
+                    "Не удалось загрузить альбомы (onFailure)",
                     Toast.LENGTH_SHORT
                 ).show()
             }
@@ -279,17 +279,17 @@ class MyMusicFragment : Fragment() {
                 } else {
                     Toast.makeText(
                         requireContext(),
-                        "Failed to load playlists (onResponse)",
+                        "Не удалось загрузить плейлисты (onResponse)",
                         Toast.LENGTH_SHORT
                     ).show()
                 }
             }
 
             override fun onFailure(call: Call<List<PlaylistInfoDTO>>, t: Throwable) {
-                Log.e("LoadPlaylists", "Failed to load playlists", t)
+                Log.e("LoadPlaylists", "Не удалось загрузить плейлисты", t)
                 Toast.makeText(
                     requireContext(),
-                    "Failed to load playlists (onFailure)",
+                    "Не удалось загрузить плейлисты (onFailure)",
                     Toast.LENGTH_SHORT
                 ).show()
             }
@@ -312,17 +312,17 @@ class MyMusicFragment : Fragment() {
                 } else {
                     Toast.makeText(
                         requireContext(),
-                        "Failed to load tracks (onResponse)",
+                        "Не удалось загрузить треки (onResponse)",
                         Toast.LENGTH_SHORT
                     ).show()
                 }
             }
 
             override fun onFailure(call: Call<List<TrackInfoDTO>>, t: Throwable) {
-                Log.e("LoadTracks", "Failed to load tracks", t)
+                Log.e("LoadTracks", "Не удалось загрузить треки", t)
                 Toast.makeText(
                     requireContext(),
-                    "Failed to load tracks (onFailure)",
+                    "Не удалось загрузить треки (onFailure)",
                     Toast.LENGTH_SHORT
                 ).show()
             }
@@ -342,17 +342,17 @@ class MyMusicFragment : Fragment() {
                 } else {
                     Toast.makeText(
                         requireContext(),
-                        "Failed to load user (onResponse)",
+                        "Не удалось загрузить пользователя (onResponse)",
                         Toast.LENGTH_SHORT
                     ).show()
                 }
             }
 
             override fun onFailure(call: Call<UserDataDTO>, t: Throwable) {
-                Log.e("LoadUser", "Failed to load user", t)
+                Log.e("LoadUser", "Не удалось загрузить пользователя", t)
                 Toast.makeText(
                     requireContext(),
-                    "Failed to load user (onFailure)",
+                    "Не удалось загрузить пользователя (onFailure)",
                     Toast.LENGTH_SHORT
                 ).show()
             }

@@ -77,6 +77,9 @@ class PlaylistEditFragment(
 
         closeButton = view.findViewById(R.id.fragmentPlaylistEdit_closeButton)
         closeButton.setOnClickListener {
+            playlistEditViewModel.setCurrentTrackIdList(emptyList())
+            playlistEditViewModel.setAddTrackIdList(emptyList())
+            playlistEditViewModel.setRemoveTrackIdList(emptyList())
             activity?.supportFragmentManager?.popBackStack()
         }
 
@@ -204,17 +207,17 @@ class PlaylistEditFragment(
                     } else {
                         Toast.makeText(
                             requireContext(),
-                            "Failed to load tracks (onResponse)",
+                            "Не удалось загрузить треки (onResponse)",
                             Toast.LENGTH_SHORT
                         ).show()
                     }
                 }
 
                 override fun onFailure(call: Call<List<TrackInfoDTO>>, t: Throwable) {
-                    Log.e("LoadTrack", "Failed to load tracks", t)
+                    Log.e("LoadTrack", "Не удалось загрузить треки", t)
                     Toast.makeText(
                         requireContext(),
-                        "Failed to load tracks (onFailure)",
+                        "Не удалось загрузить треки (onFailure)",
                         Toast.LENGTH_SHORT
                     ).show()
                 }
@@ -237,17 +240,17 @@ class PlaylistEditFragment(
                 } else {
                     Toast.makeText(
                         requireContext(),
-                        "Failed to load tracks (onResponse)",
+                        "Не удалось загрузить треки (onResponse)",
                         Toast.LENGTH_SHORT
                     ).show()
                 }
             }
 
             override fun onFailure(call: Call<List<TrackInfoDTO>>, t: Throwable) {
-                Log.e("LoadTrack", "Failed to load tracks", t)
+                Log.e("LoadTrack", "Не удалось загрузить треки", t)
                 Toast.makeText(
                     requireContext(),
-                    "Failed to load tracks (onFailure)",
+                    "Не удалось загрузить треки (onFailure)",
                     Toast.LENGTH_SHORT
                 ).show()
             }
@@ -271,17 +274,17 @@ class PlaylistEditFragment(
                 } else {
                     Toast.makeText(
                         requireContext(),
-                        "Failed to create playlist (onResponse)",
+                        "Не удалось создать плейлист (onResponse)",
                         Toast.LENGTH_SHORT
                     ).show()
                 }
             }
 
             override fun onFailure(call: Call<PlaylistInfoDTO>, t: Throwable) {
-                Log.e("CreatePlaylist", "Failed to create playlist", t)
+                Log.e("CreatePlaylist", "Не удалось создать плейлист", t)
                 Toast.makeText(
                     requireContext(),
-                    "Failed to create playlist (onFailure)",
+                    "Не удалось создать плейлист (onFailure)",
                     Toast.LENGTH_SHORT
                 ).show()
             }
@@ -304,17 +307,17 @@ class PlaylistEditFragment(
                     } else {
                         Toast.makeText(
                             requireContext(),
-                            "Failed to edit playlist (onResponse)",
+                            "Не удалось изменить плейлист (onResponse)",
                             Toast.LENGTH_SHORT
                         ).show()
                     }
                 }
 
                 override fun onFailure(call: Call<PlaylistInfoDTO>, t: Throwable) {
-                    Log.e("EditPlaylist", "Failed to edit playlist", t)
+                    Log.e("EditPlaylist", "Не удалось изменить плейлист", t)
                     Toast.makeText(
                         requireContext(),
-                        "Failed to edit playlist (onFailure)",
+                        "Не удалось изменить плейлист (onFailure)",
                         Toast.LENGTH_SHORT
                     ).show()
                 }

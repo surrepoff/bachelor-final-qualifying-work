@@ -52,7 +52,7 @@ class LoginActivity : AppCompatActivity() {
             if (username.isNotBlank() && password.isNotBlank()) {
                 loginUser(username, password)
             } else {
-                Toast.makeText(this, "Username and password must not be empty", Toast.LENGTH_SHORT)
+                Toast.makeText(this, "Поля не могут быть пустыми", Toast.LENGTH_SHORT)
                     .show()
             }
         }
@@ -68,10 +68,10 @@ class LoginActivity : AppCompatActivity() {
 
         userAPI.login(UserLoginDTO(username, password)).enqueue(object : Callback<UserResponseDTO> {
             override fun onFailure(call: Call<UserResponseDTO>, t: Throwable) {
-                Log.e("Login", "Failed to login (onFailure)", t)
+                Log.e("Login", "Не удалось войти в аккаунт (onFailure)", t)
                 Toast.makeText(
                     this@LoginActivity,
-                    "Failed to login (onFailure)",
+                    "Не удалось войти в аккаунт (onFailure)",
                     Toast.LENGTH_SHORT
                 ).show()
             }
@@ -90,18 +90,18 @@ class LoginActivity : AppCompatActivity() {
                         startActivity(Intent(this@LoginActivity, MainActivity::class.java))
                         finish()
                     } else {
-                        Log.e("Login", "Failed to login : ${loginResponse?.message}")
+                        Log.e("Login", "Не удалось войти в аккаунт: ${loginResponse?.message}")
                         Toast.makeText(
                             this@LoginActivity,
-                            "Failed to login : ${loginResponse?.message}",
+                            "Не удалось войти в аккаунт: ${loginResponse?.message}",
                             Toast.LENGTH_SHORT
                         ).show()
                     }
                 } else {
-                    Log.e("Login", "Failed to login (onResponse) : $errorResponse")
+                    Log.e("Login", "Не удалось войти в аккаунт (onResponse) : $errorResponse")
                     Toast.makeText(
                         this@LoginActivity,
-                        "Failed to login (onResponse): $errorResponse",
+                        "Не удалось войти в аккаунт (onResponse): $errorResponse",
                         Toast.LENGTH_SHORT
                     ).show()
                 }

@@ -257,17 +257,17 @@ class FullMusicPlayerFragment(
                 } else {
                     Toast.makeText(
                         context,
-                        "Failed to load track (onResponse)",
+                        "Не удалось загрузить трек (onResponse)",
                         Toast.LENGTH_SHORT
                     ).show()
                 }
             }
 
             override fun onFailure(call: Call<TrackInfoDTO>, t: Throwable) {
-                Log.e("LoadTrack", "Failed to load track", t)
+                Log.e("LoadTrack", "Не удалось загрузить трек", t)
                 Toast.makeText(
                     context,
-                    "Failed to load track (onFailure)",
+                    "Не удалось загрузить трек (onFailure)",
                     Toast.LENGTH_SHORT
                 ).show()
             }
@@ -349,17 +349,17 @@ class FullMusicPlayerFragment(
                     } else {
                         Toast.makeText(
                             context,
-                            "Failed to remove track (onResponse)",
+                            "Не удалось убрать трек (onResponse)",
                             Toast.LENGTH_SHORT
                         ).show()
                     }
                 }
 
                 override fun onFailure(call: Call<TrackInfoDTO>, t: Throwable) {
-                    Log.e("RemoveTrack", "Failed to remove track", t)
+                    Log.e("RemoveTrack", "Не удалось убрать трек", t)
                     Toast.makeText(
                         context,
-                        "Failed to remove track (onFailure)",
+                        "Не удалось убрать трек (onFailure)",
                         Toast.LENGTH_SHORT
                     ).show()
                 }
@@ -383,17 +383,17 @@ class FullMusicPlayerFragment(
                     } else {
                         Toast.makeText(
                             context,
-                            "Failed to add track (onResponse)",
+                            "Не удалось добавить трек (onResponse)",
                             Toast.LENGTH_SHORT
                         ).show()
                     }
                 }
 
                 override fun onFailure(call: Call<TrackInfoDTO>, t: Throwable) {
-                    Log.e("AddTrack", "Failed to add track", t)
+                    Log.e("AddTrack", "Не удалось добавить трек", t)
                     Toast.makeText(
                         context,
-                        "Failed to add track (onFailure)",
+                        "Не удалось добавить трек (onFailure)",
                         Toast.LENGTH_SHORT
                     ).show()
                 }
@@ -417,17 +417,17 @@ class FullMusicPlayerFragment(
                     } else {
                         Toast.makeText(
                             context,
-                            "Failed to rate track (onResponse)",
+                            "Не удалось оценить трек (onResponse)",
                             Toast.LENGTH_SHORT
                         ).show()
                     }
                 }
 
                 override fun onFailure(call: Call<TrackInfoDTO>, t: Throwable) {
-                    Log.e("RateTrack", "Failed to rate track", t)
+                    Log.e("RateTrack", "Не удалось оценить трек", t)
                     Toast.makeText(
                         context,
-                        "Failed to rate track (onFailure)",
+                        "Не удалось оценить трек (onFailure)",
                         Toast.LENGTH_SHORT
                     ).show()
                 }

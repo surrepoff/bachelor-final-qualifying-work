@@ -213,17 +213,17 @@ class AlbumFragment(
                     } else {
                         Toast.makeText(
                             requireContext(),
-                            "Failed to load album (onResponse)",
+                            "Не удалось загрузить альбом (onResponse)",
                             Toast.LENGTH_SHORT
                         ).show()
                     }
                 }
 
                 override fun onFailure(call: Call<AlbumInfoDTO>, t: Throwable) {
-                    Log.e("LoadAlbum", "Failed to load album", t)
+                    Log.e("LoadAlbum", "Не удалось загрузить альбом", t)
                     Toast.makeText(
                         requireContext(),
-                        "Failed to load album (onFailure)",
+                        "Не удалось загрузить альбом (onFailure)",
                         Toast.LENGTH_SHORT
                     ).show()
                 }
@@ -246,17 +246,17 @@ class AlbumFragment(
                     } else {
                         Toast.makeText(
                             requireContext(),
-                            "Failed to load tracks (onResponse)",
+                            "Не удалось загрузить треки (onResponse)",
                             Toast.LENGTH_SHORT
                         ).show()
                     }
                 }
 
                 override fun onFailure(call: Call<List<TrackInfoDTO>>, t: Throwable) {
-                    Log.e("LoadTrack", "Failed to load tracks", t)
+                    Log.e("LoadTrack", "Не удалось загрузить треки", t)
                     Toast.makeText(
                         requireContext(),
-                        "Failed to load tracks (onFailure)",
+                        "Не удалось загрузить треки (onFailure)",
                         Toast.LENGTH_SHORT
                     ).show()
                 }
@@ -280,17 +280,17 @@ class AlbumFragment(
                     } else {
                         Toast.makeText(
                             requireContext(),
-                            "Failed to remove album (onResponse)",
+                            "Не удалось убрать альбом (onResponse)",
                             Toast.LENGTH_SHORT
                         ).show()
                     }
                 }
 
                 override fun onFailure(call: Call<AlbumInfoDTO>, t: Throwable) {
-                    Log.e("RemoveAlbum", "Failed to remove album", t)
+                    Log.e("RemoveAlbum", "Не удалось убрать альбом", t)
                     Toast.makeText(
                         requireContext(),
-                        "Failed to remove album (onFailure)",
+                        "Не удалось убрать альбом (onFailure)",
                         Toast.LENGTH_SHORT
                     ).show()
                 }
@@ -314,17 +314,17 @@ class AlbumFragment(
                     } else {
                         Toast.makeText(
                             requireContext(),
-                            "Failed to add album (onResponse)",
+                            "Не удалось добавить альбом (onResponse)",
                             Toast.LENGTH_SHORT
                         ).show()
                     }
                 }
 
                 override fun onFailure(call: Call<AlbumInfoDTO>, t: Throwable) {
-                    Log.e("AddAlbum", "Failed to add album", t)
+                    Log.e("AddAlbum", "Не удалось добавить альбом", t)
                     Toast.makeText(
                         requireContext(),
-                        "Failed to add album (onFailure)",
+                        "Не удалось добавить альбом (onFailure)",
                         Toast.LENGTH_SHORT
                     ).show()
                 }
@@ -348,17 +348,17 @@ class AlbumFragment(
                     } else {
                         Toast.makeText(
                             requireContext(),
-                            "Failed to rate album (onResponse)",
+                            "Не удалось оценить альбом (onResponse)",
                             Toast.LENGTH_SHORT
                         ).show()
                     }
                 }
 
                 override fun onFailure(call: Call<AlbumInfoDTO>, t: Throwable) {
-                    Log.e("RateAlbum", "Failed to rate album", t)
+                    Log.e("RateAlbum", "Не удалось оценить альбом", t)
                     Toast.makeText(
                         requireContext(),
-                        "Failed to rate album (onFailure)",
+                        "Не удалось оценить альбом (onFailure)",
                         Toast.LENGTH_SHORT
                     ).show()
                 }

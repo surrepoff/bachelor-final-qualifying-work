@@ -169,17 +169,17 @@ class MusicPlayerManager(
                     } else {
                         Toast.makeText(
                             context,
-                            "Failed to add track to history (onResponse)",
+                            "Не удалось добавить трек в историю прослушивания (onResponse)",
                             Toast.LENGTH_SHORT
                         ).show()
                     }
                 }
 
                 override fun onFailure(call: Call<UserTrackDTO>, t: Throwable) {
-                    Log.e("AddTrackHistory", "Failed to add track history", t)
+                    Log.e("AddTrackHistory", "Не удалось добавить трек в историю прослушивания", t)
                     Toast.makeText(
                         context,
-                        "Failed to add track history (onFailure)",
+                        "Не удалось добавить трек в историю прослушивания (onFailure)",
                         Toast.LENGTH_SHORT
                     ).show()
                 }

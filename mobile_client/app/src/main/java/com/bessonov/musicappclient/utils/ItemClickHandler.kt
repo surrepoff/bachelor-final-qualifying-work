@@ -279,17 +279,17 @@ class ItemClickHandler(
                     } else {
                         Toast.makeText(
                             context,
-                            "Failed to remove album (onResponse)",
+                            "Не удалось убрать альбом (onResponse)",
                             Toast.LENGTH_SHORT
                         ).show()
                     }
                 }
 
                 override fun onFailure(call: Call<AlbumInfoDTO>, t: Throwable) {
-                    Log.e("RemoveAlbum", "Failed to remove album", t)
+                    Log.e("RemoveAlbum", "Не удалось убрать альбом", t)
                     Toast.makeText(
                         context,
-                        "Failed to remove album (onFailure)",
+                        "Не удалось убрать альбом (onFailure)",
                         Toast.LENGTH_SHORT
                     ).show()
                 }
@@ -313,17 +313,17 @@ class ItemClickHandler(
                     } else {
                         Toast.makeText(
                             context,
-                            "Failed to add album (onResponse)",
+                            "Не удалось добавить альбом (onResponse)",
                             Toast.LENGTH_SHORT
                         ).show()
                     }
                 }
 
                 override fun onFailure(call: Call<AlbumInfoDTO>, t: Throwable) {
-                    Log.e("AddAlbum", "Failed to add album", t)
+                    Log.e("AddAlbum", "Не удалось добавить альбом", t)
                     Toast.makeText(
                         context,
-                        "Failed to add album (onFailure)",
+                        "Не удалось добавить альбом (onFailure)",
                         Toast.LENGTH_SHORT
                     ).show()
                 }
@@ -347,17 +347,17 @@ class ItemClickHandler(
                     } else {
                         Toast.makeText(
                             context,
-                            "Failed to rate album (onResponse)",
+                            "Не удалось оценить альбом (onResponse)",
                             Toast.LENGTH_SHORT
                         ).show()
                     }
                 }
 
                 override fun onFailure(call: Call<AlbumInfoDTO>, t: Throwable) {
-                    Log.e("RateAlbum", "Failed to rate album", t)
+                    Log.e("RateAlbum", "Не удалось оценить альбом", t)
                     Toast.makeText(
                         context,
-                        "Failed to rate album (onFailure)",
+                        "Не удалось оценить альбом (onFailure)",
                         Toast.LENGTH_SHORT
                     ).show()
                 }
@@ -397,17 +397,17 @@ class ItemClickHandler(
                     } else {
                         Toast.makeText(
                             context,
-                            "Failed to remove artist (onResponse)",
+                            "Не удалось убрать артиста (onResponse)",
                             Toast.LENGTH_SHORT
                         ).show()
                     }
                 }
 
                 override fun onFailure(call: Call<ArtistInfoDTO>, t: Throwable) {
-                    Log.e("RemoveArtist", "Failed to remove artist", t)
+                    Log.e("RemoveArtist", "Не удалось убрать артиста", t)
                     Toast.makeText(
                         context,
-                        "Failed to remove artist (onFailure)",
+                        "Не удалось убрать артиста (onFailure)",
                         Toast.LENGTH_SHORT
                     ).show()
                 }
@@ -431,17 +431,17 @@ class ItemClickHandler(
                     } else {
                         Toast.makeText(
                             context,
-                            "Failed to add artist (onResponse)",
+                            "Не удалось добавить артиста (onResponse)",
                             Toast.LENGTH_SHORT
                         ).show()
                     }
                 }
 
                 override fun onFailure(call: Call<ArtistInfoDTO>, t: Throwable) {
-                    Log.e("AddArtist", "Failed to add artist", t)
+                    Log.e("AddArtist", "Не удалось добавить артиста", t)
                     Toast.makeText(
                         context,
-                        "Failed to add artist (onFailure)",
+                        "Не удалось добавить артиста (onFailure)",
                         Toast.LENGTH_SHORT
                     ).show()
                 }
@@ -465,17 +465,17 @@ class ItemClickHandler(
                     } else {
                         Toast.makeText(
                             context,
-                            "Failed to rate artist (onResponse)",
+                            "Не удалось оценить артиста (onResponse)",
                             Toast.LENGTH_SHORT
                         ).show()
                     }
                 }
 
                 override fun onFailure(call: Call<ArtistInfoDTO>, t: Throwable) {
-                    Log.e("RateArtist", "Failed to rate artist", t)
+                    Log.e("RateArtist", "Не удалось оценить артиста", t)
                     Toast.makeText(
                         context,
-                        "Failed to rate artist (onFailure)",
+                        "Не удалось оценить артиста (onFailure)",
                         Toast.LENGTH_SHORT
                     ).show()
                 }
@@ -515,17 +515,17 @@ class ItemClickHandler(
                     } else {
                         Toast.makeText(
                             context,
-                            "Failed to remove playlist (onResponse)",
+                            "Не удалось убрать плейлист (onResponse)",
                             Toast.LENGTH_SHORT
                         ).show()
                     }
                 }
 
                 override fun onFailure(call: Call<PlaylistInfoDTO>, t: Throwable) {
-                    Log.e("RemovePlaylist", "Failed to remove playlist", t)
+                    Log.e("RemovePlaylist", "Не удалось убрать плейлист", t)
                     Toast.makeText(
                         context,
-                        "Failed to remove playlist (onFailure)",
+                        "Не удалось убрать плейлист (onFailure)",
                         Toast.LENGTH_SHORT
                     ).show()
                 }
@@ -549,17 +549,17 @@ class ItemClickHandler(
                     } else {
                         Toast.makeText(
                             context,
-                            "Failed to add playlist (onResponse)",
+                            "Не удалось добавить плейлист (onResponse)",
                             Toast.LENGTH_SHORT
                         ).show()
                     }
                 }
 
                 override fun onFailure(call: Call<PlaylistInfoDTO>, t: Throwable) {
-                    Log.e("AddPlaylist", "Failed to add playlist", t)
+                    Log.e("AddPlaylist", "Не удалось добавить плейлист", t)
                     Toast.makeText(
                         context,
-                        "Failed to add playlist (onFailure)",
+                        "Не удалось добавить плейлист (onFailure)",
                         Toast.LENGTH_SHORT
                     ).show()
                 }
@@ -583,17 +583,17 @@ class ItemClickHandler(
                     } else {
                         Toast.makeText(
                             context,
-                            "Failed to rate playlist (onResponse)",
+                            "Не удалось оценить плейлист (onResponse)",
                             Toast.LENGTH_SHORT
                         ).show()
                     }
                 }
 
                 override fun onFailure(call: Call<PlaylistInfoDTO>, t: Throwable) {
-                    Log.e("RatePlaylist", "Failed to rate playlist", t)
+                    Log.e("RatePlaylist", "Не удалось оценить плейлист", t)
                     Toast.makeText(
                         context,
-                        "Failed to rate playlist (onFailure)",
+                        "Не удалось оценить плейлист (onFailure)",
                         Toast.LENGTH_SHORT
                     ).show()
                 }
@@ -637,17 +637,17 @@ class ItemClickHandler(
                     } else {
                         Toast.makeText(
                             context,
-                            "Failed to rate recommendation (onResponse)",
+                            "Не удалось оценить рекомендацию (onResponse)",
                             Toast.LENGTH_SHORT
                         ).show()
                     }
                 }
 
                 override fun onFailure(call: Call<RecommendationInfoDTO>, t: Throwable) {
-                    Log.e("RateRecommendation", "Failed to rate recommendation", t)
+                    Log.e("RateRecommendation", "Не удалось оценить рекомендацию", t)
                     Toast.makeText(
                         context,
-                        "Failed to rate recommendation (onFailure)",
+                        "Не удалось оценить рекомендацию (onFailure)",
                         Toast.LENGTH_SHORT
                     ).show()
                 }
@@ -683,17 +683,17 @@ class ItemClickHandler(
                     } else {
                         Toast.makeText(
                             context,
-                            "Failed to remove track (onResponse)",
+                            "Не удалось убрать трек (onResponse)",
                             Toast.LENGTH_SHORT
                         ).show()
                     }
                 }
 
                 override fun onFailure(call: Call<TrackInfoDTO>, t: Throwable) {
-                    Log.e("RemoveTrack", "Failed to remove track", t)
+                    Log.e("RemoveTrack", "Не удалось убрать трек", t)
                     Toast.makeText(
                         context,
-                        "Failed to remove track (onFailure)",
+                        "Не удалось убрать трек (onFailure)",
                         Toast.LENGTH_SHORT
                     ).show()
                 }
@@ -717,17 +717,17 @@ class ItemClickHandler(
                     } else {
                         Toast.makeText(
                             context,
-                            "Failed to add track (onResponse)",
+                            "Не удалось добавить трек (onResponse)",
                             Toast.LENGTH_SHORT
                         ).show()
                     }
                 }
 
                 override fun onFailure(call: Call<TrackInfoDTO>, t: Throwable) {
-                    Log.e("AddTrack", "Failed to add track", t)
+                    Log.e("AddTrack", "Не удалось добавить трек", t)
                     Toast.makeText(
                         context,
-                        "Failed to add track (onFailure)",
+                        "Не удалось добавить трек (onFailure)",
                         Toast.LENGTH_SHORT
                     ).show()
                 }
@@ -751,17 +751,17 @@ class ItemClickHandler(
                     } else {
                         Toast.makeText(
                             context,
-                            "Failed to rate track (onResponse)",
+                            "Не удалось оценить трек (onResponse)",
                             Toast.LENGTH_SHORT
                         ).show()
                     }
                 }
 
                 override fun onFailure(call: Call<TrackInfoDTO>, t: Throwable) {
-                    Log.e("RateTrack", "Failed to rate track", t)
+                    Log.e("RateTrack", "Не удалось оценить трек", t)
                     Toast.makeText(
                         context,
-                        "Failed to rate track (onFailure)",
+                        "Не удалось оценить трек (onFailure)",
                         Toast.LENGTH_SHORT
                     ).show()
                 }

@@ -9,6 +9,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
@@ -71,6 +72,7 @@ public class UserController {
         return new UserResponseDTO(false, "Неверный логин или пароль");
     }
 
+    @Transactional
     @PostMapping("/register")
     public UserResponseDTO register(@Valid @RequestBody UserRegisterDTO userRegisterDTO, BindingResult result) {
         if (result.hasErrors()) {
@@ -126,7 +128,7 @@ public class UserController {
         Optional<UserData> userData = userDataRepository.findByUsername(authentication.getName());
 
         if (userData.isEmpty()) {
-            editMap.put("error", "Пользователя с таким логином не существует");
+            editMap.put("Ошибка", "Пользователя с таким логином не существует");
             return new UserEditResponseDTO(editMap);
         }
 
@@ -137,7 +139,7 @@ public class UserController {
                     )
             );
         } catch (Exception ex) {
-            editMap.put("error", "Неверный пароль");
+            editMap.put("Ошибка", "Неверный пароль");
             return new UserEditResponseDTO(editMap);
         }
 

@@ -75,39 +75,39 @@ public class UserService implements UserDetailsService {
 
         for (Map.Entry<String, String> entry : userEditRequestDTO.getEditMap().entrySet()) {
             switch (entry.getKey()) {
-                case "nickname": {
+                case "Имя пользователя": {
                     String regex = "^[a-zA-Z0-9_]+$";
                     Pattern pattern = Pattern.compile(regex);
                     Matcher matcher = pattern.matcher(entry.getValue());
 
                     if (!matcher.matches()) {
-                        editMap.put("nickname", "Error: Founded invalid characters");
+                        editMap.put("Имя пользователя", "Ошибка: Найдены неразрешенные символы");
                         break;
                     }
 
                     if (entry.getValue().length() < 4) {
-                        editMap.put("nickname", "Error: Minimum nickname length is 4 characters");
+                        editMap.put("Имя пользователя", "Ошибка: Минимальная длина 4 символа");
                         break;
                     }
 
                     userData.get().setNickname(entry.getValue());
                     userData.get().setLastUpdateDate(new Date());
                     userDataRepository.save(userData.get());
-                    editMap.put("nickname", "Successfully changed");
+                    editMap.put("Имя пользователя", "Успешно изменено");
                     break;
                 }
-                case "username": {
+                case "Логин": {
                     String regex = "^[a-zA-Z0-9_]+$";
                     Pattern pattern = Pattern.compile(regex);
                     Matcher matcher = pattern.matcher(entry.getValue());
 
                     if (!matcher.matches()) {
-                        editMap.put("username", "Error: Founded invalid characters");
+                        editMap.put("Логин", "Ошибка: Найдены неразрешенные символы");
                         break;
                     }
 
                     if (entry.getValue().length() < 4) {
-                        editMap.put("username", "Error: Minimum username length is 4 characters");
+                        editMap.put("Логин", "Ошибка: Минимальная длина 4 символа");
                         break;
                     }
 
@@ -116,19 +116,19 @@ public class UserService implements UserDetailsService {
                         userData.get().setUsername(entry.getValue());
                         userData.get().setLastUpdateDate(new Date());
                         userDataRepository.save(userData.get());
-                        editMap.put("username", createJwtToken(userData.get()));
+                        editMap.put("Логин", createJwtToken(userData.get()));
                     } else {
-                        editMap.put("username", "Error: Founded existing user with this username");
+                        editMap.put("Логин", "Ошибка: Существует пользователь с таким логином");
                     }
                     break;
                 }
-                case "email": {
+                case "Адрес электронной почты": {
                     String regex = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$";
                     Pattern pattern = Pattern.compile(regex);
                     Matcher matcher = pattern.matcher(entry.getValue());
 
                     if (!matcher.matches()) {
-                        editMap.put("username", "Error: Founded invalid email");
+                        editMap.put("Адрес электронной почты", "Ошибка: Неверный формат");
                         break;
                     }
 
@@ -137,24 +137,24 @@ public class UserService implements UserDetailsService {
                         userData.get().setEmail(entry.getValue());
                         userData.get().setLastUpdateDate(new Date());
                         userDataRepository.save(userData.get());
-                        editMap.put("email", "Successfully changed");
+                        editMap.put("Адрес электронной почты", "Успешно изменен");
                     } else {
-                        editMap.put("email", "Error: Founded existing user with this email");
+                        editMap.put("Адрес электронной почты", "Ошибка: Существует пользователем с таким адресом");
                     }
                     break;
                 }
-                case "password": {
+                case "Пароль": {
                     String regex = "^[a-zA-Z0-9_!@#$%^&*()-+=?]+$";
                     Pattern pattern = Pattern.compile(regex);
                     Matcher matcher = pattern.matcher(entry.getValue());
 
                     if (!matcher.matches()) {
-                        editMap.put("password", "Error: Founded invalid characters");
+                        editMap.put("Пароль", "Ошибка: Найдены неразрешенные символы");
                         break;
                     }
 
                     if (entry.getValue().length() < 8) {
-                        editMap.put("password", "Error: Minimum password length is 8 characters");
+                        editMap.put("Пароль", "Ошибка: Минимальная длина 8 символов");
                         break;
                     }
 
@@ -162,14 +162,14 @@ public class UserService implements UserDetailsService {
                     userData.get().setPassword(bCryptPasswordEncoder.encode(entry.getValue()));
                     userData.get().setLastUpdateDate(new Date());
                     userDataRepository.save(userData.get());
-                    editMap.put("password", "Successfully changed");
+                    editMap.put("Пароль", "Успешно изменен");
                     break;
                 }
                 default: {
-                    if (editMap.get("error") == null)
-                        editMap.put("error", "No field " + entry.getValue());
+                    if (editMap.get("Ошибка") == null)
+                        editMap.put("Ошибка", "Нет поля " + entry.getValue());
                     else
-                        editMap.put("error", editMap.get("error") + "; No field '" + entry.getValue() + "'");
+                        editMap.put("Ошибка", editMap.get("Ошибка") + "; Нет поля '" + entry.getValue() + "'");
                 }
             }
         }

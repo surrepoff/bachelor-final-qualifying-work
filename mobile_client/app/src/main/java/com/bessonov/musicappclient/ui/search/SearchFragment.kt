@@ -255,17 +255,17 @@ class SearchFragment : Fragment() {
                     } else {
                         Toast.makeText(
                             requireContext(),
-                            "Failed to load search (onResponse)",
+                            "Не удалось загрузить результаты поиска (onResponse)",
                             Toast.LENGTH_SHORT
                         ).show()
                     }
                 }
 
                 override fun onFailure(call: Call<SearchInfoDTO>, t: Throwable) {
-                    Log.e("LoadSearch", "Failed to load search", t)
+                    Log.e("LoadSearch", "Не удалось загрузить результаты поиска", t)
                     Toast.makeText(
                         requireContext(),
-                        "Failed to load search (onFailure)",
+                        "Не удалось загрузить результаты поиска (onFailure)",
                         Toast.LENGTH_SHORT
                     ).show()
                 }
@@ -288,17 +288,17 @@ class SearchFragment : Fragment() {
                 } else {
                     Toast.makeText(
                         requireContext(),
-                        "Failed to load history (onResponse)",
+                        "Не удалось загрузить историю прослушивания (onResponse)",
                         Toast.LENGTH_SHORT
                     ).show()
                 }
             }
 
             override fun onFailure(call: Call<List<TrackInfoDTO>>, t: Throwable) {
-                Log.e("LoadHistory", "Failed to load history", t)
+                Log.e("LoadHistory", "Не удалось загрузить историю прослушивания", t)
                 Toast.makeText(
                     requireContext(),
-                    "Failed to load history (onFailure)",
+                    "Не удалось загрузить историю прослушивания (onFailure)",
                     Toast.LENGTH_SHORT
                 ).show()
             }
@@ -318,17 +318,17 @@ class SearchFragment : Fragment() {
                 } else {
                     Toast.makeText(
                         requireContext(),
-                        "Failed to load user (onResponse)",
+                        "Не удалось загрузить пользователя (onResponse)",
                         Toast.LENGTH_SHORT
                     ).show()
                 }
             }
 
             override fun onFailure(call: Call<UserDataDTO>, t: Throwable) {
-                Log.e("LoadUser", "Failed to load user", t)
+                Log.e("LoadUser", "Не удалось загрузить пользователя", t)
                 Toast.makeText(
                     requireContext(),
-                    "Failed to load user (onFailure)",
+                    "Не удалось загрузить пользователя (onFailure)",
                     Toast.LENGTH_SHORT
                 ).show()
             }

@@ -24,6 +24,8 @@ import com.bessonov.musicappclient.manager.SessionManager
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.text.SimpleDateFormat
+import java.util.Locale
 
 class ProfileFragment : Fragment() {
     private lateinit var swipeRefreshLayout: SwipeRefreshLayout
@@ -232,8 +234,11 @@ class ProfileFragment : Fragment() {
 
     private fun populateData() {
         nicknameText.setText(userDataDTO.nickname)
-        registrationText.text = userDataDTO.registrationDate.toString()
-        lastUpdateText.text = userDataDTO.lastUpdateDate.toString()
+
+        val dateFormat = SimpleDateFormat("d MMMM yyyy HH:mm:ss", Locale("ru"))
+        registrationText.text = dateFormat.format(userDataDTO.registrationDate)
+        lastUpdateText.text = dateFormat.format(userDataDTO.lastUpdateDate)
+
         loginText.setText(userDataDTO.username)
         emailText.setText(userDataDTO.email)
     }
@@ -255,17 +260,17 @@ class ProfileFragment : Fragment() {
                 } else {
                     Toast.makeText(
                         requireContext(),
-                        "Failed to load user (onResponse)",
+                        "Не удалось загрузить пользователя (onResponse)",
                         Toast.LENGTH_SHORT
                     ).show()
                 }
             }
 
             override fun onFailure(call: Call<UserDataDTO>, t: Throwable) {
-                Log.e("LoadUser", "Failed to load user", t)
+                Log.e("LoadUser", "Не удалось загрузить пользователя", t)
                 Toast.makeText(
                     requireContext(),
-                    "Failed to load user (onFailure)",
+                    "Не удалось загрузить пользователя (onFailure)",
                     Toast.LENGTH_SHORT
                 ).show()
             }
@@ -300,21 +305,21 @@ class ProfileFragment : Fragment() {
         val editMap: HashMap<String, String> = HashMap<String, String>()
 
         if (nicknameText.text.toString() != userDataDTO.nickname) {
-            editMap["nickname"] = nicknameText.text.toString()
+            editMap["Имя пользователя"] = nicknameText.text.toString()
         }
 
         if (loginText.text.toString() != userDataDTO.username) {
-            editMap["username"] = loginText.text.toString()
+            editMap["Логин"] = loginText.text.toString()
         }
 
         if (emailText.text.toString() != userDataDTO.email) {
-            editMap["email"] = emailText.text.toString()
+            editMap["Адрес электронной почты"] = emailText.text.toString()
         }
 
         if (newPasswordText.text.toString().isNotBlank() && repeatNewPasswordText.text.toString()
                 .isNotBlank()
         ) {
-            editMap["password"] = newPasswordText.text.toString()
+            editMap["Пароль"] = newPasswordText.text.toString()
         }
 
         userEditRequestDTO.editMap = editMap
@@ -332,17 +337,17 @@ class ProfileFragment : Fragment() {
                 } else {
                     Toast.makeText(
                         requireContext(),
-                        "Failed to edit user (onResponse)",
+                        "Не удалось изменить пользователя (onResponse)",
                         Toast.LENGTH_SHORT
                     ).show()
                 }
             }
 
             override fun onFailure(call: Call<UserEditResponseDTO>, t: Throwable) {
-                Log.e("LoadUser", "Failed to edit user", t)
+                Log.e("EditUser", "Не удалось изменить пользователя", t)
                 Toast.makeText(
                     requireContext(),
-                    "Failed to edit user (onFailure)",
+                    "Не удалось изменить пользователя (onFailure)",
                     Toast.LENGTH_SHORT
                 ).show()
             }
@@ -351,13 +356,13 @@ class ProfileFragment : Fragment() {
 
     private fun checkEditResponse(userEditResponseDTO: UserEditResponseDTO) {
         for ((key, value) in userEditResponseDTO.editMap.entries) {
-            if (key == "username" && !value.startsWith("Error")) {
+            if (key == "Логин" && !value.startsWith("Ошибка")) {
                 val sessionManager = SessionManager(requireContext())
                 sessionManager.saveAuthToken(value)
 
                 Toast.makeText(
                     requireContext(),
-                    "username: Successfully changed",
+                    "Логин: Успешно изменен",
                     Toast.LENGTH_SHORT
                 ).show()
             } else {

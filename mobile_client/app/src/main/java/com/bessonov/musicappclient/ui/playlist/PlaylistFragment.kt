@@ -25,6 +25,8 @@ import com.bessonov.musicappclient.utils.ItemType
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.text.SimpleDateFormat
+import java.util.Locale
 
 class PlaylistFragment(
     private var playlistInfoDTO: PlaylistInfoDTO
@@ -164,8 +166,9 @@ class PlaylistFragment(
             }
         }
 
-        createText.text = playlistInfoDTO.playlist.creationDate.toString()
-        lastUpdateText.text = playlistInfoDTO.playlist.lastUpdateDate.toString()
+        val dateFormat = SimpleDateFormat("d MMMM yyyy HH:mm:ss", Locale("ru"))
+        createText.text = dateFormat.format(playlistInfoDTO.playlist.creationDate)
+        lastUpdateText.text = dateFormat.format(playlistInfoDTO.playlist.lastUpdateDate)
 
         val itemClickHandler =
             ItemClickHandler(activity as MainActivity, requireContext(), trackRecyclerView)
@@ -206,17 +209,17 @@ class PlaylistFragment(
                     } else {
                         Toast.makeText(
                             requireContext(),
-                            "Failed to load playlist (onResponse)",
+                            "Не удалось загрузить плейлист (onResponse)",
                             Toast.LENGTH_SHORT
                         ).show()
                     }
                 }
 
                 override fun onFailure(call: Call<PlaylistInfoDTO>, t: Throwable) {
-                    Log.e("LoadPlaylist", "Failed to load playlist", t)
+                    Log.e("LoadPlaylist", "Не удалось загрузить плейлист", t)
                     Toast.makeText(
                         requireContext(),
-                        "Failed to load playlist (onFailure)",
+                        "Не удалось загрузить плейлист (onFailure)",
                         Toast.LENGTH_SHORT
                     ).show()
                 }
@@ -239,17 +242,17 @@ class PlaylistFragment(
                     } else {
                         Toast.makeText(
                             requireContext(),
-                            "Failed to load tracks (onResponse)",
+                            "Не удалось загрузить треки (onResponse)",
                             Toast.LENGTH_SHORT
                         ).show()
                     }
                 }
 
                 override fun onFailure(call: Call<List<TrackInfoDTO>>, t: Throwable) {
-                    Log.e("LoadTrack", "Failed to load tracks", t)
+                    Log.e("LoadTrack", "Не удалось загрузить треки", t)
                     Toast.makeText(
                         requireContext(),
-                        "Failed to load tracks (onFailure)",
+                        "Не удалось загрузить треки (onFailure)",
                         Toast.LENGTH_SHORT
                     ).show()
                 }
@@ -272,17 +275,17 @@ class PlaylistFragment(
                     } else {
                         Toast.makeText(
                             requireContext(),
-                            "Failed to delete playlist (onResponse)",
+                            "Не удалось удалить плейлист (onResponse)",
                             Toast.LENGTH_SHORT
                         ).show()
                     }
                 }
 
                 override fun onFailure(call: Call<PlaylistInfoDTO>, t: Throwable) {
-                    Log.e("DeletePlaylist", "Failed to delete playlist", t)
+                    Log.e("DeletePlaylist", "Не удалось удалить плейлист", t)
                     Toast.makeText(
                         requireContext(),
-                        "Failed to delete playlist (onFailure)",
+                        "Не удалось удалить плейлист (onFailure)",
                         Toast.LENGTH_SHORT
                     ).show()
                 }
@@ -306,17 +309,17 @@ class PlaylistFragment(
                     } else {
                         Toast.makeText(
                             requireContext(),
-                            "Failed to remove playlist (onResponse)",
+                            "Не удалось убрать плейлист (onResponse)",
                             Toast.LENGTH_SHORT
                         ).show()
                     }
                 }
 
                 override fun onFailure(call: Call<PlaylistInfoDTO>, t: Throwable) {
-                    Log.e("RemovePlaylist", "Failed to remove playlist", t)
+                    Log.e("RemovePlaylist", "Не удалось убрать плейлист", t)
                     Toast.makeText(
                         requireContext(),
-                        "Failed to remove playlist (onFailure)",
+                        "Не удалось убрать плейлист (onFailure)",
                         Toast.LENGTH_SHORT
                     ).show()
                 }
@@ -340,17 +343,17 @@ class PlaylistFragment(
                     } else {
                         Toast.makeText(
                             requireContext(),
-                            "Failed to add playlist (onResponse)",
+                            "Не удалось добавить плейлист (onResponse)",
                             Toast.LENGTH_SHORT
                         ).show()
                     }
                 }
 
                 override fun onFailure(call: Call<PlaylistInfoDTO>, t: Throwable) {
-                    Log.e("AddPlaylist", "Failed to add playlist", t)
+                    Log.e("AddPlaylist", "Не удалось добавить плейлист", t)
                     Toast.makeText(
                         requireContext(),
-                        "Failed to add playlist (onFailure)",
+                        "Не удалось добавить плейлист (onFailure)",
                         Toast.LENGTH_SHORT
                     ).show()
                 }
@@ -374,17 +377,17 @@ class PlaylistFragment(
                     } else {
                         Toast.makeText(
                             requireContext(),
-                            "Failed to rate playlist (onResponse)",
+                            "Не удалось оценить плейлист (onResponse)",
                             Toast.LENGTH_SHORT
                         ).show()
                     }
                 }
 
                 override fun onFailure(call: Call<PlaylistInfoDTO>, t: Throwable) {
-                    Log.e("RatePlaylist", "Failed to rate playlist", t)
+                    Log.e("RatePlaylist", "Не удалось оценить плейлист", t)
                     Toast.makeText(
                         requireContext(),
-                        "Failed to rate playlist (onFailure)",
+                        "Не удалось оценить плейлист (onFailure)",
                         Toast.LENGTH_SHORT
                     ).show()
                 }

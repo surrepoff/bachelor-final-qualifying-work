@@ -40,6 +40,8 @@ class RegisterActivity : AppCompatActivity() {
             insets
         }
 
+        sessionManager = SessionManager(this)
+
         registerButton = findViewById(R.id.registerButton)
         backButton = findViewById(R.id.backButton)
         usernameEditText = findViewById(R.id.usernameEditText)
@@ -59,10 +61,10 @@ class RegisterActivity : AppCompatActivity() {
                 if (password == repeatPassword) {
                     registerUser(username, email, password)
                 } else {
-                    Toast.makeText(this, "Passwords not equal", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "Пароли не совпадают", Toast.LENGTH_SHORT).show()
                 }
             } else {
-                Toast.makeText(this, "Fields must not be empty", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Поля не могут быть пустыми", Toast.LENGTH_SHORT).show()
             }
 
         }
@@ -79,10 +81,10 @@ class RegisterActivity : AppCompatActivity() {
         userAPI.register(UserRegisterDTO(username, email, password))
             .enqueue(object : Callback<UserResponseDTO> {
                 override fun onFailure(call: Call<UserResponseDTO>, t: Throwable) {
-                    Log.e("Register", "Failed to register (onFailure)", t)
+                    Log.e("Register", "Не удалось зарегистрироваться (onFailure)", t)
                     Toast.makeText(
                         this@RegisterActivity,
-                        "Failed to register (onFailure)",
+                        "Не удалось зарегистрироваться (onFailure)",
                         Toast.LENGTH_SHORT
                     ).show()
                 }
@@ -97,22 +99,28 @@ class RegisterActivity : AppCompatActivity() {
                     if (response.isSuccessful) {
                         if (registerResponse != null && registerResponse.status) {
                             Log.d("Register", "Response $registerResponse")
-                            sessionManager.saveAuthToken(registerResponse.toString())
+                            sessionManager.saveAuthToken(registerResponse.message)
                             startActivity(Intent(this@RegisterActivity, MainActivity::class.java))
                             finish()
                         } else {
-                            Log.e("Register", "Failed to register : ${registerResponse?.message}")
+                            Log.e(
+                                "Register",
+                                "Не удалось зарегистрироваться: ${registerResponse?.message}"
+                            )
                             Toast.makeText(
                                 this@RegisterActivity,
-                                "Failed to register : ${registerResponse?.message}",
+                                "Не удалось зарегистрироваться: ${registerResponse?.message}",
                                 Toast.LENGTH_SHORT
                             ).show()
                         }
                     } else {
-                        Log.e("Register", "Failed to register (onResponse) : $errorResponse")
+                        Log.e(
+                            "Register",
+                            "Не удалось зарегистрироваться (onResponse) : $errorResponse"
+                        )
                         Toast.makeText(
                             this@RegisterActivity,
-                            "Failed to register (onResponse): $errorResponse",
+                            "Не удалось зарегистрироваться (onResponse): $errorResponse",
                             Toast.LENGTH_SHORT
                         ).show()
                     }

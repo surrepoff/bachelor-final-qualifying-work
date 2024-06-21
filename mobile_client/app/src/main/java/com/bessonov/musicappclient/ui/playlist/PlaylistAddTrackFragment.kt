@@ -193,17 +193,17 @@ class PlaylistAddTrackFragment : Fragment() {
                     } else {
                         Toast.makeText(
                             requireContext(),
-                            "Failed to load search (onResponse)",
+                            "Не удалось загрузить результаты поиска (onResponse)",
                             Toast.LENGTH_SHORT
                         ).show()
                     }
                 }
 
                 override fun onFailure(call: Call<List<TrackInfoDTO>>, t: Throwable) {
-                    Log.e("LoadSearch", "Failed to load search", t)
+                    Log.e("LoadSearch", "Не удалось загрузить результаты поиска", t)
                     Toast.makeText(
                         requireContext(),
-                        "Failed to load search (onFailure)",
+                        "Не удалось загрузить результаты поиска (onFailure)",
                         Toast.LENGTH_SHORT
                     ).show()
                 }
@@ -226,17 +226,17 @@ class PlaylistAddTrackFragment : Fragment() {
                 } else {
                     Toast.makeText(
                         requireContext(),
-                        "Failed to load tracks (onResponse)",
+                        "Не удалось загрузить треки (onResponse)",
                         Toast.LENGTH_SHORT
                     ).show()
                 }
             }
 
             override fun onFailure(call: Call<List<TrackInfoDTO>>, t: Throwable) {
-                Log.e("LoadTrack", "Failed to load tracks", t)
+                Log.e("LoadTrack", "Не удалось загрузить треки", t)
                 Toast.makeText(
                     requireContext(),
-                    "Failed to load tracks (onFailure)",
+                    "Не удалось загрузить треки (onFailure)",
                     Toast.LENGTH_SHORT
                 ).show()
             }

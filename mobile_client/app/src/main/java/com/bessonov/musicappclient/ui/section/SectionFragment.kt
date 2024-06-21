@@ -260,17 +260,17 @@ class SectionFragment(
                     } else {
                         Toast.makeText(
                             requireContext(),
-                            "Failed to load recommendations (onResponse)",
+                            "Не удалось загрузить рекомендации (onResponse)",
                             Toast.LENGTH_SHORT
                         ).show()
                     }
                 }
 
                 override fun onFailure(call: Call<List<RecommendationInfoDTO>>, t: Throwable) {
-                    Log.e("LoadRecommendations", "Failed to load recommendations", t)
+                    Log.e("LoadRecommendations", "Не удалось загрузить рекомендации", t)
                     Toast.makeText(
                         requireContext(),
-                        "Failed to load recommendations (onFailure)",
+                        "Не удалось загрузить рекомендации (onFailure)",
                         Toast.LENGTH_SHORT
                     ).show()
                 }
@@ -292,17 +292,17 @@ class SectionFragment(
                 } else {
                     Toast.makeText(
                         requireContext(),
-                        "Failed to load artists (onResponse)",
+                        "Не удалось загрузить артистов (onResponse)",
                         Toast.LENGTH_SHORT
                     ).show()
                 }
             }
 
             override fun onFailure(call: Call<List<ArtistInfoDTO>>, t: Throwable) {
-                Log.e("LoadArtists", "Failed to load artists", t)
+                Log.e("LoadArtists", "Не удалось загрузить артистов", t)
                 Toast.makeText(
                     requireContext(),
-                    "Failed to load artists (onFailure)",
+                    "Не удалось загрузить артистов (onFailure)",
                     Toast.LENGTH_SHORT
                 ).show()
             }
@@ -324,17 +324,17 @@ class SectionFragment(
                 } else {
                     Toast.makeText(
                         requireContext(),
-                        "Failed to load artists (onResponse)",
+                        "Не удалось загрузить артистов (onResponse)",
                         Toast.LENGTH_SHORT
                     ).show()
                 }
             }
 
             override fun onFailure(call: Call<List<ArtistInfoDTO>>, t: Throwable) {
-                Log.e("LoadArtists", "Failed to load artists", t)
+                Log.e("LoadArtists", "Не удалось загрузить артистов", t)
                 Toast.makeText(
                     requireContext(),
-                    "Failed to load artists (onFailure)",
+                    "Не удалось загрузить артистов (onFailure)",
                     Toast.LENGTH_SHORT
                 ).show()
             }
@@ -356,17 +356,17 @@ class SectionFragment(
                 } else {
                     Toast.makeText(
                         requireContext(),
-                        "Failed to load albums (onResponse)",
+                        "Не удалось загрузить альбомы (onResponse)",
                         Toast.LENGTH_SHORT
                     ).show()
                 }
             }
 
             override fun onFailure(call: Call<List<AlbumInfoDTO>>, t: Throwable) {
-                Log.e("LoadAlbums", "Failed to load albums", t)
+                Log.e("LoadAlbums", "Не удалось загрузить альбомы", t)
                 Toast.makeText(
                     requireContext(),
-                    "Failed to load albums (onFailure)",
+                    "Не удалось загрузить альбомы (onFailure)",
                     Toast.LENGTH_SHORT
                 ).show()
             }
@@ -388,17 +388,17 @@ class SectionFragment(
                 } else {
                     Toast.makeText(
                         requireContext(),
-                        "Failed to load albums (onResponse)",
+                        "Не удалось загрузить альбомы (onResponse)",
                         Toast.LENGTH_SHORT
                     ).show()
                 }
             }
 
             override fun onFailure(call: Call<List<AlbumInfoDTO>>, t: Throwable) {
-                Log.e("LoadAlbums", "Failed to load albums", t)
+                Log.e("LoadAlbums", "Не удалось загрузить альбомы", t)
                 Toast.makeText(
                     requireContext(),
-                    "Failed to load albums (onFailure)",
+                    "Не удалось загрузить альбомы (onFailure)",
                     Toast.LENGTH_SHORT
                 ).show()
             }
@@ -421,17 +421,17 @@ class SectionFragment(
                 } else {
                     Toast.makeText(
                         requireContext(),
-                        "Failed to load playlists (onResponse)",
+                        "Не удалось загрузить плейлисты (onResponse)",
                         Toast.LENGTH_SHORT
                     ).show()
                 }
             }
 
             override fun onFailure(call: Call<List<PlaylistInfoDTO>>, t: Throwable) {
-                Log.e("LoadPlaylists", "Failed to load playlists", t)
+                Log.e("LoadPlaylists", "Не удалось загрузить плейлисты", t)
                 Toast.makeText(
                     requireContext(),
-                    "Failed to load playlists (onFailure)",
+                    "Не удалось загрузить плейлисты (onFailure)",
                     Toast.LENGTH_SHORT
                 ).show()
             }
@@ -453,17 +453,17 @@ class SectionFragment(
                 } else {
                     Toast.makeText(
                         requireContext(),
-                        "Failed to load tracks (onResponse)",
+                        "Не удалось загрузить треки (onResponse)",
                         Toast.LENGTH_SHORT
                     ).show()
                 }
             }
 
             override fun onFailure(call: Call<List<TrackInfoDTO>>, t: Throwable) {
-                Log.e("LoadTracks", "Failed to load tracks", t)
+                Log.e("LoadTracks", "Не удалось загрузить треки", t)
                 Toast.makeText(
                     requireContext(),
-                    "Failed to load tracks (onFailure)",
+                    "Не удалось загрузить треки (onFailure)",
                     Toast.LENGTH_SHORT
                 ).show()
             }
@@ -485,17 +485,17 @@ class SectionFragment(
                 } else {
                     Toast.makeText(
                         requireContext(),
-                        "Failed to load tracks (onResponse)",
+                        "Не удалось загрузить треки (onResponse)",
                         Toast.LENGTH_SHORT
                     ).show()
                 }
             }
 
             override fun onFailure(call: Call<List<TrackInfoDTO>>, t: Throwable) {
-                Log.e("LoadTracks", "Failed to load tracks", t)
+                Log.e("LoadTracks", "Не удалось загрузить треки", t)
                 Toast.makeText(
                     requireContext(),
-                    "Failed to load tracks (onFailure)",
+                    "Не удалось загрузить треки (onFailure)",
                     Toast.LENGTH_SHORT
                 ).show()
             }
@@ -517,17 +517,17 @@ class SectionFragment(
                 } else {
                     Toast.makeText(
                         requireContext(),
-                        "Failed to load history (onResponse)",
+                        "Не удалось загрузить историю прослушивания (onResponse)",
                         Toast.LENGTH_SHORT
                     ).show()
                 }
             }
 
             override fun onFailure(call: Call<List<TrackInfoDTO>>, t: Throwable) {
-                Log.e("LoadHistory", "Failed to load history", t)
+                Log.e("LoadHistory", "Не удалось загрузить историю прослушивания", t)
                 Toast.makeText(
                     requireContext(),
-                    "Failed to load history (onFailure)",
+                    "Не удалось загрузить историю прослушивания (onFailure)",
                     Toast.LENGTH_SHORT
                 ).show()
             }
@@ -569,17 +569,17 @@ class SectionFragment(
                 } else {
                     Toast.makeText(
                         requireContext(),
-                        "Failed to load search (onResponse)",
+                        "Не удалось загрузить результаты поиска (onResponse)",
                         Toast.LENGTH_SHORT
                     ).show()
                 }
             }
 
             override fun onFailure(call: Call<SearchInfoDTO>, t: Throwable) {
-                Log.e("LoadSearch", "Failed to load search", t)
+                Log.e("LoadSearch", "Не удалось загрузить результаты поиска", t)
                 Toast.makeText(
                     requireContext(),
-                    "Failed to load search (onFailure)",
+                    "Не удалось загрузить результаты поиска (onFailure)",
                     Toast.LENGTH_SHORT
                 ).show()
             }

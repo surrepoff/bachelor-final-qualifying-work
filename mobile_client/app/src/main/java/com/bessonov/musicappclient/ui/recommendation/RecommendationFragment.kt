@@ -27,6 +27,8 @@ import com.bessonov.musicappclient.utils.ItemType
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.text.SimpleDateFormat
+import java.util.Locale
 
 class RecommendationFragment(
     private var recommendationInfoDTO: RecommendationInfoDTO
@@ -133,7 +135,8 @@ class RecommendationFragment(
             }
         }
 
-        createText.text = recommendationInfoDTO.recommendation.creationDate.toString()
+        val dateFormat = SimpleDateFormat("d MMMM yyyy HH:mm:ss", Locale("ru"))
+        createText.text = dateFormat.format(recommendationInfoDTO.recommendation.creationDate)
 
         val itemClickHandler =
             ItemClickHandler(activity as MainActivity, requireContext(), trackRecyclerView)
@@ -174,17 +177,17 @@ class RecommendationFragment(
                     } else {
                         Toast.makeText(
                             requireContext(),
-                            "Failed to load recommendation (onResponse)",
+                            "Не удалось загрузить рекомендацию (onResponse)",
                             Toast.LENGTH_SHORT
                         ).show()
                     }
                 }
 
                 override fun onFailure(call: Call<RecommendationInfoDTO>, t: Throwable) {
-                    Log.e("LoadRecommendation", "Failed to load recommendation", t)
+                    Log.e("LoadRecommendation", "Не удалось загрузить рекомендацию", t)
                     Toast.makeText(
                         requireContext(),
-                        "Failed to load recommendation (onFailure)",
+                        "Не удалось загрузить рекомендацию (onFailure)",
                         Toast.LENGTH_SHORT
                     ).show()
                 }
@@ -207,17 +210,17 @@ class RecommendationFragment(
                     } else {
                         Toast.makeText(
                             requireContext(),
-                            "Failed to load tracks (onResponse)",
+                            "Не удалось загрузить треки (onResponse)",
                             Toast.LENGTH_SHORT
                         ).show()
                     }
                 }
 
                 override fun onFailure(call: Call<List<TrackInfoDTO>>, t: Throwable) {
-                    Log.e("LoadTrack", "Failed to load tracks", t)
+                    Log.e("LoadTrack", "Не удалось загрузить треки", t)
                     Toast.makeText(
                         requireContext(),
-                        "Failed to load tracks (onFailure)",
+                        "Не удалось загрузить треки (onFailure)",
                         Toast.LENGTH_SHORT
                     ).show()
                 }
@@ -240,17 +243,17 @@ class RecommendationFragment(
                     } else {
                         Toast.makeText(
                             requireContext(),
-                            "Failed to delete recommendation (onResponse)",
+                            "Не удалось удалить рекомендацию (onResponse)",
                             Toast.LENGTH_SHORT
                         ).show()
                     }
                 }
 
                 override fun onFailure(call: Call<RecommendationInfoDTO>, t: Throwable) {
-                    Log.e("DeleteRecommendation", "Failed to delete recommendation", t)
+                    Log.e("DeleteRecommendation", "Не удалось удалить рекомендацию", t)
                     Toast.makeText(
                         requireContext(),
-                        "Failed to delete recommendation (onFailure)",
+                        "Не удалось удалить рекомендацию (onFailure)",
                         Toast.LENGTH_SHORT
                     ).show()
                 }
@@ -274,17 +277,17 @@ class RecommendationFragment(
                     } else {
                         Toast.makeText(
                             requireContext(),
-                            "Failed to add recommendation (onResponse)",
+                            "Не удалось добавить рекомендацию (onResponse)",
                             Toast.LENGTH_SHORT
                         ).show()
                     }
                 }
 
                 override fun onFailure(call: Call<PlaylistInfoDTO>, t: Throwable) {
-                    Log.e("AddRecommendation", "Failed to add recommendation", t)
+                    Log.e("AddRecommendation", "Не удалось добавить рекомендацию", t)
                     Toast.makeText(
                         requireContext(),
-                        "Failed to add recommendation (onFailure)",
+                        "Не удалось добавить рекомендацию (onFailure)",
                         Toast.LENGTH_SHORT
                     ).show()
                 }
@@ -308,17 +311,17 @@ class RecommendationFragment(
                     } else {
                         Toast.makeText(
                             requireContext(),
-                            "Failed to rate recommendation (onResponse)",
+                            "Не удалось оценить рекомендацию (onResponse)",
                             Toast.LENGTH_SHORT
                         ).show()
                     }
                 }
 
                 override fun onFailure(call: Call<RecommendationInfoDTO>, t: Throwable) {
-                    Log.e("RateRecommendation", "Failed to rate recommendation", t)
+                    Log.e("RateRecommendation", "Не удалось оценить рекомендацию", t)
                     Toast.makeText(
                         requireContext(),
-                        "Failed to rate recommendation (onFailure)",
+                        "Не удалось оценить рекомендацию (onFailure)",
                         Toast.LENGTH_SHORT
                     ).show()
                 }
