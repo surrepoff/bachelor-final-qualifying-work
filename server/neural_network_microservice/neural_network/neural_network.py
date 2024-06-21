@@ -4,6 +4,7 @@ import random
 import numpy as np
 from keras.models import model_from_json
 from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import MinMaxScaler
 from tensorflow.keras import Sequential
 from tensorflow.keras.layers import Dense, Input, Flatten, GaussianDropout
 
@@ -63,11 +64,13 @@ class NeuralNetwork:
         x = np.array(x)
         y = np.array(y)
 
-        x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.3)
+        scaler = MinMaxScaler()
+        x_scaled = scaler.fit_transform(x)
+
+        x_train, x_test, y_train, y_test = train_test_split(x_scaled, y, test_size=0.3)
 
         model = Sequential()
         model.add(Input(shape=(3011,)))
-        model.add(Flatten())
         model.add(Dense(3011, activation='relu'))
         model.add(GaussianDropout(0.2))
         model.add(Dense(1024, activation='relu'))
@@ -80,14 +83,14 @@ class NeuralNetwork:
         model.add(GaussianDropout(0.2))
         model.add(Dense(4, activation='relu'))
         model.add(GaussianDropout(0.2))
-        model.add(Dense(1, activation='sigmoid'))
+        model.add(Dense(1, activation='linear'))
 
-        model.compile(optimizer='sgd', loss='binary_crossentropy', metrics=['accuracy'])
+        model.compile(optimizer='adam', loss='mean_squared_error', metrics=['mae'])
 
         model.fit(x_train, y_train, epochs=10, batch_size=32, validation_data=(x_test, y_test))
 
-        scores = model.evaluate(x_test, y_test, verbose=0)
-        print("Точность модели: %.2f%%" % (scores[1] * 100))
+        score = model.evaluate(x_test, y_test, verbose=0)
+        print("Точность модели: %.2f%%" % score[1])
 
         model_config = model.to_json()
         model_weights = model.get_weights()
@@ -116,7 +119,7 @@ class NeuralNetwork:
         model_weights = pickle.loads(model_weights_serialized)
         model.set_weights(model_weights)
 
-        model.compile(optimizer='sgd', loss='binary_crossentropy', metrics=['accuracy'])
+        model.compile(optimizer='adam', loss='mean_squared_error', metrics=['mae'])
 
         track_id, data, is_familiar = await cls.get_track_data(recommendationCreateDTO.userId,
                                                                recommendationCreateDTO.extractionTypeId)

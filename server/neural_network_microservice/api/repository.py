@@ -155,6 +155,93 @@ class UserDataRepository:
 
 class RatingRepository:
     @classmethod
+    async def get_rating_from_user_track(cls, user_id: int):
+        async with new_session() as session:
+            params = {'id': user_id}
+            statement = text("""SELECT track_id FROM user_track WHERE user_id = :id""")
+            result = await session.execute(statement, params)
+            rating = result.fetchall()
+            return rating
+
+    @classmethod
+    async def get_rating_from_user_album(cls, user_id: int):
+        async with new_session() as session:
+            params = {'id': user_id}
+            statement = text("""SELECT 
+                                        alt.track_id,
+                                        sub.track_count
+                                    FROM
+                                        public.album_track alt
+                                    JOIN 
+                                        public.user_album ual ON alt.album_id = ual.album_id
+                                        JOIN
+                                        (
+                                            SELECT
+                                                album_id,
+                                                COUNT(track_id) AS track_count
+                                            FROM
+                                                public.album_track
+                                            GROUP BY 
+                                                album_id
+                                        ) sub ON alt.album_id = sub.album_id
+                                    WHERE ual.user_id = :id""")
+            result = await session.execute(statement, params)
+            rating = result.fetchall()
+            return rating
+
+    @classmethod
+    async def get_rating_from_user_artist(cls, user_id: int):
+        async with new_session() as session:
+            params = {'id': user_id}
+            statement = text("""SELECT 
+                                    art.track_id,
+                                    sub.track_count
+                                FROM
+                                    public.artist_track art
+                                JOIN 
+                                    public.user_artist uar ON art.artist_id = uar.artist_id
+                                    JOIN
+                                    (
+                                        SELECT
+                                            artist_id,
+                                            COUNT(track_id) AS track_count
+                                        FROM
+                                            public.artist_track
+                                        GROUP BY 
+                                            artist_id
+                                    ) sub ON art.artist_id = sub.artist_id
+                                WHERE uar.user_id = :id""")
+            result = await session.execute(statement, params)
+            rating = result.fetchall()
+            return rating
+
+    @classmethod
+    async def get_rating_from_user_playlist(cls, user_id: int):
+        async with new_session() as session:
+            params = {'id': user_id}
+            statement = text("""SELECT 
+                                    pt.track_id,
+                                    sub.track_count
+                                FROM
+                                    public.playlist_track pt
+                                JOIN 
+                                    public.user_playlist_rating up ON pt.playlist_id = up.playlist_id
+                                    JOIN
+                                    (
+                                        SELECT
+                                            playlist_id,
+                                            COUNT(track_id) AS track_count
+                                        FROM
+                                            public.playlist_track
+                                        GROUP BY 
+                                            playlist_id
+                                    ) sub ON pt.playlist_id = sub.playlist_id
+                                WHERE up.user_id = :id""")
+            result = await session.execute(statement, params)
+            rating = result.fetchall()
+            return rating
+
+    @classmethod
     async def get_rating_from_user_track_rating(cls, user_id: int):
         async with new_session() as session:
             params = {'id': user_id}
@@ -168,12 +255,12 @@ class RatingRepository:
         async with new_session() as session:
             params = {'id': user_id}
             statement = text("""SELECT 
-                                    utk.track_id
+                                    uth.track_id
                                 FROM 
-                                    public.user_track_history utk
-                                WHERE utk.user_id = :id
+                                    public.user_track_history uth
+                                WHERE uth.user_id = :id
                                 ORDER BY
-                                    utk.listen_date DESC
+                                    uth.listen_date DESC
                                 LIMIT 100""")
             result = await session.execute(statement, params)
             rating = result.fetchall()
@@ -185,12 +272,12 @@ class RatingRepository:
             params = {'id': user_id}
             statement = text("""SELECT 
                                     alt.track_id,
-                                    altr.user_rating_id,
+                                    ualr.user_rating_id,
                                     sub.track_count
                                 FROM
                                     public.album_track alt
                                 JOIN 
-                                    public.user_album_rating altr ON alt.album_id = altr.album_id
+                                    public.user_album_rating ualr ON alt.album_id = ualr.album_id
                                     JOIN
                                     (
                                         SELECT
@@ -201,7 +288,7 @@ class RatingRepository:
                                         GROUP BY 
                                             album_id
                                     ) sub ON alt.album_id = sub.album_id
-                                WHERE altr.user_id = :id""")
+                                WHERE ualr.user_id = :id""")
             result = await session.execute(statement, params)
             rating = result.fetchall()
             return rating
@@ -212,12 +299,12 @@ class RatingRepository:
             params = {'id': user_id}
             statement = text("""SELECT 
                                     art.track_id,
-                                    artr.user_rating_id,
+                                    uarr.user_rating_id,
                                     sub.track_count
                                 FROM
                                     public.artist_track art
                                 JOIN 
-                                    public.user_artist_rating artr ON art.artist_id = artr.artist_id
+                                    public.user_artist_rating uarr ON art.artist_id = uarr.artist_id
                                     JOIN
                                     (
                                         SELECT
@@ -228,7 +315,7 @@ class RatingRepository:
                                         GROUP BY 
                                             artist_id
                                     ) sub ON art.artist_id = sub.artist_id
-                                WHERE artr.user_id = :id""")
+                                WHERE uarr.user_id = :id""")
             result = await session.execute(statement, params)
             rating = result.fetchall()
             return rating
