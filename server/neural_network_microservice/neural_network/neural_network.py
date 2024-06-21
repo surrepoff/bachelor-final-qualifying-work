@@ -141,8 +141,7 @@ class NeuralNetwork:
 
         recommendation = []
 
-        genres_track_count = await TrackRepository.get_track_count_by_genre(recommendationCreateDTO.genreId)
-        recommendation_size = min(recommendationCreateDTO.size, genres_track_count)
+        recommendation_size = recommendationCreateDTO.size
 
         counter = 0
 

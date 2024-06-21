@@ -38,17 +38,6 @@ class TrackRepository:
             filename = result.scalar_one_or_none()
             return filename
 
-    @classmethod
-    async def get_track_count_by_genre(cls, genre_id: List[int]) -> int:
-        async with new_session() as session:
-            count = 0
-            for genre in genre_id:
-                params = {'genre_id': genre}
-                statement = text("""SELECT COUNT(id) FROM track WHERE primary_genre_id = :genre_id""")
-                result = await session.execute(statement, params)
-                count += result.scalar_one_or_none()
-            return count
-
 
 class ExtractionTypeRepository:
     @classmethod
