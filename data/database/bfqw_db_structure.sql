@@ -5,7 +5,7 @@
 -- Dumped from database version 16.2
 -- Dumped by pg_dump version 16.2
 
--- Started on 2024-06-11 02:19:10 +07
+-- Started on 2024-06-23 15:01:11 +07
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -699,7 +699,7 @@ CREATE TABLE public.user_track_rating (
 ALTER TABLE public.user_track_rating OWNER TO postgres;
 
 --
--- TOC entry 3804 (class 0 OID 16562)
+-- TOC entry 3800 (class 0 OID 16562)
 -- Dependencies: 218
 -- Data for Name: album; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -717,7 +717,7 @@ INSERT INTO public.album (id, name, release_date, image_filename) VALUES (9, 'Aw
 
 
 --
--- TOC entry 3807 (class 0 OID 16583)
+-- TOC entry 3803 (class 0 OID 16583)
 -- Dependencies: 221
 -- Data for Name: album_artist; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -735,7 +735,7 @@ INSERT INTO public.album_artist (album_id, artist_id, artist_status_id) VALUES (
 
 
 --
--- TOC entry 3808 (class 0 OID 16603)
+-- TOC entry 3804 (class 0 OID 16603)
 -- Dependencies: 222
 -- Data for Name: album_track; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -802,7 +802,7 @@ INSERT INTO public.album_track (album_id, track_id, track_number_in_album) VALUE
 
 
 --
--- TOC entry 3805 (class 0 OID 16569)
+-- TOC entry 3801 (class 0 OID 16569)
 -- Dependencies: 219
 -- Data for Name: artist; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -820,7 +820,7 @@ INSERT INTO public.artist (id, name, image_filename) VALUES (9, 'Double-F the Ki
 
 
 --
--- TOC entry 3806 (class 0 OID 16576)
+-- TOC entry 3802 (class 0 OID 16576)
 -- Dependencies: 220
 -- Data for Name: artist_status; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -831,7 +831,7 @@ INSERT INTO public.artist_status (id, name) VALUES (2, 'Featured artist');
 
 
 --
--- TOC entry 3809 (class 0 OID 16618)
+-- TOC entry 3805 (class 0 OID 16618)
 -- Dependencies: 223
 -- Data for Name: artist_track; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -898,7 +898,7 @@ INSERT INTO public.artist_track (artist_id, track_id, artist_status_id) VALUES (
 
 
 --
--- TOC entry 3801 (class 0 OID 16531)
+-- TOC entry 3797 (class 0 OID 16531)
 -- Dependencies: 215
 -- Data for Name: genre; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -916,7 +916,7 @@ INSERT INTO public.genre (id, name) VALUES (9, 'Soul-RnB');
 
 
 --
--- TOC entry 3802 (class 0 OID 16538)
+-- TOC entry 3798 (class 0 OID 16538)
 -- Dependencies: 216
 -- Data for Name: license; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -931,20 +931,24 @@ INSERT INTO public.license (id, name) VALUES (4, 'CC BY-NC: Attribution-NonComme
 
 
 --
--- TOC entry 3810 (class 0 OID 16638)
+-- TOC entry 3806 (class 0 OID 16638)
 -- Dependencies: 224
 -- Data for Name: playlist; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
 INSERT INTO public.playlist (id, name, creation_date, last_update_date) VALUES (0, 'test', '2000-01-01 06:00:00', '2000-01-01 06:00:00');
-INSERT INTO public.playlist (id, name, creation_date, last_update_date) VALUES (1, 'del', '2000-12-12 00:00:00', '2000-12-12 00:00:00');
 INSERT INTO public.playlist (id, name, creation_date, last_update_date) VALUES (3, 'test', '2024-06-02 20:11:59.5', '2024-06-02 20:11:59.5');
 INSERT INTO public.playlist (id, name, creation_date, last_update_date) VALUES (4, 'ppppplaylist', '2024-06-02 20:12:32.775', '2024-06-02 20:19:41.998');
 INSERT INTO public.playlist (id, name, creation_date, last_update_date) VALUES (2, 'temp', '2000-01-01 06:00:00', '2000-01-01 06:00:00');
+INSERT INTO public.playlist (id, name, creation_date, last_update_date) VALUES (1, 'del', '2000-12-12 00:00:00', '2024-06-19 21:15:05.338');
+INSERT INTO public.playlist (id, name, creation_date, last_update_date) VALUES (12, '1212', '2024-06-19 21:22:45.764', '2024-06-19 21:22:45.764');
+INSERT INTO public.playlist (id, name, creation_date, last_update_date) VALUES (14, '33', '2024-06-19 21:30:44.73', '2024-06-19 21:32:17.244');
+INSERT INTO public.playlist (id, name, creation_date, last_update_date) VALUES (15, 'Favorite', '2024-06-22 02:08:22.778', '2024-06-22 02:08:22.778');
+INSERT INTO public.playlist (id, name, creation_date, last_update_date) VALUES (16, 'My playlist', '2024-06-13 13:46:51.518', '2024-06-22 04:50:54.314');
 
 
 --
--- TOC entry 3811 (class 0 OID 16645)
+-- TOC entry 3807 (class 0 OID 16645)
 -- Dependencies: 225
 -- Data for Name: playlist_track; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -952,7 +956,6 @@ INSERT INTO public.playlist (id, name, creation_date, last_update_date) VALUES (
 INSERT INTO public.playlist_track (playlist_id, track_id, track_number_in_playlist) VALUES (0, 9, 1);
 INSERT INTO public.playlist_track (playlist_id, track_id, track_number_in_playlist) VALUES (0, 3, 2);
 INSERT INTO public.playlist_track (playlist_id, track_id, track_number_in_playlist) VALUES (0, 7, 3);
-INSERT INTO public.playlist_track (playlist_id, track_id, track_number_in_playlist) VALUES (1, 2, 1);
 INSERT INTO public.playlist_track (playlist_id, track_id, track_number_in_playlist) VALUES (3, 0, 1);
 INSERT INTO public.playlist_track (playlist_id, track_id, track_number_in_playlist) VALUES (3, 3, 2);
 INSERT INTO public.playlist_track (playlist_id, track_id, track_number_in_playlist) VALUES (3, 8, 3);
@@ -961,11 +964,39 @@ INSERT INTO public.playlist_track (playlist_id, track_id, track_number_in_playli
 INSERT INTO public.playlist_track (playlist_id, track_id, track_number_in_playlist) VALUES (4, 3, 2);
 INSERT INTO public.playlist_track (playlist_id, track_id, track_number_in_playlist) VALUES (4, 5, 3);
 INSERT INTO public.playlist_track (playlist_id, track_id, track_number_in_playlist) VALUES (4, 9, 4);
+INSERT INTO public.playlist_track (playlist_id, track_id, track_number_in_playlist) VALUES (12, 2, 1);
 INSERT INTO public.playlist_track (playlist_id, track_id, track_number_in_playlist) VALUES (2, 1, 1);
+INSERT INTO public.playlist_track (playlist_id, track_id, track_number_in_playlist) VALUES (12, 1, 2);
+INSERT INTO public.playlist_track (playlist_id, track_id, track_number_in_playlist) VALUES (12, 7, 3);
+INSERT INTO public.playlist_track (playlist_id, track_id, track_number_in_playlist) VALUES (12, 15, 4);
+INSERT INTO public.playlist_track (playlist_id, track_id, track_number_in_playlist) VALUES (14, 2, 1);
+INSERT INTO public.playlist_track (playlist_id, track_id, track_number_in_playlist) VALUES (14, 1, 2);
+INSERT INTO public.playlist_track (playlist_id, track_id, track_number_in_playlist) VALUES (15, 57, 1);
+INSERT INTO public.playlist_track (playlist_id, track_id, track_number_in_playlist) VALUES (15, 58, 2);
+INSERT INTO public.playlist_track (playlist_id, track_id, track_number_in_playlist) VALUES (15, 0, 3);
+INSERT INTO public.playlist_track (playlist_id, track_id, track_number_in_playlist) VALUES (15, 51, 4);
+INSERT INTO public.playlist_track (playlist_id, track_id, track_number_in_playlist) VALUES (15, 30, 5);
+INSERT INTO public.playlist_track (playlist_id, track_id, track_number_in_playlist) VALUES (15, 33, 6);
+INSERT INTO public.playlist_track (playlist_id, track_id, track_number_in_playlist) VALUES (15, 9, 7);
+INSERT INTO public.playlist_track (playlist_id, track_id, track_number_in_playlist) VALUES (15, 11, 8);
+INSERT INTO public.playlist_track (playlist_id, track_id, track_number_in_playlist) VALUES (16, 12, 1);
+INSERT INTO public.playlist_track (playlist_id, track_id, track_number_in_playlist) VALUES (1, 2, 1);
+INSERT INTO public.playlist_track (playlist_id, track_id, track_number_in_playlist) VALUES (1, 13, 2);
+INSERT INTO public.playlist_track (playlist_id, track_id, track_number_in_playlist) VALUES (1, 56, 3);
+INSERT INTO public.playlist_track (playlist_id, track_id, track_number_in_playlist) VALUES (1, 5, 4);
+INSERT INTO public.playlist_track (playlist_id, track_id, track_number_in_playlist) VALUES (16, 40, 2);
+INSERT INTO public.playlist_track (playlist_id, track_id, track_number_in_playlist) VALUES (16, 14, 3);
+INSERT INTO public.playlist_track (playlist_id, track_id, track_number_in_playlist) VALUES (16, 42, 4);
+INSERT INTO public.playlist_track (playlist_id, track_id, track_number_in_playlist) VALUES (16, 2, 5);
+INSERT INTO public.playlist_track (playlist_id, track_id, track_number_in_playlist) VALUES (16, 19, 6);
+INSERT INTO public.playlist_track (playlist_id, track_id, track_number_in_playlist) VALUES (16, 10, 7);
+INSERT INTO public.playlist_track (playlist_id, track_id, track_number_in_playlist) VALUES (16, 49, 8);
+INSERT INTO public.playlist_track (playlist_id, track_id, track_number_in_playlist) VALUES (16, 50, 9);
+INSERT INTO public.playlist_track (playlist_id, track_id, track_number_in_playlist) VALUES (16, 54, 10);
 
 
 --
--- TOC entry 3803 (class 0 OID 16545)
+-- TOC entry 3799 (class 0 OID 16545)
 -- Dependencies: 217
 -- Data for Name: track; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -1032,7 +1063,7 @@ INSERT INTO public.track (id, primary_genre_id, license_id, name, duration_in_se
 
 
 --
--- TOC entry 3816 (class 0 OID 16730)
+-- TOC entry 3812 (class 0 OID 16730)
 -- Dependencies: 230
 -- Data for Name: track_audio_feature; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -1099,7 +1130,7 @@ INSERT INTO public.track_audio_feature (id, track_id, track_audio_feature_extrac
 
 
 --
--- TOC entry 3815 (class 0 OID 16725)
+-- TOC entry 3811 (class 0 OID 16725)
 -- Dependencies: 229
 -- Data for Name: track_audio_feature_extraction_type; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -1108,51 +1139,71 @@ INSERT INTO public.track_audio_feature_extraction_type (id, start_delta, segment
 
 
 --
--- TOC entry 3817 (class 0 OID 16745)
+-- TOC entry 3813 (class 0 OID 16745)
 -- Dependencies: 231
 -- Data for Name: track_segment_audio_feature; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
 
 --
--- TOC entry 3821 (class 0 OID 17755)
+-- TOC entry 3817 (class 0 OID 17755)
 -- Dependencies: 235
 -- Data for Name: user_album; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-INSERT INTO public.user_album (user_id, album_id, album_number_in_user_list, added_date) VALUES (0, 2, 1, '2024-06-02 00:53:37.159');
-INSERT INTO public.user_album (user_id, album_id, album_number_in_user_list, added_date) VALUES (0, 8, 2, '2024-06-02 00:53:40.856');
-INSERT INTO public.user_album (user_id, album_id, album_number_in_user_list, added_date) VALUES (0, 3, 3, '2024-06-02 00:53:44.404');
+INSERT INTO public.user_album (user_id, album_id, album_number_in_user_list, added_date) VALUES (0, 8, 1, '2024-06-02 00:53:40.856');
+INSERT INTO public.user_album (user_id, album_id, album_number_in_user_list, added_date) VALUES (0, 3, 2, '2024-06-02 00:53:44.404');
+INSERT INTO public.user_album (user_id, album_id, album_number_in_user_list, added_date) VALUES (0, 0, 3, '2024-06-18 04:13:48.514');
+INSERT INTO public.user_album (user_id, album_id, album_number_in_user_list, added_date) VALUES (0, 1, 4, '2024-06-18 19:10:42.98');
+INSERT INTO public.user_album (user_id, album_id, album_number_in_user_list, added_date) VALUES (0, 2, 5, '2024-06-18 19:11:15.248');
+INSERT INTO public.user_album (user_id, album_id, album_number_in_user_list, added_date) VALUES (8, 9, 1, '2024-06-22 02:07:14.449');
+INSERT INTO public.user_album (user_id, album_id, album_number_in_user_list, added_date) VALUES (8, 7, 2, '2024-06-22 02:07:18.177');
+INSERT INTO public.user_album (user_id, album_id, album_number_in_user_list, added_date) VALUES (8, 3, 3, '2024-06-22 02:07:22.584');
+INSERT INTO public.user_album (user_id, album_id, album_number_in_user_list, added_date) VALUES (8, 5, 4, '2024-06-22 02:07:23.727');
+INSERT INTO public.user_album (user_id, album_id, album_number_in_user_list, added_date) VALUES (8, 0, 5, '2024-06-22 02:07:35.086');
 
 
 --
--- TOC entry 3825 (class 0 OID 17842)
+-- TOC entry 3821 (class 0 OID 17842)
 -- Dependencies: 239
 -- Data for Name: user_album_rating; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
 INSERT INTO public.user_album_rating (user_id, album_id, user_rating_id) VALUES (0, 3, 1);
-INSERT INTO public.user_album_rating (user_id, album_id, user_rating_id) VALUES (0, 2, 1);
 INSERT INTO public.user_album_rating (user_id, album_id, user_rating_id) VALUES (0, 8, 1);
-INSERT INTO public.user_album_rating (user_id, album_id, user_rating_id) VALUES (0, 5, 0);
-INSERT INTO public.user_album_rating (user_id, album_id, user_rating_id) VALUES (0, 1, 0);
 INSERT INTO public.user_album_rating (user_id, album_id, user_rating_id) VALUES (0, 7, -1);
+INSERT INTO public.user_album_rating (user_id, album_id, user_rating_id) VALUES (0, 5, -1);
+INSERT INTO public.user_album_rating (user_id, album_id, user_rating_id) VALUES (0, 4, -1);
+INSERT INTO public.user_album_rating (user_id, album_id, user_rating_id) VALUES (0, 0, 0);
+INSERT INTO public.user_album_rating (user_id, album_id, user_rating_id) VALUES (0, 9, 1);
+INSERT INTO public.user_album_rating (user_id, album_id, user_rating_id) VALUES (0, 1, -1);
+INSERT INTO public.user_album_rating (user_id, album_id, user_rating_id) VALUES (0, 2, 1);
+INSERT INTO public.user_album_rating (user_id, album_id, user_rating_id) VALUES (8, 9, 1);
+INSERT INTO public.user_album_rating (user_id, album_id, user_rating_id) VALUES (8, 5, 1);
+INSERT INTO public.user_album_rating (user_id, album_id, user_rating_id) VALUES (8, 4, 1);
+INSERT INTO public.user_album_rating (user_id, album_id, user_rating_id) VALUES (8, 2, -1);
+INSERT INTO public.user_album_rating (user_id, album_id, user_rating_id) VALUES (8, 1, 1);
+INSERT INTO public.user_album_rating (user_id, album_id, user_rating_id) VALUES (8, 0, 1);
 
 
 --
--- TOC entry 3822 (class 0 OID 17776)
+-- TOC entry 3818 (class 0 OID 17776)
 -- Dependencies: 236
 -- Data for Name: user_artist; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-INSERT INTO public.user_artist (user_id, artist_id, artist_number_in_user_list, added_date) VALUES (0, 8, 1, '2024-06-02 00:55:22.474');
-INSERT INTO public.user_artist (user_id, artist_id, artist_number_in_user_list, added_date) VALUES (0, 3, 2, '2024-06-02 00:55:28.913');
-INSERT INTO public.user_artist (user_id, artist_id, artist_number_in_user_list, added_date) VALUES (0, 4, 3, '2024-06-02 00:55:31.201');
-INSERT INTO public.user_artist (user_id, artist_id, artist_number_in_user_list, added_date) VALUES (0, 1, 4, '2024-06-02 00:55:33.07');
+INSERT INTO public.user_artist (user_id, artist_id, artist_number_in_user_list, added_date) VALUES (0, 3, 1, '2024-06-02 00:55:28.913');
+INSERT INTO public.user_artist (user_id, artist_id, artist_number_in_user_list, added_date) VALUES (0, 4, 2, '2024-06-02 00:55:31.201');
+INSERT INTO public.user_artist (user_id, artist_id, artist_number_in_user_list, added_date) VALUES (0, 1, 3, '2024-06-02 00:55:33.07');
+INSERT INTO public.user_artist (user_id, artist_id, artist_number_in_user_list, added_date) VALUES (8, 2, 1, '2024-06-22 02:06:50.453');
+INSERT INTO public.user_artist (user_id, artist_id, artist_number_in_user_list, added_date) VALUES (8, 0, 2, '2024-06-22 02:06:52.435');
+INSERT INTO public.user_artist (user_id, artist_id, artist_number_in_user_list, added_date) VALUES (8, 8, 3, '2024-06-22 02:06:59.001');
+INSERT INTO public.user_artist (user_id, artist_id, artist_number_in_user_list, added_date) VALUES (8, 9, 4, '2024-06-22 02:06:59.751');
+INSERT INTO public.user_artist (user_id, artist_id, artist_number_in_user_list, added_date) VALUES (8, 5, 5, '2024-06-22 02:07:04.435');
 
 
 --
--- TOC entry 3826 (class 0 OID 17863)
+-- TOC entry 3822 (class 0 OID 17863)
 -- Dependencies: 240
 -- Data for Name: user_artist_rating; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -1162,27 +1213,43 @@ INSERT INTO public.user_artist_rating (user_id, artist_id, user_rating_id) VALUE
 INSERT INTO public.user_artist_rating (user_id, artist_id, user_rating_id) VALUES (0, 3, -1);
 INSERT INTO public.user_artist_rating (user_id, artist_id, user_rating_id) VALUES (0, 4, 0);
 INSERT INTO public.user_artist_rating (user_id, artist_id, user_rating_id) VALUES (0, 8, 1);
+INSERT INTO public.user_artist_rating (user_id, artist_id, user_rating_id) VALUES (0, 0, 1);
+INSERT INTO public.user_artist_rating (user_id, artist_id, user_rating_id) VALUES (0, 9, 1);
+INSERT INTO public.user_artist_rating (user_id, artist_id, user_rating_id) VALUES (0, 1, 1);
+INSERT INTO public.user_artist_rating (user_id, artist_id, user_rating_id) VALUES (8, 0, 1);
+INSERT INTO public.user_artist_rating (user_id, artist_id, user_rating_id) VALUES (8, 1, -1);
+INSERT INTO public.user_artist_rating (user_id, artist_id, user_rating_id) VALUES (8, 4, 1);
+INSERT INTO public.user_artist_rating (user_id, artist_id, user_rating_id) VALUES (8, 9, 1);
+INSERT INTO public.user_artist_rating (user_id, artist_id, user_rating_id) VALUES (8, 7, -1);
+INSERT INTO public.user_artist_rating (user_id, artist_id, user_rating_id) VALUES (8, 5, 1);
 
 
 --
--- TOC entry 3812 (class 0 OID 16660)
+-- TOC entry 3808 (class 0 OID 16660)
 -- Dependencies: 226
 -- Data for Name: user_data; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-INSERT INTO public.user_data (id, username, email, password, nickname, registration_date, last_update_date) VALUES (0, 'test', 'test@gmail.com', '$2a$10$BcnuRfaAcywwP3Fs42oiNOs/NPXkfpLkw/qI90XG4w4E7dCvx16h2', 'test', '2024-05-29 04:55:02.867', '2024-05-29 04:55:02.867');
 INSERT INTO public.user_data (id, username, email, password, nickname, registration_date, last_update_date) VALUES (1, 'aboba', 'aboba@gmail.com', '$2a$10$vAcSK4j4zxNK5elnEySa..WECqMeSw6BCmBsNmTHikhEjpOQz.KQS', 'aboba', '2024-05-31 23:33:21.797', '2024-05-31 23:33:21.797');
+INSERT INTO public.user_data (id, username, email, password, nickname, registration_date, last_update_date) VALUES (0, 'test', 'test@gmail.com', '$2a$10$BcnuRfaAcywwP3Fs42oiNOs/NPXkfpLkw/qI90XG4w4E7dCvx16h2', 'test', '2024-05-29 04:55:02.867', '2024-06-16 01:34:04.642');
+INSERT INTO public.user_data (id, username, email, password, nickname, registration_date, last_update_date) VALUES (9, 'userrrr', 'user@gmail.com', '$2a$10$AQ81CnL5LQHUuLMSVoE5u.xCfxB/aIRrCL7pl6geABIO5hIxOHQhm', 'userrrr', '2024-06-22 01:08:18.768', '2024-06-22 01:08:18.768');
+INSERT INTO public.user_data (id, username, email, password, nickname, registration_date, last_update_date) VALUES (10, 'mihesha', 'mihesha@mail.ru', '$2a$10$VT47hPXb4bFKN5U2s9Z6W.TXVc7Z9V1lUs1/gWNmTTwLFEjsINqxy', 'mihesha', '2024-06-22 01:09:34.016', '2024-06-22 01:09:34.016');
+INSERT INTO public.user_data (id, username, email, password, nickname, registration_date, last_update_date) VALUES (11, 'unfeel', 'unfeel@gmail.ru', '$2a$10$ZD0VpojaU1YkAkSiA6uRYuRQLNorcKAFeKS22dzHT/CA5NDnsy5iC', 'unfeel', '2024-06-22 01:11:38.644', '2024-06-22 01:11:38.644');
+INSERT INTO public.user_data (id, username, email, password, nickname, registration_date, last_update_date) VALUES (12, 'andrew', 'andrew@gmail.com', '$2a$10$Ot2OduNAWb3BW9nZUpMcmObqnsGFb7YAcUi6o6Ns.Gk8c1UUcCaUq', 'andrew', '2024-06-22 01:14:20.685', '2024-06-22 01:14:20.685');
+INSERT INTO public.user_data (id, username, email, password, nickname, registration_date, last_update_date) VALUES (13, 'semen', 'semen@yandax.ru', '$2a$10$88qY7N421O1YjIZ1Om/QWu5nQDT.bmNzKybHImtzP8eyQ1IrBkcTK', 'semen', '2024-06-22 01:16:38.907', '2024-06-22 01:16:38.907');
+INSERT INTO public.user_data (id, username, email, password, nickname, registration_date, last_update_date) VALUES (14, 'dima', 'dima@mail.ru', '$2a$10$kaeTw1.ahyTTuHRQ/Y63eOMAFWOouQjXTdGgSBC5haLDsfW0jIzVW', 'dima', '2024-06-22 01:21:50.932', '2024-06-22 01:21:50.932');
+INSERT INTO public.user_data (id, username, email, password, nickname, registration_date, last_update_date) VALUES (8, 'alexander_bessonov', 'alexander@gmail.com', '$2a$10$vwQWiafxZDr89DZ2I1smQ.SgKvAXbWaEnfJgTf9oXIK6P28sZcw5y', 'Alexander_B', '2024-04-22 09:05:47.333', '2024-06-22 06:37:47.631');
 
 
 --
--- TOC entry 3818 (class 0 OID 16755)
+-- TOC entry 3814 (class 0 OID 16755)
 -- Dependencies: 232
 -- Data for Name: user_neural_network_configuration; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
 
 --
--- TOC entry 3814 (class 0 OID 16675)
+-- TOC entry 3810 (class 0 OID 16675)
 -- Dependencies: 228
 -- Data for Name: user_playlist; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -1191,10 +1258,14 @@ INSERT INTO public.user_playlist (user_id, playlist_id, access_level_id, playlis
 INSERT INTO public.user_playlist (user_id, playlist_id, access_level_id, playlist_number_in_user_list, added_date) VALUES (0, 4, 0, 3, '2024-06-02 20:12:32.792');
 INSERT INTO public.user_playlist (user_id, playlist_id, access_level_id, playlist_number_in_user_list, added_date) VALUES (0, 1, 0, 4, '2020-11-11 00:00:00');
 INSERT INTO public.user_playlist (user_id, playlist_id, access_level_id, playlist_number_in_user_list, added_date) VALUES (0, 0, 0, 1, '2000-01-01 06:00:00');
+INSERT INTO public.user_playlist (user_id, playlist_id, access_level_id, playlist_number_in_user_list, added_date) VALUES (0, 12, 0, 5, '2024-06-19 21:22:45.787');
+INSERT INTO public.user_playlist (user_id, playlist_id, access_level_id, playlist_number_in_user_list, added_date) VALUES (0, 14, 0, 6, '2024-06-19 21:30:44.734');
+INSERT INTO public.user_playlist (user_id, playlist_id, access_level_id, playlist_number_in_user_list, added_date) VALUES (8, 15, 0, 1, '2024-06-22 02:08:22.79');
+INSERT INTO public.user_playlist (user_id, playlist_id, access_level_id, playlist_number_in_user_list, added_date) VALUES (8, 16, 0, 2, '2024-06-22 03:46:51.531');
 
 
 --
--- TOC entry 3813 (class 0 OID 16668)
+-- TOC entry 3809 (class 0 OID 16668)
 -- Dependencies: 227
 -- Data for Name: user_playlist_access_level; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -1206,7 +1277,7 @@ INSERT INTO public.user_playlist_access_level (id, name) VALUES (2, 'Listener');
 
 
 --
--- TOC entry 3827 (class 0 OID 17883)
+-- TOC entry 3823 (class 0 OID 17883)
 -- Dependencies: 241
 -- Data for Name: user_playlist_rating; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -1219,7 +1290,7 @@ INSERT INTO public.user_playlist_rating (user_id, playlist_id, user_rating_id) V
 
 
 --
--- TOC entry 3819 (class 0 OID 17726)
+-- TOC entry 3815 (class 0 OID 17726)
 -- Dependencies: 233
 -- Data for Name: user_rating; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -1230,28 +1301,324 @@ INSERT INTO public.user_rating (id, name) VALUES (1, 'Like');
 
 
 --
--- TOC entry 3843 (class 0 OID 17996)
+-- TOC entry 3839 (class 0 OID 17996)
 -- Dependencies: 257
 -- Data for Name: user_recommendation; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
 
 --
--- TOC entry 3845 (class 0 OID 18033)
+-- TOC entry 3841 (class 0 OID 18033)
 -- Dependencies: 259
 -- Data for Name: user_recommendation_genre; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
+INSERT INTO public.user_recommendation_genre (user_recommendation_id, genre_id) VALUES (2, 0);
+INSERT INTO public.user_recommendation_genre (user_recommendation_id, genre_id) VALUES (2, 1);
+INSERT INTO public.user_recommendation_genre (user_recommendation_id, genre_id) VALUES (2, 2);
+INSERT INTO public.user_recommendation_genre (user_recommendation_id, genre_id) VALUES (2, 3);
+INSERT INTO public.user_recommendation_genre (user_recommendation_id, genre_id) VALUES (2, 4);
+INSERT INTO public.user_recommendation_genre (user_recommendation_id, genre_id) VALUES (2, 5);
+INSERT INTO public.user_recommendation_genre (user_recommendation_id, genre_id) VALUES (2, 6);
+INSERT INTO public.user_recommendation_genre (user_recommendation_id, genre_id) VALUES (2, 7);
+INSERT INTO public.user_recommendation_genre (user_recommendation_id, genre_id) VALUES (2, 8);
+INSERT INTO public.user_recommendation_genre (user_recommendation_id, genre_id) VALUES (2, 9);
+INSERT INTO public.user_recommendation_genre (user_recommendation_id, genre_id) VALUES (3, 0);
+INSERT INTO public.user_recommendation_genre (user_recommendation_id, genre_id) VALUES (3, 1);
+INSERT INTO public.user_recommendation_genre (user_recommendation_id, genre_id) VALUES (3, 2);
+INSERT INTO public.user_recommendation_genre (user_recommendation_id, genre_id) VALUES (3, 3);
+INSERT INTO public.user_recommendation_genre (user_recommendation_id, genre_id) VALUES (3, 4);
+INSERT INTO public.user_recommendation_genre (user_recommendation_id, genre_id) VALUES (3, 5);
+INSERT INTO public.user_recommendation_genre (user_recommendation_id, genre_id) VALUES (3, 6);
+INSERT INTO public.user_recommendation_genre (user_recommendation_id, genre_id) VALUES (4, 0);
+INSERT INTO public.user_recommendation_genre (user_recommendation_id, genre_id) VALUES (4, 1);
+INSERT INTO public.user_recommendation_genre (user_recommendation_id, genre_id) VALUES (4, 2);
+INSERT INTO public.user_recommendation_genre (user_recommendation_id, genre_id) VALUES (4, 3);
+INSERT INTO public.user_recommendation_genre (user_recommendation_id, genre_id) VALUES (4, 4);
+INSERT INTO public.user_recommendation_genre (user_recommendation_id, genre_id) VALUES (4, 5);
+INSERT INTO public.user_recommendation_genre (user_recommendation_id, genre_id) VALUES (4, 6);
+INSERT INTO public.user_recommendation_genre (user_recommendation_id, genre_id) VALUES (5, 0);
+INSERT INTO public.user_recommendation_genre (user_recommendation_id, genre_id) VALUES (5, 1);
+INSERT INTO public.user_recommendation_genre (user_recommendation_id, genre_id) VALUES (5, 2);
+INSERT INTO public.user_recommendation_genre (user_recommendation_id, genre_id) VALUES (5, 3);
+INSERT INTO public.user_recommendation_genre (user_recommendation_id, genre_id) VALUES (5, 4);
+INSERT INTO public.user_recommendation_genre (user_recommendation_id, genre_id) VALUES (5, 5);
+INSERT INTO public.user_recommendation_genre (user_recommendation_id, genre_id) VALUES (5, 6);
+INSERT INTO public.user_recommendation_genre (user_recommendation_id, genre_id) VALUES (6, 0);
+INSERT INTO public.user_recommendation_genre (user_recommendation_id, genre_id) VALUES (6, 1);
+INSERT INTO public.user_recommendation_genre (user_recommendation_id, genre_id) VALUES (6, 2);
+INSERT INTO public.user_recommendation_genre (user_recommendation_id, genre_id) VALUES (6, 3);
+INSERT INTO public.user_recommendation_genre (user_recommendation_id, genre_id) VALUES (6, 4);
+INSERT INTO public.user_recommendation_genre (user_recommendation_id, genre_id) VALUES (6, 5);
+INSERT INTO public.user_recommendation_genre (user_recommendation_id, genre_id) VALUES (6, 6);
+INSERT INTO public.user_recommendation_genre (user_recommendation_id, genre_id) VALUES (7, 0);
+INSERT INTO public.user_recommendation_genre (user_recommendation_id, genre_id) VALUES (7, 1);
+INSERT INTO public.user_recommendation_genre (user_recommendation_id, genre_id) VALUES (7, 2);
+INSERT INTO public.user_recommendation_genre (user_recommendation_id, genre_id) VALUES (7, 3);
+INSERT INTO public.user_recommendation_genre (user_recommendation_id, genre_id) VALUES (7, 4);
+INSERT INTO public.user_recommendation_genre (user_recommendation_id, genre_id) VALUES (7, 5);
+INSERT INTO public.user_recommendation_genre (user_recommendation_id, genre_id) VALUES (7, 6);
+INSERT INTO public.user_recommendation_genre (user_recommendation_id, genre_id) VALUES (8, 0);
+INSERT INTO public.user_recommendation_genre (user_recommendation_id, genre_id) VALUES (8, 1);
+INSERT INTO public.user_recommendation_genre (user_recommendation_id, genre_id) VALUES (8, 2);
+INSERT INTO public.user_recommendation_genre (user_recommendation_id, genre_id) VALUES (8, 3);
+INSERT INTO public.user_recommendation_genre (user_recommendation_id, genre_id) VALUES (8, 4);
+INSERT INTO public.user_recommendation_genre (user_recommendation_id, genre_id) VALUES (8, 5);
+INSERT INTO public.user_recommendation_genre (user_recommendation_id, genre_id) VALUES (8, 6);
+INSERT INTO public.user_recommendation_genre (user_recommendation_id, genre_id) VALUES (8, 7);
+INSERT INTO public.user_recommendation_genre (user_recommendation_id, genre_id) VALUES (8, 8);
+INSERT INTO public.user_recommendation_genre (user_recommendation_id, genre_id) VALUES (9, 0);
+INSERT INTO public.user_recommendation_genre (user_recommendation_id, genre_id) VALUES (9, 1);
+INSERT INTO public.user_recommendation_genre (user_recommendation_id, genre_id) VALUES (9, 2);
+INSERT INTO public.user_recommendation_genre (user_recommendation_id, genre_id) VALUES (9, 3);
+INSERT INTO public.user_recommendation_genre (user_recommendation_id, genre_id) VALUES (9, 4);
+INSERT INTO public.user_recommendation_genre (user_recommendation_id, genre_id) VALUES (9, 5);
+INSERT INTO public.user_recommendation_genre (user_recommendation_id, genre_id) VALUES (9, 6);
+INSERT INTO public.user_recommendation_genre (user_recommendation_id, genre_id) VALUES (9, 7);
+INSERT INTO public.user_recommendation_genre (user_recommendation_id, genre_id) VALUES (9, 8);
+INSERT INTO public.user_recommendation_genre (user_recommendation_id, genre_id) VALUES (10, 0);
+INSERT INTO public.user_recommendation_genre (user_recommendation_id, genre_id) VALUES (10, 1);
+INSERT INTO public.user_recommendation_genre (user_recommendation_id, genre_id) VALUES (10, 2);
+INSERT INTO public.user_recommendation_genre (user_recommendation_id, genre_id) VALUES (10, 3);
+INSERT INTO public.user_recommendation_genre (user_recommendation_id, genre_id) VALUES (10, 4);
+INSERT INTO public.user_recommendation_genre (user_recommendation_id, genre_id) VALUES (10, 5);
+INSERT INTO public.user_recommendation_genre (user_recommendation_id, genre_id) VALUES (10, 6);
+INSERT INTO public.user_recommendation_genre (user_recommendation_id, genre_id) VALUES (11, 0);
+INSERT INTO public.user_recommendation_genre (user_recommendation_id, genre_id) VALUES (11, 1);
+INSERT INTO public.user_recommendation_genre (user_recommendation_id, genre_id) VALUES (11, 2);
+INSERT INTO public.user_recommendation_genre (user_recommendation_id, genre_id) VALUES (11, 3);
+INSERT INTO public.user_recommendation_genre (user_recommendation_id, genre_id) VALUES (11, 5);
+INSERT INTO public.user_recommendation_genre (user_recommendation_id, genre_id) VALUES (11, 6);
+INSERT INTO public.user_recommendation_genre (user_recommendation_id, genre_id) VALUES (11, 7);
+INSERT INTO public.user_recommendation_genre (user_recommendation_id, genre_id) VALUES (11, 8);
+INSERT INTO public.user_recommendation_genre (user_recommendation_id, genre_id) VALUES (12, 0);
+INSERT INTO public.user_recommendation_genre (user_recommendation_id, genre_id) VALUES (12, 1);
+INSERT INTO public.user_recommendation_genre (user_recommendation_id, genre_id) VALUES (12, 2);
+INSERT INTO public.user_recommendation_genre (user_recommendation_id, genre_id) VALUES (12, 3);
+INSERT INTO public.user_recommendation_genre (user_recommendation_id, genre_id) VALUES (12, 5);
+INSERT INTO public.user_recommendation_genre (user_recommendation_id, genre_id) VALUES (12, 6);
+INSERT INTO public.user_recommendation_genre (user_recommendation_id, genre_id) VALUES (12, 7);
+INSERT INTO public.user_recommendation_genre (user_recommendation_id, genre_id) VALUES (12, 8);
+INSERT INTO public.user_recommendation_genre (user_recommendation_id, genre_id) VALUES (13, 0);
+INSERT INTO public.user_recommendation_genre (user_recommendation_id, genre_id) VALUES (13, 1);
+INSERT INTO public.user_recommendation_genre (user_recommendation_id, genre_id) VALUES (13, 2);
+INSERT INTO public.user_recommendation_genre (user_recommendation_id, genre_id) VALUES (13, 3);
+INSERT INTO public.user_recommendation_genre (user_recommendation_id, genre_id) VALUES (13, 5);
+INSERT INTO public.user_recommendation_genre (user_recommendation_id, genre_id) VALUES (13, 6);
+INSERT INTO public.user_recommendation_genre (user_recommendation_id, genre_id) VALUES (13, 7);
+INSERT INTO public.user_recommendation_genre (user_recommendation_id, genre_id) VALUES (13, 8);
+INSERT INTO public.user_recommendation_genre (user_recommendation_id, genre_id) VALUES (14, 0);
+INSERT INTO public.user_recommendation_genre (user_recommendation_id, genre_id) VALUES (14, 1);
+INSERT INTO public.user_recommendation_genre (user_recommendation_id, genre_id) VALUES (14, 2);
+INSERT INTO public.user_recommendation_genre (user_recommendation_id, genre_id) VALUES (14, 3);
+INSERT INTO public.user_recommendation_genre (user_recommendation_id, genre_id) VALUES (14, 4);
+INSERT INTO public.user_recommendation_genre (user_recommendation_id, genre_id) VALUES (14, 5);
+INSERT INTO public.user_recommendation_genre (user_recommendation_id, genre_id) VALUES (14, 6);
+INSERT INTO public.user_recommendation_genre (user_recommendation_id, genre_id) VALUES (15, 0);
+INSERT INTO public.user_recommendation_genre (user_recommendation_id, genre_id) VALUES (15, 1);
+INSERT INTO public.user_recommendation_genre (user_recommendation_id, genre_id) VALUES (15, 2);
+INSERT INTO public.user_recommendation_genre (user_recommendation_id, genre_id) VALUES (15, 3);
+INSERT INTO public.user_recommendation_genre (user_recommendation_id, genre_id) VALUES (15, 5);
+INSERT INTO public.user_recommendation_genre (user_recommendation_id, genre_id) VALUES (15, 6);
+INSERT INTO public.user_recommendation_genre (user_recommendation_id, genre_id) VALUES (15, 7);
+INSERT INTO public.user_recommendation_genre (user_recommendation_id, genre_id) VALUES (15, 8);
+INSERT INTO public.user_recommendation_genre (user_recommendation_id, genre_id) VALUES (16, 0);
+INSERT INTO public.user_recommendation_genre (user_recommendation_id, genre_id) VALUES (16, 3);
+INSERT INTO public.user_recommendation_genre (user_recommendation_id, genre_id) VALUES (16, 4);
+INSERT INTO public.user_recommendation_genre (user_recommendation_id, genre_id) VALUES (16, 6);
+INSERT INTO public.user_recommendation_genre (user_recommendation_id, genre_id) VALUES (16, 7);
+INSERT INTO public.user_recommendation_genre (user_recommendation_id, genre_id) VALUES (16, 8);
+INSERT INTO public.user_recommendation_genre (user_recommendation_id, genre_id) VALUES (16, 9);
+INSERT INTO public.user_recommendation_genre (user_recommendation_id, genre_id) VALUES (17, 0);
+INSERT INTO public.user_recommendation_genre (user_recommendation_id, genre_id) VALUES (19, 0);
+INSERT INTO public.user_recommendation_genre (user_recommendation_id, genre_id) VALUES (19, 1);
+INSERT INTO public.user_recommendation_genre (user_recommendation_id, genre_id) VALUES (19, 2);
+INSERT INTO public.user_recommendation_genre (user_recommendation_id, genre_id) VALUES (19, 3);
+INSERT INTO public.user_recommendation_genre (user_recommendation_id, genre_id) VALUES (19, 4);
+INSERT INTO public.user_recommendation_genre (user_recommendation_id, genre_id) VALUES (19, 5);
+INSERT INTO public.user_recommendation_genre (user_recommendation_id, genre_id) VALUES (19, 6);
+INSERT INTO public.user_recommendation_genre (user_recommendation_id, genre_id) VALUES (19, 7);
+INSERT INTO public.user_recommendation_genre (user_recommendation_id, genre_id) VALUES (19, 8);
+INSERT INTO public.user_recommendation_genre (user_recommendation_id, genre_id) VALUES (19, 9);
+INSERT INTO public.user_recommendation_genre (user_recommendation_id, genre_id) VALUES (20, 0);
+INSERT INTO public.user_recommendation_genre (user_recommendation_id, genre_id) VALUES (20, 1);
+INSERT INTO public.user_recommendation_genre (user_recommendation_id, genre_id) VALUES (20, 2);
+INSERT INTO public.user_recommendation_genre (user_recommendation_id, genre_id) VALUES (20, 3);
+INSERT INTO public.user_recommendation_genre (user_recommendation_id, genre_id) VALUES (20, 4);
+INSERT INTO public.user_recommendation_genre (user_recommendation_id, genre_id) VALUES (20, 5);
+INSERT INTO public.user_recommendation_genre (user_recommendation_id, genre_id) VALUES (20, 6);
+INSERT INTO public.user_recommendation_genre (user_recommendation_id, genre_id) VALUES (20, 7);
+INSERT INTO public.user_recommendation_genre (user_recommendation_id, genre_id) VALUES (20, 8);
+INSERT INTO public.user_recommendation_genre (user_recommendation_id, genre_id) VALUES (20, 9);
+INSERT INTO public.user_recommendation_genre (user_recommendation_id, genre_id) VALUES (21, 0);
+INSERT INTO public.user_recommendation_genre (user_recommendation_id, genre_id) VALUES (21, 2);
+INSERT INTO public.user_recommendation_genre (user_recommendation_id, genre_id) VALUES (21, 5);
+INSERT INTO public.user_recommendation_genre (user_recommendation_id, genre_id) VALUES (21, 6);
+INSERT INTO public.user_recommendation_genre (user_recommendation_id, genre_id) VALUES (21, 8);
+INSERT INTO public.user_recommendation_genre (user_recommendation_id, genre_id) VALUES (21, 9);
+INSERT INTO public.user_recommendation_genre (user_recommendation_id, genre_id) VALUES (22, 0);
+INSERT INTO public.user_recommendation_genre (user_recommendation_id, genre_id) VALUES (22, 1);
+INSERT INTO public.user_recommendation_genre (user_recommendation_id, genre_id) VALUES (22, 2);
+INSERT INTO public.user_recommendation_genre (user_recommendation_id, genre_id) VALUES (22, 3);
+INSERT INTO public.user_recommendation_genre (user_recommendation_id, genre_id) VALUES (22, 4);
+INSERT INTO public.user_recommendation_genre (user_recommendation_id, genre_id) VALUES (22, 5);
+INSERT INTO public.user_recommendation_genre (user_recommendation_id, genre_id) VALUES (22, 6);
+INSERT INTO public.user_recommendation_genre (user_recommendation_id, genre_id) VALUES (22, 7);
+INSERT INTO public.user_recommendation_genre (user_recommendation_id, genre_id) VALUES (22, 8);
+INSERT INTO public.user_recommendation_genre (user_recommendation_id, genre_id) VALUES (22, 9);
+
 
 --
--- TOC entry 3844 (class 0 OID 18017)
+-- TOC entry 3840 (class 0 OID 18017)
 -- Dependencies: 258
 -- Data for Name: user_recommendation_track; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
+INSERT INTO public.user_recommendation_track (user_recommendation_id, track_id, track_number_in_recommendation) VALUES (2, 0, 1);
+INSERT INTO public.user_recommendation_track (user_recommendation_id, track_id, track_number_in_recommendation) VALUES (2, 5, 2);
+INSERT INTO public.user_recommendation_track (user_recommendation_id, track_id, track_number_in_recommendation) VALUES (2, 2, 3);
+INSERT INTO public.user_recommendation_track (user_recommendation_id, track_id, track_number_in_recommendation) VALUES (2, 9, 4);
+INSERT INTO public.user_recommendation_track (user_recommendation_id, track_id, track_number_in_recommendation) VALUES (2, 7, 5);
+INSERT INTO public.user_recommendation_track (user_recommendation_id, track_id, track_number_in_recommendation) VALUES (3, 1, 1);
+INSERT INTO public.user_recommendation_track (user_recommendation_id, track_id, track_number_in_recommendation) VALUES (3, 4, 2);
+INSERT INTO public.user_recommendation_track (user_recommendation_id, track_id, track_number_in_recommendation) VALUES (3, 5, 3);
+INSERT INTO public.user_recommendation_track (user_recommendation_id, track_id, track_number_in_recommendation) VALUES (3, 0, 4);
+INSERT INTO public.user_recommendation_track (user_recommendation_id, track_id, track_number_in_recommendation) VALUES (3, 3, 5);
+INSERT INTO public.user_recommendation_track (user_recommendation_id, track_id, track_number_in_recommendation) VALUES (4, 3, 1);
+INSERT INTO public.user_recommendation_track (user_recommendation_id, track_id, track_number_in_recommendation) VALUES (4, 5, 2);
+INSERT INTO public.user_recommendation_track (user_recommendation_id, track_id, track_number_in_recommendation) VALUES (4, 7, 3);
+INSERT INTO public.user_recommendation_track (user_recommendation_id, track_id, track_number_in_recommendation) VALUES (4, 6, 4);
+INSERT INTO public.user_recommendation_track (user_recommendation_id, track_id, track_number_in_recommendation) VALUES (4, 1, 5);
+INSERT INTO public.user_recommendation_track (user_recommendation_id, track_id, track_number_in_recommendation) VALUES (5, 5, 1);
+INSERT INTO public.user_recommendation_track (user_recommendation_id, track_id, track_number_in_recommendation) VALUES (5, 7, 2);
+INSERT INTO public.user_recommendation_track (user_recommendation_id, track_id, track_number_in_recommendation) VALUES (5, 0, 3);
+INSERT INTO public.user_recommendation_track (user_recommendation_id, track_id, track_number_in_recommendation) VALUES (5, 2, 4);
+INSERT INTO public.user_recommendation_track (user_recommendation_id, track_id, track_number_in_recommendation) VALUES (5, 8, 5);
+INSERT INTO public.user_recommendation_track (user_recommendation_id, track_id, track_number_in_recommendation) VALUES (6, 1, 1);
+INSERT INTO public.user_recommendation_track (user_recommendation_id, track_id, track_number_in_recommendation) VALUES (6, 6, 2);
+INSERT INTO public.user_recommendation_track (user_recommendation_id, track_id, track_number_in_recommendation) VALUES (6, 7, 3);
+INSERT INTO public.user_recommendation_track (user_recommendation_id, track_id, track_number_in_recommendation) VALUES (6, 5, 4);
+INSERT INTO public.user_recommendation_track (user_recommendation_id, track_id, track_number_in_recommendation) VALUES (6, 0, 5);
+INSERT INTO public.user_recommendation_track (user_recommendation_id, track_id, track_number_in_recommendation) VALUES (7, 5, 1);
+INSERT INTO public.user_recommendation_track (user_recommendation_id, track_id, track_number_in_recommendation) VALUES (7, 2, 2);
+INSERT INTO public.user_recommendation_track (user_recommendation_id, track_id, track_number_in_recommendation) VALUES (7, 1, 3);
+INSERT INTO public.user_recommendation_track (user_recommendation_id, track_id, track_number_in_recommendation) VALUES (7, 0, 4);
+INSERT INTO public.user_recommendation_track (user_recommendation_id, track_id, track_number_in_recommendation) VALUES (7, 4, 5);
+INSERT INTO public.user_recommendation_track (user_recommendation_id, track_id, track_number_in_recommendation) VALUES (8, 3, 1);
+INSERT INTO public.user_recommendation_track (user_recommendation_id, track_id, track_number_in_recommendation) VALUES (8, 0, 2);
+INSERT INTO public.user_recommendation_track (user_recommendation_id, track_id, track_number_in_recommendation) VALUES (8, 5, 3);
+INSERT INTO public.user_recommendation_track (user_recommendation_id, track_id, track_number_in_recommendation) VALUES (8, 2, 4);
+INSERT INTO public.user_recommendation_track (user_recommendation_id, track_id, track_number_in_recommendation) VALUES (9, 6, 1);
+INSERT INTO public.user_recommendation_track (user_recommendation_id, track_id, track_number_in_recommendation) VALUES (9, 5, 2);
+INSERT INTO public.user_recommendation_track (user_recommendation_id, track_id, track_number_in_recommendation) VALUES (9, 1, 3);
+INSERT INTO public.user_recommendation_track (user_recommendation_id, track_id, track_number_in_recommendation) VALUES (9, 0, 4);
+INSERT INTO public.user_recommendation_track (user_recommendation_id, track_id, track_number_in_recommendation) VALUES (9, 2, 5);
+INSERT INTO public.user_recommendation_track (user_recommendation_id, track_id, track_number_in_recommendation) VALUES (10, 0, 1);
+INSERT INTO public.user_recommendation_track (user_recommendation_id, track_id, track_number_in_recommendation) VALUES (10, 7, 2);
+INSERT INTO public.user_recommendation_track (user_recommendation_id, track_id, track_number_in_recommendation) VALUES (10, 3, 3);
+INSERT INTO public.user_recommendation_track (user_recommendation_id, track_id, track_number_in_recommendation) VALUES (10, 2, 4);
+INSERT INTO public.user_recommendation_track (user_recommendation_id, track_id, track_number_in_recommendation) VALUES (10, 4, 5);
+INSERT INTO public.user_recommendation_track (user_recommendation_id, track_id, track_number_in_recommendation) VALUES (10, 1, 6);
+INSERT INTO public.user_recommendation_track (user_recommendation_id, track_id, track_number_in_recommendation) VALUES (10, 5, 7);
+INSERT INTO public.user_recommendation_track (user_recommendation_id, track_id, track_number_in_recommendation) VALUES (11, 0, 1);
+INSERT INTO public.user_recommendation_track (user_recommendation_id, track_id, track_number_in_recommendation) VALUES (11, 1, 2);
+INSERT INTO public.user_recommendation_track (user_recommendation_id, track_id, track_number_in_recommendation) VALUES (11, 4, 3);
+INSERT INTO public.user_recommendation_track (user_recommendation_id, track_id, track_number_in_recommendation) VALUES (11, 5, 4);
+INSERT INTO public.user_recommendation_track (user_recommendation_id, track_id, track_number_in_recommendation) VALUES (11, 6, 5);
+INSERT INTO public.user_recommendation_track (user_recommendation_id, track_id, track_number_in_recommendation) VALUES (12, 1, 1);
+INSERT INTO public.user_recommendation_track (user_recommendation_id, track_id, track_number_in_recommendation) VALUES (12, 2, 2);
+INSERT INTO public.user_recommendation_track (user_recommendation_id, track_id, track_number_in_recommendation) VALUES (12, 6, 3);
+INSERT INTO public.user_recommendation_track (user_recommendation_id, track_id, track_number_in_recommendation) VALUES (12, 4, 4);
+INSERT INTO public.user_recommendation_track (user_recommendation_id, track_id, track_number_in_recommendation) VALUES (12, 5, 5);
+INSERT INTO public.user_recommendation_track (user_recommendation_id, track_id, track_number_in_recommendation) VALUES (13, 1, 1);
+INSERT INTO public.user_recommendation_track (user_recommendation_id, track_id, track_number_in_recommendation) VALUES (13, 0, 2);
+INSERT INTO public.user_recommendation_track (user_recommendation_id, track_id, track_number_in_recommendation) VALUES (13, 5, 3);
+INSERT INTO public.user_recommendation_track (user_recommendation_id, track_id, track_number_in_recommendation) VALUES (13, 8, 4);
+INSERT INTO public.user_recommendation_track (user_recommendation_id, track_id, track_number_in_recommendation) VALUES (13, 2, 5);
+INSERT INTO public.user_recommendation_track (user_recommendation_id, track_id, track_number_in_recommendation) VALUES (14, 6, 1);
+INSERT INTO public.user_recommendation_track (user_recommendation_id, track_id, track_number_in_recommendation) VALUES (14, 8, 2);
+INSERT INTO public.user_recommendation_track (user_recommendation_id, track_id, track_number_in_recommendation) VALUES (14, 2, 3);
+INSERT INTO public.user_recommendation_track (user_recommendation_id, track_id, track_number_in_recommendation) VALUES (14, 3, 4);
+INSERT INTO public.user_recommendation_track (user_recommendation_id, track_id, track_number_in_recommendation) VALUES (14, 1, 5);
+INSERT INTO public.user_recommendation_track (user_recommendation_id, track_id, track_number_in_recommendation) VALUES (14, 0, 6);
+INSERT INTO public.user_recommendation_track (user_recommendation_id, track_id, track_number_in_recommendation) VALUES (14, 5, 7);
+INSERT INTO public.user_recommendation_track (user_recommendation_id, track_id, track_number_in_recommendation) VALUES (15, 0, 1);
+INSERT INTO public.user_recommendation_track (user_recommendation_id, track_id, track_number_in_recommendation) VALUES (15, 2, 2);
+INSERT INTO public.user_recommendation_track (user_recommendation_id, track_id, track_number_in_recommendation) VALUES (15, 6, 3);
+INSERT INTO public.user_recommendation_track (user_recommendation_id, track_id, track_number_in_recommendation) VALUES (15, 1, 4);
+INSERT INTO public.user_recommendation_track (user_recommendation_id, track_id, track_number_in_recommendation) VALUES (15, 4, 5);
+INSERT INTO public.user_recommendation_track (user_recommendation_id, track_id, track_number_in_recommendation) VALUES (16, 11, 1);
+INSERT INTO public.user_recommendation_track (user_recommendation_id, track_id, track_number_in_recommendation) VALUES (16, 16, 2);
+INSERT INTO public.user_recommendation_track (user_recommendation_id, track_id, track_number_in_recommendation) VALUES (16, 18, 3);
+INSERT INTO public.user_recommendation_track (user_recommendation_id, track_id, track_number_in_recommendation) VALUES (16, 2, 4);
+INSERT INTO public.user_recommendation_track (user_recommendation_id, track_id, track_number_in_recommendation) VALUES (16, 7, 5);
+INSERT INTO public.user_recommendation_track (user_recommendation_id, track_id, track_number_in_recommendation) VALUES (16, 3, 6);
+INSERT INTO public.user_recommendation_track (user_recommendation_id, track_id, track_number_in_recommendation) VALUES (16, 14, 7);
+INSERT INTO public.user_recommendation_track (user_recommendation_id, track_id, track_number_in_recommendation) VALUES (16, 10, 8);
+INSERT INTO public.user_recommendation_track (user_recommendation_id, track_id, track_number_in_recommendation) VALUES (16, 17, 9);
+INSERT INTO public.user_recommendation_track (user_recommendation_id, track_id, track_number_in_recommendation) VALUES (16, 15, 10);
+INSERT INTO public.user_recommendation_track (user_recommendation_id, track_id, track_number_in_recommendation) VALUES (17, 0, 1);
+INSERT INTO public.user_recommendation_track (user_recommendation_id, track_id, track_number_in_recommendation) VALUES (17, 3, 2);
+INSERT INTO public.user_recommendation_track (user_recommendation_id, track_id, track_number_in_recommendation) VALUES (17, 1, 3);
+INSERT INTO public.user_recommendation_track (user_recommendation_id, track_id, track_number_in_recommendation) VALUES (19, 20, 1);
+INSERT INTO public.user_recommendation_track (user_recommendation_id, track_id, track_number_in_recommendation) VALUES (19, 57, 2);
+INSERT INTO public.user_recommendation_track (user_recommendation_id, track_id, track_number_in_recommendation) VALUES (19, 13, 3);
+INSERT INTO public.user_recommendation_track (user_recommendation_id, track_id, track_number_in_recommendation) VALUES (19, 0, 4);
+INSERT INTO public.user_recommendation_track (user_recommendation_id, track_id, track_number_in_recommendation) VALUES (19, 10, 5);
+INSERT INTO public.user_recommendation_track (user_recommendation_id, track_id, track_number_in_recommendation) VALUES (19, 47, 6);
+INSERT INTO public.user_recommendation_track (user_recommendation_id, track_id, track_number_in_recommendation) VALUES (19, 1, 7);
+INSERT INTO public.user_recommendation_track (user_recommendation_id, track_id, track_number_in_recommendation) VALUES (19, 44, 8);
+INSERT INTO public.user_recommendation_track (user_recommendation_id, track_id, track_number_in_recommendation) VALUES (19, 30, 9);
+INSERT INTO public.user_recommendation_track (user_recommendation_id, track_id, track_number_in_recommendation) VALUES (19, 51, 10);
+INSERT INTO public.user_recommendation_track (user_recommendation_id, track_id, track_number_in_recommendation) VALUES (19, 3, 11);
+INSERT INTO public.user_recommendation_track (user_recommendation_id, track_id, track_number_in_recommendation) VALUES (19, 56, 12);
+INSERT INTO public.user_recommendation_track (user_recommendation_id, track_id, track_number_in_recommendation) VALUES (19, 35, 13);
+INSERT INTO public.user_recommendation_track (user_recommendation_id, track_id, track_number_in_recommendation) VALUES (20, 0, 1);
+INSERT INTO public.user_recommendation_track (user_recommendation_id, track_id, track_number_in_recommendation) VALUES (20, 40, 2);
+INSERT INTO public.user_recommendation_track (user_recommendation_id, track_id, track_number_in_recommendation) VALUES (20, 6, 3);
+INSERT INTO public.user_recommendation_track (user_recommendation_id, track_id, track_number_in_recommendation) VALUES (20, 21, 4);
+INSERT INTO public.user_recommendation_track (user_recommendation_id, track_id, track_number_in_recommendation) VALUES (20, 49, 5);
+INSERT INTO public.user_recommendation_track (user_recommendation_id, track_id, track_number_in_recommendation) VALUES (20, 56, 6);
+INSERT INTO public.user_recommendation_track (user_recommendation_id, track_id, track_number_in_recommendation) VALUES (20, 10, 7);
+INSERT INTO public.user_recommendation_track (user_recommendation_id, track_id, track_number_in_recommendation) VALUES (20, 12, 8);
+INSERT INTO public.user_recommendation_track (user_recommendation_id, track_id, track_number_in_recommendation) VALUES (20, 38, 9);
+INSERT INTO public.user_recommendation_track (user_recommendation_id, track_id, track_number_in_recommendation) VALUES (20, 14, 10);
+INSERT INTO public.user_recommendation_track (user_recommendation_id, track_id, track_number_in_recommendation) VALUES (20, 50, 11);
+INSERT INTO public.user_recommendation_track (user_recommendation_id, track_id, track_number_in_recommendation) VALUES (20, 2, 12);
+INSERT INTO public.user_recommendation_track (user_recommendation_id, track_id, track_number_in_recommendation) VALUES (20, 13, 13);
+INSERT INTO public.user_recommendation_track (user_recommendation_id, track_id, track_number_in_recommendation) VALUES (21, 28, 1);
+INSERT INTO public.user_recommendation_track (user_recommendation_id, track_id, track_number_in_recommendation) VALUES (21, 19, 2);
+INSERT INTO public.user_recommendation_track (user_recommendation_id, track_id, track_number_in_recommendation) VALUES (21, 35, 3);
+INSERT INTO public.user_recommendation_track (user_recommendation_id, track_id, track_number_in_recommendation) VALUES (21, 21, 4);
+INSERT INTO public.user_recommendation_track (user_recommendation_id, track_id, track_number_in_recommendation) VALUES (21, 2, 5);
+INSERT INTO public.user_recommendation_track (user_recommendation_id, track_id, track_number_in_recommendation) VALUES (21, 13, 6);
+INSERT INTO public.user_recommendation_track (user_recommendation_id, track_id, track_number_in_recommendation) VALUES (21, 56, 7);
+INSERT INTO public.user_recommendation_track (user_recommendation_id, track_id, track_number_in_recommendation) VALUES (21, 14, 8);
+INSERT INTO public.user_recommendation_track (user_recommendation_id, track_id, track_number_in_recommendation) VALUES (21, 40, 9);
+INSERT INTO public.user_recommendation_track (user_recommendation_id, track_id, track_number_in_recommendation) VALUES (21, 54, 10);
+INSERT INTO public.user_recommendation_track (user_recommendation_id, track_id, track_number_in_recommendation) VALUES (21, 43, 11);
+INSERT INTO public.user_recommendation_track (user_recommendation_id, track_id, track_number_in_recommendation) VALUES (21, 10, 12);
+INSERT INTO public.user_recommendation_track (user_recommendation_id, track_id, track_number_in_recommendation) VALUES (21, 18, 13);
+INSERT INTO public.user_recommendation_track (user_recommendation_id, track_id, track_number_in_recommendation) VALUES (21, 7, 14);
+INSERT INTO public.user_recommendation_track (user_recommendation_id, track_id, track_number_in_recommendation) VALUES (21, 12, 15);
+INSERT INTO public.user_recommendation_track (user_recommendation_id, track_id, track_number_in_recommendation) VALUES (21, 42, 16);
+INSERT INTO public.user_recommendation_track (user_recommendation_id, track_id, track_number_in_recommendation) VALUES (22, 56, 1);
+INSERT INTO public.user_recommendation_track (user_recommendation_id, track_id, track_number_in_recommendation) VALUES (22, 12, 2);
+INSERT INTO public.user_recommendation_track (user_recommendation_id, track_id, track_number_in_recommendation) VALUES (22, 13, 3);
+INSERT INTO public.user_recommendation_track (user_recommendation_id, track_id, track_number_in_recommendation) VALUES (22, 38, 4);
+INSERT INTO public.user_recommendation_track (user_recommendation_id, track_id, track_number_in_recommendation) VALUES (22, 40, 5);
+INSERT INTO public.user_recommendation_track (user_recommendation_id, track_id, track_number_in_recommendation) VALUES (22, 14, 6);
+INSERT INTO public.user_recommendation_track (user_recommendation_id, track_id, track_number_in_recommendation) VALUES (22, 42, 7);
+INSERT INTO public.user_recommendation_track (user_recommendation_id, track_id, track_number_in_recommendation) VALUES (22, 2, 8);
+INSERT INTO public.user_recommendation_track (user_recommendation_id, track_id, track_number_in_recommendation) VALUES (22, 19, 9);
+INSERT INTO public.user_recommendation_track (user_recommendation_id, track_id, track_number_in_recommendation) VALUES (22, 10, 10);
+INSERT INTO public.user_recommendation_track (user_recommendation_id, track_id, track_number_in_recommendation) VALUES (22, 49, 11);
+INSERT INTO public.user_recommendation_track (user_recommendation_id, track_id, track_number_in_recommendation) VALUES (22, 50, 12);
+INSERT INTO public.user_recommendation_track (user_recommendation_id, track_id, track_number_in_recommendation) VALUES (22, 54, 13);
+
 
 --
--- TOC entry 3820 (class 0 OID 17734)
+-- TOC entry 3816 (class 0 OID 17734)
 -- Dependencies: 234
 -- Data for Name: user_track; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -1259,34 +1626,123 @@ INSERT INTO public.user_rating (id, name) VALUES (1, 'Like');
 INSERT INTO public.user_track (user_id, track_id, track_number_in_user_list, added_date) VALUES (0, 1, 1, '2024-06-01 23:57:27.702');
 INSERT INTO public.user_track (user_id, track_id, track_number_in_user_list, added_date) VALUES (0, 2, 2, '2024-06-01 23:57:30.174');
 INSERT INTO public.user_track (user_id, track_id, track_number_in_user_list, added_date) VALUES (0, 4, 3, '2024-06-02 00:12:56.449');
-INSERT INTO public.user_track (user_id, track_id, track_number_in_user_list, added_date) VALUES (0, 8, 4, '2024-06-02 00:12:59.751');
-INSERT INTO public.user_track (user_id, track_id, track_number_in_user_list, added_date) VALUES (0, 7, 5, '2024-06-02 00:23:51.169');
+INSERT INTO public.user_track (user_id, track_id, track_number_in_user_list, added_date) VALUES (0, 7, 4, '2024-06-02 00:23:51.169');
+INSERT INTO public.user_track (user_id, track_id, track_number_in_user_list, added_date) VALUES (0, 15, 5, '2024-06-18 19:14:21.699');
+INSERT INTO public.user_track (user_id, track_id, track_number_in_user_list, added_date) VALUES (0, 13, 6, '2024-06-18 19:14:22.4');
+INSERT INTO public.user_track (user_id, track_id, track_number_in_user_list, added_date) VALUES (0, 5, 7, '2024-06-18 19:14:41.924');
+INSERT INTO public.user_track (user_id, track_id, track_number_in_user_list, added_date) VALUES (0, 47, 8, '2024-06-18 21:09:26.381');
+INSERT INTO public.user_track (user_id, track_id, track_number_in_user_list, added_date) VALUES (0, 56, 9, '2024-06-18 21:09:29.028');
+INSERT INTO public.user_track (user_id, track_id, track_number_in_user_list, added_date) VALUES (0, 58, 10, '2024-06-18 21:09:40.08');
+INSERT INTO public.user_track (user_id, track_id, track_number_in_user_list, added_date) VALUES (8, 0, 1, '2024-06-22 02:04:01.079');
+INSERT INTO public.user_track (user_id, track_id, track_number_in_user_list, added_date) VALUES (8, 57, 2, '2024-06-22 02:04:44.822');
+INSERT INTO public.user_track (user_id, track_id, track_number_in_user_list, added_date) VALUES (8, 58, 3, '2024-06-22 02:04:45.719');
+INSERT INTO public.user_track (user_id, track_id, track_number_in_user_list, added_date) VALUES (8, 53, 4, '2024-06-22 02:04:47.572');
+INSERT INTO public.user_track (user_id, track_id, track_number_in_user_list, added_date) VALUES (8, 51, 5, '2024-06-22 02:04:48.735');
+INSERT INTO public.user_track (user_id, track_id, track_number_in_user_list, added_date) VALUES (8, 30, 6, '2024-06-22 02:04:52.855');
+INSERT INTO public.user_track (user_id, track_id, track_number_in_user_list, added_date) VALUES (8, 32, 7, '2024-06-22 02:04:54.387');
+INSERT INTO public.user_track (user_id, track_id, track_number_in_user_list, added_date) VALUES (8, 33, 8, '2024-06-22 02:04:55.419');
+INSERT INTO public.user_track (user_id, track_id, track_number_in_user_list, added_date) VALUES (8, 26, 9, '2024-06-22 02:04:59.327');
+INSERT INTO public.user_track (user_id, track_id, track_number_in_user_list, added_date) VALUES (8, 23, 10, '2024-06-22 02:05:00.196');
+INSERT INTO public.user_track (user_id, track_id, track_number_in_user_list, added_date) VALUES (8, 40, 11, '2024-06-22 02:05:03.588');
+INSERT INTO public.user_track (user_id, track_id, track_number_in_user_list, added_date) VALUES (8, 42, 12, '2024-06-22 02:05:05.627');
+INSERT INTO public.user_track (user_id, track_id, track_number_in_user_list, added_date) VALUES (8, 47, 13, '2024-06-22 02:05:07.694');
+INSERT INTO public.user_track (user_id, track_id, track_number_in_user_list, added_date) VALUES (8, 20, 14, '2024-06-22 02:05:14.976');
+INSERT INTO public.user_track (user_id, track_id, track_number_in_user_list, added_date) VALUES (8, 19, 15, '2024-06-22 02:05:15.527');
+INSERT INTO public.user_track (user_id, track_id, track_number_in_user_list, added_date) VALUES (8, 16, 16, '2024-06-22 02:05:16.657');
+INSERT INTO public.user_track (user_id, track_id, track_number_in_user_list, added_date) VALUES (8, 11, 17, '2024-06-22 02:05:19.826');
 
 
 --
--- TOC entry 3823 (class 0 OID 17797)
+-- TOC entry 3819 (class 0 OID 17797)
 -- Dependencies: 237
 -- Data for Name: user_track_history; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
+INSERT INTO public.user_track_history (user_id, track_id, listen_date) VALUES (0, 3, '2024-06-15 02:58:36.885');
+INSERT INTO public.user_track_history (user_id, track_id, listen_date) VALUES (0, 7, '2024-06-15 02:58:42.63');
+INSERT INTO public.user_track_history (user_id, track_id, listen_date) VALUES (0, 33, '2024-06-15 02:58:45.079');
+INSERT INTO public.user_track_history (user_id, track_id, listen_date) VALUES (0, 25, '2024-06-15 02:58:47.865');
+INSERT INTO public.user_track_history (user_id, track_id, listen_date) VALUES (0, 24, '2024-06-15 02:58:49.966');
+INSERT INTO public.user_track_history (user_id, track_id, listen_date) VALUES (0, 22, '2024-06-15 03:01:59.117');
+INSERT INTO public.user_track_history (user_id, track_id, listen_date) VALUES (0, 23, '2024-06-15 03:03:04.819');
+INSERT INTO public.user_track_history (user_id, track_id, listen_date) VALUES (0, 44, '2024-06-15 03:03:16.368');
+INSERT INTO public.user_track_history (user_id, track_id, listen_date) VALUES (0, 10, '2024-06-15 03:03:20.227');
+INSERT INTO public.user_track_history (user_id, track_id, listen_date) VALUES (0, 12, '2024-06-15 03:03:23.676');
+INSERT INTO public.user_track_history (user_id, track_id, listen_date) VALUES (0, 9, '2024-06-15 03:03:25.749');
+INSERT INTO public.user_track_history (user_id, track_id, listen_date) VALUES (0, 15, '2024-06-15 21:34:49.112');
+INSERT INTO public.user_track_history (user_id, track_id, listen_date) VALUES (0, 0, '2024-06-20 04:37:36.745');
+INSERT INTO public.user_track_history (user_id, track_id, listen_date) VALUES (0, 13, '2024-06-20 04:37:55.927');
+INSERT INTO public.user_track_history (user_id, track_id, listen_date) VALUES (0, 47, '2024-06-20 04:37:59.727');
+INSERT INTO public.user_track_history (user_id, track_id, listen_date) VALUES (0, 58, '2024-06-20 04:38:01.677');
+INSERT INTO public.user_track_history (user_id, track_id, listen_date) VALUES (0, 53, '2024-06-20 06:50:29.51');
+INSERT INTO public.user_track_history (user_id, track_id, listen_date) VALUES (8, 20, '2024-06-22 02:04:23.158');
+INSERT INTO public.user_track_history (user_id, track_id, listen_date) VALUES (8, 43, '2024-06-22 02:04:31.929');
+INSERT INTO public.user_track_history (user_id, track_id, listen_date) VALUES (8, 53, '2024-06-22 02:04:39.367');
+INSERT INTO public.user_track_history (user_id, track_id, listen_date) VALUES (8, 32, '2024-06-22 02:04:53.807');
+INSERT INTO public.user_track_history (user_id, track_id, listen_date) VALUES (8, 33, '2024-06-22 02:04:54.91');
+INSERT INTO public.user_track_history (user_id, track_id, listen_date) VALUES (8, 41, '2024-06-22 02:05:04.437');
+INSERT INTO public.user_track_history (user_id, track_id, listen_date) VALUES (8, 16, '2024-06-22 02:16:26.542');
+INSERT INTO public.user_track_history (user_id, track_id, listen_date) VALUES (8, 57, '2024-06-22 04:56:41.696');
 
 
 --
--- TOC entry 3824 (class 0 OID 17816)
+-- TOC entry 3820 (class 0 OID 17816)
 -- Dependencies: 238
 -- Data for Name: user_track_rating; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
 INSERT INTO public.user_track_rating (user_id, track_id, user_rating_id) VALUES (0, 2, 1);
-INSERT INTO public.user_track_rating (user_id, track_id, user_rating_id) VALUES (0, 0, 1);
-INSERT INTO public.user_track_rating (user_id, track_id, user_rating_id) VALUES (0, 5, 1);
 INSERT INTO public.user_track_rating (user_id, track_id, user_rating_id) VALUES (0, 9, -1);
 INSERT INTO public.user_track_rating (user_id, track_id, user_rating_id) VALUES (0, 7, -1);
-INSERT INTO public.user_track_rating (user_id, track_id, user_rating_id) VALUES (0, 3, 0);
+INSERT INTO public.user_track_rating (user_id, track_id, user_rating_id) VALUES (0, 8, 1);
+INSERT INTO public.user_track_rating (user_id, track_id, user_rating_id) VALUES (0, 11, 1);
+INSERT INTO public.user_track_rating (user_id, track_id, user_rating_id) VALUES (0, 14, 1);
+INSERT INTO public.user_track_rating (user_id, track_id, user_rating_id) VALUES (0, 10, -1);
+INSERT INTO public.user_track_rating (user_id, track_id, user_rating_id) VALUES (0, 12, 1);
+INSERT INTO public.user_track_rating (user_id, track_id, user_rating_id) VALUES (0, 3, 1);
+INSERT INTO public.user_track_rating (user_id, track_id, user_rating_id) VALUES (0, 40, 1);
+INSERT INTO public.user_track_rating (user_id, track_id, user_rating_id) VALUES (0, 42, -1);
+INSERT INTO public.user_track_rating (user_id, track_id, user_rating_id) VALUES (0, 45, 1);
+INSERT INTO public.user_track_rating (user_id, track_id, user_rating_id) VALUES (0, 57, 1);
+INSERT INTO public.user_track_rating (user_id, track_id, user_rating_id) VALUES (0, 0, -1);
+INSERT INTO public.user_track_rating (user_id, track_id, user_rating_id) VALUES (0, 58, 0);
+INSERT INTO public.user_track_rating (user_id, track_id, user_rating_id) VALUES (0, 5, 1);
+INSERT INTO public.user_track_rating (user_id, track_id, user_rating_id) VALUES (0, 4, 1);
+INSERT INTO public.user_track_rating (user_id, track_id, user_rating_id) VALUES (0, 56, 1);
+INSERT INTO public.user_track_rating (user_id, track_id, user_rating_id) VALUES (0, 1, 1);
+INSERT INTO public.user_track_rating (user_id, track_id, user_rating_id) VALUES (0, 24, 1);
+INSERT INTO public.user_track_rating (user_id, track_id, user_rating_id) VALUES (8, 1, -1);
+INSERT INTO public.user_track_rating (user_id, track_id, user_rating_id) VALUES (8, 0, 1);
+INSERT INTO public.user_track_rating (user_id, track_id, user_rating_id) VALUES (8, 3, 1);
+INSERT INTO public.user_track_rating (user_id, track_id, user_rating_id) VALUES (8, 6, -1);
+INSERT INTO public.user_track_rating (user_id, track_id, user_rating_id) VALUES (8, 8, 1);
+INSERT INTO public.user_track_rating (user_id, track_id, user_rating_id) VALUES (8, 9, 1);
+INSERT INTO public.user_track_rating (user_id, track_id, user_rating_id) VALUES (8, 11, 1);
+INSERT INTO public.user_track_rating (user_id, track_id, user_rating_id) VALUES (8, 10, -1);
+INSERT INTO public.user_track_rating (user_id, track_id, user_rating_id) VALUES (8, 16, -1);
+INSERT INTO public.user_track_rating (user_id, track_id, user_rating_id) VALUES (8, 15, -1);
+INSERT INTO public.user_track_rating (user_id, track_id, user_rating_id) VALUES (8, 18, -1);
+INSERT INTO public.user_track_rating (user_id, track_id, user_rating_id) VALUES (8, 19, 1);
+INSERT INTO public.user_track_rating (user_id, track_id, user_rating_id) VALUES (8, 21, 1);
+INSERT INTO public.user_track_rating (user_id, track_id, user_rating_id) VALUES (8, 22, 1);
+INSERT INTO public.user_track_rating (user_id, track_id, user_rating_id) VALUES (8, 25, -1);
+INSERT INTO public.user_track_rating (user_id, track_id, user_rating_id) VALUES (8, 42, 1);
+INSERT INTO public.user_track_rating (user_id, track_id, user_rating_id) VALUES (8, 43, 1);
+INSERT INTO public.user_track_rating (user_id, track_id, user_rating_id) VALUES (8, 37, -1);
+INSERT INTO public.user_track_rating (user_id, track_id, user_rating_id) VALUES (8, 53, 1);
+INSERT INTO public.user_track_rating (user_id, track_id, user_rating_id) VALUES (8, 58, -1);
+INSERT INTO public.user_track_rating (user_id, track_id, user_rating_id) VALUES (8, 57, 1);
+INSERT INTO public.user_track_rating (user_id, track_id, user_rating_id) VALUES (8, 33, 1);
+INSERT INTO public.user_track_rating (user_id, track_id, user_rating_id) VALUES (8, 24, 1);
+INSERT INTO public.user_track_rating (user_id, track_id, user_rating_id) VALUES (8, 4, 1);
+INSERT INTO public.user_track_rating (user_id, track_id, user_rating_id) VALUES (8, 26, 1);
+INSERT INTO public.user_track_rating (user_id, track_id, user_rating_id) VALUES (8, 12, 1);
+INSERT INTO public.user_track_rating (user_id, track_id, user_rating_id) VALUES (8, 13, 1);
+INSERT INTO public.user_track_rating (user_id, track_id, user_rating_id) VALUES (8, 38, 0);
 
 
 --
--- TOC entry 3851 (class 0 OID 0)
+-- TOC entry 3847 (class 0 OID 0)
 -- Dependencies: 243
 -- Name: album_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
@@ -1295,7 +1751,7 @@ SELECT pg_catalog.setval('public.album_id_seq', 0, false);
 
 
 --
--- TOC entry 3852 (class 0 OID 0)
+-- TOC entry 3848 (class 0 OID 0)
 -- Dependencies: 244
 -- Name: artist_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
@@ -1304,7 +1760,7 @@ SELECT pg_catalog.setval('public.artist_id_seq', 0, false);
 
 
 --
--- TOC entry 3853 (class 0 OID 0)
+-- TOC entry 3849 (class 0 OID 0)
 -- Dependencies: 245
 -- Name: artist_status_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
@@ -1313,7 +1769,7 @@ SELECT pg_catalog.setval('public.artist_status_id_seq', 0, false);
 
 
 --
--- TOC entry 3854 (class 0 OID 0)
+-- TOC entry 3850 (class 0 OID 0)
 -- Dependencies: 246
 -- Name: genre_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
@@ -1322,7 +1778,7 @@ SELECT pg_catalog.setval('public.genre_id_seq', 0, false);
 
 
 --
--- TOC entry 3855 (class 0 OID 0)
+-- TOC entry 3851 (class 0 OID 0)
 -- Dependencies: 247
 -- Name: license_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
@@ -1331,16 +1787,16 @@ SELECT pg_catalog.setval('public.license_id_seq', 0, false);
 
 
 --
--- TOC entry 3856 (class 0 OID 0)
+-- TOC entry 3852 (class 0 OID 0)
 -- Dependencies: 248
 -- Name: playlist_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.playlist_id_seq', 6, true);
+SELECT pg_catalog.setval('public.playlist_id_seq', 16, true);
 
 
 --
--- TOC entry 3857 (class 0 OID 0)
+-- TOC entry 3853 (class 0 OID 0)
 -- Dependencies: 251
 -- Name: track_audio_feature_extraction_type_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
@@ -1349,7 +1805,7 @@ SELECT pg_catalog.setval('public.track_audio_feature_extraction_type_id_seq', 0,
 
 
 --
--- TOC entry 3858 (class 0 OID 0)
+-- TOC entry 3854 (class 0 OID 0)
 -- Dependencies: 250
 -- Name: track_audio_feature_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
@@ -1358,7 +1814,7 @@ SELECT pg_catalog.setval('public.track_audio_feature_id_seq', 58, true);
 
 
 --
--- TOC entry 3859 (class 0 OID 0)
+-- TOC entry 3855 (class 0 OID 0)
 -- Dependencies: 249
 -- Name: track_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
@@ -1367,7 +1823,7 @@ SELECT pg_catalog.setval('public.track_id_seq', 0, false);
 
 
 --
--- TOC entry 3860 (class 0 OID 0)
+-- TOC entry 3856 (class 0 OID 0)
 -- Dependencies: 252
 -- Name: track_segment_audio_feature_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
@@ -1376,25 +1832,25 @@ SELECT pg_catalog.setval('public.track_segment_audio_feature_id_seq', 3944, true
 
 
 --
--- TOC entry 3861 (class 0 OID 0)
+-- TOC entry 3857 (class 0 OID 0)
 -- Dependencies: 242
 -- Name: user_data_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.user_data_id_seq', 1, true);
+SELECT pg_catalog.setval('public.user_data_id_seq', 14, true);
 
 
 --
--- TOC entry 3862 (class 0 OID 0)
+-- TOC entry 3858 (class 0 OID 0)
 -- Dependencies: 253
 -- Name: user_neural_network_configuration_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.user_neural_network_configuration_id_seq', 1, true);
+SELECT pg_catalog.setval('public.user_neural_network_configuration_id_seq', 2, true);
 
 
 --
--- TOC entry 3863 (class 0 OID 0)
+-- TOC entry 3859 (class 0 OID 0)
 -- Dependencies: 254
 -- Name: user_playlist_access_level_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
@@ -1403,7 +1859,7 @@ SELECT pg_catalog.setval('public.user_playlist_access_level_id_seq', 0, false);
 
 
 --
--- TOC entry 3864 (class 0 OID 0)
+-- TOC entry 3860 (class 0 OID 0)
 -- Dependencies: 255
 -- Name: user_rating_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
@@ -1412,12 +1868,12 @@ SELECT pg_catalog.setval('public.user_rating_id_seq', 0, false);
 
 
 --
--- TOC entry 3865 (class 0 OID 0)
+-- TOC entry 3861 (class 0 OID 0)
 -- Dependencies: 256
 -- Name: user_recommendation_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.user_recommendation_id_seq', 16, true);
+SELECT pg_catalog.setval('public.user_recommendation_id_seq', 22, true);
 
 
 --
@@ -1511,7 +1967,7 @@ ALTER TABLE ONLY public.playlist_track
 
 
 --
--- TOC entry 3580 (class 2606 OID 16729)
+-- TOC entry 3576 (class 2606 OID 16729)
 -- Name: track_audio_feature_extraction_type track_audio_feature_extraction_type_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1520,7 +1976,7 @@ ALTER TABLE ONLY public.track_audio_feature_extraction_type
 
 
 --
--- TOC entry 3582 (class 2606 OID 16734)
+-- TOC entry 3578 (class 2606 OID 16734)
 -- Name: track_audio_feature track_audio_feature_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1538,7 +1994,7 @@ ALTER TABLE ONLY public.track
 
 
 --
--- TOC entry 3584 (class 2606 OID 16749)
+-- TOC entry 3580 (class 2606 OID 16749)
 -- Name: track_segment_audio_feature track_segment_audio_feature_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1547,7 +2003,7 @@ ALTER TABLE ONLY public.track_segment_audio_feature
 
 
 --
--- TOC entry 3592 (class 2606 OID 17760)
+-- TOC entry 3588 (class 2606 OID 17760)
 -- Name: user_album user_album_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1556,7 +2012,7 @@ ALTER TABLE ONLY public.user_album
 
 
 --
--- TOC entry 3600 (class 2606 OID 17847)
+-- TOC entry 3596 (class 2606 OID 17847)
 -- Name: user_album_rating user_album_rating_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1565,7 +2021,7 @@ ALTER TABLE ONLY public.user_album_rating
 
 
 --
--- TOC entry 3594 (class 2606 OID 17781)
+-- TOC entry 3590 (class 2606 OID 17781)
 -- Name: user_artist user_artist_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1574,7 +2030,7 @@ ALTER TABLE ONLY public.user_artist
 
 
 --
--- TOC entry 3602 (class 2606 OID 17867)
+-- TOC entry 3598 (class 2606 OID 17867)
 -- Name: user_artist_rating user_artist_rating_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1583,16 +2039,7 @@ ALTER TABLE ONLY public.user_artist_rating
 
 
 --
--- TOC entry 3570 (class 2606 OID 17815)
--- Name: user_data user_data_email_key; Type: CONSTRAINT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY public.user_data
-    ADD CONSTRAINT user_data_email_key UNIQUE (email);
-
-
---
--- TOC entry 3572 (class 2606 OID 16666)
+-- TOC entry 3570 (class 2606 OID 16666)
 -- Name: user_data user_data_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1601,16 +2048,7 @@ ALTER TABLE ONLY public.user_data
 
 
 --
--- TOC entry 3574 (class 2606 OID 17813)
--- Name: user_data user_data_username_key; Type: CONSTRAINT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY public.user_data
-    ADD CONSTRAINT user_data_username_key UNIQUE (username);
-
-
---
--- TOC entry 3586 (class 2606 OID 16759)
+-- TOC entry 3582 (class 2606 OID 16759)
 -- Name: user_neural_network_configuration user_neural_network_configuration_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1619,7 +2057,7 @@ ALTER TABLE ONLY public.user_neural_network_configuration
 
 
 --
--- TOC entry 3576 (class 2606 OID 16674)
+-- TOC entry 3572 (class 2606 OID 16674)
 -- Name: user_playlist_access_level user_playlist_access_level_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1628,7 +2066,7 @@ ALTER TABLE ONLY public.user_playlist_access_level
 
 
 --
--- TOC entry 3578 (class 2606 OID 16679)
+-- TOC entry 3574 (class 2606 OID 16679)
 -- Name: user_playlist user_playlist_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1637,7 +2075,7 @@ ALTER TABLE ONLY public.user_playlist
 
 
 --
--- TOC entry 3604 (class 2606 OID 17888)
+-- TOC entry 3600 (class 2606 OID 17888)
 -- Name: user_playlist_rating user_playlist_rating_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1646,7 +2084,7 @@ ALTER TABLE ONLY public.user_playlist_rating
 
 
 --
--- TOC entry 3588 (class 2606 OID 17732)
+-- TOC entry 3584 (class 2606 OID 17732)
 -- Name: user_rating user_rating_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1655,7 +2093,7 @@ ALTER TABLE ONLY public.user_rating
 
 
 --
--- TOC entry 3610 (class 2606 OID 18037)
+-- TOC entry 3606 (class 2606 OID 18037)
 -- Name: user_recommendation_genre user_recommendation_genre_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1664,7 +2102,7 @@ ALTER TABLE ONLY public.user_recommendation_genre
 
 
 --
--- TOC entry 3606 (class 2606 OID 18001)
+-- TOC entry 3602 (class 2606 OID 18001)
 -- Name: user_recommendation user_recommendation_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1673,7 +2111,7 @@ ALTER TABLE ONLY public.user_recommendation
 
 
 --
--- TOC entry 3608 (class 2606 OID 18021)
+-- TOC entry 3604 (class 2606 OID 18021)
 -- Name: user_recommendation_track user_recommendation_track_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1682,7 +2120,7 @@ ALTER TABLE ONLY public.user_recommendation_track
 
 
 --
--- TOC entry 3596 (class 2606 OID 17801)
+-- TOC entry 3592 (class 2606 OID 17801)
 -- Name: user_track_history user_track_history_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1691,7 +2129,7 @@ ALTER TABLE ONLY public.user_track_history
 
 
 --
--- TOC entry 3590 (class 2606 OID 17739)
+-- TOC entry 3586 (class 2606 OID 17739)
 -- Name: user_track user_track_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1700,7 +2138,7 @@ ALTER TABLE ONLY public.user_track
 
 
 --
--- TOC entry 3598 (class 2606 OID 17821)
+-- TOC entry 3594 (class 2606 OID 17821)
 -- Name: user_track_rating user_track_rating_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1709,7 +2147,7 @@ ALTER TABLE ONLY public.user_track_rating
 
 
 --
--- TOC entry 3613 (class 2606 OID 16588)
+-- TOC entry 3609 (class 2606 OID 16588)
 -- Name: album_artist album_artist_album_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1718,7 +2156,7 @@ ALTER TABLE ONLY public.album_artist
 
 
 --
--- TOC entry 3614 (class 2606 OID 16593)
+-- TOC entry 3610 (class 2606 OID 16593)
 -- Name: album_artist album_artist_artist_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1727,7 +2165,7 @@ ALTER TABLE ONLY public.album_artist
 
 
 --
--- TOC entry 3615 (class 2606 OID 16598)
+-- TOC entry 3611 (class 2606 OID 16598)
 -- Name: album_artist album_artist_artist_status_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1736,7 +2174,7 @@ ALTER TABLE ONLY public.album_artist
 
 
 --
--- TOC entry 3616 (class 2606 OID 16608)
+-- TOC entry 3612 (class 2606 OID 16608)
 -- Name: album_track album_track_album_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1745,7 +2183,7 @@ ALTER TABLE ONLY public.album_track
 
 
 --
--- TOC entry 3617 (class 2606 OID 16613)
+-- TOC entry 3613 (class 2606 OID 16613)
 -- Name: album_track album_track_track_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1754,7 +2192,7 @@ ALTER TABLE ONLY public.album_track
 
 
 --
--- TOC entry 3618 (class 2606 OID 16623)
+-- TOC entry 3614 (class 2606 OID 16623)
 -- Name: artist_track artist_track_artist_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1763,7 +2201,7 @@ ALTER TABLE ONLY public.artist_track
 
 
 --
--- TOC entry 3619 (class 2606 OID 16633)
+-- TOC entry 3615 (class 2606 OID 16633)
 -- Name: artist_track artist_track_artist_status_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1772,7 +2210,7 @@ ALTER TABLE ONLY public.artist_track
 
 
 --
--- TOC entry 3620 (class 2606 OID 16628)
+-- TOC entry 3616 (class 2606 OID 16628)
 -- Name: artist_track artist_track_track_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1781,7 +2219,7 @@ ALTER TABLE ONLY public.artist_track
 
 
 --
--- TOC entry 3621 (class 2606 OID 16650)
+-- TOC entry 3617 (class 2606 OID 16650)
 -- Name: playlist_track playlist_track_playlist_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1790,7 +2228,7 @@ ALTER TABLE ONLY public.playlist_track
 
 
 --
--- TOC entry 3622 (class 2606 OID 16655)
+-- TOC entry 3618 (class 2606 OID 16655)
 -- Name: playlist_track playlist_track_track_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1799,7 +2237,7 @@ ALTER TABLE ONLY public.playlist_track
 
 
 --
--- TOC entry 3626 (class 2606 OID 16740)
+-- TOC entry 3622 (class 2606 OID 16740)
 -- Name: track_audio_feature track_audio_feature_track_audio_feature_extraction_type_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1808,7 +2246,7 @@ ALTER TABLE ONLY public.track_audio_feature
 
 
 --
--- TOC entry 3627 (class 2606 OID 16735)
+-- TOC entry 3623 (class 2606 OID 16735)
 -- Name: track_audio_feature track_audio_feature_track_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1817,7 +2255,7 @@ ALTER TABLE ONLY public.track_audio_feature
 
 
 --
--- TOC entry 3611 (class 2606 OID 16557)
+-- TOC entry 3607 (class 2606 OID 16557)
 -- Name: track track_license_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1826,7 +2264,7 @@ ALTER TABLE ONLY public.track
 
 
 --
--- TOC entry 3612 (class 2606 OID 16552)
+-- TOC entry 3608 (class 2606 OID 16552)
 -- Name: track track_primary_genre_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1835,7 +2273,7 @@ ALTER TABLE ONLY public.track
 
 
 --
--- TOC entry 3628 (class 2606 OID 16750)
+-- TOC entry 3624 (class 2606 OID 16750)
 -- Name: track_segment_audio_feature track_segment_audio_feature_track_audio_feature_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1844,7 +2282,7 @@ ALTER TABLE ONLY public.track_segment_audio_feature
 
 
 --
--- TOC entry 3633 (class 2606 OID 17766)
+-- TOC entry 3629 (class 2606 OID 17766)
 -- Name: user_album user_album_album_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1853,7 +2291,7 @@ ALTER TABLE ONLY public.user_album
 
 
 --
--- TOC entry 3642 (class 2606 OID 17853)
+-- TOC entry 3638 (class 2606 OID 17853)
 -- Name: user_album_rating user_album_rating_album_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1862,7 +2300,7 @@ ALTER TABLE ONLY public.user_album_rating
 
 
 --
--- TOC entry 3643 (class 2606 OID 17848)
+-- TOC entry 3639 (class 2606 OID 17848)
 -- Name: user_album_rating user_album_rating_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1871,7 +2309,7 @@ ALTER TABLE ONLY public.user_album_rating
 
 
 --
--- TOC entry 3644 (class 2606 OID 17858)
+-- TOC entry 3640 (class 2606 OID 17858)
 -- Name: user_album_rating user_album_rating_user_rating_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1880,7 +2318,7 @@ ALTER TABLE ONLY public.user_album_rating
 
 
 --
--- TOC entry 3634 (class 2606 OID 17761)
+-- TOC entry 3630 (class 2606 OID 17761)
 -- Name: user_album user_album_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1889,7 +2327,7 @@ ALTER TABLE ONLY public.user_album
 
 
 --
--- TOC entry 3635 (class 2606 OID 17787)
+-- TOC entry 3631 (class 2606 OID 17787)
 -- Name: user_artist user_artist_artist_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1898,7 +2336,7 @@ ALTER TABLE ONLY public.user_artist
 
 
 --
--- TOC entry 3645 (class 2606 OID 17873)
+-- TOC entry 3641 (class 2606 OID 17873)
 -- Name: user_artist_rating user_artist_rating_artist_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1907,7 +2345,7 @@ ALTER TABLE ONLY public.user_artist_rating
 
 
 --
--- TOC entry 3646 (class 2606 OID 17868)
+-- TOC entry 3642 (class 2606 OID 17868)
 -- Name: user_artist_rating user_artist_rating_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1916,7 +2354,7 @@ ALTER TABLE ONLY public.user_artist_rating
 
 
 --
--- TOC entry 3647 (class 2606 OID 17878)
+-- TOC entry 3643 (class 2606 OID 17878)
 -- Name: user_artist_rating user_artist_rating_user_rating_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1925,7 +2363,7 @@ ALTER TABLE ONLY public.user_artist_rating
 
 
 --
--- TOC entry 3636 (class 2606 OID 17782)
+-- TOC entry 3632 (class 2606 OID 17782)
 -- Name: user_artist user_artist_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1934,7 +2372,7 @@ ALTER TABLE ONLY public.user_artist
 
 
 --
--- TOC entry 3629 (class 2606 OID 17990)
+-- TOC entry 3625 (class 2606 OID 17990)
 -- Name: user_neural_network_configuration user_neural_network_configura_track_audio_feature_extracti_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1943,7 +2381,7 @@ ALTER TABLE ONLY public.user_neural_network_configuration
 
 
 --
--- TOC entry 3630 (class 2606 OID 16760)
+-- TOC entry 3626 (class 2606 OID 16760)
 -- Name: user_neural_network_configuration user_neural_network_configuration_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1952,7 +2390,7 @@ ALTER TABLE ONLY public.user_neural_network_configuration
 
 
 --
--- TOC entry 3623 (class 2606 OID 16690)
+-- TOC entry 3619 (class 2606 OID 16690)
 -- Name: user_playlist user_playlist_access_level_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1961,7 +2399,7 @@ ALTER TABLE ONLY public.user_playlist
 
 
 --
--- TOC entry 3624 (class 2606 OID 16685)
+-- TOC entry 3620 (class 2606 OID 16685)
 -- Name: user_playlist user_playlist_playlist_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1970,7 +2408,7 @@ ALTER TABLE ONLY public.user_playlist
 
 
 --
--- TOC entry 3648 (class 2606 OID 17894)
+-- TOC entry 3644 (class 2606 OID 17894)
 -- Name: user_playlist_rating user_playlist_rating_playlist_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1979,7 +2417,7 @@ ALTER TABLE ONLY public.user_playlist_rating
 
 
 --
--- TOC entry 3649 (class 2606 OID 17889)
+-- TOC entry 3645 (class 2606 OID 17889)
 -- Name: user_playlist_rating user_playlist_rating_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1988,7 +2426,7 @@ ALTER TABLE ONLY public.user_playlist_rating
 
 
 --
--- TOC entry 3650 (class 2606 OID 17899)
+-- TOC entry 3646 (class 2606 OID 17899)
 -- Name: user_playlist_rating user_playlist_rating_user_rating_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1997,7 +2435,7 @@ ALTER TABLE ONLY public.user_playlist_rating
 
 
 --
--- TOC entry 3625 (class 2606 OID 16680)
+-- TOC entry 3621 (class 2606 OID 16680)
 -- Name: user_playlist user_playlist_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -2006,7 +2444,7 @@ ALTER TABLE ONLY public.user_playlist
 
 
 --
--- TOC entry 3656 (class 2606 OID 18043)
+-- TOC entry 3652 (class 2606 OID 18043)
 -- Name: user_recommendation_genre user_recommendation_genre_genre_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -2015,7 +2453,7 @@ ALTER TABLE ONLY public.user_recommendation_genre
 
 
 --
--- TOC entry 3657 (class 2606 OID 18038)
+-- TOC entry 3653 (class 2606 OID 18038)
 -- Name: user_recommendation_genre user_recommendation_genre_user_recommendation_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -2024,7 +2462,7 @@ ALTER TABLE ONLY public.user_recommendation_genre
 
 
 --
--- TOC entry 3654 (class 2606 OID 18027)
+-- TOC entry 3650 (class 2606 OID 18027)
 -- Name: user_recommendation_track user_recommendation_track_track_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -2033,7 +2471,7 @@ ALTER TABLE ONLY public.user_recommendation_track
 
 
 --
--- TOC entry 3655 (class 2606 OID 18022)
+-- TOC entry 3651 (class 2606 OID 18022)
 -- Name: user_recommendation_track user_recommendation_track_user_recommendation_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -2042,7 +2480,7 @@ ALTER TABLE ONLY public.user_recommendation_track
 
 
 --
--- TOC entry 3651 (class 2606 OID 18002)
+-- TOC entry 3647 (class 2606 OID 18002)
 -- Name: user_recommendation user_recommendation_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -2051,7 +2489,7 @@ ALTER TABLE ONLY public.user_recommendation
 
 
 --
--- TOC entry 3652 (class 2606 OID 18007)
+-- TOC entry 3648 (class 2606 OID 18007)
 -- Name: user_recommendation user_recommendation_user_neural_network_configuration_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -2060,7 +2498,7 @@ ALTER TABLE ONLY public.user_recommendation
 
 
 --
--- TOC entry 3653 (class 2606 OID 18012)
+-- TOC entry 3649 (class 2606 OID 18012)
 -- Name: user_recommendation user_recommendation_user_rating_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -2069,7 +2507,7 @@ ALTER TABLE ONLY public.user_recommendation
 
 
 --
--- TOC entry 3637 (class 2606 OID 17807)
+-- TOC entry 3633 (class 2606 OID 17807)
 -- Name: user_track_history user_track_history_track_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -2078,7 +2516,7 @@ ALTER TABLE ONLY public.user_track_history
 
 
 --
--- TOC entry 3638 (class 2606 OID 17802)
+-- TOC entry 3634 (class 2606 OID 17802)
 -- Name: user_track_history user_track_history_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -2087,7 +2525,7 @@ ALTER TABLE ONLY public.user_track_history
 
 
 --
--- TOC entry 3639 (class 2606 OID 17832)
+-- TOC entry 3635 (class 2606 OID 17832)
 -- Name: user_track_rating user_track_rating_track_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -2096,7 +2534,7 @@ ALTER TABLE ONLY public.user_track_rating
 
 
 --
--- TOC entry 3640 (class 2606 OID 17827)
+-- TOC entry 3636 (class 2606 OID 17827)
 -- Name: user_track_rating user_track_rating_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -2105,7 +2543,7 @@ ALTER TABLE ONLY public.user_track_rating
 
 
 --
--- TOC entry 3641 (class 2606 OID 17837)
+-- TOC entry 3637 (class 2606 OID 17837)
 -- Name: user_track_rating user_track_rating_user_rating_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -2114,7 +2552,7 @@ ALTER TABLE ONLY public.user_track_rating
 
 
 --
--- TOC entry 3631 (class 2606 OID 17745)
+-- TOC entry 3627 (class 2606 OID 17745)
 -- Name: user_track user_track_track_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -2123,7 +2561,7 @@ ALTER TABLE ONLY public.user_track
 
 
 --
--- TOC entry 3632 (class 2606 OID 17740)
+-- TOC entry 3628 (class 2606 OID 17740)
 -- Name: user_track user_track_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -2131,7 +2569,7 @@ ALTER TABLE ONLY public.user_track
     ADD CONSTRAINT user_track_user_id_fkey FOREIGN KEY (user_id) REFERENCES public.user_data(id);
 
 
--- Completed on 2024-06-11 02:19:14 +07
+-- Completed on 2024-06-23 15:01:14 +07
 
 --
 -- PostgreSQL database dump complete
